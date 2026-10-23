@@ -5,11 +5,12 @@ const ART = {
   // Legionario pensieroso: mantello tagliato a destra, sfumato
   forum: { src: "/images/forum-gladiatore.webp", w: 722, h: 1075, cls: "[mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
   // Due legionari abbracciati: larghi, solo da schermi grandi
-  staff: { src: "/images/staff-legionari-v2.webp", w: 961, h: 801, cls: "lg:block !h-[84%] xl:left-[calc(50%+4rem)] xl:right-auto" },
+  staff: { src: "/images/staff-legionari-v2.webp", w: 961, h: 801, cls: "lg:block xl:left-[calc(50%+3rem)] xl:right-auto" },
 } as const;
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff). */
-export function ForumHero({ kicker, title, lead, art = "forum" }: { kicker: string; title: string; lead: string; art?: keyof typeof ART }) {
+/** full: occupa tutta l'altezza dello schermo, così il contenuto sotto compare solo scorrendo. */
+export function ForumHero({ kicker, title, lead, art = "forum", full = false }: { kicker: string; title: string; lead: string; art?: keyof typeof ART; full?: boolean }) {
   const a = ART[art];
   return (
     <section className="relative isolate overflow-hidden">
@@ -28,7 +29,7 @@ export function ForumHero({ kicker, title, lead, art = "forum" }: { kicker: stri
         data-hero-in
       />
 
-      <div className="wrap relative flex min-h-[360px] items-center py-16 md:min-h-[480px] lg:min-h-[600px]">
+      <div className={`wrap relative flex min-h-[360px] items-center py-16 ${full ? "md:min-h-[max(480px,calc(100svh-var(--header-h)))]" : "md:min-h-[480px] lg:min-h-[600px]"}`}>
         <div className="max-w-xl text-white md:max-w-[52%]">
           <p className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 hero-in" data-hero-in>
             {kicker}

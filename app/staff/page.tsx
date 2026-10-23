@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <>
-      <ForumHero art="staff" kicker="tiberiusmc · staff" title="Staff" lead="Le persone che tengono in piedi l'impero." />
+      <ForumHero art="staff" full kicker="tiberiusmc · staff" title="Staff" lead="Le persone che tengono in piedi l'impero." />
       {roles.length === 0 ? (
         <Soon title="elenco staff" text="L'elenco ufficiale dello staff sarà pubblicato qui, con i ruoli reali." />
       ) : (
