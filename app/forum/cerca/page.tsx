@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { Notice, TicketRows } from "@/components/forum/bits";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
@@ -18,7 +18,7 @@ type SP = Promise<Record<string, string | string[] | undefined>>;
 export default function Page({ searchParams }: { searchParams: SP }) {
   return (
     <>
-      <PageHead kicker="forum · cerca" title={"cerca tra\nle pratiche."} lead="Trovi solo le richieste che hai il diritto di vedere: le tue e, se sei staff, quelle delle tue sezioni." art="/images/art/empire.png" />
+      <ForumHero kicker="forum · cerca" title={"cerca tra\nle pratiche."} lead="Trovi solo le richieste che hai il diritto di vedere: le tue e, se sei staff, quelle delle tue sezioni." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={3} />}>
           <Body searchParams={searchParams} />

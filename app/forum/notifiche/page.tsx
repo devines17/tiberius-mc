@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
 import { forumContext } from "@/components/forum/session";
@@ -14,7 +14,7 @@ export const metadata: Metadata = { title: "Notifiche", robots: { index: false, 
 export default function Page() {
   return (
     <>
-      <PageHead kicker="forum · notifiche" title={"le tue\nnotifiche."} lead="Risposte dello staff, cambi di stato e decisioni sulle tue pratiche." art="/images/art/village.png" />
+      <ForumHero kicker="forum · notifiche" title={"le tue\nnotifiche."} lead="Risposte dello staff, cambi di stato e decisioni sulle tue pratiche." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={3} />}>
           <Body />

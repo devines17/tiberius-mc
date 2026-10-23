@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { Btn } from "@/components/ui/Btn";
 import { Words } from "@/components/ui/Words";
 import { ForumNav } from "@/components/forum/ForumNav";
@@ -17,12 +17,10 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHead
-        tone="accent"
-        kicker="forum"
-        title={"il foro\ndell'impero."}
-        lead="Assistenza, questioni Towny e candidature. Ogni richiesta è una pratica privata tra te e lo staff."
-        art="/images/art/village.png"
+      <ForumHero
+        kicker="tiberiusmc · forum"
+        title="Forum"
+        lead="Assistenza, Towny e candidature staff. Ogni richiesta è privata: la vedete solo tu e lo staff della sezione."
       />
 
       <div className="pt-10">

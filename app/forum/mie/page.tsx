@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { Section, TicketRows } from "@/components/forum/bits";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
@@ -14,7 +14,7 @@ export const metadata: Metadata = { title: "Le mie richieste", robots: { index: 
 export default function Page() {
   return (
     <>
-      <PageHead kicker="forum · le mie richieste" title={"le tue\npratiche."} lead="Tutte le richieste che hai aperto, con lo stato aggiornato." art="/images/art/village.png" />
+      <ForumHero kicker="forum · le mie richieste" title={"le tue\npratiche."} lead="Tutte le richieste che hai aperto, con lo stato aggiornato." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={4} />}>
           <Body />

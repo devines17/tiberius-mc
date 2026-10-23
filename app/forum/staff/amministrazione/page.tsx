@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
 import { forumContext } from "@/components/forum/session";
@@ -16,7 +16,7 @@ export const metadata: Metadata = { title: "Amministrazione forum", robots: { in
 export default function Page() {
   return (
     <>
-      <PageHead kicker="forum · amministrazione" title={"ammini-\nstrazione."} lead="Permessi, impostazioni e registro. Ogni modifica viene registrata." art="/images/art/empire.png" />
+      <ForumHero kicker="forum · amministrazione" title={"ammini-\nstrazione."} lead="Permessi, impostazioni e registro. Ogni modifica viene registrata." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={4} />}>
           <Body />

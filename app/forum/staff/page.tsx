@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { Settings } from "lucide-react";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { Notice, TicketRows } from "@/components/forum/bits";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
@@ -23,7 +23,7 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/;
 export default function Page({ searchParams }: { searchParams: SP }) {
   return (
     <>
-      <PageHead kicker="forum · staff" title={"pannello\nstaff."} lead="Le pratiche delle sezioni di cui hai il permesso." art="/images/art/empire.png" />
+      <ForumHero kicker="forum · staff" title={"pannello\nstaff."} lead="Le pratiche delle sezioni di cui hai il permesso." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={5} />}>
           <Body searchParams={searchParams} />

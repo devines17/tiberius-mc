@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { Notice, PrivateBadge } from "@/components/forum/bits";
 import { ForumLoading, LoginRequired, NeedsMinecraft, NotConfigured } from "@/components/forum/states";
@@ -18,15 +18,13 @@ export function generateStaticParams() {
   return SUBCATEGORIES.map((s) => ({ sezione: s.key }));
 }
 
-const ART: Record<string, string> = { assistenza: "/images/art/village.png", towny: "/images/art/empire.png", candidature: "/images/art/town.png" };
-
 export default async function Page({ params }: { params: Promise<{ sezione: string }> }) {
   const { sezione } = await params;
   const s = getSubcategory(sezione);
   if (!s) notFound();
   return (
     <>
-      <PageHead kicker={`forum · ${s.label.toLowerCase()}`} title={"nuova\nrichiesta."} lead={s.description} art={ART[s.category]} />
+      <ForumHero kicker={`forum · ${s.label.toLowerCase()}`} title={"nuova\nrichiesta."} lead={s.description} />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={2} />}>
           <Body sezione={s.key} />

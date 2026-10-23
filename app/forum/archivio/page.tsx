@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { Notice, Section, TicketRows } from "@/components/forum/bits";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
@@ -13,7 +13,7 @@ export const metadata: Metadata = { title: "Archivio", robots: { index: false, f
 export default function Page() {
   return (
     <>
-      <PageHead kicker="forum · archivio" title={"pratiche\nchiuse."} lead="Lo storico delle richieste concluse. Non esiste un archivio pubblico: segnalazioni, candidature e dati personali restano riservati." art="/images/art/town.png" />
+      <ForumHero kicker="forum · archivio" title={"pratiche\nchiuse."} lead="Lo storico delle richieste concluse. Non esiste un archivio pubblico: segnalazioni, candidature e dati personali restano riservati." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={3} />}>
           <Body />

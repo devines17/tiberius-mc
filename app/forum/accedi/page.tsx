@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { Notice } from "@/components/forum/bits";
 import { LoginRequired } from "@/components/forum/states";
 
@@ -17,7 +17,7 @@ const ERRORS: Record<string, string> = {
 export default function Page({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   return (
     <>
-      <PageHead kicker="forum" title={"accedi\nal foro."} lead="Usiamo il tuo account Discord: niente nuove password da ricordare." art="/images/art/village.png" />
+      <ForumHero kicker="forum" title={"accedi\nal forum."} lead="Usiamo il tuo account Discord: niente nuove password da ricordare." />
       <div className="grid gap-6 pb-20 pt-10">
         <Suspense fallback={null}>
           <ErrorNotice searchParams={searchParams} />

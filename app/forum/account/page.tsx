@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { Notice } from "@/components/forum/bits";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
@@ -15,7 +15,7 @@ export const metadata: Metadata = { title: "Il tuo account", robots: { index: fa
 export default function Page({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   return (
     <>
-      <PageHead kicker="forum · account" title={"il tuo\naccount."} lead="Accesso con Discord e collegamento al tuo account Minecraft." art="/images/art/town.png" />
+      <ForumHero kicker="forum · account" title={"il tuo\naccount."} lead="Accesso con Discord e collegamento al tuo account Minecraft." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={2} />}>
           <Body searchParams={searchParams} />
