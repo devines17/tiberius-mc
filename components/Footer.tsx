@@ -71,7 +71,7 @@ export function Footer() {
           </Link>
 
           <nav aria-label="Pagine del sito" className="w-full">
-            <ul className="mx-auto flex flex-wrap justify-center gap-x-5 gap-y-2.5 text-sm font-semibold text-white/75 lg:flex-nowrap lg:gap-x-4 xl:gap-x-5">
+            <ul className="mx-auto flex flex-wrap justify-center gap-x-5 gap-y-2.5 text-sm font-semibold text-white/75 xl:flex-nowrap xl:gap-x-4 2xl:gap-x-5">
               {nav.map(({ href, label, icon: Icon }) => (
                 <li key={href}>
                   <Link href={href} className="group flex items-center gap-1.5 whitespace-nowrap">
