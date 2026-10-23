@@ -600,3 +600,103 @@ button.btn:disabled {
     animation: none;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Personaggio Minecraft in CSS 3D (pagina staff)                       */
+/* ------------------------------------------------------------------ */
+.sk-stage {
+  --px: 7px;
+  position: relative;
+  width: calc(var(--px) * 30);
+  height: calc(var(--px) * 38);
+  perspective: 1400px;
+  display: grid;
+  place-items: center;
+}
+.sk-figure {
+  position: relative;
+  width: calc(var(--px) * 16);
+  height: calc(var(--px) * 32);
+  transform-style: preserve-3d;
+  transform: rotateX(-10deg) rotateY(-28deg);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: sk-sway 7s ease-in-out infinite alternate;
+}
+.sk-part,
+.sk-cube {
+  position: absolute;
+  width: calc(var(--w) * var(--px));
+  height: calc(var(--h) * var(--px));
+  transform-style: preserve-3d;
+}
+.sk-cube { left: 0; top: 0; }
+.sk-face {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--fw) * var(--px));
+  height: calc(var(--fh) * var(--px));
+  background-image: var(--skin);
+  background-repeat: no-repeat;
+  background-size: calc(64 * var(--px)) calc(var(--sh) * var(--px));
+  background-position: calc(var(--fx) * var(--px) * -1) calc(var(--fy) * var(--px) * -1);
+  image-rendering: pixelated;
+  backface-visibility: hidden;
+}
+.sk-mirror { background-image: none; }
+.sk-mirror::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  background-image: var(--skin);
+  transform: scaleX(-1);
+}
+.sk-front { transform: translateZ(calc(var(--d) * var(--px) / 2)); }
+.sk-back { transform: rotateY(180deg) translateZ(calc(var(--d) * var(--px) / 2)); }
+.sk-right { left: calc((var(--w) - var(--d)) * var(--px) / 2); transform: rotateY(-90deg) translateZ(calc(var(--w) * var(--px) / 2)); filter: brightness(0.82); }
+.sk-left { left: calc((var(--w) - var(--d)) * var(--px) / 2); transform: rotateY(90deg) translateZ(calc(var(--w) * var(--px) / 2)); filter: brightness(0.82); }
+.sk-top { top: calc((var(--h) - var(--d)) * var(--px) / 2); transform: rotateX(90deg) translateZ(calc(var(--h) * var(--px) / 2)); filter: brightness(1.08); }
+.sk-bottom { top: calc((var(--h) - var(--d)) * var(--px) / 2); transform: rotateX(-90deg) translateZ(calc(var(--h) * var(--px) / 2)); filter: brightness(0.65); }
+
+/* Posizione delle parti sul modello (in pixel della skin) */
+.sk-head { left: calc(4 * var(--px)); top: 0; transform-origin: 50% 100%; }
+.sk-body { left: calc(4 * var(--px)); top: calc(8 * var(--px)); }
+.sk-rarm { left: calc((4 - var(--arm)) * var(--px)); top: calc(8 * var(--px)); transform-origin: 50% calc(2 * var(--px)); }
+.sk-larm { left: calc(12 * var(--px)); top: calc(8 * var(--px)); transform-origin: 50% calc(2 * var(--px)); }
+.sk-rleg { left: calc(4 * var(--px)); top: calc(20 * var(--px)); transform-origin: 50% 0; }
+.sk-lleg { left: calc(8 * var(--px)); top: calc(20 * var(--px)); transform-origin: 50% 0; }
+.sk-head, .sk-rarm, .sk-larm, .sk-rleg, .sk-lleg { transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* Pose */
+.sk-pose-0 .sk-head { transform: rotateY(14deg) rotateX(-4deg); }
+.sk-pose-0 .sk-rarm { transform: rotateX(-22deg) rotateZ(6deg); }
+.sk-pose-0 .sk-larm { transform: rotateX(20deg) rotateZ(-6deg); }
+.sk-pose-0 .sk-rleg { transform: rotateX(16deg); }
+.sk-pose-0 .sk-lleg { transform: rotateX(-16deg); }
+
+.sk-pose-1 .sk-head { transform: rotateY(-10deg) rotateZ(-4deg); }
+.sk-pose-1 .sk-rarm { transform: rotateZ(8deg); }
+.sk-pose-1 .sk-larm { transform: rotateZ(-150deg) rotateX(-10deg); animation: sk-wave 1.6s ease-in-out infinite alternate; }
+.sk-pose-1 .sk-rleg { transform: rotateZ(3deg); }
+.sk-pose-1 .sk-lleg { transform: rotateZ(-3deg); }
+
+.sk-pose-2 .sk-head { transform: rotateY(-12deg) rotateX(-3deg); }
+.sk-pose-2 .sk-rarm { transform: rotateX(26deg) rotateZ(5deg); }
+.sk-pose-2 .sk-larm { transform: rotateX(-26deg) rotateZ(-5deg); }
+.sk-pose-2 .sk-rleg { transform: rotateZ(4deg); }
+.sk-pose-2 .sk-lleg { transform: rotateZ(-4deg); }
+
+.group:hover .sk-figure { animation-play-state: paused; transform: rotateX(-6deg) rotateY(18deg); }
+
+@keyframes sk-sway {
+  from { transform: rotateX(-10deg) rotateY(-34deg); }
+  to { transform: rotateX(-8deg) rotateY(-14deg); }
+}
+@keyframes sk-wave {
+  from { transform: rotateZ(-150deg) rotateX(-10deg); }
+  to { transform: rotateZ(-128deg) rotateX(-10deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sk-figure, .sk-larm { animation: none !important; }
+}
