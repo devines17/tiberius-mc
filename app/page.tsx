@@ -109,15 +109,16 @@ export default function Home() {
 
       {/* GOLDONI */}
       <section className="wrap section pt-0">
-        <div className="panel panel-flush grid items-end gap-6 pl-8 pt-8 md:pl-12 md:pt-12 lg:grid-cols-[1.2fr_1fr]" data-reveal>
-          <div className="grid gap-5 pb-8 pr-8 md:pb-12 md:pr-0" data-stagger="0.1">
+        <div className="panel panel-flush grid gap-2 pl-8 md:pl-12 lg:grid-cols-[1.15fr_1fr] lg:gap-6" data-reveal>
+          {/* Testo centrato in altezza: niente vuoto sopra; l'immagine resta appoggiata in basso */}
+          <div className="grid gap-5 self-center pr-8 pt-8 md:pt-12 lg:py-12 lg:pr-0" data-stagger="0.1">
             <div className="flex items-center gap-3">
               <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="float-soft size-12" unoptimized />
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">goldoni e store</span>
             </div>
             <h2 className="text-[length:var(--step-head)]">Il Goldone, moneta premium.</h2>
             <p className="max-w-xl text-muted">
-              Non è la valuta di gioco: vive a parte, e le sue regole saranno spiegate qui. Lo store è in preparazione.
+              Il Goldone è la valuta premium di Tiberius MC ed è separata dal denaro che usi in gioco: le due monete non si mescolano. Come ottenerlo e cosa puoi acquistare lo spiegheremo qui all&apos;apertura dello store.
             </p>
             <div>
               {siteConfig.links.store ? (
@@ -128,16 +129,16 @@ export default function Home() {
             </div>
           </div>
           {/* Il legionario poggia sul bordo del riquadro, come quelli del Discord */}
-          <div className="mx-auto w-full max-w-md self-end pr-6 md:pr-12" data-reveal="right" data-delay="0.2">
-            <Image src="/images/legionario-tesoro.png" alt="Un legionario di Tiberius MC apre un forziere pieno di Goldoni e gemme" width={900} height={890} className="block w-full" unoptimized />
+          <div className="mx-auto w-full max-w-lg self-end pr-6 pt-4 md:pr-12 lg:pt-12" data-reveal="right" data-delay="0.2">
+            <Image src="/images/legionario-tesoro.png" alt="Un legionario di Tiberius MC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="block w-full" unoptimized />
           </div>
         </div>
       </section>
 
       {/* DISCORD */}
       <section className="wrap section pt-0">
-        <div className="panel panel-discord grid items-end gap-6 pl-8 pt-8 md:pl-12 md:pt-12 lg:grid-cols-[1.1fr_1fr]" data-reveal>
-          <div className="grid gap-5 pb-8 pr-8 md:pb-12 md:pr-0" data-stagger="0.08">
+        <div className="panel panel-discord grid gap-2 pl-8 md:pl-12 lg:grid-cols-[1.1fr_1fr] lg:gap-6" data-reveal>
+          <div className="grid gap-5 self-center pr-8 pt-8 md:pt-12 lg:py-12 lg:pr-0" data-stagger="0.08">
             <div className="flex items-center gap-3">
               <span className="grid size-12 place-items-center rounded-2xl bg-[#5865f2]/20 text-[#8c96ff]">
                 <DiscordIcon className="size-7" />
@@ -158,7 +159,7 @@ export default function Home() {
             </div>
           </div>
           {/* "block" toglie lo spazio sotto l'immagine: i legionari poggiano sul bordo del riquadro */}
-          <div className="mx-auto w-full max-w-md self-end pr-6 md:pr-12" data-reveal="right" data-delay="0.2">
+          <div className="mx-auto w-full max-w-md self-end pr-6 pt-4 md:pr-12 lg:pt-12" data-reveal="right" data-delay="0.2">
             <Image src="/images/legionari-telefono.png" alt="Due legionari romani di Tiberius MC che guardano uno smartphone" width={1000} height={914} className="block w-full" unoptimized />
           </div>
         </div>

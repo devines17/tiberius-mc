@@ -5,9 +5,18 @@ import { TiberiusLogo } from "@/components/TiberiusLogo";
 import { CopyIp } from "@/components/ui/CopyIp";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
 import { TelegramIcon } from "@/components/ui/TelegramIcon";
-import { pages, siteConfig } from "@/lib/site-config";
+import { siteConfig } from "@/lib/site-config";
 
-const nav = [...pages.map((p) => ({ href: p.href, label: p.short })), { href: "/portale", label: "portale giocatore" }];
+/* Solo le voci principali, su una riga: le altre pagine sono già nella barra in alto e nella home. */
+const nav = [
+  { href: "/news", label: "news" },
+  { href: "/regole", label: "regole" },
+  { href: "/forum", label: "forum" },
+  { href: "/vota", label: "vota" },
+  { href: "/store", label: "store" },
+  { href: "/staff", label: "staff" },
+  { href: "/portale", label: "gestionale" },
+];
 
 /** Riga informativa con piccola icona davanti. */
 function Line({ icon, children }: { icon: ReactNode; children: ReactNode }) {
@@ -44,7 +53,7 @@ export function Footer() {
           </Link>
 
           <nav aria-label="Pagine del sito" className="w-full">
-            <ul className="mx-auto flex max-w-2xl flex-wrap justify-center gap-x-6 gap-y-2.5 text-[0.9375rem] font-semibold text-white/75">
+            <ul className="mx-auto flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-[0.9375rem] font-semibold text-white/75 md:flex-nowrap md:gap-x-7">
               {nav.map((p) => (
                 <li key={p.href}>
                   <Link href={p.href} className="foot-link">
