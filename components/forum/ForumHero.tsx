@@ -5,7 +5,7 @@ const ART = {
   // Legionario pensieroso: mantello tagliato a destra, sfumato
   forum: { src: "/images/forum-gladiatore.webp", w: 722, h: 1075, cls: "[mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
   // Due legionari abbracciati: larghi, solo da schermi grandi
-  staff: { src: "/images/staff-legionari-v2.webp", w: 961, h: 801, cls: "lg:block xl:left-[calc(50%+3rem)] xl:right-auto" },
+  staff: { src: "/images/staff-legionari-v2.webp", w: 961, h: 801, cls: "lg:block !h-[84%] xl:left-[calc(50%+4rem)] xl:right-auto" },
 } as const;
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff). */
