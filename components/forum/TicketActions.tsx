@@ -230,7 +230,7 @@ export function StaffPanel({
         className="panel grid gap-3 p-6"
         onSubmit={async (e) => {
           e.preventDefault();
-          const data = isFinal ? { azione: "staff_riapri", motivo: reason } : { azione: "staff_stato", stato: newStatus, motivo: reason };
+          const data: Record<string, string> = isFinal ? { azione: "staff_riapri", motivo: reason } : { azione: "staff_stato", stato: newStatus, motivo: reason };
           if (await status.run(data, [], isFinal ? "Pratica riaperta." : "Stato aggiornato.")) {
             setReason("");
             setNewStatus("");

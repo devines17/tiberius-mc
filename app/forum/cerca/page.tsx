@@ -9,6 +9,7 @@ import { search } from "@/lib/server/tickets";
 import { HttpError } from "@/lib/server/http";
 import { SUBCATEGORIES } from "@/lib/forum/config";
 import { isStaff, parseTicketCode, staffSubcategories } from "@/lib/forum/rules";
+import type { Ticket } from "@/lib/server/types";
 
 export const metadata: Metadata = { title: "Cerca", robots: { index: false, follow: false } };
 
@@ -48,7 +49,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
 
   // Un numero di pratica ("TIB-01042" o "1042") cerca direttamente quella pratica
   const number = parseTicketCode(q);
-  let results = null;
+  let results: Ticket[] | null = null;
   let error: string | null = null;
   if (asked) {
     try {

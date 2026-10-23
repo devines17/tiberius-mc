@@ -1,0 +1,6 @@
+# Indirizzo del sito (senza / finale)
+sito: "https://www.tiberiusmc.it"
+
+# Segreto condiviso: deve essere IDENTICO alla variabile MC_LINK_SECRET su Vercel.
+# Almeno 32 caratteri. Non condividerlo e non metterlo su Discord.
+segreto: "INCOLLA_QUI_IL_SEGRETO"

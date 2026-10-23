@@ -1,0 +1,16 @@
+name: TiberiusCollega
+version: 1.0.0
+main: it.tiberiusmc.collega.CollegaPlugin
+api-version: '1.20'
+description: Collega l'account Minecraft al forum di tiberiusmc.it con un codice monouso.
+authors: [TiberiusMC]
+website: https://www.tiberiusmc.it
+commands:
+  collega:
+    description: Genera il codice per collegare l'account al forum del sito.
+    usage: /collega
+    permission: tiberius.collega
+permissions:
+  tiberius.collega:
+    description: Usare /collega
+    default: true
