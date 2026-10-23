@@ -88,6 +88,17 @@ function unsettle(el: Element, shown: gsap.TweenVars) {
 export function MotionRoot() {
   const pathname = usePathname();
 
+  // Ricaricando la pagina si riparte dall'alto (il browser altrimenti ripristina l'ultima posizione).
+  useEffect(() => {
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (nav?.type === "reload" && !location.hash) window.scrollTo(0, 0);
+    const beforeUnload = () => {
+      history.scrollRestoration = "manual";
+    };
+    window.addEventListener("beforeunload", beforeUnload);
+    return () => window.removeEventListener("beforeunload", beforeUnload);
+  }, []);
+
   useEffect(() => {
     const root = document.documentElement;
     const w = window as MotionWindow;

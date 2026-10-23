@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ForumHero } from "@/components/forum/ForumHero";
-import { Btn } from "@/components/ui/Btn";
 import { Notice } from "@/components/forum/bits";
 import { getManual, MANUALS } from "@/lib/forum/manuali";
 
@@ -61,9 +60,6 @@ export default async function Page({ params }: { params: Promise<{ ruolo: string
             </section>
           ))}
           <div className="flex flex-wrap gap-3">
-            <Btn href="/forum/nuova/diplomazia" variant="accent">
-              apri una pratica di diplomazia
-            </Btn>
             <Link href="/forum" className="btn">
               torna al forum
             </Link>

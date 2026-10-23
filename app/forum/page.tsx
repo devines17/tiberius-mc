@@ -13,7 +13,7 @@ import { getManual, type Manual } from "@/lib/forum/manuali";
 
 type Item = { kind: "sub"; s: Subcategory } | { kind: "manual"; m: Manual };
 
-/** Schede di una categoria. In Towny i manuali stanno attorno a Diplomazia. */
+/** Schede di una categoria. In Towny i manuali vengono prima di Diplomazia. */
 function itemsFor(cat: string): Item[] {
   const subs: Item[] = SUBCATEGORIES.filter((s) => s.category === cat).map((s) => ({ kind: "sub", s }));
   if (cat !== "towny") return subs;
@@ -21,7 +21,7 @@ function itemsFor(cat: string): Item[] {
     const m = getManual(k);
     return m ? [{ kind: "manual", m }] : [];
   };
-  return [...man("sindaco"), ...subs, ...man("governatore")];
+  return [...man("governatore"), ...man("sindaco"), ...subs];
 }
 
 export const metadata: Metadata = {

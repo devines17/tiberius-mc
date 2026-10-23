@@ -40,7 +40,7 @@ test("solo le tre categorie richieste", () => {
 
 test("solo le sottosezioni richieste, unban una volta sola", () => {
   assert.deepEqual(SUBCATEGORIES.map((s) => s.key), [
-    "assistenza_generale", "bug", "unban", "segnalazioni", "cambio_nick", "store", "diplomazia", "candidature",
+    "assistenza_generale", "unban", "segnalazioni", "bug", "cambio_nick", "store", "diplomazia", "candidature",
   ]);
   assert.equal(SUBCATEGORIES.filter((s) => s.key.includes("unban")).length, 1);
   assert.deepEqual(SUBCATEGORIES.filter((s) => s.category === "towny").map((s) => s.key), ["diplomazia"]);

@@ -64,7 +64,6 @@ export function Footer() {
         {/* Riga superiore: logo · pagine · social */}
         <div
           className="grid items-center justify-items-center gap-8 pb-10 pt-14 md:pt-16 lg:grid-cols-[auto_1fr_auto] lg:justify-items-stretch lg:gap-12"
-          data-stagger="0.1"
         >
           <Link href="/" aria-label="TiberiusMC, home" className="block w-fit transition-opacity hover:opacity-85 lg:justify-self-start">
             <TiberiusLogo variant="fluid" className="h-20 md:h-24" />
@@ -103,7 +102,7 @@ export function Footer() {
         <div className="h-px bg-white/15" role="presentation" />
 
         {/* Riga inferiore: informazioni · link legali */}
-        <div className="grid gap-6 py-8 text-sm text-white/60 md:grid-cols-[1fr_auto] md:items-start md:gap-10" data-reveal="fade">
+        <div className="grid gap-6 py-8 text-sm text-white/60 md:grid-cols-[1fr_auto] md:items-start md:gap-10">
           <ul className="grid gap-2 text-center md:text-left [&>li]:justify-center md:[&>li]:justify-start">
             <Line icon={<Copyright className="size-3.5" />}>TiberiusMC. Tutti i diritti riservati.</Line>
             {contact.company && <Line icon={<Building className="size-3.5" />}>{contact.company}</Line>}
