@@ -24,7 +24,10 @@ gsap.registerPlugin(ScrollTrigger);
  *   data-parallax            l'elemento scorre più lento del resto
  *   data-magnetic            il pulsante segue il puntatore
  *
- * Primo schermo di ogni pagina (dopo il sipario):
+ * Le animazioni allo scroll sono reversibili: risalendo la pagina gli
+ * elementi sotto lo schermo spariscono, scendendo di nuovo ricompaiono.
+ *
+ * Primo schermo di ogni pagina (dopo il sipario, una volta sola):
  *   data-hero-logo, data-hero-words, data-hero-in, data-fade
  *
  * Sicurezza:
@@ -40,35 +43,46 @@ type MotionWindow = Window & { __motionTimer?: number };
 
 const EASE = "power3.out";
 const START = "top 88%";
+const HIDE = { duration: 0.45, ease: "power2.out" } as const;
 
-/** Stato di partenza di ogni variante. La distanza laterale si accorcia sugli schermi stretti. */
+/** Stato nascosto di ogni variante. La distanza laterale si accorcia sugli schermi stretti. */
 function fromVars(variant: string, radius: string): gsap.TweenVars {
   const dx = Math.min(44, window.innerWidth * 0.08);
   switch (variant) {
     case "left":
-      return { opacity: 0, x: -dx, y: 0 };
+      return { opacity: 0, x: -dx, y: 0, scale: 1 };
     case "right":
-      return { opacity: 0, x: dx, y: 0 };
+      return { opacity: 0, x: dx, y: 0, scale: 1 };
     case "zoom":
-      return { opacity: 0, scale: 0.92, y: 12 };
+      return { opacity: 0, x: 0, y: 12, scale: 0.92 };
     case "fade":
-      return { opacity: 0, y: 0 };
+      return { opacity: 0, x: 0, y: 0, scale: 1 };
     case "clip":
       return { opacity: 1, clipPath: `inset(100% 0% 0% 0% round ${radius})` };
     default:
-      return { opacity: 0, y: 36 };
+      return { opacity: 0, x: 0, y: 36, scale: 1 };
   }
 }
 
-function toVars(variant: string, radius: string): gsap.TweenVars {
-  if (variant === "clip") return { clipPath: `inset(0% 0% 0% 0% round ${radius})`, duration: 1.15, ease: "power4.out" };
-  return { opacity: 1, x: 0, y: 0, scale: 1, duration: variant === "fade" ? 0.8 : 0.9, ease: EASE };
+/** Stato visibile, scritto per intero così si può partire da qui quando si nasconde. */
+function shownVars(variant: string, radius: string): gsap.TweenVars {
+  if (variant === "clip") return { opacity: 1, clipPath: `inset(0% 0% 0% 0% round ${radius})` };
+  return { opacity: 1, x: 0, y: 0, scale: 1 };
 }
 
-/** A fine animazione l'elemento torna "normale": così gli effetti hover in CSS funzionano. */
+/** A fine entrata l'elemento torna "normale": così gli effetti hover in CSS funzionano. */
 function settle(el: Element) {
   el.classList.add("is-in");
   gsap.set(el, { clearProps: "opacity,transform,clipPath,willChange" });
+}
+
+/** Prima di nasconderlo, l'elemento riprende gli stili inline che il CSS gli toglierebbe di colpo. */
+function unsettle(el: Element, shown: gsap.TweenVars) {
+  gsap.killTweensOf(el);
+  if (el.classList.contains("is-in")) {
+    gsap.set(el, shown);
+    el.classList.remove("is-in");
+  }
 }
 
 export function MotionRoot() {
@@ -102,9 +116,15 @@ export function MotionRoot() {
       if (logo) {
         intro.fromTo(logo, { opacity: 0, scale: 0.9, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power4.out" });
       }
+      // y: 0 annulla lo spostamento del CSS di partenza: a muovere le parole è solo yPercent.
       const heroWords = gsap.utils.toArray<HTMLElement>("[data-hero-words] .w > span");
       if (heroWords.length) {
-        intro.fromTo(heroWords, { yPercent: 112 }, { yPercent: 0, duration: 1.05, ease: "power4.out", stagger: 0.08 }, logo ? "-=0.75" : 0);
+        intro.fromTo(
+          heroWords,
+          { y: 0, yPercent: 112 },
+          { y: 0, yPercent: 0, duration: 1.05, ease: "power4.out", stagger: 0.08 },
+          logo ? "-=0.75" : 0,
+        );
       }
       const heroIn = gsap.utils.toArray<HTMLElement>("[data-hero-in]");
       if (heroIn.length) {
@@ -118,56 +138,85 @@ export function MotionRoot() {
         intro.fromTo(el, { opacity: 0 }, { opacity: target, duration: 0.8, onComplete: () => settle(el) }, 0);
       });
 
-      /* ---------- Elementi che compaiono allo scroll ---------- */
-      const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]").filter((el) => !el.classList.contains("is-in"));
-      const radiusOf = (el: HTMLElement) => getComputedStyle(el).borderTopLeftRadius || "0px";
-
-      reveals.forEach((el) => {
-        const variant = el.dataset.reveal || "up";
-        gsap.set(el, { ...fromVars(variant, radiusOf(el)), willChange: "transform, opacity" });
-        if (variant === "clip") {
-          const img = el.querySelector("img");
-          if (img) gsap.set(img, { scale: 1.12 });
-        }
-      });
-
       // Quello che è già sullo schermo al caricamento parte quando il sipario si alza.
       const t0 = performance.now();
       const wait = () => Math.max(0, curtainDelay - (performance.now() - t0) / 1000);
 
+      /* ---------- Elementi che compaiono allo scroll ---------- */
+      // Anche gli elementi già comparsi (es. il footer dopo un cambio pagina) restano reversibili.
+      const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]");
+      const radiusOf = (el: HTMLElement) => getComputedStyle(el).borderTopLeftRadius || "0px";
+      const variantOf = (el: HTMLElement) => el.dataset.reveal || "up";
+      const imgOf = (el: HTMLElement) => (variantOf(el) === "clip" ? el.querySelector("img") : null);
+
+      reveals.forEach((el) => {
+        if (el.classList.contains("is-in")) return;
+        gsap.set(el, { ...fromVars(variantOf(el), radiusOf(el)), willChange: "transform, opacity" });
+        const img = imgOf(el);
+        if (img) gsap.set(img, { scale: 1.12 });
+      });
+
+      const show = (el: HTMLElement, delay: number) => {
+        const variant = variantOf(el);
+        gsap.killTweensOf(el);
+        const clip = variant === "clip";
+        gsap.to(el, {
+          ...shownVars(variant, radiusOf(el)),
+          duration: clip ? 1.15 : variant === "fade" ? 0.8 : 0.9,
+          ease: clip ? "power4.out" : EASE,
+          delay,
+          onComplete: () => settle(el),
+        });
+        const img = imgOf(el);
+        if (img) {
+          gsap.killTweensOf(img);
+          gsap.to(img, { scale: 1, duration: 1.4, ease: EASE, delay, clearProps: "transform" });
+        }
+      };
+
+      const hide = (el: HTMLElement) => {
+        const variant = variantOf(el);
+        unsettle(el, shownVars(variant, radiusOf(el)));
+        gsap.to(el, { ...fromVars(variant, radiusOf(el)), ...HIDE });
+        const img = imgOf(el);
+        if (img) {
+          gsap.killTweensOf(img);
+          gsap.set(img, { scale: 1.12 });
+        }
+      };
+
       if (reveals.length) {
         ScrollTrigger.batch(reveals, {
           start: START,
-          once: true,
           onEnter: (batch) => {
             const base = wait();
-            (batch as HTMLElement[]).forEach((el, i) => {
-              const variant = el.dataset.reveal || "up";
-              const delay = base + Number(el.dataset.delay || 0) + i * 0.08;
-              gsap.to(el, { ...toVars(variant, radiusOf(el)), delay, onComplete: () => settle(el) });
-              if (variant === "clip") {
-                const img = el.querySelector("img");
-                if (img) gsap.to(img, { scale: 1, duration: 1.4, ease: EASE, delay, clearProps: "transform" });
-              }
-            });
+            (batch as HTMLElement[]).forEach((el, i) => show(el, base + Number(el.dataset.delay || 0) + i * 0.08));
           },
+          onLeaveBack: (batch) => (batch as HTMLElement[]).forEach(hide),
         });
       }
 
       /* ---------- Gruppi: i figli entrano uno dopo l'altro ---------- */
       gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((group) => {
-        const kids = Array.from(group.children).filter((c) => !c.classList.contains("is-in"));
+        const kids = Array.from(group.children);
         if (!kids.length) return;
-        gsap.set(kids, { opacity: 0, y: 28, willChange: "transform, opacity" });
+        const hidden = kids.filter((c) => !c.classList.contains("is-in"));
+        if (hidden.length) gsap.set(hidden, { opacity: 0, y: 28, willChange: "transform, opacity" });
         const each = Number(group.dataset.stagger || 0.09);
         ScrollTrigger.create({
           trigger: group,
           start: "top 90%",
-          once: true,
           onEnter: () => {
             const delay = wait() + Number(group.dataset.delay || 0);
             kids.forEach((kid, i) => {
+              gsap.killTweensOf(kid);
               gsap.to(kid, { opacity: 1, y: 0, duration: 0.8, ease: EASE, delay: delay + i * each, onComplete: () => settle(kid) });
+            });
+          },
+          onLeaveBack: () => {
+            kids.forEach((kid) => {
+              unsettle(kid, { opacity: 1, y: 0 });
+              gsap.to(kid, { opacity: 0, y: 28, ...HIDE });
             });
           },
         });
@@ -177,19 +226,24 @@ export function MotionRoot() {
       gsap.utils.toArray<HTMLElement>("[data-words]").forEach((el) => {
         const words = el.querySelectorAll(".w > span");
         if (!words.length) return;
-        gsap.set(words, { yPercent: 112 });
+        gsap.set(words, { y: 0, yPercent: 112 });
         ScrollTrigger.create({
           trigger: el,
           start: "top 90%",
-          once: true,
           onEnter: () => {
+            gsap.killTweensOf(words);
             gsap.to(words, {
+              y: 0,
               yPercent: 0,
               duration: 1,
               ease: "power4.out",
               stagger: 0.07,
               delay: wait() + Number(el.dataset.delay || 0),
             });
+          },
+          onLeaveBack: () => {
+            gsap.killTweensOf(words);
+            gsap.to(words, { y: 0, yPercent: 112, ...HIDE });
           },
         });
       });

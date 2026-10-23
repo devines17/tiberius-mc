@@ -4,6 +4,7 @@ import { Words } from "@/components/ui/Words";
 import { Btn } from "@/components/ui/Btn";
 import { CopyIp } from "@/components/ui/CopyIp";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
+import { TelegramIcon } from "@/components/ui/TelegramIcon";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
 import { siteConfig } from "@/lib/site-config";
 
@@ -25,7 +26,7 @@ export default function Home() {
             <span className="dot-live size-2 rounded-full bg-accent" /> minecraft java · survival towny
           </p>
           <div className="mb-5 w-[min(55vw,280px)]" data-hero-logo>
-            <div className="float-y">
+            <div className="float-soft">
               <TiberiusLogo variant="fluid" className="w-full drop-shadow-[0_12px_40px_rgba(0,0,0,.6)]" priority />
             </div>
           </div>
@@ -134,15 +135,30 @@ export default function Home() {
             <DiscordIcon className="size-12" />
             <h2 className="text-[length:var(--step-head)]">Entra nel nostro Discord.</h2>
             <p className="max-w-md text-white/90">
-              Annunci, supporto, eventi e il collegamento del tuo account ai gestionali. Ci trovi anche su Telegram {siteConfig.links.telegramHandle}.
+              Annunci, supporto, eventi e il collegamento del tuo account ai gestionali.
             </p>
             <div className="flex flex-wrap gap-3">
               <Btn href={siteConfig.links.discord} external variant="light">entra nel discord</Btn>
-              <Btn href={siteConfig.links.telegram} external variant="ink">telegram</Btn>
             </div>
           </div>
           <div className="mx-auto w-full max-w-md self-end pr-6 md:pr-12" data-reveal="right" data-delay="0.2">
-            <Image src="/images/mercenari.png" alt="Due mercenari romani di Tiberius MC" width={1000} height={830} className="float-y w-full" unoptimized />
+            <Image src="/images/legionari-telefono.png" alt="Due legionari romani di Tiberius MC che guardano uno smartphone" width={1000} height={914} className="w-full" unoptimized />
+          </div>
+        </div>
+      </section>
+
+      {/* TELEGRAM */}
+      <section className="wrap section pt-0">
+        <div className="panel panel-telegram flex flex-wrap items-center justify-between gap-6 p-8 md:p-12" data-reveal>
+          <div className="flex items-center gap-5" data-reveal="left" data-delay="0.15">
+            <TelegramIcon className="size-12 shrink-0" />
+            <div>
+              <h2 className="text-[length:var(--step-head)]">Seguici su Telegram.</h2>
+              <p className="mt-1 text-white/90">Ci trovi come {siteConfig.links.telegramHandle}.</p>
+            </div>
+          </div>
+          <div data-reveal="right" data-delay="0.25">
+            <Btn href={siteConfig.links.telegram} external variant="light">apri telegram</Btn>
           </div>
         </div>
       </section>

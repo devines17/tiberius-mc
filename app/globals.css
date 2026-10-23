@@ -88,6 +88,11 @@ h3 {
   background: linear-gradient(135deg, #5865f2 0%, #4752c4 100%);
   color: #fff;
 }
+.panel-telegram {
+  border-color: transparent;
+  background: linear-gradient(135deg, #2aabee 0%, #1c8ac4 100%);
+  color: #fff;
+}
 .panel-accent {
   border-color: transparent;
   background: var(--color-accent);
@@ -131,6 +136,12 @@ h3 {
   100% { transform: translateY(-16px) rotate(1.2deg); }
 }
 .float-y { animation: float-y 3.6s ease-in-out infinite alternate; will-change: transform; }
+/* Fluttuazione leggera, per il logo della home */
+@keyframes float-soft {
+  0% { transform: translateY(0) rotate(-0.4deg); }
+  100% { transform: translateY(-6px) rotate(0.4deg); }
+}
+.float-soft { animation: float-soft 4.2s ease-in-out infinite alternate; will-change: transform; }
 .dot-live { animation: pulse-dot 1.8s ease-in-out infinite; }
 
 /* ---------- Il motivo: l'arco ---------- */
@@ -204,7 +215,7 @@ h3 {
 .panel {
   transition: border-color 0.4s var(--ease);
 }
-.panel:not(.panel-discord):hover {
+.panel:not(.panel-discord, .panel-telegram):hover {
   border-color: rgb(255 255 255 / 0.18);
 }
 
@@ -432,6 +443,7 @@ h3 {
   .coin-spin,
   .kenburns,
   .float-y,
+  .float-soft,
   .dot-live,
   .blk-scatter,
   .blk-ribbon,
