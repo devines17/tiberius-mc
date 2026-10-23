@@ -44,8 +44,8 @@ export default function Page() {
         </Suspense>
       </div>
 
-      {CATEGORIES.map((c) => (
-        <section key={c.key} className="wrap section" aria-labelledby={`cat-${c.key}`}>
+      {CATEGORIES.map((c, ci) => (
+        <section key={c.key} className={`wrap section ${ci === 0 ? "mt-6 md:mt-10" : ""}`} aria-labelledby={`cat-${c.key}`}>
           <div className="mb-8 grid gap-2">
             <h2 id={`cat-${c.key}`} className="text-[length:var(--step-head)]">
               <Words text={c.label} />
