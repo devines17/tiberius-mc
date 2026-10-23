@@ -89,6 +89,11 @@ h3 {
   background: linear-gradient(135deg, #5865f2 0%, #4752c4 100%);
   color: #fff;
 }
+/* I riquadri colorati non hanno bordo: così le immagini poggiano davvero sul fondo */
+.panel-discord,
+.panel-telegram {
+  border-width: 0;
+}
 .panel-telegram {
   border-color: transparent;
   background: linear-gradient(135deg, #2aabee 0%, #1c8ac4 100%);
