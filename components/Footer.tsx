@@ -23,7 +23,6 @@ function Line({ icon, children }: { icon: ReactNode; children: ReactNode }) {
 
 export function Footer() {
   const { contact, legal, links } = siteConfig;
-  const year = new Date().getFullYear();
 
   const legalLinks = [
     { href: "/regole", label: "regolamento", internal: true },
@@ -80,7 +79,7 @@ export function Footer() {
         <div className="grid gap-6 py-8 text-sm text-white/60 md:grid-cols-[1fr_auto] md:items-start md:gap-10" data-reveal="fade">
           <ul className="grid gap-2 text-center md:text-left [&>li]:justify-center md:[&>li]:justify-start">
             <Line icon={<Copyright className="size-3.5" />}>
-              {year} {siteConfig.name}. La gloria non conosce confini.
+              {siteConfig.name}. La gloria non conosce confini.
             </Line>
             <Line icon={<Gamepad2 className="size-3.5" />}>Minecraft Java Survival Towny a tema romano.</Line>
             {contact.company && <Line icon={<Building className="size-3.5" />}>{contact.company}</Line>}
