@@ -10,7 +10,7 @@ export type RuleBlock = { t: "p"; text: string } | { t: "list"; items: string[] 
 export type RuleArticle = { code: string; n: number; title: string; blocks: RuleBlock[] };
 export type RuleChapter = { letter: string; roman: string; title: string; articles: RuleArticle[] };
 
-export const REGOLE_VERSIONE = "Versione 1.0 — Bozza da approvare";
+export const REGOLE_VERSIONE = "Versione 1.0";
 
 export const REGOLE_INTRO: string[] = [
   "Il presente regolamento disciplina l'accesso e la permanenza nel server Tiberius MC, le attività di gioco, la gestione delle città e delle nazioni, l'economia, il PvP, le guerre e i rapporti con lo staff.",
@@ -176,7 +176,7 @@ export const REGOLE: RuleChapter[] = [
           },
           {
             "t": "p",
-            "text": "I bug devono essere segnalati tramite il canale ufficiale di assistenza, quando disponibile."
+            "text": "I bug devono essere segnalati tramite la scheda Segnalazione bug del forum."
           },
           {
             "t": "p",
@@ -454,7 +454,7 @@ export const REGOLE: RuleChapter[] = [
           },
           {
             "t": "p",
-            "text": "Le richieste devono essere presentate attraverso la sezione Towny del forum, scegliendo Conflitti o Diplomazia in base al problema."
+            "text": "Le richieste devono essere presentate attraverso la sezione Towny del forum, nella scheda Diplomazia."
           },
           {
             "t": "p",
@@ -761,13 +761,16 @@ export const REGOLE: RuleChapter[] = [
               "Assistenza generale.",
               "Richieste unban.",
               "Segnalazione giocatori.",
+              "Segnalazione bug.",
               "Richieste cambio nickname.",
-              "Store e Goldoni.",
+              "Store.",
               "Towny",
-              "Conflitti.",
+              "Manuale del governatore.",
+              "Manuale del sindaco.",
               "Diplomazia.",
-              "Candidature Staff",
-              "Presentazione delle candidature per i ruoli disponibili."
+              "Candidature",
+              "Candidature Staff: presentazione delle candidature per i ruoli disponibili nello staff.",
+              "Candidature Media: presentazione delle candidature per creator e contenuti multimediali."
             ]
           }
         ]
@@ -841,7 +844,7 @@ export const REGOLE: RuleChapter[] = [
       {
         "code": "A.4",
         "n": 26,
-        "title": "Candidature Staff",
+        "title": "Candidature Staff e Media",
         "blocks": [
           {
             "t": "p",
@@ -866,6 +869,10 @@ export const REGOLE: RuleChapter[] = [
           {
             "t": "p",
             "text": "L'accettazione di una candidatura non deve comportare automaticamente privilegi tecnici senza la relativa autorizzazione."
+          },
+          {
+            "t": "p",
+            "text": "Le stesse regole valgono per le Candidature Media: l'accettazione non garantisce ruoli, vantaggi o ricompense in gioco senza la relativa autorizzazione dello staff."
           }
         ]
       },
@@ -1314,7 +1321,7 @@ export const REGOLE: RuleChapter[] = [
         "blocks": [
           {
             "t": "p",
-            "text": "Il presente documento costituisce una bozza di regolamento. Entra in vigore come regolamento ufficiale soltanto dopo la revisione e l'approvazione da parte della gestione di Tiberius MC."
+            "text": "Il presente regolamento è approvato dalla gestione di Tiberius MC ed entra in vigore dalla data della sua pubblicazione sui canali ufficiali."
           }
         ]
       }
