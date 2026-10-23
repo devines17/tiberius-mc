@@ -1,8 +1,16 @@
 import Image from "next/image";
 import { Words } from "@/components/ui/Words";
 
-/** Testata delle pagine del forum: sfondo della città al tramonto e il legionario a destra. */
-export function ForumHero({ kicker, title, lead }: { kicker: string; title: string; lead: string }) {
+const ART = {
+  // Legionario pensieroso: mantello tagliato a destra, sfumato
+  forum: { src: "/images/forum-gladiatore.webp", w: 722, h: 1075, cls: "[mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block" },
+  // Legionario che indica verso il titolo: largo, solo da schermi grandi
+  staff: { src: "/images/staff-gladiatore.webp", w: 985, h: 1000, cls: "lg:block" },
+} as const;
+
+/** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff). */
+export function ForumHero({ kicker, title, lead, art = "forum" }: { kicker: string; title: string; lead: string; art?: keyof typeof ART }) {
+  const a = ART[art];
   return (
     <section className="relative isolate overflow-hidden">
       <Image src="/images/forum-bg.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_35%]" />
@@ -10,13 +18,13 @@ export function ForumHero({ kicker, title, lead }: { kicker: string; title: stri
       <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-b from-transparent to-[#0b0a0c]" />
 
       <Image
-        src="/images/forum-gladiatore.webp"
+        src={a.src}
         alt=""
-        width={722}
-        height={1075}
+        width={a.w}
+        height={a.h}
         priority
         unoptimized
-        className="hero-in pointer-events-none absolute bottom-0 right-0 hidden h-[94%] w-auto select-none [mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block lg:left-[calc(50%+7rem)] lg:right-auto"
+        className={`hero-in pointer-events-none absolute bottom-0 right-0 hidden h-[94%] w-auto select-none lg:left-[calc(50%+7rem)] lg:right-auto ${a.cls}`}
         data-hero-in
       />
 

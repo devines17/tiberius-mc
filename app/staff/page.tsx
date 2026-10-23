@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHead } from "@/components/ui/PageHead";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { Soon, DiscordBand } from "@/components/ui/Blocks";
 import { Words } from "@/components/ui/Words";
 import { SkinFigure } from "@/components/staff/SkinFigure";
@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <>
-      <PageHead kicker="staff" title="Chi governa il foro." lead="Le persone che tengono in piedi l'impero." art="/images/mercenari.png" />
+      <ForumHero art="staff" kicker="tiberiusmc · staff" title="Staff" lead="Le persone che tengono in piedi l'impero." />
       {roles.length === 0 ? (
         <Soon title="elenco staff" text="L'elenco ufficiale dello staff sarà pubblicato qui, con i ruoli reali." />
       ) : (
