@@ -48,4 +48,8 @@ export const pages = [
   { href: "/news", label: "news ed eventi", short: "news" },
   { href: "/forum", label: "forum", short: "forum" },
   { href: "/regole", label: "regole", short: "regole" },
+  { href: "/store", label: "store", short: "store" },
+  { href: "/staff", label: "staff", short: "staff" },
+  { href: "/vota", label: "vota il server", short: "vota" },
+  { href: "/wiki", label: "wiki", short: "wiki" },
 ] as const;
