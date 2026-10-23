@@ -618,9 +618,9 @@ button.btn:disabled {
   width: calc(var(--px) * 16);
   height: calc(var(--px) * 32);
   transform-style: preserve-3d;
-  transform: rotateX(-10deg) rotateY(-28deg);
+  transform: rotateX(-6deg) rotateY(0deg);
   transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  animation: sk-sway 7s ease-in-out infinite alternate;
+  animation: sk-sway 12s ease-in-out infinite alternate;
 }
 .sk-part,
 .sk-cube {
@@ -707,11 +707,11 @@ button.btn:disabled {
 .sk-pose-saluto_frontale .sk-rleg { transform: rotateZ(2deg); }
 .sk-pose-saluto_frontale .sk-lleg { transform: rotateZ(-2deg); }
 
-.group:hover .sk-figure { animation-play-state: paused; transform: rotateX(-6deg) rotateY(18deg); }
+.group:hover .sk-figure { animation-play-state: paused; }
 
 @keyframes sk-sway {
-  from { transform: rotateX(-10deg) rotateY(-34deg); }
-  to { transform: rotateX(-8deg) rotateY(-14deg); }
+  from { transform: rotateX(-6deg) rotateY(-7deg); }
+  to { transform: rotateX(-6deg) rotateY(7deg); }
 }
 @keyframes sk-wave {
   from { transform: rotateZ(-150deg) rotateX(-10deg); }
