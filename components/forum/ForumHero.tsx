@@ -3,9 +3,9 @@ import { Words } from "@/components/ui/Words";
 
 const ART = {
   // Legionario pensieroso: mantello tagliato a destra, sfumato
-  forum: { src: "/images/forum-gladiatore.webp", w: 722, h: 1075, cls: "[mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block" },
-  // Legionario a mani sui fianchi
-  staff: { src: "/images/staff-legionario-fermo-v2.webp", w: 549, h: 1049, cls: "md:block" },
+  forum: { src: "/images/forum-gladiatore.webp", w: 722, h: 1075, cls: "[mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
+  // Due legionari abbracciati: larghi, solo da schermi grandi
+  staff: { src: "/images/staff-legionari.webp", w: 965, h: 803, cls: "lg:block xl:left-[calc(50%+3rem)] xl:right-auto" },
 } as const;
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff). */
@@ -24,7 +24,7 @@ export function ForumHero({ kicker, title, lead, art = "forum" }: { kicker: stri
         height={a.h}
         priority
         unoptimized
-        className={`hero-in pointer-events-none absolute bottom-0 right-0 hidden h-[94%] w-auto select-none lg:left-[calc(50%+7rem)] lg:right-auto ${a.cls}`}
+        className={`hero-in pointer-events-none absolute bottom-0 right-0 hidden h-[94%] w-auto select-none ${a.cls}`}
         data-hero-in
       />
 
