@@ -630,6 +630,19 @@ button.btn:disabled {
   transform-style: preserve-3d;
 }
 .sk-cube { left: 0; top: 0; }
+.sk-seg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--w) * var(--px));
+  height: calc(6 * var(--px));
+  transform-style: preserve-3d;
+}
+.sk-seg-lower {
+  top: calc(6 * var(--px));
+  transform-origin: 50% 0;
+  transform: rotateZ(var(--elbow-z, 0deg)) rotateX(var(--elbow-x, 0deg));
+}
 .sk-face {
   position: absolute;
   left: 0;
@@ -687,9 +700,9 @@ button.btn:disabled {
 .sk-pose-rilassato .sk-rleg { transform: rotateZ(4deg); }
 .sk-pose-rilassato .sk-lleg { transform: rotateZ(-4deg); }
 
-/* Braccio destro teso in avanti a 90°, piccolo saluto */
-.sk-pose-saluto_frontale .sk-head { transform: rotateY(8deg) rotateX(-6deg); }
-.sk-pose-saluto_frontale .sk-rarm { transform: rotateX(90deg) rotateZ(6deg); animation: sk-wave-front 1.4s ease-in-out infinite alternate; }
+/* Saluto a distanza: braccio destro sollevato e aperto di lato, gomito piegato di 20°, fermo */
+.sk-pose-saluto_frontale .sk-head { transform: rotateY(10deg) rotateX(-5deg) rotateZ(3deg); }
+.sk-pose-saluto_frontale .sk-rarm { --elbow-z: -20deg; --elbow-x: 6deg; transform: rotateZ(135deg) rotateX(14deg) rotateY(-18deg); }
 .sk-pose-saluto_frontale .sk-larm { transform: rotateZ(-5deg) rotateX(6deg); }
 .sk-pose-saluto_frontale .sk-rleg { transform: rotateZ(2deg); }
 .sk-pose-saluto_frontale .sk-lleg { transform: rotateZ(-2deg); }
@@ -703,10 +716,6 @@ button.btn:disabled {
 @keyframes sk-wave {
   from { transform: rotateZ(-150deg) rotateX(-10deg); }
   to { transform: rotateZ(-128deg) rotateX(-10deg); }
-}
-@keyframes sk-wave-front {
-  from { transform: rotateX(90deg) rotateZ(4deg); }
-  to { transform: rotateX(90deg) rotateZ(9deg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .sk-figure, .sk-larm, .sk-rarm { animation: none !important; }

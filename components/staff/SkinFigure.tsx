@@ -8,11 +8,21 @@ import type { Skin } from "@/lib/skins";
  * Unità: 1 pixel della skin = var(--px). Le coordinate seguono il formato 64x64.
  */
 
-type Box = { w: number; h: number; d: number; u: number; v: number };
+/** seg: metà superiore o inferiore di un arto alto 12 (per piegare il gomito). */
+type Box = { w: number; h: number; d: number; u: number; v: number; seg?: "upper" | "lower" };
 type Face = "front" | "back" | "right" | "left" | "top" | "bottom";
 
 function faceRect(b: Box, f: Face): [x: number, y: number, w: number, h: number] {
-  const { w, h, d, u, v } = b;
+  const { w, d, u, v, seg } = b;
+  if (seg) {
+    // Arto diviso in due metà da 6: i lati prendono metà texture, il taglio usa la faccia sotto
+    const off = seg === "lower" ? 6 : 0;
+    if (f === "top" && seg === "upper") return [u + d, v, w, d];
+    if (f === "top" || f === "bottom") return [u + d + w, v, w, d];
+    const full = faceRect({ w, h: 12, d, u, v }, f);
+    return [full[0], full[1] + off, full[2], 6];
+  }
+  const h = b.h;
   switch (f) {
     case "top":
       return [u + d, v, w, d];
@@ -47,7 +57,23 @@ function Cuboid({ box, scale = 1, mirror = false, className = "" }: { box: Box; 
   );
 }
 
-function Part({ name, base, overlay, overlayScale, mirror }: { name: string; base: Box; overlay?: Box; overlayScale: number; mirror?: boolean }) {
+function Part({ name, base, overlay, overlayScale, mirror, elbow }: { name: string; base: Box; overlay?: Box; overlayScale: number; mirror?: boolean; elbow?: boolean }) {
+  if (elbow) {
+    // Arto con gomito: metà superiore fissa alla spalla, metà inferiore ruota dal gomito (--elbow)
+    const seg = (b: Box, s: "upper" | "lower"): Box => ({ ...b, h: 6, seg: s });
+    return (
+      <div className={`sk-part sk-${name}`} style={{ "--w": base.w, "--h": base.h, "--d": base.d } as CSSProperties}>
+        <div className="sk-seg" style={{ "--w": base.w, "--h": 6, "--d": base.d } as CSSProperties}>
+          <Cuboid box={seg(base, "upper")} mirror={mirror} />
+          {overlay && <Cuboid box={seg(overlay, "upper")} scale={overlayScale} mirror={mirror} className="sk-overlay" />}
+        </div>
+        <div className="sk-seg sk-seg-lower" style={{ "--w": base.w, "--h": 6, "--d": base.d } as CSSProperties}>
+          <Cuboid box={seg(base, "lower")} mirror={mirror} />
+          {overlay && <Cuboid box={seg(overlay, "lower")} scale={overlayScale} mirror={mirror} className="sk-overlay" />}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={`sk-part sk-${name}`} style={{ "--w": base.w, "--h": base.h, "--d": base.d } as CSSProperties}>
       <Cuboid box={base} mirror={mirror} />
@@ -73,7 +99,7 @@ export function SkinFigure({ skin, pose = 0 }: { skin: Skin; pose?: number | (ty
         {/* Nelle vecchie skin 64x32 lo strato del cappello è spesso pieno (nero): Minecraft lo ignora, qui lo omettiamo */}
         <Part name="head" base={{ w: 8, h: 8, d: 8, u: 0, v: 0 }} overlay={L ? undefined : { w: 8, h: 8, d: 8, u: 32, v: 0 }} overlayScale={1.125} />
         <Part name="body" base={{ w: 8, h: 12, d: 4, u: 16, v: 16 }} overlay={L ? undefined : { w: 8, h: 12, d: 4, u: 16, v: 32 }} overlayScale={1.07} />
-        <Part name="rarm" base={{ w: a, h: 12, d: 4, u: 40, v: 16 }} overlay={L ? undefined : { w: a, h: 12, d: 4, u: 40, v: 32 }} overlayScale={1.08} />
+        <Part name="rarm" base={{ w: a, h: 12, d: 4, u: 40, v: 16 }} overlay={L ? undefined : { w: a, h: 12, d: 4, u: 40, v: 32 }} overlayScale={1.08} elbow={poseClass === "saluto_frontale"} />
         <Part
           name="larm"
           base={L ? { w: a, h: 12, d: 4, u: 40, v: 16 } : { w: a, h: 12, d: 4, u: 32, v: 48 }}
