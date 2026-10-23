@@ -240,6 +240,42 @@ export const REGOLE: RuleChapter[] = [
             ]
           }
         ]
+      },
+      {
+        "code": "F.5",
+        "n": 8,
+        "title": "Omertà e complicità",
+        "blocks": [
+          {
+            "t": "p",
+            "text": "È vietato coprire consapevolmente chi commette violazioni gravi del regolamento, tra cui:"
+          },
+          {
+            "t": "list",
+            "items": [
+              "Uso di cheat, client o modifiche vietate.",
+              "Sfruttamento di bug, duplicazioni o exploit.",
+              "Utilizzo di account secondari per aggirare ban, sanzioni o limiti.",
+              "Compravendita con denaro reale al di fuori dello store ufficiale."
+            ]
+          },
+          {
+            "t": "p",
+            "text": "Chi è a conoscenza diretta di una di queste violazioni deve segnalarla allo staff tramite la scheda Segnalazione giocatori del forum, o Segnalazione bug nel caso di un bug."
+          },
+          {
+            "t": "p",
+            "text": "Chi tace pur sapendo, oppure ne trae vantaggio (ad esempio giocando nella stessa città, ricevendo oggetti o combattendo insieme), può essere sanzionato come complice, fino al ban."
+          },
+          {
+            "t": "p",
+            "text": "La sanzione tiene conto di quanto la persona sapeva, del vantaggio ottenuto e della durata della violazione. Chi collabora o segnala spontaneamente può ricevere una sanzione ridotta o nessuna sanzione."
+          },
+          {
+            "t": "p",
+            "text": "Non è sanzionabile chi non poteva ragionevolmente essere a conoscenza della violazione. Le segnalazioni false o in malafede restano vietate secondo l'articolo A.3."
+          }
+        ]
       }
     ]
   },
@@ -250,7 +286,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "C.1",
-        "n": 8,
+        "n": 9,
         "title": "Costruzioni e utilizzo del territorio",
         "blocks": [
           {
@@ -281,7 +317,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "C.2",
-        "n": 9,
+        "n": 10,
         "title": "Griefing e distruzione",
         "blocks": [
           {
@@ -308,7 +344,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "C.3",
-        "n": 10,
+        "n": 11,
         "title": "Furti e proprietà",
         "blocks": [
           {
@@ -346,7 +382,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "T.1",
-        "n": 11,
+        "n": 12,
         "title": "Regole generali Towny",
         "blocks": [
           {
@@ -377,7 +413,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "T.2",
-        "n": 12,
+        "n": 13,
         "title": "Sindaci e rappresentanti",
         "blocks": [
           {
@@ -408,7 +444,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "T.3",
-        "n": 13,
+        "n": 14,
         "title": "Claim e territori",
         "blocks": [
           {
@@ -435,7 +471,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "T.4",
-        "n": 14,
+        "n": 15,
         "title": "Abusi e controversie Towny",
         "blocks": [
           {
@@ -471,7 +507,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "E.1",
-        "n": 15,
+        "n": 16,
         "title": "Economia di gioco",
         "blocks": [
           {
@@ -502,7 +538,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "E.2",
-        "n": 16,
+        "n": 17,
         "title": "Goldoni",
         "blocks": [
           {
@@ -541,7 +577,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "E.3",
-        "n": 17,
+        "n": 18,
         "title": "Truffe e scambi",
         "blocks": [
           {
@@ -565,6 +601,33 @@ export const REGOLE: RuleChapter[] = [
             "text": "Lo staff valuta i casi individualmente. Non tutte le transazioni andate male costituiscono automaticamente una violazione."
           }
         ]
+      },
+      {
+        "code": "E.4",
+        "n": 19,
+        "title": "Compravendita con denaro reale",
+        "blocks": [
+          {
+            "t": "p",
+            "text": "È vietato vendere, comprare o scambiare con denaro reale, o con altri beni esterni al server, valuta di gioco, Goldoni, oggetti, servizi, territori, città o account di Tiberius MC."
+          },
+          {
+            "t": "p",
+            "text": "L'unico canale autorizzato per acquisti con denaro reale è lo store ufficiale."
+          },
+          {
+            "t": "p",
+            "text": "Sono vietati anche gli annunci, le offerte e le trattative per questo tipo di vendita, nel server e sui canali ufficiali della community."
+          },
+          {
+            "t": "p",
+            "text": "Lo staff può rimuovere gli oggetti, la valuta o i territori ottenuti in questo modo e sanzionare tutti i giocatori coinvolti, sia chi vende sia chi compra."
+          },
+          {
+            "t": "p",
+            "text": "Lo staff non interviene per recuperare denaro reale perso in questi scambi."
+          }
+        ]
       }
     ]
   },
@@ -575,7 +638,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "P.1",
-        "n": 18,
+        "n": 20,
         "title": "Regole generali PvP",
         "blocks": [
           {
@@ -606,7 +669,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "P.2",
-        "n": 19,
+        "n": 21,
         "title": "Guerre tra città e nazioni",
         "blocks": [
           {
@@ -645,7 +708,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "P.3",
-        "n": 20,
+        "n": 22,
         "title": "Abusi durante le guerre",
         "blocks": [
           {
@@ -678,7 +741,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "M.1",
-        "n": 21,
+        "n": 23,
         "title": "Utilizzo della chat",
         "blocks": [
           {
@@ -713,7 +776,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "M.2",
-        "n": 22,
+        "n": 24,
         "title": "Pubblicità e collegamenti esterni",
         "blocks": [
           {
@@ -743,7 +806,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "A.1",
-        "n": 23,
+        "n": 25,
         "title": "Utilizzo del forum",
         "blocks": [
           {
@@ -777,7 +840,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "A.2",
-        "n": 24,
+        "n": 26,
         "title": "Richieste di assistenza",
         "blocks": [
           {
@@ -812,7 +875,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "A.3",
-        "n": 25,
+        "n": 27,
         "title": "Segnalazioni di giocatori",
         "blocks": [
           {
@@ -843,7 +906,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "A.4",
-        "n": 26,
+        "n": 28,
         "title": "Candidature Staff e Media",
         "blocks": [
           {
@@ -878,7 +941,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "A.5",
-        "n": 27,
+        "n": 29,
         "title": "Ricerca e archivio",
         "blocks": [
           {
@@ -912,7 +975,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "N.1",
-        "n": 28,
+        "n": 30,
         "title": "Acquisti ufficiali",
         "blocks": [
           {
@@ -943,7 +1006,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "N.2",
-        "n": 29,
+        "n": 31,
         "title": "Pagamenti e rimborsi",
         "blocks": [
           {
@@ -977,7 +1040,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "I.1",
-        "n": 30,
+        "n": 32,
         "title": "Dati personali",
         "blocks": [
           {
@@ -1004,7 +1067,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "I.2",
-        "n": 31,
+        "n": 33,
         "title": "Sicurezza informatica",
         "blocks": [
           {
@@ -1037,7 +1100,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "S.1",
-        "n": 32,
+        "n": 34,
         "title": "Principi di applicazione",
         "blocks": [
           {
@@ -1069,7 +1132,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "S.2",
-        "n": 33,
+        "n": 35,
         "title": "Circostanze aggravanti",
         "blocks": [
           {
@@ -1093,7 +1156,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "S.3",
-        "n": 34,
+        "n": 36,
         "title": "Circostanze attenuanti",
         "blocks": [
           {
@@ -1118,7 +1181,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "S.4",
-        "n": 35,
+        "n": 37,
         "title": "Ban e richieste di unban",
         "blocks": [
           {
@@ -1156,7 +1219,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "D.1",
-        "n": 36,
+        "n": 38,
         "title": "Condotta dello staff",
         "blocks": [
           {
@@ -1191,7 +1254,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "D.2",
-        "n": 37,
+        "n": 39,
         "title": "Permessi e responsabilità",
         "blocks": [
           {
@@ -1225,7 +1288,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "R.1",
-        "n": 38,
+        "n": 40,
         "title": "Richiesta di revisione",
         "blocks": [
           {
@@ -1252,7 +1315,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "R.2",
-        "n": 39,
+        "n": 41,
         "title": "Interpretazione delle regole",
         "blocks": [
           {
@@ -1286,7 +1349,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "Z.1",
-        "n": 40,
+        "n": 42,
         "title": "Aggiornamenti",
         "blocks": [
           {
@@ -1301,7 +1364,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "Z.2",
-        "n": 41,
+        "n": 43,
         "title": "Accettazione",
         "blocks": [
           {
@@ -1316,7 +1379,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "Z.3",
-        "n": 42,
+        "n": 44,
         "title": "Entrata in vigore",
         "blocks": [
           {
