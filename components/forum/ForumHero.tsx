@@ -4,8 +4,8 @@ import { Words } from "@/components/ui/Words";
 const ART = {
   // Legionario pensieroso: mantello tagliato a destra, sfumato
   forum: { src: "/images/forum-gladiatore.webp", w: 722, h: 1075, cls: "[mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block" },
-  // Legionario che indica verso il titolo: largo, solo da schermi grandi
-  staff: { src: "/images/staff-gladiatore.webp", w: 985, h: 1000, cls: "lg:block" },
+  // Legionario che porta il forziere
+  staff: { src: "/images/staff-gladiatore.webp", w: 736, h: 1000, cls: "md:block" },
 } as const;
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff). */
