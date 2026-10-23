@@ -13,7 +13,7 @@ export const metadata: Metadata = { title: "Archivio", robots: { index: false, f
 export default function Page() {
   return (
     <>
-      <ForumHero kicker="forum · archivio" title={"pratiche\nchiuse."} lead="Lo storico delle richieste concluse. Non esiste un archivio pubblico: segnalazioni, candidature e dati personali restano riservati." />
+      <ForumHero kicker="forum · archivio" title={"pratiche\nchiuse."} lead="Le richieste già concluse. L'archivio non è pubblico, quindi segnalazioni, candidature e dati personali restano riservati." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={3} />}>
           <Body />

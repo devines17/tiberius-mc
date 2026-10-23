@@ -35,7 +35,7 @@ export default function Page() {
       <ForumHero
         kicker="tiberiusmc · forum"
         title="Forum"
-        lead="Assistenza, Towny e candidature staff. Ogni richiesta è privata: la vedete solo tu e lo staff della sezione."
+        lead="Qui apri le richieste per assistenza, Towny e candidature. Ogni pratica la vedete solo tu e lo staff di quella sezione."
       />
 
       <div className="pt-10">
@@ -99,7 +99,7 @@ async function Top() {
       <ForumNav session={session} active="home" unread={unread} />
       <div className="wrap">
         <Notice>
-          Questo non è un forum di discussione pubblico: le pratiche le vedete solo tu e lo staff della sezione. Segnalazioni, pratiche dello store e candidature sono riservate anche all&apos;interno dello staff.
+          Le pratiche le vedete solo tu e lo staff della sezione. Segnalazioni, store e candidature restano riservate anche dentro lo staff e le vede solo chi se ne occupa.
         </Notice>
       </div>
     </div>

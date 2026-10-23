@@ -16,7 +16,8 @@
   --color-field: #000000;
   --color-gold: #f5b814;
 
-  --font-sans: "Tektur Variable", system-ui, sans-serif;
+  --font-sans: var(--font-nunito), "Nunito", system-ui, sans-serif;
+  --font-badge: var(--font-fredoka), "Fredoka", system-ui, sans-serif;
   --font-epigraph: "Cinzel Variable", Georgia, serif;
   --font-brand: var(--font-lilita), "Lilita One", system-ui, sans-serif;
 }
@@ -54,10 +55,16 @@ body {
 h1,
 h2,
 h3 {
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: -0.01em;
   line-height: 1.12;
   text-wrap: balance;
+}
+
+/* Titoli speciali e badge: Fredoka 600 */
+.font-badge {
+  font-family: var(--font-badge);
+  font-weight: 600;
 }
 
 ::selection {
@@ -217,7 +224,7 @@ h3 {
   height: 52px;
   padding: 0 30px;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
 }
 .btn-discord {

@@ -18,7 +18,7 @@ type SP = Promise<Record<string, string | string[] | undefined>>;
 export default function Page({ searchParams }: { searchParams: SP }) {
   return (
     <>
-      <ForumHero kicker="forum · cerca" title={"cerca tra\nle pratiche."} lead="Trovi solo le richieste che hai il diritto di vedere: le tue e, se sei staff, quelle delle tue sezioni." />
+      <ForumHero kicker="forum · cerca" title={"cerca tra\nle pratiche."} lead="Cerchi tra le tue richieste e, se sei staff, tra quelle delle tue sezioni." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={3} />}>
           <Body searchParams={searchParams} />

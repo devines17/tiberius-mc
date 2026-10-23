@@ -148,7 +148,7 @@ export const SUBCATEGORIES: Subcategory[] = [
     initialStatus: "inviata",
     statuses: [S("inviata", "Inviata"), S("in_revisione", "In revisione"), S("info_richieste", "Informazioni richieste"), S("accolta", "Accolta", true), S("respinta", "Respinta", true), S("chiusa", "Chiusa", true)],
     notices: [
-      "Inviare la richiesta non rimuove il ban: lo staff la valuta e ti comunica l'esito qui.",
+      "Il ban resta attivo finché lo staff non valuta la richiesta. L'esito lo trovi in questa pratica.",
       "Se il tuo account non è collegato (perché sei bannato non puoi usare /collega), scrivi il tuo nickname: lo verificherà lo staff.",
     ],
     bodyLabel: "Spiega la tua richiesta",
@@ -173,7 +173,7 @@ export const SUBCATEGORIES: Subcategory[] = [
     allowsDraft: false,
     initialStatus: "inviata",
     statuses: [S("inviata", "Inviata"), S("in_revisione", "In revisione"), S("info_richieste", "Informazioni richieste"), S("provvedimento", "Provvedimento preso", true), S("non_fondata", "Non fondata", true), S("chiusa", "Chiusa", true)],
-    notices: ["La segnalazione è privata: la vedete solo tu e lo staff che gestisce le segnalazioni. Il giocatore segnalato non la vede."],
+    notices: ["La segnalazione la vedete solo tu e chi nello staff gestisce le segnalazioni. Il giocatore segnalato non può vederla."],
     bodyLabel: "Descrizione dettagliata dell'episodio",
     autoTitle: (f) => `Segnalazione: ${f.segnalato || ""}`.trim(),
     fields: [
@@ -257,7 +257,7 @@ export const SUBCATEGORIES: Subcategory[] = [
     initialStatus: "inviata",
     statuses: [S("inviata", "Inviata"), S("in_revisione", "In revisione"), S("info_richieste", "Informazioni richieste"), S("approvata", "Approvata"), S("respinta", "Respinta", true), S("completata", "Completata", true)],
     notices: [
-      "Il sito non può cambiare il nome del tuo account Minecraft: quello si cambia solo dal sito Minecraft/Microsoft.",
+      "Il nome del tuo account Minecraft si cambia dal sito di Minecraft (Microsoft), non da qui.",
       "Qui puoi chiedere di aggiornare il nickname con cui sei registrato sul server, ad esempio dopo averlo cambiato su Minecraft. Il tuo UUID non cambia.",
     ],
     bodyLabel: "Motivo della richiesta",
@@ -292,8 +292,8 @@ export const SUBCATEGORIES: Subcategory[] = [
     initialStatus: "inviata",
     statuses: [S("inviata", "Inviata"), S("in_revisione", "In revisione"), S("info_richieste", "Informazioni richieste"), S("risolta", "Risolta", true), S("respinta", "Respinta", true), S("chiusa", "Chiusa", true)],
     notices: [
-      "Non scrivere mai password, numeri completi di carte o codici di sicurezza: lo staff non te li chiederà.",
-      "La richiesta non modifica da sola il tuo saldo: eventuali accrediti li fa lo staff dopo le verifiche.",
+      "Lo staff non ti chiederà mai password, numeri di carta o codici di sicurezza, quindi non scriverli qui.",
+      "Gli eventuali accrediti li fa lo staff a mano, dopo aver controllato.",
     ],
     bodyLabel: "Descrivi il problema",
     fields: [
@@ -338,7 +338,7 @@ export const SUBCATEGORIES: Subcategory[] = [
       S("completata", "Completata", true),
     ],
     notices: [
-      "L'approvazione sul forum non avvia nulla in gioco: guerre e accordi vengono eseguiti sul server dallo staff, dopo l'approvazione.",
+      "Guerre e accordi approvati qui li avvia lo staff sul server. Il forum da solo non cambia nulla in gioco.",
       "Il tuo ruolo sarà verificato dallo staff.",
     ],
     bodyLabel: "Descrizione e contesto",
@@ -396,8 +396,8 @@ export const SUBCATEGORIES: Subcategory[] = [
       S("chiusa", "Chiusa", true),
     ],
     notices: [
-      "La candidatura è privata: la vedono solo lo staff che gestisce le candidature e tu.",
-      "L'accettazione non assegna da sola ruoli o permessi in gioco: lo farà lo staff.",
+      "La candidatura la vedete solo tu e chi nello staff gestisce le candidature.",
+      "Se vieni accettato, ruoli e permessi in gioco te li assegna lo staff.",
     ],
     bodyLabel: "Perché vuoi entrare nello staff?",
     autoTitle: (f) => `Candidatura ${f.ruolo || ""}`.trim(),
@@ -433,8 +433,8 @@ export const SUBCATEGORIES: Subcategory[] = [
       S("chiusa", "Chiusa", true),
     ],
     notices: [
-      "La candidatura è privata: la vedono solo lo staff che gestisce le candidature media e tu.",
-      "L'accettazione non assegna da sola ruoli o vantaggi: lo farà lo staff.",
+      "La candidatura la vedete solo tu e chi nello staff gestisce le candidature media.",
+      "Se vieni accettato, il ruolo media e gli eventuali vantaggi te li assegna lo staff.",
     ],
     bodyLabel: "Perché vuoi creare contenuti su TiberiusMC?",
     autoTitle: (f) => `Candidatura media ${f.piattaforma ? `(${f.piattaforma})` : ""}`.trim(),

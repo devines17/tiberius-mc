@@ -36,7 +36,7 @@ export default async function Page() {
                     </div>
                     <div className="grid w-full gap-1.5 border-t border-white/10 px-5 py-5">
                       <p className="text-lg font-semibold">{skin.name}</p>
-                      <p className="mx-auto w-fit rounded-full bg-accent/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#ff8a80] ring-1 ring-accent/30">{r.ruolo}</p>
+                      <p className="font-badge mx-auto w-fit rounded-full bg-accent/15 px-3 py-1 text-xs uppercase tracking-wider text-[#ff8a80] ring-1 ring-accent/30">{r.ruolo}</p>
                       {m.descrizione && <p className="mt-1 text-sm text-white/65">{m.descrizione}</p>}
                     </div>
                   </li>

@@ -44,7 +44,7 @@ export function ForumNav({ session, active, unread = 0 }: { session: Session | n
                 className={`relative grid size-10 place-items-center rounded-xl transition-colors ${active === "notifiche" ? "bg-white/10" : "hover:bg-white/5"}`}
               >
                 <Bell className="size-5" aria-hidden />
-                {unread > 0 && <span className="absolute right-1 top-1 grid min-w-4 place-items-center rounded-full bg-accent px-1 text-[0.65rem] font-bold leading-4 text-white">{unread > 99 ? "99+" : unread}</span>}
+                {unread > 0 && <span className="absolute right-1 top-1 grid min-w-4 place-items-center font-badge rounded-full bg-accent px-1 text-[0.65rem] leading-4 text-white">{unread > 99 ? "99+" : unread}</span>}
               </Link>
               <Link
                 href="/forum/account"

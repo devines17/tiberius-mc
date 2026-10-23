@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Lilita_One } from "next/font/google";
-import "@fontsource-variable/tektur";
+import { Fredoka, Lilita_One, Nunito } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { Header } from "@/components/Header";
@@ -9,6 +8,10 @@ import { MotionRoot } from "@/components/motion/MotionRoot";
 
 /* Carattere del marchio "TiberiusMC" nella barra in alto. */
 const lilita = Lilita_One({ weight: "400", subsets: ["latin"], display: "swap", variable: "--font-lilita" });
+/* Testi e interfaccia (400–600) e titoli (800). */
+const nunito = Nunito({ weight: ["400", "500", "600", "800"], subsets: ["latin"], display: "swap", variable: "--font-nunito" });
+/* Titoli speciali e badge. */
+const fredoka = Fredoka({ weight: "600", subsets: ["latin"], display: "swap", variable: "--font-fredoka" });
 
 const title = "Tiberius MC — Minecraft Towny a tema romano";
 
@@ -40,7 +43,7 @@ const motionGate = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").match
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="it" className={lilita.variable} suppressHydrationWarning>
+    <html lang="it" className={`${lilita.variable} ${nunito.variable} ${fredoka.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionGate }} />
       </head>

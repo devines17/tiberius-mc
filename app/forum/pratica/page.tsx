@@ -203,7 +203,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
                         ) : (
                           <>Pratica aperta ({statusLabel(t.subcategory, item.h.to_status)})</>
                         )}
-                        {item.h.reason && <span className="text-white/70"> — {item.h.reason}</span>}
+                        {item.h.reason && <span className="text-white/70">: {item.h.reason}</span>}
                       </span>
                       <time className="text-white/35" dateTime={item.h.created_at}>
                         {formatDateTime(item.h.created_at)}

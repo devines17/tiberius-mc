@@ -17,12 +17,12 @@ const ERRORS: Record<string, string> = {
 export default function Page({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   return (
     <>
-      <ForumHero kicker="forum" title={"accedi\nal forum."} lead="Usiamo il tuo account Discord: niente nuove password da ricordare." />
+      <ForumHero kicker="forum" title={"accedi\nal forum."} lead="Si entra con l'account Discord, quindi non ti serve una nuova password." />
       <div className="grid gap-6 pb-20 pt-10">
         <Suspense fallback={null}>
           <ErrorNotice searchParams={searchParams} />
         </Suspense>
-        <LoginRequired next="/forum" text="Il sito riceve solo il tuo nome e l'ID Discord: nessun accesso ai tuoi messaggi o server." />
+        <LoginRequired next="/forum" text="Il sito riceve solo il tuo nome e il tuo ID Discord. Non può leggere i tuoi messaggi né vedere i tuoi server." />
       </div>
     </>
   );

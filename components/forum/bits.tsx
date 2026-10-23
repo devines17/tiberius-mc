@@ -19,7 +19,7 @@ const TONE: Record<string, string> = {
 
 export function StatusBadge({ sub, status }: { sub: string; status: string }) {
   return (
-    <span className={`inline-flex shrink-0 items-center rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${TONE[statusTone(status)]}`}>
+    <span className={`font-badge inline-flex shrink-0 items-center rounded-full px-2.5 py-1 text-xs ring-1 ${TONE[statusTone(status)]}`}>
       {statusLabel(sub, status)}
     </span>
   );
@@ -27,7 +27,7 @@ export function StatusBadge({ sub, status }: { sub: string; status: string }) {
 
 export function PrivateBadge() {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-0.5 text-[0.7rem] font-semibold uppercase tracking-wider text-white/60 ring-1 ring-white/10">
+    <span className="font-badge inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-0.5 text-[0.7rem] uppercase tracking-wider text-white/60 ring-1 ring-white/10">
       <Lock className="size-3" aria-hidden /> riservata
     </span>
   );
@@ -57,7 +57,7 @@ export function TicketRows({ tickets, empty, showAuthor = false, highlight }: { 
                 <span className="flex flex-wrap items-center gap-2">
                   <span className="truncate font-semibold transition-colors group-hover:text-accent">{t.title}</span>
                   {getSubcategory(t.subcategory)?.sensitive && <PrivateBadge />}
-                  {note && <span className="rounded-full bg-accent px-2 py-0.5 text-[0.7rem] font-bold text-white">{note}</span>}
+                  {note && <span className="font-badge rounded-full bg-accent px-2 py-0.5 text-[0.7rem] text-white">{note}</span>}
                 </span>
                 <span className="mt-0.5 block text-sm text-white/55">
                   {subLabel(t.subcategory)}

@@ -200,7 +200,7 @@ export function AdminPanel({ permissions, candidature, retention }: { permission
         </form>
       </Box>
 
-      <Box title="Conservazione dell'archivio" lead="Le pratiche chiuse da più giorni di così vengono eliminate, con i loro allegati, quando applichi la politica. Vuoto = conserva tutto.">
+      <Box title="Conservazione dell'archivio" lead="Quando applichi la regola, le pratiche chiuse da più giorni di così vengono eliminate insieme agli allegati. Lascia vuoto per tenere tutto.">
         <form
           className="grid gap-3"
           onSubmit={(e) => {

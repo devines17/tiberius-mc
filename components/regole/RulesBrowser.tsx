@@ -57,7 +57,7 @@ export function RulesBrowser({ chapters }: { chapters: RuleChapter[] }) {
       <nav aria-label="Capitoli" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {chapters.map((c) => (
           <a key={c.letter} href={`#cap-${c.letter}`} className="panel flex items-center gap-3 px-4 py-3 transition-colors hover:bg-white/[0.05]">
-            <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent text-lg font-bold text-white">{c.letter}</span>
+            <span className="font-badge grid size-9 shrink-0 place-items-center rounded-lg bg-accent text-lg text-white">{c.letter}</span>
             <span className="min-w-0">
               <span className="block truncate font-semibold">{c.title}</span>
               <span className="text-xs text-white/50">
@@ -100,9 +100,9 @@ export function RulesBrowser({ chapters }: { chapters: RuleChapter[] }) {
         return (
           <section key={c.letter} id={`cap-${c.letter}`} className="grid scroll-mt-[calc(var(--header-h)+6rem)] gap-4">
             <div className="flex items-center gap-4">
-              <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-accent text-2xl font-bold text-white">{c.letter}</span>
+              <span className="font-badge grid size-12 shrink-0 place-items-center rounded-xl bg-accent text-2xl text-white">{c.letter}</span>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/45">Capitolo {c.roman}</p>
+                <p className="font-badge text-xs uppercase tracking-[0.2em] text-white/45">Capitolo {c.roman}</p>
                 <h2 className="text-[length:var(--step-head)] leading-tight">{c.title}</h2>
               </div>
             </div>
@@ -120,7 +120,7 @@ export function RulesBrowser({ chapters }: { chapters: RuleChapter[] }) {
                     className="panel group/art scroll-mt-[calc(var(--header-h)+6rem)] overflow-hidden"
                   >
                     <summary className="flex cursor-pointer list-none items-center gap-4 px-5 py-4 transition-colors hover:bg-white/[0.04] md:px-6 [&::-webkit-details-marker]:hidden">
-                      <span className="w-12 shrink-0 font-mono text-sm font-bold text-[#ff8a80]">{a.code}</span>
+                      <span className="font-badge w-12 shrink-0 text-sm text-[#ff8a80]">{a.code}</span>
                       <span className="flex-1 font-semibold">{a.title}</span>
                       <ChevronDown className="size-5 shrink-0 text-white/50 transition-transform duration-300 group-open/art:rotate-180" aria-hidden />
                     </summary>

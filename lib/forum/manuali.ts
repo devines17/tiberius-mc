@@ -19,11 +19,11 @@ export const MANUALS: Manual[] = [
     key: "sindaco",
     label: "Manuale del sindaco",
     short: "Fondare e gestire una città: territorio, cittadini, tasse e permessi.",
-    lead: "Tutto quello che serve per fondare una città e tenerla in vita.",
+    lead: "Come fondare una città e farla durare.",
     sections: [
       {
         title: "Fondare la città",
-        text: "Scegli il punto in cui vuoi il centro della città: il chunk in cui ti trovi diventa il blocco principale. Fondare una città ha un costo, che viene preso dal tuo saldo.",
+        text: "Mettiti nel punto in cui vuoi il centro della città: quel chunk diventa il blocco principale. Fondare una città costa, e i soldi vengono presi dal tuo saldo.",
         cmds: [
           { cmd: "/t new <nome>", desc: "Fonda una nuova città nel chunk in cui ti trovi." },
           { cmd: "/t", desc: "Mostra la scheda della tua città: banca, mantenimento, cittadini, chunk." },
@@ -55,7 +55,7 @@ export const MANUALS: Manual[] = [
       },
       {
         title: "Banca, tasse e mantenimento",
-        text: "Ogni giorno la città paga un mantenimento dalla propria banca. Se la banca non basta, la città può cadere e perdere il territorio: controlla il saldo con /t e tienilo sempre coperto.",
+        text: "Ogni giorno la città paga un mantenimento dalla propria banca. Se i soldi non bastano la città può cadere e perdere il territorio, quindi controlla spesso il saldo con /t.",
         cmds: [
           { cmd: "/t deposit <importo>", desc: "Versa denaro nella banca della città." },
           { cmd: "/t withdraw <importo>", desc: "Preleva dalla banca della città." },
@@ -94,7 +94,7 @@ export const MANUALS: Manual[] = [
         ],
         tips: [
           "Prima di lasciare il server a lungo, cedi la carica o assicurati che la banca copra il mantenimento.",
-          "Alleanze tra nazioni e guerre si gestiscono a livello di nazione: per le richieste di guerra usa la sezione Diplomazia del forum.",
+          "Alleanze e guerre sono cose da nazione. Per chiedere una guerra usa la sezione Diplomazia del forum.",
         ],
       },
     ],
@@ -103,7 +103,7 @@ export const MANUALS: Manual[] = [
     key: "governatore",
     label: "Manuale del governatore",
     short: "Guidare una nazione: città membri, capitale, tasse, alleati e nemici.",
-    lead: "Come fondare una nazione, tenere unite le città e muoversi nella diplomazia.",
+    lead: "Come fondare una nazione e guidarla, dalle città membri alle alleanze.",
     sections: [
       {
         title: "Fondare la nazione",
@@ -116,7 +116,7 @@ export const MANUALS: Manual[] = [
       },
       {
         title: "Città membri",
-        text: "Le città entrano nella nazione su invito: il sindaco della città invitata deve accettare.",
+        text: "Le città entrano nella nazione su invito, e il sindaco della città invitata deve accettare.",
         cmds: [
           { cmd: "/n add <città>", desc: "Invita una città nella nazione." },
           { cmd: "/n kick <città>", desc: "Allontana una città dalla nazione." },
@@ -142,7 +142,7 @@ export const MANUALS: Manual[] = [
           { cmd: "/n enemy remove <nazione>", desc: "Toglie una nazione dai nemici." },
         ],
         tips: [
-          "Le guerre si richiedono sul forum, nella sezione Diplomazia: lo staff valuta la richiesta e, se approvata, la avvia in gioco.",
+          "Le guerre si chiedono sul forum, nella sezione Diplomazia. Se lo staff approva la richiesta, è lo staff ad avviare la guerra in gioco.",
           "Trattati, paci e accordi importanti conviene registrarli in Diplomazia, così restano agli atti.",
         ],
       },
