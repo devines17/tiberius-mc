@@ -5,7 +5,8 @@
  */
 /** Pose disponibili. Se non è indicata, le card alternano "cammina", "saluta" e "rilassato". */
 export type Posa = "cammina" | "saluta" | "rilassato" | "saluto_frontale";
-export type StaffMember = { nick: string; descrizione?: string; posa?: Posa };
+/** slim: forza le braccia sottili quando la skin è disegnata slim ma l'account Mojang è impostato come classico. */
+export type StaffMember = { nick: string; descrizione?: string; posa?: Posa; slim?: boolean };
 export type StaffRole = { ruolo: string; membri: StaffMember[] };
 
 export const STAFF: StaffRole[] = [
@@ -13,7 +14,7 @@ export const STAFF: StaffRole[] = [
   {
     ruolo: "Senior Admin",
     membri: [
-      { nick: "znxoz_", descrizione: "Towns Manager", posa: "rilassato" },
+      { nick: "znxoz_", descrizione: "Towns Manager", posa: "rilassato", slim: true },
       { nick: "ItsAbsoltFan", descrizione: "Economy Manager", posa: "rilassato" },
     ],
   },

@@ -26,7 +26,8 @@ export default async function Page() {
             </h2>
             <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-stagger="0.08">
               {r.membri.map((m) => {
-                const skin = skins.get(m.nick)!;
+                const base = skins.get(m.nick)!;
+                const skin = m.slim === undefined ? base : { ...base, slim: m.slim };
                 return (
                   <li key={m.nick} className="group panel flex flex-col items-center overflow-hidden text-center">
                     <div className="relative grid w-full place-items-center bg-[radial-gradient(ellipse_at_50%_85%,rgba(226,55,43,.28),transparent_65%)] pt-4">
