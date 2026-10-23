@@ -3,8 +3,8 @@
 /* ------------------------------------------------------------------
    Tiberius MC — direzione "one motif"
    Il motivo è l'arco romano: la porta d'ingresso all'impero.
-   Bianco, nero, rosso imperiale. Un solo carattere (Fredoka) più
-   Cinzel solo per le epigrafi.
+   Bianco, nero, rosso imperiale. Lilita One per i titoli, Nunito
+   per tutto il resto, Cinzel solo per le epigrafi.
    ------------------------------------------------------------------ */
 
 @theme {
@@ -17,7 +17,13 @@
   --color-gold: #f5b814;
 
   --font-sans: var(--font-nunito), "Nunito", system-ui, sans-serif;
-  --font-badge: var(--font-fredoka), "Fredoka", system-ui, sans-serif;
+  --font-badge: var(--font-nunito), "Nunito", system-ui, sans-serif;
+
+  /* Gerarchia: le classi Tailwind di peso puntano ai pesi pieni di Nunito */
+  --font-weight-medium: 600;
+  --font-weight-semibold: 800;
+  --font-weight-bold: 900;
+  --font-weight-extrabold: 900;
   --font-epigraph: "Cinzel Variable", Georgia, serif;
   --font-brand: var(--font-lilita), "Lilita One", system-ui, sans-serif;
 }
@@ -52,19 +58,31 @@ body {
   overflow-x: clip;
 }
 
+/* Titoli principali: Lilita One, compatti e massicci */
 h1,
-h2,
-h3 {
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  line-height: 1.12;
+h2 {
+  font-family: var(--font-brand);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 1.04;
   text-wrap: balance;
 }
+/* Titoli di schede e sezioni minori: Nunito pieno */
+h3 {
+  font-weight: 900;
+  letter-spacing: -0.005em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+strong,
+b {
+  font-weight: 800;
+}
 
-/* Titoli speciali e badge: Fredoka 600 */
+/* Badge, codici ed etichette: Nunito al massimo peso */
 .font-badge {
   font-family: var(--font-badge);
-  font-weight: 600;
+  font-weight: 900;
 }
 
 ::selection {
@@ -187,7 +205,7 @@ h3 {
   border-radius: 14px;
   background: var(--color-ink);
   color: #0a0a0a;
-  font-weight: 600;
+  font-weight: 800;
   font-size: 0.9rem;
   letter-spacing: -0.005em;
   line-height: 1;
@@ -224,7 +242,7 @@ h3 {
   height: 52px;
   padding: 0 30px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800;
   color: #fff;
 }
 .btn-discord {
@@ -252,7 +270,7 @@ h3 {
 
 /* Link testuale */
 .link {
-  font-weight: 600;
+  font-weight: 800;
   text-decoration: underline;
   text-decoration-thickness: 0.12em;
   text-underline-offset: 0.2em;

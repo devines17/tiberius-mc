@@ -1,17 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Fredoka, Lilita_One, Nunito } from "next/font/google";
+import { Lilita_One, Nunito } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MotionRoot } from "@/components/motion/MotionRoot";
 
-/* Carattere del marchio "TiberiusMC" nella barra in alto. */
+/* Lilita One: marchio e titoli principali (peso unico 400, già molto pesante). */
 const lilita = Lilita_One({ weight: "400", subsets: ["latin"], display: "swap", variable: "--font-lilita" });
-/* Testi e interfaccia (400–600) e titoli (800). */
-const nunito = Nunito({ weight: ["400", "500", "600", "800"], subsets: ["latin"], display: "swap", variable: "--font-nunito" });
-/* Titoli speciali e badge. */
-const fredoka = Fredoka({ weight: "600", subsets: ["latin"], display: "swap", variable: "--font-fredoka" });
+/* Nunito: testi lunghi 500–600, enfasi, pulsanti e navigazione 800–900. */
+const nunito = Nunito({ weight: ["500", "600", "800", "900"], subsets: ["latin"], display: "swap", variable: "--font-nunito" });
 
 const title = "Tiberius MC — Minecraft Towny a tema romano";
 
@@ -43,7 +41,7 @@ const motionGate = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").match
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="it" className={`${lilita.variable} ${nunito.variable} ${fredoka.variable}`} suppressHydrationWarning>
+    <html lang="it" className={`${lilita.variable} ${nunito.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionGate }} />
       </head>
