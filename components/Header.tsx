@@ -101,9 +101,12 @@ export function Header() {
           >
             <ShoppingCart className="size-5" aria-hidden />
           </Link>
-          <Link href="/portale" className="btn hidden !bg-[#5865f2] !text-white hover:!bg-[#4752c4] sm:inline-flex" data-magnetic>
-            <DiscordIcon className="size-5" /> area personale
-          </Link>
+          {/* Il contenitore decide la visibilità: .btn impone display e vincerebbe su "hidden". */}
+          <span className="hidden sm:block">
+            <Link href="/portale" className="btn !bg-[#5865f2] !text-white hover:!bg-[#4752c4]" data-magnetic>
+              <DiscordIcon className="size-5" /> area personale
+            </Link>
+          </span>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
