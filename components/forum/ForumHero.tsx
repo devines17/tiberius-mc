@@ -5,7 +5,7 @@ const ART = {
   // Legionario pensieroso: mantello tagliato a destra, sfumato
   forum: { src: "/images/forum-gladiatore.webp", w: 722, h: 1075, cls: "[mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block" },
   // Legionario che porta il forziere
-  staff: { src: "/images/staff-legionario-forziere.webp", w: 736, h: 1000, cls: "md:block" },
+  staff: { src: "/images/staff-legionario-forziere-v2.webp", w: 774, h: 865, cls: "md:block" },
 } as const;
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff). */
