@@ -6,9 +6,11 @@ const ART = {
   forum: { src: "/images/forum-gladiatore.webp", w: 722, h: 1075, cls: "[mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
   // Due legionari abbracciati: larghi, solo da schermi grandi
   staff: { src: "/images/staff-legionari-v2.webp", w: 961, h: 801, cls: "lg:block lg:!h-[78%] lg:right-6 xl:!h-[88%] 2xl:!h-[94%] 2xl:left-[calc(50%+3rem)] 2xl:right-auto" },
+  // Legionario che legge la pergamena (regolamento)
+  regole: { src: "/images/regole-legionario.webp", w: 719, h: 821, cls: "lg:block lg:!h-[80%] lg:right-6 2xl:!h-[94%] 2xl:left-[calc(50%+7rem)] 2xl:right-auto" },
 } as const;
 
-/** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff). */
+/** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff, regole). */
 /** full: occupa tutta l'altezza dello schermo, così il contenuto sotto compare solo scorrendo. */
 export function ForumHero({ kicker, title, lead, art = "forum", full = false }: { kicker: string; title: string; lead: string; art?: keyof typeof ART; full?: boolean }) {
   const a = ART[art];

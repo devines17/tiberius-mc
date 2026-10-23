@@ -1,14 +1,31 @@
 import type { Metadata } from "next";
-import { PageHead } from "@/components/ui/PageHead";
-import { Soon, DiscordBand } from "@/components/ui/Blocks";
+import { DiscordBand } from "@/components/ui/Blocks";
+import { ForumHero } from "@/components/forum/ForumHero";
+import { RulesBrowser } from "@/components/regole/RulesBrowser";
+import { REGOLE, REGOLE_INTRO, REGOLE_VERSIONE } from "@/lib/regole";
 
-export const metadata: Metadata = { title: "Regole", description: "Il regolamento di Tiberius MC." };
+export const metadata: Metadata = { title: "Regolamento", description: "Il regolamento ufficiale di Tiberius MC: regole generali, fair play, Towny, economia, PvP, forum, store e sanzioni." };
 
 export default function Page() {
   return (
     <>
-      <PageHead kicker="regole" title={"la legge\nè legge."} lead="Poche regole, uguali per tutti." art="/images/art/empire.png" />
-      <Soon title="regolamento" text="Il testo ufficiale del regolamento sarà pubblicato qui. Non lo inventiamo: arriva dallo staff." />
+      <ForumHero
+        art="regole"
+        kicker="tiberiusmc · regole"
+        title="Regolamento"
+        lead="Ogni regola ha un codice: la lettera è il capitolo, il numero è l'articolo. F.2 vuol dire Fair play, articolo 2."
+      />
+      <div className="wrap grid gap-10 pb-10 pt-12 md:pt-16">
+        <section className="panel grid gap-3 p-6 md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/45">{REGOLE_VERSIONE}</p>
+          {REGOLE_INTRO.map((t) => (
+            <p key={t} className="leading-relaxed text-white/80">
+              {t}
+            </p>
+          ))}
+        </section>
+        <RulesBrowser chapters={REGOLE} />
+      </div>
       <DiscordBand />
     </>
   );
