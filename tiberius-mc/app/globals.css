@@ -1,0 +1,332 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Tiberius MC — direzione "one motif"
+   Il motivo è l'arco romano: la porta d'ingresso all'impero.
+   Bianco, nero, rosso imperiale. Un solo carattere (Fredoka) più
+   Cinzel solo per le epigrafi.
+   ------------------------------------------------------------------ */
+
+@theme {
+  --color-paper: #ffffff;
+  --color-surface: #f2f2f2;
+  --color-ink: #0a0a0a;
+  --color-muted: #666666;
+  --color-accent: #d92b21;
+  --color-field: #000000;
+  --color-gold: #f5b814;
+
+  --font-sans: "Fredoka Variable", ui-rounded, system-ui, sans-serif;
+  --font-epigraph: "Cinzel Variable", Georgia, serif;
+}
+
+:root {
+  --gutter: clamp(20px, 4vw, 56px);
+  --section: clamp(96px, 13vw, 200px);
+  --header-h: 80px;
+  --step-small: clamp(0.875rem, 0.84rem + 0.1vw, 0.9375rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2.25rem, 1.3rem + 4.4vw, 5.25rem);
+  --step-display: clamp(3.25rem, 1.2rem + 8.6vw, 10rem);
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  background: var(--color-paper);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--step-body);
+  font-weight: 400;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  text-transform: lowercase;
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* ---------- Struttura ---------- */
+
+.wrap {
+  padding-inline: var(--gutter);
+}
+.section {
+  padding-block: var(--section);
+}
+.on-field {
+  background: var(--color-field);
+  color: #fff;
+}
+.on-accent {
+  background: var(--color-accent);
+  color: #fff;
+}
+.on-surface {
+  background: var(--color-surface);
+}
+
+/* ---------- Il motivo: l'arco ---------- */
+
+.arch {
+  border-radius: 999px 999px 0 0;
+  overflow: hidden;
+}
+
+/* Pulsante: la cima ad arco */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  height: 56px;
+  padding: 0 30px;
+  border-radius: 56px 56px 0 0;
+  background: var(--color-ink);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+.btn:hover {
+  background: var(--color-accent);
+}
+.btn-accent {
+  background: var(--color-accent);
+}
+.btn-accent:hover {
+  background: var(--color-ink);
+}
+.btn-light {
+  background: #fff;
+  color: var(--color-ink);
+}
+.btn-light:hover {
+  background: var(--color-ink);
+  color: #fff;
+}
+.btn:active {
+  transform: translateY(2px);
+}
+
+/* Link testuale */
+.link {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s;
+}
+.link:hover {
+  color: var(--color-accent);
+}
+
+/* ---------- Parole che salgono (titoli) ---------- */
+
+.w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.w > span {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ---------- Stato di partenza delle animazioni ----------
+   Solo se JavaScript è attivo e l'utente non ha chiesto meno movimento.
+   La classe .motion è messa da uno script in <head> prima del primo
+   disegno: niente lampo di contenuto. Senza script resta tutto visibile. */
+
+.motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+}
+.motion [data-stagger] > * {
+  opacity: 0;
+  transform: translateY(32px);
+}
+.motion [data-words] .w > span {
+  transform: translateY(112%);
+}
+.motion [data-fade] {
+  opacity: 0;
+}
+.motion .hero-in {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.motion [data-hero-arch] {
+  opacity: 0;
+}
+
+/* Sipario d'ingresso: un arco nero che si alza */
+.curtain {
+  display: none;
+}
+.motion .curtain {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--color-field);
+  border-radius: 0 0 50% 50% / 0 0 18vh 18vh;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ---------- Ticker ---------- */
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 38s linear infinite;
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+/* ---------- Moneta ---------- */
+
+@keyframes coin-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+.coin-spin {
+  animation: coin-spin 5s linear infinite;
+  transform-style: preserve-3d;
+}
+
+/* ---------- Epigrafe: le lettere si scolpiscono ---------- */
+
+@keyframes carve {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35em) scale(1.25);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.carve {
+  display: inline-block;
+  animation: carve 0.5s var(--ease) both;
+}
+
+/* ---------- Blocchi (come funziona) ---------- */
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(var(--dx, 6px), var(--dy, -8px));
+  }
+}
+@keyframes wave {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.55);
+  }
+}
+@keyframes ribbon {
+  0%,
+  100% {
+    fill: #0a0a0a;
+  }
+  50% {
+    fill: #d92b21;
+  }
+}
+.blk {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.blk-scatter {
+  animation: drift var(--dur, 6s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+.blk-ribbon {
+  animation: ribbon 3.2s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+.blk-grid {
+  animation: wave 3.2s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .ticker-track,
+  .coin-spin,
+  .blk-scatter,
+  .blk-ribbon,
+  .blk-grid {
+    animation: none;
+  }
+  .carve {
+    animation-duration: 0.01ms;
+  }
+}
+
+/* Parole di un testo che si accende con lo scroll */
+.sw {
+  display: inline;
+}
+.motion [data-scrub] .sw {
+  color: var(--color-muted);
+}
+.motion [data-hero-words] .w > span {
+  transform: translateY(112%);
+}
