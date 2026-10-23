@@ -281,6 +281,11 @@ a:hover > .foot-link,
   background-size: 100% 1.5px;
 }
 
+/* Contenitore di immagini o video con zoom al passaggio: i bordi ingranditi restano dentro */
+.zoom-media {
+  overflow: hidden;
+}
+
 /* Icone social rotonde */
 .social {
   display: grid;

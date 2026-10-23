@@ -87,7 +87,7 @@ export default function Home() {
               {[
                 "Apri Minecraft Java e vai su Multiplayer.",
                 "Premi Aggiungi server.",
-                `Nome: TiberiusMC. Indirizzo: ${siteConfig.server.ip}.`,
+                `Indirizzo: ${siteConfig.server.ip}.`,
                 "Salva, seleziona il server ed entra.",
               ].map((t, i) => (
                 <li key={i} className="group flex items-start gap-4 leading-snug">
@@ -98,12 +98,11 @@ export default function Home() {
             </ol>
             <div className="mt-8 flex flex-wrap items-center gap-3" data-reveal="fade" data-delay="0.2">
               <CopyIp ip={siteConfig.server.ip} tone="dark" />
-              <Btn href="/entra" variant="light">guida completa</Btn>
             </div>
           </div>
           <div className="zoom-media relative min-h-72 lg:min-h-full" data-reveal="clip" data-delay="0.15">
             <LoopVideo
-              src="/video/guida-entra.mp4"
+              src="/video/guida-entra-v2.mp4"
               poster="/video/guida-entra.jpg"
               label="Video: in Minecraft si aggiunge il server con nome TiberiusMC e indirizzo play.tiberiusmc.it"
               className="absolute inset-0 size-full object-cover"
