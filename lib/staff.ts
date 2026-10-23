@@ -10,4 +10,11 @@ export type StaffRole = { ruolo: string; membri: StaffMember[] };
 
 export const STAFF: StaffRole[] = [
   { ruolo: "Founder", membri: [{ nick: "devines", posa: "rilassato" }, { nick: "joxe", posa: "rilassato" }] },
+  {
+    ruolo: "Senior Admin",
+    membri: [
+      { nick: "znxoz_", descrizione: "Towns Manager", posa: "rilassato" },
+      { nick: "ItsAbsoltFan", descrizione: "Economy Manager", posa: "rilassato" },
+    ],
+  },
 ];
