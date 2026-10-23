@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Lilita_One, Nunito } from "next/font/google";
+import { Lilita_One, Montserrat } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MotionRoot } from "@/components/motion/MotionRoot";
 
-/* Lilita One: marchio e titoli principali (peso unico 400, già molto pesante). */
+/* Lilita One: solo il marchio "TiberiusMC" nella barra in alto. */
 const lilita = Lilita_One({ weight: "400", subsets: ["latin"], display: "swap", variable: "--font-lilita" });
-/* Nunito: testi lunghi 500–600, enfasi, pulsanti e navigazione 800–900. */
-const nunito = Nunito({ weight: ["500", "600", "800", "900"], subsets: ["latin"], display: "swap", variable: "--font-nunito" });
+/* Montserrat: testi 400, evidenze e interfaccia 700, titoli 800. */
+const montserrat = Montserrat({ weight: ["400", "500", "700", "800"], subsets: ["latin"], display: "swap", variable: "--font-montserrat" });
 
 const title = "Tiberius MC — Minecraft Towny a tema romano";
 
@@ -41,7 +41,7 @@ const motionGate = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").match
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="it" className={`${lilita.variable} ${nunito.variable}`} suppressHydrationWarning>
+    <html lang="it" className={`${lilita.variable} ${montserrat.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionGate }} />
       </head>

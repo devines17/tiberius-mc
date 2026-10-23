@@ -69,7 +69,7 @@ export function Header() {
                   key={href}
                   href={href}
                   aria-current={active ? "page" : undefined}
-                  className={`mx-1 flex items-center gap-1.5 rounded-xl bg-accent px-3.5 py-2 text-sm font-extrabold text-white shadow-[0_6px_20px_-6px_rgb(226_53_43/0.7)] transition-[filter,box-shadow] hover:brightness-110 ${active ? "ring-2 ring-white/50" : ""}`}
+                  className={`mx-1 flex items-center gap-1.5 rounded-xl bg-accent px-3.5 py-2 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgb(226_53_43/0.7)] transition-[filter,box-shadow] hover:brightness-110 ${active ? "ring-2 ring-white/50" : ""}`}
                 >
                   <Icon className="size-4" aria-hidden />
                   {label}
@@ -81,7 +81,7 @@ export function Header() {
                 key={href}
                 href={href}
                 aria-current={active ? "page" : undefined}
-                className={`group relative flex items-center gap-1.5 px-2.5 py-2 text-sm font-extrabold transition-colors ${active ? "text-white" : "text-white/70 hover:text-white"}`}
+                className={`group relative flex items-center gap-1.5 px-2.5 py-2 text-sm font-bold transition-colors ${active ? "text-white" : "text-white/70 hover:text-white"}`}
               >
                 <Icon className={`size-4 transition-colors ${active ? "text-accent" : "group-hover:text-accent"}`} aria-hidden />
                 {label}
@@ -114,7 +114,7 @@ export function Header() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="menu"
-            className="flex h-11 items-center gap-3 px-2 text-sm font-extrabold xl:hidden"
+            className="flex h-11 items-center gap-3 px-2 text-sm font-bold xl:hidden"
           >
             {open ? "chiudi" : "menu"}
             <span className="relative block h-3 w-6" aria-hidden>
