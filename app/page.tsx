@@ -7,6 +7,7 @@ import { DiscordIcon } from "@/components/ui/DiscordIcon";
 import { TelegramIcon } from "@/components/ui/TelegramIcon";
 import { ServerStatus } from "@/components/ui/ServerStatus";
 import { DiscordCount } from "@/components/ui/DiscordCount";
+import { LoopVideo } from "@/components/ui/LoopVideo";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
 import { siteConfig } from "@/lib/site-config";
 
@@ -35,8 +36,8 @@ export default function Home() {
           <h1 className="text-[length:var(--step-display)] uppercase text-white">
             <Words text="La gloria non conosce confini." mode="hero" />
           </h1>
-          <p className="mt-5 max-w-2xl text-[length:var(--step-lead)] uppercase leading-snug tracking-wide text-white/85 hero-in" data-hero-in>
-            Fonda una città, forma una nazione, scrivi la storia dell&apos;impero.
+          <p className="mt-5 max-w-2xl text-[length:var(--step-lead)] leading-snug text-white/85 hero-in" data-hero-in>
+            fonda una città, forma una nazione, scrivi la storia dell&apos;impero.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 hero-in" data-hero-in>
             <CopyIp ip={siteConfig.server.ip} tone="dark" />
@@ -101,7 +102,12 @@ export default function Home() {
             </div>
           </div>
           <div className="zoom-media relative min-h-72 lg:min-h-full" data-reveal="clip" data-delay="0.15">
-            <Image src="/images/aggiungi-server.png" alt="Schermata di Minecraft: modifica le informazioni del server con nome TiberiusMC e indirizzo play.tiberiusmc.it" fill sizes="(min-width:1024px) 45vw, 100vw" className="object-cover" unoptimized />
+            <LoopVideo
+              src="/video/guida-entra.mp4"
+              poster="/video/guida-entra.jpg"
+              label="Video: in Minecraft si aggiunge il server con nome TiberiusMC e indirizzo play.tiberiusmc.it"
+              className="absolute inset-0 size-full object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-[#131116] via-transparent to-transparent max-lg:hidden" />
           </div>
         </div>

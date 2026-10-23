@@ -322,10 +322,12 @@ a:hover > .foot-link,
 
   /* Immagini dentro un riquadro: zoom lento al passaggio */
   .zoom-media img,
+  .zoom-media video,
   .arch img {
     transition: scale 0.8s var(--ease);
   }
   .zoom-media:hover img,
+  .zoom-media:hover video,
   .arch:hover img {
     scale: 1.04;
   }
