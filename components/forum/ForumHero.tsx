@@ -5,8 +5,8 @@ import { Words } from "@/components/ui/Words";
 export function ForumHero({ kicker, title, lead }: { kicker: string; title: string; lead: string }) {
   return (
     <section className="relative isolate overflow-hidden">
-      <Image src="/images/forum-bg.jpg" alt="" fill priority sizes="100vw" className="kenburns -z-20 object-cover" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/75 via-black/45 to-black/10" />
+      <Image src="/images/forum-bg.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_35%]" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/65 via-black/25 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-b from-transparent to-[#0b0a0c]" />
 
       <Image
@@ -20,7 +20,7 @@ export function ForumHero({ kicker, title, lead }: { kicker: string; title: stri
         data-hero-in
       />
 
-      <div className="wrap relative flex min-h-[360px] items-center py-16 md:min-h-[460px] lg:min-h-[520px]">
+      <div className="wrap relative flex min-h-[360px] items-center py-16 md:min-h-[480px] lg:min-h-[600px]">
         <div className="max-w-xl text-white md:max-w-[52%]">
           <p className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 hero-in" data-hero-in>
             {kicker}
