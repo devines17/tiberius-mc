@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: Promise<{ ruolo: string
               {s.cmds && (
                 <dl className="grid divide-y divide-white/10 overflow-hidden rounded-xl bg-black/25 ring-1 ring-white/10">
                   {s.cmds.map((c) => (
-                    <div key={c.cmd} className="grid gap-1 px-4 py-3 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-6">
+                    <div key={c.cmd} className="grid gap-1 px-4 py-3 md:grid-cols-[minmax(0,18rem)_1fr] md:gap-6">
                       <dt>
                         <code className="break-words font-mono text-sm text-[#ffb4ad]">{c.cmd}</code>
                       </dt>
