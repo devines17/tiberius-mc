@@ -18,6 +18,7 @@
 
   --font-sans: "Tektur Variable", system-ui, sans-serif;
   --font-epigraph: "Cinzel Variable", Georgia, serif;
+  --font-brand: var(--font-lilita), "Lilita One", system-ui, sans-serif;
 }
 
 :root {

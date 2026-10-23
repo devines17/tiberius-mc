@@ -5,14 +5,16 @@ import { Btn } from "@/components/ui/Btn";
 import { CopyIp } from "@/components/ui/CopyIp";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
 import { TelegramIcon } from "@/components/ui/TelegramIcon";
+import { ServerStatus } from "@/components/ui/ServerStatus";
+import { DiscordCount } from "@/components/ui/DiscordCount";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
 import { siteConfig } from "@/lib/site-config";
 
 const quick = [
-  { href: "/regole", t: "Regolamento", d: "le leggi dell'impero", ext: false },
-  { href: "/forum", t: "Forum", d: "discussioni e ambasciate", ext: false },
-  { href: "/mappa", t: "Mappa", d: "il mondo dall'alto", ext: false },
-  { href: siteConfig.links.discord, t: "Discord", d: "la community", ext: true },
+  { href: "/regole", t: "Regolamento", ext: false },
+  { href: "/forum", t: "Forum", ext: false },
+  { href: "/mappa", t: "Mappa", ext: false },
+  { href: siteConfig.links.discord, t: "Discord", ext: true },
 ];
 
 export default function Home() {
@@ -40,16 +42,16 @@ export default function Home() {
             <CopyIp ip={siteConfig.server.ip} tone="dark" />
             <Btn href={siteConfig.links.discord} external variant="accent">entra nel discord</Btn>
           </div>
+          <div className="mt-5 hero-in" data-hero-in>
+            <ServerStatus host={siteConfig.server.ip} />
+          </div>
         </div>
         <div className="wrap w-full pb-8">
           <ul className="panel grid divide-white/10 sm:grid-cols-2 sm:divide-x lg:grid-cols-4" data-stagger="0.08" data-delay="0.6" style={{ background: "rgb(10 9 12 / 0.6)", backdropFilter: "blur(14px)" }}>
             {quick.map((q) => (
               <li key={q.t} className="border-b border-white/10 last:border-b-0 sm:border-b-0">
                 <Link href={q.href} {...(q.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="group flex items-center justify-between gap-4 px-6 py-5 transition-colors hover:bg-white/5">
-                  <span>
-                    <span className="block font-semibold transition-colors group-hover:text-accent">{q.t}</span>
-                    <span className="text-sm text-white/60">{q.d}</span>
-                  </span>
+                  <span className="font-semibold transition-colors group-hover:text-accent">{q.t}</span>
                   <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1.5">→</span>
                 </Link>
               </li>
@@ -132,33 +134,51 @@ export default function Home() {
       <section className="wrap section pt-0">
         <div className="panel panel-discord grid items-end gap-6 pl-8 pt-8 md:pl-12 md:pt-12 lg:grid-cols-[1.1fr_1fr]" data-reveal>
           <div className="grid gap-5 pb-8 pr-8 md:pb-12 md:pr-0" data-stagger="0.08">
-            <DiscordIcon className="size-12" />
-            <h2 className="text-[length:var(--step-head)]">Entra nel nostro Discord.</h2>
+            <div className="flex items-center gap-3">
+              <span className="grid size-12 place-items-center rounded-2xl bg-white/15">
+                <DiscordIcon className="size-7" />
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">community ufficiale</span>
+            </div>
+            <h2 className="text-[length:var(--step-head)]">Il foro dell&apos;impero è su Discord.</h2>
             <p className="max-w-md text-white/90">
-              Annunci, supporto, eventi e il collegamento del tuo account ai gestionali.
+              Qui escono annunci ed eventi, lo staff risponde alle tue domande e colleghi il tuo account ai gestionali di città e nazioni.
             </p>
+            <div className="min-h-5">
+              <DiscordCount invite={siteConfig.links.discord} className="text-white/90" />
+            </div>
             <div className="flex flex-wrap gap-3">
               <Btn href={siteConfig.links.discord} external variant="light">entra nel discord</Btn>
             </div>
           </div>
+          {/* "block" toglie lo spazio sotto l'immagine: i legionari poggiano sul bordo del riquadro */}
           <div className="mx-auto w-full max-w-md self-end pr-6 md:pr-12" data-reveal="right" data-delay="0.2">
-            <Image src="/images/legionari-telefono.png" alt="Due legionari romani di Tiberius MC che guardano uno smartphone" width={1000} height={914} className="w-full" unoptimized />
+            <Image src="/images/legionari-telefono.png" alt="Due legionari romani di Tiberius MC che guardano uno smartphone" width={1000} height={914} className="block w-full" unoptimized />
           </div>
         </div>
       </section>
 
       {/* TELEGRAM */}
       <section className="wrap section pt-0">
-        <div className="panel panel-telegram flex flex-wrap items-center justify-between gap-6 p-8 md:p-12" data-reveal>
-          <div className="flex items-center gap-5" data-reveal="left" data-delay="0.15">
-            <TelegramIcon className="size-12 shrink-0" />
+        <div className="panel panel-telegram relative grid items-center gap-8 p-8 md:p-12 lg:grid-cols-[1.4fr_1fr]" data-reveal>
+          <div className="relative z-10 grid gap-5" data-stagger="0.08">
+            <div className="flex items-center gap-3">
+              <span className="grid size-12 place-items-center rounded-2xl bg-white/15">
+                <TelegramIcon className="size-7" />
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">telegram</span>
+            </div>
+            <h2 className="text-[length:var(--step-head)]">Gli annunci, anche su Telegram.</h2>
+            <p className="max-w-md text-white/90">
+              Segui {siteConfig.links.telegramHandle} e ricevi le novità del server direttamente sul telefono, senza aprire Discord.
+            </p>
             <div>
-              <h2 className="text-[length:var(--step-head)]">Seguici su Telegram.</h2>
-              <p className="mt-1 text-white/90">Ci trovi come {siteConfig.links.telegramHandle}.</p>
+              <Btn href={siteConfig.links.telegram} external variant="light">apri telegram</Btn>
             </div>
           </div>
-          <div data-reveal="right" data-delay="0.25">
-            <Btn href={siteConfig.links.telegram} external variant="light">apri telegram</Btn>
+          {/* Logo grande decorativo: solo da schermo largo */}
+          <div aria-hidden className="pointer-events-none hidden justify-center lg:flex" data-reveal="zoom" data-delay="0.2">
+            <TelegramIcon className="size-56 -rotate-12 text-white/20" />
           </div>
         </div>
       </section>

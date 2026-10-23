@@ -56,8 +56,8 @@ export function Header() {
 
   return (
     <header className={`topbar fixed inset-x-0 top-0 z-50 ${open ? "!bg-field text-white" : ""}`} style={{ height: "var(--header-h)" }}>
-      <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between gap-6 px-[var(--gutter)]">
-        <Link href="/" className="relative z-10 text-xl font-bold tracking-tight" aria-label="TiberiusMC, home">
+      <div className="flex h-full items-center justify-between gap-6 px-[var(--gutter)]">
+        <Link href="/" className="relative z-10 shrink-0 font-brand text-[1.75rem] leading-none tracking-wide md:text-[2rem]" aria-label="TiberiusMC, home">
           Tiberius<span className="text-accent">MC</span>
         </Link>
         <nav aria-label="Principale" className="hidden items-center gap-0.5 xl:flex">
@@ -103,8 +103,10 @@ export function Header() {
           </Link>
           {/* Il contenitore decide la visibilità: .btn impone display e vincerebbe su "hidden". */}
           <span className="hidden sm:block">
-            <Link href="/portale" className="btn !bg-[#5865f2] !text-white hover:!bg-[#4752c4]" data-magnetic>
-              <DiscordIcon className="size-5" /> area personale
+            <Link href="/portale" aria-label="Area personale" className="btn !bg-[#5865f2] !text-white hover:!bg-[#4752c4] xl:max-2xl:!px-3.5" data-magnetic>
+              <DiscordIcon className="size-5" />
+              {/* Tra 1280 e 1536 px la barra completa è stretta: resta solo l'icona */}
+              <span className="xl:max-2xl:sr-only">area personale</span>
             </Link>
           </span>
           <button
