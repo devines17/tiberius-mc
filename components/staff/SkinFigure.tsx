@@ -67,7 +67,8 @@ export function SkinFigure({ skin, pose = 0 }: { skin: Skin; pose?: number }) {
       aria-label={`Skin di ${skin.name}`}
     >
       <div className="sk-figure">
-        <Part name="head" base={{ w: 8, h: 8, d: 8, u: 0, v: 0 }} overlay={{ w: 8, h: 8, d: 8, u: 32, v: 0 }} overlayScale={1.125} />
+        {/* Nelle vecchie skin 64x32 lo strato del cappello è spesso pieno (nero): Minecraft lo ignora, qui lo omettiamo */}
+        <Part name="head" base={{ w: 8, h: 8, d: 8, u: 0, v: 0 }} overlay={L ? undefined : { w: 8, h: 8, d: 8, u: 32, v: 0 }} overlayScale={1.125} />
         <Part name="body" base={{ w: 8, h: 12, d: 4, u: 16, v: 16 }} overlay={L ? undefined : { w: 8, h: 12, d: 4, u: 16, v: 32 }} overlayScale={1.07} />
         <Part name="rarm" base={{ w: a, h: 12, d: 4, u: 40, v: 16 }} overlay={L ? undefined : { w: a, h: 12, d: 4, u: 40, v: 32 }} overlayScale={1.08} />
         <Part
