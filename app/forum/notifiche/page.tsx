@@ -61,7 +61,7 @@ async function Body() {
               return (
                 <li key={n.id}>
                   {n.tickets ? (
-                    <Link href={`/forum/pratica/${n.tickets.number}`} className="flex gap-4 px-5 py-4 transition-colors hover:bg-white/[0.04] md:px-6">
+                    <Link href={`/forum/pratica?n=${n.tickets.number}`} className="flex gap-4 px-5 py-4 transition-colors hover:bg-white/[0.04] md:px-6">
                       {inner}
                     </Link>
                   ) : (

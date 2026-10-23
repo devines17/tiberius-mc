@@ -19,11 +19,11 @@ import type { Attachment } from "@/lib/server/types";
 // Le pratiche sono private: mai nei motori di ricerca, mai titoli nei metadata.
 export const metadata: Metadata = { title: "Pratica", robots: { index: false, follow: false } };
 
-export default function Page({ params, searchParams }: { params: Promise<{ numero: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+export default function Page({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   return (
     <div className="pb-20 pt-10">
       <Suspense fallback={<ForumLoading rows={4} />}>
-        <Body params={params} searchParams={searchParams} />
+        <Body searchParams={searchParams} />
       </Suspense>
     </div>
   );
@@ -46,15 +46,15 @@ function Attachments({ items }: { items: Attachment[] }) {
   );
 }
 
-async function Body({ params, searchParams }: { params: Promise<{ numero: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const { numero } = await params;
+async function Body({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  // Numero nella query (?n=1042): così la rotta non ha parametri dinamici e la testata resta nel guscio statico
   const sp = await searchParams;
-  const number = Number(numero);
+  const number = typeof sp.n === "string" && /^\d{1,9}$/.test(sp.n) ? Number(sp.n) : NaN;
   if (!Number.isSafeInteger(number) || number <= 0) notFound();
 
   const { configured, session, unread } = await forumContext();
   if (!configured) return <NotConfigured />;
-  if (!session) return <LoginRequired next={`/forum/pratica/${number}`} />;
+  if (!session) return <LoginRequired next={`/forum/pratica?n=${number}`} />;
 
   let view;
   try {

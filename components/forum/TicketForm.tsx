@@ -65,7 +65,7 @@ export function TicketForm({ meta, fields, edit }: { meta: FormMeta; fields: Fie
         document.querySelector<HTMLElement>("[aria-invalid='true']")?.focus();
         return;
       }
-      router.push(`/forum/pratica/${data.number}?nuova=1`);
+      router.push(`/forum/pratica?n=${data.number}&nuova=1`);
     } catch {
       setStatus({ kind: "error", msg: "Connessione non riuscita. I dati sono ancora qui: riprova." });
     }

@@ -51,7 +51,7 @@ export function TicketRows({ tickets, empty, showAuthor = false, highlight }: { 
         const note = highlight?.(t);
         return (
           <li key={t.id}>
-            <Link href={`/forum/pratica/${t.number}`} className="group grid gap-2 px-5 py-4 transition-colors hover:bg-white/[0.04] sm:grid-cols-[7rem_1fr_auto] sm:items-center sm:gap-5 md:px-6">
+            <Link href={`/forum/pratica?n=${t.number}`} className="group grid gap-2 px-5 py-4 transition-colors hover:bg-white/[0.04] sm:grid-cols-[7rem_1fr_auto] sm:items-center sm:gap-5 md:px-6">
               <span className="font-mono text-sm text-white/50">{ticketCode(t.number)}</span>
               <span className="min-w-0">
                 <span className="flex flex-wrap items-center gap-2">
