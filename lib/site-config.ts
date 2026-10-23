@@ -42,7 +42,7 @@ export const siteConfig = {
    * non compare: nessun dato inventato.
    */
   contact: {
-    email: env(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
+    email: env(process.env.NEXT_PUBLIC_CONTACT_EMAIL) ?? "business@tiberiusmc.it",
     /** Ragione sociale, P. IVA, sede: una riga sola, così com'è. */
     company: env(process.env.NEXT_PUBLIC_COMPANY_INFO),
   },

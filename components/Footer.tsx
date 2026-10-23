@@ -1,21 +1,39 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Building, Copyright, Gamepad2, Info, Mail } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  BookOpen,
+  Building,
+  Copyright,
+  House,
+  Info,
+  LayoutDashboard,
+  Mail,
+  Map as MapIcon,
+  MessagesSquare,
+  Newspaper,
+  ScrollText,
+  Shield,
+  Store,
+  Vote,
+} from "lucide-react";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
-import { CopyIp } from "@/components/ui/CopyIp";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
 import { TelegramIcon } from "@/components/ui/TelegramIcon";
 import { siteConfig } from "@/lib/site-config";
 
-/* Solo le voci principali, su una riga: le altre pagine sono già nella barra in alto e nella home. */
-const nav = [
-  { href: "/news", label: "news" },
-  { href: "/regole", label: "regole" },
-  { href: "/forum", label: "forum" },
-  { href: "/vota", label: "vota" },
-  { href: "/store", label: "store" },
-  { href: "/staff", label: "staff" },
-  { href: "/portale", label: "gestionale" },
+/* Le stesse voci della barra in alto, con le stesse icone, su una riga. */
+const nav: { href: string; label: string; icon: LucideIcon }[] = [
+  { href: "/", label: "home", icon: House },
+  { href: "/news", label: "news", icon: Newspaper },
+  { href: "/regole", label: "regole", icon: ScrollText },
+  { href: "/mappa", label: "mappa", icon: MapIcon },
+  { href: "/forum", label: "forum", icon: MessagesSquare },
+  { href: "/store", label: "store", icon: Store },
+  { href: "/staff", label: "staff", icon: Shield },
+  { href: "/vota", label: "vota", icon: Vote },
+  { href: "/wiki", label: "wiki", icon: BookOpen },
+  { href: "/portale", label: "gestionale", icon: LayoutDashboard },
 ];
 
 /** Riga informativa con piccola icona davanti. */
@@ -48,26 +66,27 @@ export function Footer() {
           className="grid items-center justify-items-center gap-8 pb-10 pt-14 md:pt-16 lg:grid-cols-[auto_1fr_auto] lg:justify-items-stretch lg:gap-12"
           data-stagger="0.1"
         >
-          <Link href="/" aria-label="Tiberius MC, home" className="block w-fit transition-opacity hover:opacity-85 lg:justify-self-start">
+          <Link href="/" aria-label="TiberiusMC, home" className="block w-fit transition-opacity hover:opacity-85 lg:justify-self-start">
             <TiberiusLogo variant="fluid" className="h-20 md:h-24" />
           </Link>
 
           <nav aria-label="Pagine del sito" className="w-full">
-            <ul className="mx-auto flex flex-wrap justify-center gap-x-6 gap-y-2.5 text-[0.9375rem] font-semibold text-white/75 md:flex-nowrap md:gap-x-7">
-              {nav.map((p) => (
-                <li key={p.href}>
-                  <Link href={p.href} className="foot-link">
-                    {p.label}
+            <ul className="mx-auto flex flex-wrap justify-center gap-x-5 gap-y-2.5 text-sm font-semibold text-white/75 lg:flex-nowrap lg:gap-x-4 xl:gap-x-5">
+              {nav.map(({ href, label, icon: Icon }) => (
+                <li key={href}>
+                  <Link href={href} className="group flex items-center gap-1.5 whitespace-nowrap">
+                    <Icon className="size-4 shrink-0 transition-colors group-hover:text-accent" aria-hidden />
+                    <span className="foot-link">{label}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div className="flex flex-col items-center gap-4 lg:items-end">
+          <div className="flex items-center lg:justify-end">
             <ul className="flex items-center gap-2.5" aria-label="Social">
               <li>
-                <a href={links.discord} target="_blank" rel="noopener noreferrer" aria-label="Discord di Tiberius MC" className="social">
+                <a href={links.discord} target="_blank" rel="noopener noreferrer" aria-label="Discord di TiberiusMC" className="social">
                   <DiscordIcon className="size-5" />
                 </a>
               </li>
@@ -77,7 +96,6 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-            <CopyIp ip={siteConfig.server.ip} tone="dark" />
           </div>
         </div>
 
@@ -87,10 +105,7 @@ export function Footer() {
         {/* Riga inferiore: informazioni · link legali */}
         <div className="grid gap-6 py-8 text-sm text-white/60 md:grid-cols-[1fr_auto] md:items-start md:gap-10" data-reveal="fade">
           <ul className="grid gap-2 text-center md:text-left [&>li]:justify-center md:[&>li]:justify-start">
-            <Line icon={<Copyright className="size-3.5" />}>
-              {siteConfig.name}. La gloria non conosce confini.
-            </Line>
-            <Line icon={<Gamepad2 className="size-3.5" />}>Minecraft Java Survival Towny a tema romano.</Line>
+            <Line icon={<Copyright className="size-3.5" />}>TiberiusMC. Tutti i diritti riservati.</Line>
             {contact.company && <Line icon={<Building className="size-3.5" />}>{contact.company}</Line>}
             {contact.email && (
               <Line icon={<Mail className="size-3.5" />}>

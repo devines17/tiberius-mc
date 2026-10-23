@@ -32,10 +32,10 @@ export default function Home() {
               <TiberiusLogo variant="fluid" className="w-full drop-shadow-[0_12px_40px_rgba(0,0,0,.6)]" priority />
             </div>
           </div>
-          <h1 className="text-[length:var(--step-display)] text-white">
+          <h1 className="text-[length:var(--step-display)] uppercase text-white">
             <Words text="La gloria non conosce confini." mode="hero" />
           </h1>
-          <p className="mt-5 max-w-xl text-[length:var(--step-lead)] leading-snug text-white/85 hero-in" data-hero-in>
+          <p className="mt-5 max-w-2xl text-[length:var(--step-lead)] uppercase leading-snug tracking-wide text-white/85 hero-in" data-hero-in>
             Fonda una città, forma una nazione, scrivi la storia dell&apos;impero.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 hero-in" data-hero-in>
@@ -118,7 +118,7 @@ export default function Home() {
             </div>
             <h2 className="text-[length:var(--step-head)]">Il Goldone, moneta premium.</h2>
             <p className="max-w-xl text-muted">
-              Il Goldone è la valuta premium di Tiberius MC ed è separata dal denaro che usi in gioco: le due monete non si mescolano. Come ottenerlo e cosa puoi acquistare lo spiegheremo qui all&apos;apertura dello store.
+              Il Goldone è la valuta premium di TiberiusMC ed è separata dal denaro che usi in gioco: le due monete non si mescolano. Come ottenerlo e cosa puoi acquistare lo spiegheremo qui all&apos;apertura dello store.
             </p>
             <div>
               {siteConfig.links.store ? (
@@ -130,7 +130,7 @@ export default function Home() {
           </div>
           {/* Il legionario poggia sul bordo del riquadro, come quelli del Discord */}
           <div className="mx-auto w-full max-w-lg self-end pr-6 pt-4 md:pr-12 lg:pt-12" data-reveal="right" data-delay="0.2">
-            <Image src="/images/legionario-tesoro.png" alt="Un legionario di Tiberius MC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="block w-full" unoptimized />
+            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="block w-full" unoptimized />
           </div>
         </div>
       </section>
@@ -160,7 +160,7 @@ export default function Home() {
           </div>
           {/* "block" toglie lo spazio sotto l'immagine: i legionari poggiano sul bordo del riquadro */}
           <div className="mx-auto w-full max-w-md self-end pr-6 pt-4 md:pr-12 lg:pt-12" data-reveal="right" data-delay="0.2">
-            <Image src="/images/legionari-telefono.png" alt="Due legionari romani di Tiberius MC che guardano uno smartphone" width={1000} height={914} className="block w-full" unoptimized />
+            <Image src="/images/legionari-telefono.png" alt="Due legionari romani di TiberiusMC che guardano uno smartphone" width={1000} height={914} className="block w-full" unoptimized />
           </div>
         </div>
       </section>

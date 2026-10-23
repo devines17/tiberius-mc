@@ -275,6 +275,7 @@ h3 {
     background-size 0.35s var(--ease);
 }
 .foot-link:hover,
+a:hover > .foot-link,
 .foot-link[aria-current="page"] {
   color: var(--color-accent);
   background-size: 100% 1.5px;
