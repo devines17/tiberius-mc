@@ -109,14 +109,17 @@ export default function Home() {
 
       {/* GOLDONI */}
       <section className="wrap section pt-0">
-        <div className="panel grid items-center gap-8 p-8 md:p-12 lg:grid-cols-[1.4fr_1fr]" data-reveal>
-          <div data-stagger="0.1">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">goldoni e store</p>
+        <div className="panel panel-flush grid items-end gap-6 pl-8 pt-8 md:pl-12 md:pt-12 lg:grid-cols-[1.2fr_1fr]" data-reveal>
+          <div className="grid gap-5 pb-8 pr-8 md:pb-12 md:pr-0" data-stagger="0.1">
+            <div className="flex items-center gap-3">
+              <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="coin-spin size-12" unoptimized />
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">goldoni e store</span>
+            </div>
             <h2 className="text-[length:var(--step-head)]">Il Goldone, moneta premium.</h2>
-            <p className="mt-4 max-w-xl text-muted">
+            <p className="max-w-xl text-muted">
               Non è la valuta di gioco: vive a parte, e le sue regole saranno spiegate qui. Lo store è in preparazione.
             </p>
-            <div className="mt-6">
+            <div>
               {siteConfig.links.store ? (
                 <Btn href={siteConfig.links.store} external variant="accent">vai allo store</Btn>
               ) : (
@@ -124,8 +127,9 @@ export default function Home() {
               )}
             </div>
           </div>
-          <div className="mx-auto" data-reveal="zoom" data-delay="0.2">
-            <Image src="/images/art/goldone.png" alt="Il Goldone, moneta premium di Tiberius MC" width={640} height={640} className="float-y w-40 md:w-52" unoptimized />
+          {/* Il legionario poggia sul bordo del riquadro, come quelli del Discord */}
+          <div className="mx-auto w-full max-w-md self-end pr-6 md:pr-12" data-reveal="right" data-delay="0.2">
+            <Image src="/images/legionario-tesoro.png" alt="Un legionario di Tiberius MC apre un forziere pieno di Goldoni e gemme" width={900} height={890} className="block w-full" unoptimized />
           </div>
         </div>
       </section>
@@ -135,20 +139,22 @@ export default function Home() {
         <div className="panel panel-discord grid items-end gap-6 pl-8 pt-8 md:pl-12 md:pt-12 lg:grid-cols-[1.1fr_1fr]" data-reveal>
           <div className="grid gap-5 pb-8 pr-8 md:pb-12 md:pr-0" data-stagger="0.08">
             <div className="flex items-center gap-3">
-              <span className="grid size-12 place-items-center rounded-2xl bg-white/15">
+              <span className="grid size-12 place-items-center rounded-2xl bg-[#5865f2]/20 text-[#8c96ff]">
                 <DiscordIcon className="size-7" />
               </span>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">community ufficiale</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8c96ff]">community ufficiale</span>
             </div>
-            <h2 className="text-[length:var(--step-head)]">Il foro dell&apos;impero è su Discord.</h2>
-            <p className="max-w-md text-white/90">
-              Qui escono annunci ed eventi, lo staff risponde alle tue domande e colleghi il tuo account ai gestionali di città e nazioni.
+            <h2 className="text-[length:var(--step-head)]">Entra nel nostro Discord.</h2>
+            <p className="max-w-md text-white/80">
+              Annunci, eventi e supporto dello staff in un unico posto. Lì colleghi anche il tuo account ai gestionali di città e nazioni.
             </p>
             <div className="min-h-5">
-              <DiscordCount invite={siteConfig.links.discord} className="text-white/90" />
+              <DiscordCount invite={siteConfig.links.discord} className="text-white/85" />
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Btn href={siteConfig.links.discord} external variant="light">entra nel discord</Btn>
+            <div>
+              <Btn href={siteConfig.links.discord} external variant="discord">
+                <DiscordIcon className="size-5" /> Entra su Discord
+              </Btn>
             </div>
           </div>
           {/* "block" toglie lo spazio sotto l'immagine: i legionari poggiano sul bordo del riquadro */}
@@ -163,22 +169,24 @@ export default function Home() {
         <div className="panel panel-telegram relative grid items-center gap-8 p-8 md:p-12 lg:grid-cols-[1.4fr_1fr]" data-reveal>
           <div className="relative z-10 grid gap-5" data-stagger="0.08">
             <div className="flex items-center gap-3">
-              <span className="grid size-12 place-items-center rounded-2xl bg-white/15">
+              <span className="grid size-12 place-items-center rounded-2xl bg-[#2aabee]/20 text-[#5cc4f5]">
                 <TelegramIcon className="size-7" />
               </span>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">telegram</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#5cc4f5]">telegram</span>
             </div>
-            <h2 className="text-[length:var(--step-head)]">Gli annunci, anche su Telegram.</h2>
-            <p className="max-w-md text-white/90">
-              Segui {siteConfig.links.telegramHandle} e ricevi le novità del server direttamente sul telefono, senza aprire Discord.
+            <h2 className="text-[length:var(--step-head)]">Entra nel nostro Telegram.</h2>
+            <p className="max-w-md text-white/80">
+              Ci trovi anche su Telegram come {siteConfig.links.telegramHandle}: unisciti e resta in contatto con la community.
             </p>
             <div>
-              <Btn href={siteConfig.links.telegram} external variant="light">apri telegram</Btn>
+              <Btn href={siteConfig.links.telegram} external variant="telegram">
+                <TelegramIcon className="size-5" /> Entra su Telegram
+              </Btn>
             </div>
           </div>
           {/* Logo grande decorativo: solo da schermo largo */}
           <div aria-hidden className="pointer-events-none hidden justify-center lg:flex" data-reveal="zoom" data-delay="0.2">
-            <TelegramIcon className="size-56 -rotate-12 text-white/20" />
+            <TelegramIcon className="size-56 -rotate-12 text-[#2aabee]/25" />
           </div>
         </div>
       </section>

@@ -47,7 +47,9 @@ export function DiscordBand() {
       <div className="panel panel-discord flex flex-wrap items-center justify-between gap-6 p-8 md:p-12" data-reveal>
         <h2 className="flex items-center gap-4 text-[length:var(--step-head)]" data-reveal="left" data-delay="0.15"><DiscordIcon className="size-10" /> Vieni nel nostro Discord.</h2>
         <div data-reveal="right" data-delay="0.25">
-          <Btn href={siteConfig.links.discord} external variant="light">entra nel discord</Btn>
+          <Btn href={siteConfig.links.discord} external variant="discord">
+            <DiscordIcon className="size-5" /> Entra su Discord
+          </Btn>
         </div>
       </div>
     </section>
