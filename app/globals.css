@@ -197,6 +197,80 @@ h3 {
   color: var(--color-accent);
 }
 
+/* ---------- Interazioni al passaggio del mouse ----------
+   Solo colore e piccoli spostamenti. I movimenti spariscono con
+   "riduci movimento"; i cambi di colore restano. */
+
+.panel {
+  transition: border-color 0.4s var(--ease);
+}
+.panel:not(.panel-discord):hover {
+  border-color: rgb(255 255 255 / 0.18);
+}
+
+/* Link del footer: sottolineatura che si allunga */
+.foot-link {
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 1.5px;
+  padding-bottom: 2px;
+  transition:
+    color 0.25s var(--ease),
+    background-size 0.35s var(--ease);
+}
+.foot-link:hover,
+.foot-link[aria-current="page"] {
+  color: var(--color-accent);
+  background-size: 100% 1.5px;
+}
+
+/* Icone social rotonde */
+.social {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgb(255 255 255 / 0.15);
+  color: #fff;
+  transition:
+    background-color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    translate 0.25s var(--ease);
+}
+.social:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Il pulsante si solleva appena. `translate` non tocca il transform
+     usato dall'effetto magnetico. */
+  .btn {
+    transition:
+      background-color 0.25s var(--ease),
+      color 0.25s var(--ease),
+      transform 0.25s var(--ease),
+      translate 0.25s var(--ease),
+      box-shadow 0.25s var(--ease);
+  }
+  .btn:hover {
+    translate: 0 -2px;
+    box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.6);
+  }
+  .social:hover {
+    translate: 0 -2px;
+  }
+
+  /* Immagini dentro un riquadro: zoom lento al passaggio */
+  .zoom-media img,
+  .arch img {
+    transition: scale 0.8s var(--ease);
+  }
+  .zoom-media:hover img,
+  .arch:hover img {
+    scale: 1.04;
+  }
+}
+
 /* ---------- Parole che salgono (titoli) ---------- */
 
 .w {
@@ -216,18 +290,38 @@ h3 {
    La classe .motion è messa da uno script in <head> prima del primo
    disegno: niente lampo di contenuto. Senza script resta tutto visibile. */
 
-.motion [data-reveal] {
+/* .is-in viene aggiunta a fine animazione: da lì l'elemento è di nuovo
+   "normale" e gli effetti hover possono usare transform. */
+.motion [data-reveal]:not(.is-in) {
   opacity: 0;
   transform: translateY(36px);
 }
-.motion [data-stagger] > * {
+.motion [data-reveal="left"]:not(.is-in) {
+  transform: translateX(-44px);
+}
+.motion [data-reveal="right"]:not(.is-in) {
+  transform: translateX(44px);
+}
+.motion [data-reveal="zoom"]:not(.is-in) {
+  transform: translateY(12px) scale(0.92);
+}
+.motion [data-reveal="fade"]:not(.is-in) {
+  transform: none;
+}
+.motion [data-reveal="clip"]:not(.is-in) {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(100% 0 0 0);
+}
+.motion [data-stagger] > :not(.is-in) {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(28px);
 }
 .motion [data-words] .w > span {
   transform: translateY(112%);
 }
-.motion [data-fade] {
+.motion [data-fade]:not(.is-in),
+.motion [data-hero-logo] {
   opacity: 0;
 }
 .motion .hero-in {
@@ -251,25 +345,6 @@ h3 {
   border-radius: 0 0 50% 50% / 0 0 18vh 18vh;
   pointer-events: none;
   will-change: transform;
-}
-
-/* ---------- Ticker ---------- */
-
-@keyframes ticker {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.ticker-track {
-  display: flex;
-  width: max-content;
-  animation: ticker 38s linear infinite;
-}
-.ticker:hover .ticker-track {
-  animation-play-state: paused;
 }
 
 /* ---------- Moneta ---------- */
@@ -354,7 +429,6 @@ h3 {
   html {
     scroll-behavior: auto;
   }
-  .ticker-track,
   .coin-spin,
   .kenburns,
   .float-y,

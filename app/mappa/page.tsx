@@ -11,7 +11,7 @@ export default function Page() {
     <>
       <PageHead kicker="mappa" title={"il mondo,\ndall'alto."} lead="Confini, città e strade viste come le vedrebbe un imperatore." art="/images/art/empire.png" />
       {siteConfig.links.map ? (
-        <section className="wrap pb-20">
+        <section className="wrap pb-20" data-reveal data-delay="0.3">
           <div className="mb-6"><Btn href={siteConfig.links.map} external variant="accent">apri a schermo intero</Btn></div>
           <iframe src={siteConfig.links.map} title="Mappa di Tiberius MC" loading="lazy" className="h-[70svh] w-full border-0 bg-surface" />
         </section>

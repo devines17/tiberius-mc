@@ -10,7 +10,7 @@ export default function Page() {
   return (
     <>
       <PageHead kicker="guida" title={"come\nentrare."} lead="Tre passaggi e sei dentro. Nessun launcher speciale." art="/images/art/village.png" />
-      <section className="wrap pb-10">
+      <section className="wrap pb-10" data-reveal="fade" data-delay="0.5">
         <CopyIp ip={siteConfig.server.ip} tone="light" />
         <p className="mt-4 text-muted">
           {siteConfig.server.version ? `Versione Minecraft Java: ${siteConfig.server.version}.` : "Versione supportata: la comunicheremo qui a breve."}

@@ -28,7 +28,7 @@ export function PageHead({
             {lead}
           </p>
         </div>
-        <div className="arch aspect-[4/5] w-full max-w-md justify-self-end bg-surface" data-reveal>
+        <div className="arch aspect-[4/5] w-full max-w-md justify-self-end bg-surface" data-reveal="clip" data-delay="0.2">
           <Image src={art} alt="" width={900} height={1125} className="size-full object-cover" unoptimized />
         </div>
       </div>

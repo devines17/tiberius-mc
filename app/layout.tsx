@@ -26,8 +26,13 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#ffffff" };
 
-/* Mette .motion prima del primo disegno, solo se l'utente non ha chiesto meno movimento. */
-const motionGate = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");setTimeout(function(){document.documentElement.classList.remove("motion")},6000)}}catch(e){}`;
+/*
+ * Mette .motion prima del primo disegno, solo se l'utente non ha chiesto meno movimento.
+ * Rete di sicurezza: se il motore delle animazioni non parte entro 4 secondi
+ * (JavaScript bloccato o in errore), .motion viene tolta e tutto il contenuto
+ * appare. MotionRoot annulla il timer appena è pronto.
+ */
+const motionGate = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement;r.classList.add("motion");window.__motionTimer=setTimeout(function(){r.classList.remove("motion")},4000)}}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

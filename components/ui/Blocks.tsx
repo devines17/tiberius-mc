@@ -12,8 +12,8 @@ export function Rows({ items, title }: { items: { t: string; d: string }[]; titl
       </h2>
       <ol className="panel divide-y divide-white/10" data-stagger="0.08">
         {items.map((it, i) => (
-          <li key={it.t} className="grid gap-3 p-6 md:grid-cols-[4rem_1fr_1.2fr] md:gap-8 md:p-8">
-            <span className="font-semibold text-accent">{String(i + 1).padStart(2, "0")}</span>
+          <li key={it.t} className="group grid gap-3 p-6 transition-colors duration-300 hover:bg-white/[0.03] md:grid-cols-[4rem_1fr_1.2fr] md:gap-8 md:p-8">
+            <span className="font-semibold text-accent transition-transform duration-300 group-hover:translate-x-1">{String(i + 1).padStart(2, "0")}</span>
             <h3 className="text-xl">{it.t}</h3>
             <p className="text-muted">{it.d}</p>
           </li>
@@ -28,8 +28,8 @@ export function Soon({ title, text }: { title: string; text: string }) {
   return (
     <section className="wrap section">
       <div className="panel grid gap-8 p-8 md:p-12 lg:grid-cols-[1fr_1.2fr] lg:items-center" data-reveal>
-        <h2 className="text-[length:var(--step-head)]">{title}</h2>
-        <div className="grid gap-6">
+        <h2 className="text-[length:var(--step-head)]" data-reveal="left" data-delay="0.15">{title}</h2>
+        <div className="grid gap-6" data-reveal="right" data-delay="0.25">
           <p className="text-[length:var(--step-lead)] leading-snug">{text}</p>
           <div>
             <Btn href={siteConfig.links.discord} external variant="accent">avvisami su discord</Btn>
@@ -45,8 +45,10 @@ export function DiscordBand() {
   return (
     <section className="wrap section">
       <div className="panel panel-discord flex flex-wrap items-center justify-between gap-6 p-8 md:p-12" data-reveal>
-        <h2 className="flex items-center gap-4 text-[length:var(--step-head)]"><DiscordIcon className="size-10" /> Vieni nel nostro Discord.</h2>
-        <Btn href={siteConfig.links.discord} external variant="light">entra nel discord</Btn>
+        <h2 className="flex items-center gap-4 text-[length:var(--step-head)]" data-reveal="left" data-delay="0.15"><DiscordIcon className="size-10" /> Vieni nel nostro Discord.</h2>
+        <div data-reveal="right" data-delay="0.25">
+          <Btn href={siteConfig.links.discord} external variant="light">entra nel discord</Btn>
+        </div>
       </div>
     </section>
   );

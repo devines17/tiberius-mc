@@ -8,55 +8,189 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Motore delle animazioni di scroll. Legge gli attributi data-* nel DOM:
- *   data-reveal        sale e compare
- *   data-stagger       i figli compaiono uno dopo l'altro
- *   data-words         le parole del titolo salgono
- *   data-scrub         le parole si accendono con lo scroll
- *   data-parallax      l'elemento scorre più lento del resto
- *   data-magnetic      il pulsante segue il puntatore
- * Con "riduci movimento" attivo non parte nulla e il contenuto resta visibile.
+ * Motore delle animazioni. Legge gli attributi data-* nel DOM:
+ *
+ *   data-reveal              compare entrando nello schermo. Valori:
+ *                              "" o "up"  sale dal basso
+ *                              "left"     arriva da sinistra
+ *                              "right"    arriva da destra
+ *                              "zoom"     cresce leggermente
+ *                              "fade"     solo dissolvenza
+ *                              "clip"     si scopre dal basso (immagini)
+ *   data-stagger="0.08"      i figli compaiono uno dopo l'altro
+ *   data-delay="0.2"         ritardo in secondi (reveal e stagger)
+ *   data-words               le parole del titolo salgono
+ *   data-scrub               le parole si accendono con lo scroll
+ *   data-parallax            l'elemento scorre più lento del resto
+ *   data-magnetic            il pulsante segue il puntatore
+ *
+ * Primo schermo di ogni pagina (dopo il sipario):
+ *   data-hero-logo, data-hero-words, data-hero-in, data-fade
+ *
+ * Sicurezza:
+ * - Lo stato nascosto di partenza esiste solo con la classe .motion,
+ *   messa in <head> da uno script. Senza JavaScript tutto è visibile.
+ * - Se questo file non parte entro 4 secondi, lo script in <head>
+ *   toglie .motion e il contenuto appare comunque.
+ * - Con "riduci movimento" .motion non viene messa (o viene tolta se
+ *   l'utente cambia impostazione) e nulla si muove.
  */
+
+type MotionWindow = Window & { __motionTimer?: number };
+
+const EASE = "power3.out";
+const START = "top 88%";
+
+/** Stato di partenza di ogni variante. La distanza laterale si accorcia sugli schermi stretti. */
+function fromVars(variant: string, radius: string): gsap.TweenVars {
+  const dx = Math.min(44, window.innerWidth * 0.08);
+  switch (variant) {
+    case "left":
+      return { opacity: 0, x: -dx, y: 0 };
+    case "right":
+      return { opacity: 0, x: dx, y: 0 };
+    case "zoom":
+      return { opacity: 0, scale: 0.92, y: 12 };
+    case "fade":
+      return { opacity: 0, y: 0 };
+    case "clip":
+      return { opacity: 1, clipPath: `inset(100% 0% 0% 0% round ${radius})` };
+    default:
+      return { opacity: 0, y: 36 };
+  }
+}
+
+function toVars(variant: string, radius: string): gsap.TweenVars {
+  if (variant === "clip") return { clipPath: `inset(0% 0% 0% 0% round ${radius})`, duration: 1.15, ease: "power4.out" };
+  return { opacity: 1, x: 0, y: 0, scale: 1, duration: variant === "fade" ? 0.8 : 0.9, ease: EASE };
+}
+
+/** A fine animazione l'elemento torna "normale": così gli effetti hover in CSS funzionano. */
+function settle(el: Element) {
+  el.classList.add("is-in");
+  gsap.set(el, { clearProps: "opacity,transform,clipPath,willChange" });
+}
+
 export function MotionRoot() {
   const pathname = usePathname();
 
   useEffect(() => {
     const root = document.documentElement;
+    const w = window as MotionWindow;
+    if (w.__motionTimer) {
+      clearTimeout(w.__motionTimer);
+      w.__motionTimer = undefined;
+    }
+
     const mm = gsap.matchMedia();
 
+    // Chi chiede meno movimento vede tutto subito, anche se cambia idea a pagina aperta.
+    mm.add("(prefers-reduced-motion: reduce)", () => {
+      root.classList.remove("motion");
+    });
+
     mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Se lo script di sicurezza ha già mostrato tutto, non nascondiamo più nulla.
+      if (!root.classList.contains("motion")) return;
       root.dataset.motionReady = "1";
-      const at = (trigger: Element, start = "top 88%") => ({ trigger, start, once: true });
+      const cleanups: Array<() => void> = [];
+      const curtainDelay = document.querySelector(".curtain") ? 0.75 : 0.1;
 
-      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
-        gsap.to(el, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          delay: Number(el.dataset.delay ?? 0),
-          scrollTrigger: at(el),
-        });
+      /* ---------- Primo schermo ---------- */
+      const intro = gsap.timeline({ delay: curtainDelay });
+      const logo = document.querySelector("[data-hero-logo]");
+      if (logo) {
+        intro.fromTo(logo, { opacity: 0, scale: 0.9, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power4.out" });
+      }
+      const heroWords = gsap.utils.toArray<HTMLElement>("[data-hero-words] .w > span");
+      if (heroWords.length) {
+        intro.fromTo(heroWords, { yPercent: 112 }, { yPercent: 0, duration: 1.05, ease: "power4.out", stagger: 0.08 }, logo ? "-=0.75" : 0);
+      }
+      const heroIn = gsap.utils.toArray<HTMLElement>("[data-hero-in]");
+      if (heroIn.length) {
+        intro.fromTo(heroIn, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.1 }, heroWords.length ? "-=0.7" : 0);
+      }
+      // Le dissolvenze arrivano all'opacità prevista dal CSS (es. opacity-70), non a 1.
+      gsap.utils.toArray<HTMLElement>("[data-fade]").forEach((el) => {
+        el.classList.add("is-in");
+        const target = Number(getComputedStyle(el).opacity) || 1;
+        el.classList.remove("is-in");
+        intro.fromTo(el, { opacity: 0 }, { opacity: target, duration: 0.8, onComplete: () => settle(el) }, 0);
       });
 
+      /* ---------- Elementi che compaiono allo scroll ---------- */
+      const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]").filter((el) => !el.classList.contains("is-in"));
+      const radiusOf = (el: HTMLElement) => getComputedStyle(el).borderTopLeftRadius || "0px";
+
+      reveals.forEach((el) => {
+        const variant = el.dataset.reveal || "up";
+        gsap.set(el, { ...fromVars(variant, radiusOf(el)), willChange: "transform, opacity" });
+        if (variant === "clip") {
+          const img = el.querySelector("img");
+          if (img) gsap.set(img, { scale: 1.12 });
+        }
+      });
+
+      // Quello che è già sullo schermo al caricamento parte quando il sipario si alza.
+      const t0 = performance.now();
+      const wait = () => Math.max(0, curtainDelay - (performance.now() - t0) / 1000);
+
+      if (reveals.length) {
+        ScrollTrigger.batch(reveals, {
+          start: START,
+          once: true,
+          onEnter: (batch) => {
+            const base = wait();
+            (batch as HTMLElement[]).forEach((el, i) => {
+              const variant = el.dataset.reveal || "up";
+              const delay = base + Number(el.dataset.delay || 0) + i * 0.08;
+              gsap.to(el, { ...toVars(variant, radiusOf(el)), delay, onComplete: () => settle(el) });
+              if (variant === "clip") {
+                const img = el.querySelector("img");
+                if (img) gsap.to(img, { scale: 1, duration: 1.4, ease: EASE, delay, clearProps: "transform" });
+              }
+            });
+          },
+        });
+      }
+
+      /* ---------- Gruppi: i figli entrano uno dopo l'altro ---------- */
       gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((group) => {
-        gsap.to(group.children, {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          stagger: Number(group.dataset.stagger || 0.09),
-          scrollTrigger: at(group, "top 86%"),
+        const kids = Array.from(group.children).filter((c) => !c.classList.contains("is-in"));
+        if (!kids.length) return;
+        gsap.set(kids, { opacity: 0, y: 28, willChange: "transform, opacity" });
+        const each = Number(group.dataset.stagger || 0.09);
+        ScrollTrigger.create({
+          trigger: group,
+          start: "top 90%",
+          once: true,
+          onEnter: () => {
+            const delay = wait() + Number(group.dataset.delay || 0);
+            kids.forEach((kid, i) => {
+              gsap.to(kid, { opacity: 1, y: 0, duration: 0.8, ease: EASE, delay: delay + i * each, onComplete: () => settle(kid) });
+            });
+          },
         });
       });
 
+      /* ---------- Titoli: parole che salgono ---------- */
       gsap.utils.toArray<HTMLElement>("[data-words]").forEach((el) => {
-        gsap.to(el.querySelectorAll(".w > span"), {
-          y: 0,
-          duration: 1,
-          ease: "power4.out",
-          stagger: 0.07,
-          scrollTrigger: at(el, "top 90%"),
+        const words = el.querySelectorAll(".w > span");
+        if (!words.length) return;
+        gsap.set(words, { yPercent: 112 });
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 90%",
+          once: true,
+          onEnter: () => {
+            gsap.to(words, {
+              yPercent: 0,
+              duration: 1,
+              ease: "power4.out",
+              stagger: 0.07,
+              delay: wait() + Number(el.dataset.delay || 0),
+            });
+          },
         });
       });
 
@@ -82,11 +216,11 @@ export function MotionRoot() {
         );
       });
 
-      const cleanups: Array<() => void> = [];
+      /* ---------- Pulsanti magnetici (solo mouse) ---------- */
       if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         gsap.utils.toArray<HTMLElement>("[data-magnetic]").forEach((el) => {
-          const qx = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3.out" });
-          const qy = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3.out" });
+          const qx = gsap.quickTo(el, "x", { duration: 0.5, ease: EASE });
+          const qy = gsap.quickTo(el, "y", { duration: 0.5, ease: EASE });
           const move = (e: MouseEvent) => {
             const r = el.getBoundingClientRect();
             qx((e.clientX - (r.left + r.width / 2)) * 0.22);
@@ -105,8 +239,10 @@ export function MotionRoot() {
         });
       }
 
+      // Le immagini e i font cambiano le altezze: ricalcola i punti di partenza.
       const refresh = () => ScrollTrigger.refresh();
       window.addEventListener("load", refresh);
+      document.fonts?.ready.then(refresh).catch(() => {});
       cleanups.push(() => window.removeEventListener("load", refresh));
 
       return () => cleanups.forEach((fn) => fn());

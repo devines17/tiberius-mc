@@ -36,6 +36,21 @@ export const siteConfig = {
     /** URL pubblico di Dynmap/BlueMap, quando sarà disponibile. */
     map: env(process.env.NEXT_PUBLIC_MAP_URL),
   },
+
+  /**
+   * Dati per il footer. Finché restano `null` la riga corrispondente
+   * non compare: nessun dato inventato.
+   */
+  contact: {
+    email: env(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
+    /** Ragione sociale, P. IVA, sede: una riga sola, così com'è. */
+    company: env(process.env.NEXT_PUBLIC_COMPANY_INFO),
+  },
+  legal: {
+    privacy: env(process.env.NEXT_PUBLIC_PRIVACY_URL),
+    terms: env(process.env.NEXT_PUBLIC_TERMS_URL),
+    cookies: env(process.env.NEXT_PUBLIC_COOKIE_URL),
+  },
 } as const;
 
 /** Pagine del sito, usate da navigazione, indice e footer. */
