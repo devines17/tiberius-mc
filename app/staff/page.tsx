@@ -20,7 +20,7 @@ export default async function Page() {
         <Soon title="elenco staff" text="L'elenco ufficiale dello staff sarà pubblicato qui, con i ruoli reali." />
       ) : (
         roles.map((r, ri) => (
-          <section key={r.ruolo} className={`wrap section ${ri === 0 ? "md:mt-28" : ""}`} aria-labelledby={`ruolo-${r.ruolo}`}>
+          <section key={r.ruolo} className={`wrap section ${ri === 0 ? "md:mt-16" : ""}`} aria-labelledby={`ruolo-${r.ruolo}`}>
             <h2 id={`ruolo-${r.ruolo}`} className="mb-8 text-[length:var(--step-head)]">
               <Words text={r.ruolo} />
             </h2>
