@@ -721,51 +721,49 @@ button.btn:disabled {
   .sk-figure, .sk-larm, .sk-rarm { animation: none !important; }
 }
 
-/* Scena con due personaggi abbracciati (Founder), inquadratura dal basso */
+/* Scena con due personaggi abbracciati (Founder): inquadratura dal basso, tagliata ai fianchi */
 .sk-duo {
-  --px: 9px;
+  --px: clamp(7px, 2.3vw, 15px);
   position: relative;
   width: calc(var(--px) * 40);
-  height: calc(var(--px) * 40);
+  height: calc(var(--px) * 27);
   margin-inline: auto;
-  perspective: 1600px;
-  perspective-origin: 50% 85%;
+  overflow: hidden;
+  perspective: 1100px;
+  perspective-origin: 50% 100%;
 }
 .sk-duo-scene {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  transform: rotateX(12deg);
+  transform: rotateX(16deg);
   animation: sk-duo-sway 14s ease-in-out infinite alternate;
 }
 .sk-duo .sk-figure {
   position: absolute;
-  top: calc(var(--px) * 5);
+  top: calc(var(--px) * 4);
   animation: none;
   transform-origin: 50% 100%;
 }
-.sk-duo .sk-duo-left { left: calc(var(--px) * 4.5); transform: rotateZ(7deg); }
-.sk-duo .sk-duo-right { left: calc(var(--px) * 19.5); transform: rotateZ(-7deg); }
+.sk-duo .sk-duo-left { left: calc(var(--px) * 4); transform: rotateZ(7deg); }
+.sk-duo .sk-duo-right { left: calc(var(--px) * 20); top: calc(var(--px) * 5.5); transform: rotateZ(-7deg); }
 .group:hover .sk-duo-scene { animation-play-state: paused; }
 
-.sk-pose-abbraccio-sx .sk-head { transform: rotateZ(6deg) rotateY(-8deg); }
+.sk-pose-abbraccio-sx .sk-head { transform: rotateZ(10deg) rotateY(-8deg); }
 .sk-pose-abbraccio-sx .sk-rarm { transform: rotateZ(128deg) rotateX(-8deg); }
 .sk-pose-abbraccio-sx .sk-larm { transform: rotateZ(-62deg) rotateX(-35deg); }
 .sk-pose-abbraccio-sx .sk-rleg { transform: rotateZ(9deg); }
 .sk-pose-abbraccio-sx .sk-lleg { transform: rotateZ(-3deg); }
 
-.sk-pose-abbraccio-dx .sk-head { transform: rotateZ(-6deg) rotateY(8deg); }
+.sk-pose-abbraccio-dx .sk-head { transform: rotateZ(-9deg) rotateY(8deg); }
 .sk-pose-abbraccio-dx .sk-rarm { transform: rotateZ(62deg) rotateX(-35deg); }
-.sk-pose-abbraccio-dx .sk-larm { --elbow-z: -95deg; transform: rotateZ(-85deg) rotateX(-6deg); }
+.sk-pose-abbraccio-dx .sk-larm { --elbow-z: -95deg; transform: rotateZ(-95deg) rotateX(-6deg); }
 .sk-pose-abbraccio-dx .sk-rleg { transform: rotateZ(3deg); }
 .sk-pose-abbraccio-dx .sk-lleg { transform: rotateZ(-9deg); }
 
 @keyframes sk-duo-sway {
-  from { transform: rotateX(12deg) rotateY(-6deg); }
-  to { transform: rotateX(12deg) rotateY(6deg); }
-}
-@media (max-width: 480px) {
-  .sk-duo { --px: 7px; }
+  from { transform: rotateX(16deg) rotateY(-5deg); }
+  to { transform: rotateX(16deg) rotateY(5deg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .sk-duo-scene { animation: none; }
