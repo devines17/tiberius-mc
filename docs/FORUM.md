@@ -78,9 +78,10 @@ Il plugin fa una sola cosa: chiede il codice al sito con una richiesta firmata (
 | Richieste unban | `unban` | inviata, in revisione, informazioni richieste, **accolta**, **respinta**, **chiusa** |
 | Segnalazioni giocatori (riservata) | `segnalazioni` | inviata, in revisione, informazioni richieste, **provvedimento preso**, **non fondata**, **chiusa** |
 | Cambio nickname | `cambio_nick` | inviata, in revisione, informazioni richieste, approvata, **respinta**, **completata** |
-| Store e Goldoni (riservata) | `store` | inviata, in revisione, informazioni richieste, **risolta**, **respinta**, **chiusa** |
+| Store (riservata) | `store` | inviata, in revisione, informazioni richieste, **risolta**, **respinta**, **chiusa** |
 | Diplomazia e guerra | `towny_diplomazia` | bozza, inviata, in revisione, in attesa di informazioni, approvata, **respinta**, **annullata**, **completata** |
 | Candidature staff (riservata) | `candidature` | inviata, in revisione, colloquio, **accettata**, **respinta**, **ritirata**, **chiusa** |
+| Candidature media (riservata) | `candidature_media` | inviata, in revisione, colloquio, **accettata**, **respinta**, **ritirata**, **chiusa** |
 
 Le decisioni finali richiedono una motivazione, visibile al giocatore. Una pratica chiusa non si
 modifica: il giocatore può chiederne la riapertura, lo staff decide. "Approvata" in diplomazia non

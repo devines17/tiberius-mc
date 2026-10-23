@@ -248,7 +248,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
               />
             ) : (
               <>
-                <PlayerButtons number={t.number} actions={view.playerActions} withdrawLabel={sub.key === "candidature" ? "ritira la candidatura" : "annulla la richiesta"} />
+                <PlayerButtons number={t.number} actions={view.playerActions} withdrawLabel={sub.category === "candidature" ? "ritira la candidatura" : "annulla la richiesta"} />
                 {sub.notices.length > 0 && (
                   <div className="grid gap-3">
                     {sub.notices.map((n) => (

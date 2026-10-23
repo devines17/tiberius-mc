@@ -21,9 +21,9 @@ insert into staff_permissions (profile_id, permission) values
   ('00000000-0000-0000-0000-0000000000c1', 'store'),
   ('00000000-0000-0000-0000-0000000000c2', 'candidature');
 
--- 1. Esistono solo le 3 categorie e le 8 sottosezioni previste (unban una volta sola)
+-- 1. Esistono solo le 3 categorie e le 9 sottosezioni previste (dopo le migrazioni 002 e 003) (unban una volta sola)
 select pg_temp.check((select count(*) from forum_categories) = 3, 'tre categorie');
-select pg_temp.check((select count(*) from forum_subcategories) = 8, 'otto sottosezioni');
+select pg_temp.check((select count(*) from forum_subcategories) = 9, 'nove sottosezioni');
 select pg_temp.check((select count(*) from forum_subcategories where key like '%unban%') = 1, 'unban non duplicato');
 
 -- 2. Una pratica non può stare in una sezione o in uno stato inesistenti

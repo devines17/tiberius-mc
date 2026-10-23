@@ -85,14 +85,14 @@ export function playerActions(viewer: Viewer, t: TicketLike): PlayerAction[] {
     return out;
   }
   if (!final) out.push("reply");
-  if (!final && (s.key === "candidature" || s.key === "diplomazia")) out.push("withdraw");
+  if (!final && (s.key === "candidature" || s.key === "candidature_media" || s.key === "diplomazia")) out.push("withdraw");
   if (final && !t.reopen_requested_at && t.status !== "ritirata" && t.status !== "annullata") out.push("request_reopen");
   return out;
 }
 
 /** Stato finale quando il giocatore ritira la pratica. */
 export function withdrawStatus(t: TicketLike): string | null {
-  if (t.subcategory === "candidature") return "ritirata";
+  if (t.subcategory === "candidature" || t.subcategory === "candidature_media") return "ritirata";
   if (t.subcategory === "diplomazia") return "annullata";
   return null;
 }

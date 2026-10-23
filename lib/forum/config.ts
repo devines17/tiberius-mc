@@ -17,6 +17,7 @@ export type PermissionKey =
   | "store"
   | "towny_diplomazia"
   | "candidature"
+  | "candidature_media"
   | "admin";
 
 export const PERMISSIONS: { key: PermissionKey; label: string }[] = [
@@ -28,6 +29,7 @@ export const PERMISSIONS: { key: PermissionKey; label: string }[] = [
   { key: "store", label: "Store" },
   { key: "towny_diplomazia", label: "Diplomazia e richieste di guerra" },
   { key: "candidature", label: "Candidature staff" },
+  { key: "candidature_media", label: "Candidature media" },
   { key: "admin", label: "Amministrazione generale" },
 ];
 
@@ -41,7 +43,8 @@ export type SubcategoryKey =
   | "cambio_nick"
   | "store"
   | "diplomazia"
-  | "candidature";
+  | "candidature"
+  | "candidature_media";
 
 export type FieldType = "text" | "textarea" | "select" | "date" | "datetime" | "nick" | "number" | "url-list";
 
@@ -89,7 +92,7 @@ const S = (key: string, label: string, final = false): Status => ({ key, label, 
 export const CATEGORIES: { key: CategoryKey; label: string; description: string }[] = [
   { key: "assistenza", label: "Assistenza", description: "Problemi personali e richieste rivolte allo staff." },
   { key: "towny", label: "Towny", description: "Questioni politiche e territoriali tra città e nazioni." },
-  { key: "candidature", label: "Candidature Staff", description: "Candidati per entrare nello staff di TiberiusMC." },
+  { key: "candidature", label: "Candidature", description: "Candidati per entrare nello staff o come creator di TiberiusMC." },
 ];
 
 const PROVE: Field = {
@@ -409,7 +412,53 @@ export const SUBCATEGORIES: Subcategory[] = [
       { name: "info", label: "Informazioni aggiuntive", type: "textarea", max: 2000 },
     ],
   },
-];
+  {
+    key: "candidature_media",
+    category: "candidature",
+    label: "Candidature Media",
+    short: "Diventa creator ufficiale di TiberiusMC.",
+    description: "Per chi crea contenuti (video, live, social) sul server e vuole il ruolo media. Le candidature sono private.",
+    permission: "candidature_media",
+    sensitive: true,
+    requiresVerifiedMc: true,
+    allowsDraft: false,
+    initialStatus: "inviata",
+    statuses: [
+      S("inviata", "Inviata"),
+      S("in_revisione", "In revisione"),
+      S("colloquio", "Colloquio o approfondimento"),
+      S("accettata", "Accettata", true),
+      S("respinta", "Respinta", true),
+      S("ritirata", "Ritirata", true),
+      S("chiusa", "Chiusa", true),
+    ],
+    notices: [
+      "La candidatura è privata: la vedono solo lo staff che gestisce le candidature media e tu.",
+      "L'accettazione non assegna da sola ruoli o vantaggi: lo farà lo staff.",
+    ],
+    bodyLabel: "Perché vuoi creare contenuti su TiberiusMC?",
+    autoTitle: (f) => `Candidatura media ${f.piattaforma ? `(${f.piattaforma})` : ""}`.trim(),
+    fields: [
+      {
+        name: "piattaforma",
+        label: "Piattaforma principale",
+        type: "select",
+        required: true,
+        options: [
+          { value: "YouTube", label: "YouTube" },
+          { value: "Twitch", label: "Twitch" },
+          { value: "TikTok", label: "TikTok" },
+          { value: "Instagram", label: "Instagram" },
+          { value: "Altro", label: "Altro" },
+        ],
+      },
+      { name: "canali", label: "Link ai tuoi canali", type: "url-list", required: true, max: 1000, help: "Un link per riga." },
+      { name: "pubblico", label: "Iscritti o follower", type: "text", required: true, max: 120 },
+      { name: "contenuti", label: "Che contenuti fai e con che frequenza", type: "textarea", required: true, max: 2000 },
+      { name: "esempi", label: "Link a contenuti recenti", type: "url-list", max: 1000, help: "Facoltativo: video o live che ti rappresentano, un link per riga." },
+      { name: "eta", label: "Età", type: "number", required: true },
+    ],
+  },];
 
 export function getSubcategory(key: string): Subcategory | undefined {
   return SUBCATEGORIES.find((s) => s.key === key);
