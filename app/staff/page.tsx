@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/ui/PageHead";
 import { Soon, DiscordBand } from "@/components/ui/Blocks";
 import { Words } from "@/components/ui/Words";
-import { SkinFigure } from "@/components/staff/SkinFigure";
+import { SkinDuo, SkinFigure } from "@/components/staff/SkinFigure";
 import { STAFF } from "@/lib/staff";
 import { getSkin } from "@/lib/skins";
 
@@ -24,6 +24,22 @@ export default async function Page() {
             <h2 id={`ruolo-${r.ruolo}`} className="mb-8 text-[length:var(--step-head)]">
               <Words text={r.ruolo} />
             </h2>
+            {r.scena === "abbraccio" && r.membri.length === 2 ? (
+              <div className="group panel overflow-hidden" data-reveal="up">
+                <div className="relative bg-[radial-gradient(ellipse_at_50%_80%,rgba(226,55,43,.3),transparent_65%)] pt-6">
+                  <SkinDuo left={skins.get(r.membri[0].nick)!} right={skins.get(r.membri[1].nick)!} />
+                </div>
+                <div className="grid grid-cols-2 border-t border-white/10">
+                  {r.membri.map((m) => (
+                    <div key={m.nick} className="grid justify-items-center gap-1.5 px-5 py-5 text-center">
+                      <p className="text-lg font-semibold">{skins.get(m.nick)!.name}</p>
+                      <p className="w-fit rounded-full bg-accent/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#ff8a80] ring-1 ring-accent/30">{r.ruolo}</p>
+                      {m.descrizione && <p className="mt-1 text-sm text-white/65">{m.descrizione}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
             <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-stagger="0.08">
               {r.membri.map((m) => {
                 const skin = skins.get(m.nick)!;
@@ -42,6 +58,7 @@ export default async function Page() {
                 );
               })}
             </ul>
+            )}
           </section>
         ))
       )}

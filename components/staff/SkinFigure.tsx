@@ -83,38 +83,61 @@ function Part({ name, base, overlay, overlayScale, mirror, elbow }: { name: stri
 }
 
 const POSES = ["cammina", "saluta", "rilassato", "saluto_frontale"] as const;
+export type PoseName = (typeof POSES)[number] | "abbraccio-sx" | "abbraccio-dx";
 
-export function SkinFigure({ skin, pose = 0 }: { skin: Skin; pose?: number | (typeof POSES)[number] }) {
-  const poseClass = typeof pose === "number" ? POSES[pose % 3] : pose;
+/** Braccia con il gomito piegabile, per posa. */
+const ELBOWS: Partial<Record<PoseName, ("rarm" | "larm")[]>> = {
+  saluto_frontale: ["rarm"],
+  "abbraccio-dx": ["larm"],
+};
+
+/** Il modello in posa, senza palcoscenico: si può mettere in una scena con altri personaggi. */
+export function SkinModel({ skin, pose, className = "" }: { skin: Skin; pose: PoseName; className?: string }) {
   const a = skin.slim ? 3 : 4;
   const L = skin.legacy;
+  const elbows = ELBOWS[pose] ?? [];
   return (
-    <div
-      className={`sk-stage sk-pose-${poseClass}`}
-      style={{ "--skin": `url("${skin.url}")`, "--sh": L ? 32 : 64, "--arm": a } as CSSProperties}
-      role="img"
-      aria-label={`Skin di ${skin.name}`}
-    >
-      <div className="sk-figure">
-        {/* Nelle vecchie skin 64x32 lo strato del cappello è spesso pieno (nero): Minecraft lo ignora, qui lo omettiamo */}
-        <Part name="head" base={{ w: 8, h: 8, d: 8, u: 0, v: 0 }} overlay={L ? undefined : { w: 8, h: 8, d: 8, u: 32, v: 0 }} overlayScale={1.125} />
-        <Part name="body" base={{ w: 8, h: 12, d: 4, u: 16, v: 16 }} overlay={L ? undefined : { w: 8, h: 12, d: 4, u: 16, v: 32 }} overlayScale={1.07} />
-        <Part name="rarm" base={{ w: a, h: 12, d: 4, u: 40, v: 16 }} overlay={L ? undefined : { w: a, h: 12, d: 4, u: 40, v: 32 }} overlayScale={1.08} elbow={poseClass === "saluto_frontale"} />
-        <Part
-          name="larm"
-          base={L ? { w: a, h: 12, d: 4, u: 40, v: 16 } : { w: a, h: 12, d: 4, u: 32, v: 48 }}
-          overlay={L ? undefined : { w: a, h: 12, d: 4, u: 48, v: 48 }}
-          overlayScale={1.08}
-          mirror={L}
-        />
-        <Part name="rleg" base={{ w: 4, h: 12, d: 4, u: 0, v: 16 }} overlay={L ? undefined : { w: 4, h: 12, d: 4, u: 0, v: 32 }} overlayScale={1.08} />
-        <Part
-          name="lleg"
-          base={L ? { w: 4, h: 12, d: 4, u: 0, v: 16 } : { w: 4, h: 12, d: 4, u: 16, v: 48 }}
-          overlay={L ? undefined : { w: 4, h: 12, d: 4, u: 0, v: 48 }}
-          overlayScale={1.08}
-          mirror={L}
-        />
+    <div className={`sk-figure sk-pose-${pose} ${className}`} style={{ "--skin": `url("${skin.url}")`, "--sh": L ? 32 : 64, "--arm": a } as CSSProperties}>
+      {/* Nelle vecchie skin 64x32 lo strato del cappello è spesso pieno (nero): Minecraft lo ignora, qui lo omettiamo */}
+      <Part name="head" base={{ w: 8, h: 8, d: 8, u: 0, v: 0 }} overlay={L ? undefined : { w: 8, h: 8, d: 8, u: 32, v: 0 }} overlayScale={1.125} />
+      <Part name="body" base={{ w: 8, h: 12, d: 4, u: 16, v: 16 }} overlay={L ? undefined : { w: 8, h: 12, d: 4, u: 16, v: 32 }} overlayScale={1.07} />
+      <Part name="rarm" base={{ w: a, h: 12, d: 4, u: 40, v: 16 }} overlay={L ? undefined : { w: a, h: 12, d: 4, u: 40, v: 32 }} overlayScale={1.08} elbow={elbows.includes("rarm")} />
+      <Part
+        name="larm"
+        base={L ? { w: a, h: 12, d: 4, u: 40, v: 16 } : { w: a, h: 12, d: 4, u: 32, v: 48 }}
+        overlay={L ? undefined : { w: a, h: 12, d: 4, u: 48, v: 48 }}
+        overlayScale={1.08}
+        mirror={L}
+        elbow={elbows.includes("larm")}
+      />
+      <Part name="rleg" base={{ w: 4, h: 12, d: 4, u: 0, v: 16 }} overlay={L ? undefined : { w: 4, h: 12, d: 4, u: 0, v: 32 }} overlayScale={1.08} />
+      <Part
+        name="lleg"
+        base={L ? { w: 4, h: 12, d: 4, u: 0, v: 16 } : { w: 4, h: 12, d: 4, u: 16, v: 48 }}
+        overlay={L ? undefined : { w: 4, h: 12, d: 4, u: 0, v: 48 }}
+        overlayScale={1.08}
+        mirror={L}
+      />
+    </div>
+  );
+}
+
+export function SkinFigure({ skin, pose = 0 }: { skin: Skin; pose?: number | PoseName }) {
+  const poseName: PoseName = typeof pose === "number" ? POSES[pose % 3] : pose;
+  return (
+    <div className="sk-stage" role="img" aria-label={`Skin di ${skin.name}`}>
+      <SkinModel skin={skin} pose={poseName} />
+    </div>
+  );
+}
+
+/** Due personaggi abbracciati nella stessa scena 3D (inquadratura dal basso). */
+export function SkinDuo({ left, right }: { left: Skin; right: Skin }) {
+  return (
+    <div className="sk-duo" role="img" aria-label={`${left.name} e ${right.name} abbracciati`}>
+      <div className="sk-duo-scene">
+        <SkinModel skin={left} pose="abbraccio-sx" className="sk-duo-left" />
+        <SkinModel skin={right} pose="abbraccio-dx" className="sk-duo-right" />
       </div>
     </div>
   );

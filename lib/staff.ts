@@ -6,8 +6,9 @@
 /** Pose disponibili. Se non è indicata, le card alternano "cammina", "saluta" e "rilassato". */
 export type Posa = "cammina" | "saluta" | "rilassato" | "saluto_frontale";
 export type StaffMember = { nick: string; descrizione?: string; posa?: Posa };
-export type StaffRole = { ruolo: string; membri: StaffMember[] };
+/** scena "abbraccio": i primi due membri compaiono abbracciati in un'unica scena. */
+export type StaffRole = { ruolo: string; membri: StaffMember[]; scena?: "abbraccio" };
 
 export const STAFF: StaffRole[] = [
-  { ruolo: "Founder", membri: [{ nick: "devines", posa: "rilassato" }, { nick: "joxe", posa: "rilassato" }] },
+  { ruolo: "Founder", scena: "abbraccio", membri: [{ nick: "devines", posa: "rilassato" }, { nick: "joxe", posa: "rilassato" }] },
 ];
