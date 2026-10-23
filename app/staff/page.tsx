@@ -30,7 +30,7 @@ export default async function Page() {
                 return (
                   <li key={m.nick} className="group panel flex flex-col items-center overflow-hidden text-center">
                     <div className="relative grid w-full place-items-center bg-[radial-gradient(ellipse_at_50%_85%,rgba(226,55,43,.28),transparent_65%)] pt-4">
-                      <SkinFigure skin={skin} pose={i++} />
+                      <SkinFigure skin={skin} pose={m.posa ?? i++} />
                       <span className="absolute bottom-3 h-3 w-24 rounded-[50%] bg-black/45 blur-[6px]" aria-hidden />
                     </div>
                     <div className="grid w-full gap-1.5 border-t border-white/10 px-5 py-5">

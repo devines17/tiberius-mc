@@ -669,23 +669,30 @@ button.btn:disabled {
 .sk-head, .sk-rarm, .sk-larm, .sk-rleg, .sk-lleg { transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
 /* Pose */
-.sk-pose-0 .sk-head { transform: rotateY(14deg) rotateX(-4deg); }
-.sk-pose-0 .sk-rarm { transform: rotateX(-22deg) rotateZ(6deg); }
-.sk-pose-0 .sk-larm { transform: rotateX(20deg) rotateZ(-6deg); }
-.sk-pose-0 .sk-rleg { transform: rotateX(16deg); }
-.sk-pose-0 .sk-lleg { transform: rotateX(-16deg); }
+.sk-pose-cammina .sk-head { transform: rotateY(14deg) rotateX(-4deg); }
+.sk-pose-cammina .sk-rarm { transform: rotateX(-22deg) rotateZ(6deg); }
+.sk-pose-cammina .sk-larm { transform: rotateX(20deg) rotateZ(-6deg); }
+.sk-pose-cammina .sk-rleg { transform: rotateX(16deg); }
+.sk-pose-cammina .sk-lleg { transform: rotateX(-16deg); }
 
-.sk-pose-1 .sk-head { transform: rotateY(-10deg) rotateZ(-4deg); }
-.sk-pose-1 .sk-rarm { transform: rotateZ(8deg); }
-.sk-pose-1 .sk-larm { transform: rotateZ(-150deg) rotateX(-10deg); animation: sk-wave 1.6s ease-in-out infinite alternate; }
-.sk-pose-1 .sk-rleg { transform: rotateZ(3deg); }
-.sk-pose-1 .sk-lleg { transform: rotateZ(-3deg); }
+.sk-pose-saluta .sk-head { transform: rotateY(-10deg) rotateZ(-4deg); }
+.sk-pose-saluta .sk-rarm { transform: rotateZ(8deg); }
+.sk-pose-saluta .sk-larm { transform: rotateZ(-150deg) rotateX(-10deg); animation: sk-wave 1.6s ease-in-out infinite alternate; }
+.sk-pose-saluta .sk-rleg { transform: rotateZ(3deg); }
+.sk-pose-saluta .sk-lleg { transform: rotateZ(-3deg); }
 
-.sk-pose-2 .sk-head { transform: rotateY(-12deg) rotateX(-3deg); }
-.sk-pose-2 .sk-rarm { transform: rotateX(26deg) rotateZ(5deg); }
-.sk-pose-2 .sk-larm { transform: rotateX(-26deg) rotateZ(-5deg); }
-.sk-pose-2 .sk-rleg { transform: rotateZ(4deg); }
-.sk-pose-2 .sk-lleg { transform: rotateZ(-4deg); }
+.sk-pose-rilassato .sk-head { transform: rotateY(-12deg) rotateX(-3deg); }
+.sk-pose-rilassato .sk-rarm { transform: rotateX(26deg) rotateZ(5deg); }
+.sk-pose-rilassato .sk-larm { transform: rotateX(-26deg) rotateZ(-5deg); }
+.sk-pose-rilassato .sk-rleg { transform: rotateZ(4deg); }
+.sk-pose-rilassato .sk-lleg { transform: rotateZ(-4deg); }
+
+/* Braccio destro alzato in avanti, piccolo saluto */
+.sk-pose-saluto_frontale .sk-head { transform: rotateY(8deg) rotateX(-6deg); }
+.sk-pose-saluto_frontale .sk-rarm { transform: rotateX(158deg) rotateZ(8deg); animation: sk-wave-front 1.3s ease-in-out infinite alternate; }
+.sk-pose-saluto_frontale .sk-larm { transform: rotateZ(-5deg) rotateX(6deg); }
+.sk-pose-saluto_frontale .sk-rleg { transform: rotateZ(2deg); }
+.sk-pose-saluto_frontale .sk-lleg { transform: rotateZ(-2deg); }
 
 .group:hover .sk-figure { animation-play-state: paused; transform: rotateX(-6deg) rotateY(18deg); }
 
@@ -697,6 +704,10 @@ button.btn:disabled {
   from { transform: rotateZ(-150deg) rotateX(-10deg); }
   to { transform: rotateZ(-128deg) rotateX(-10deg); }
 }
+@keyframes sk-wave-front {
+  from { transform: rotateX(158deg) rotateZ(4deg); }
+  to { transform: rotateX(158deg) rotateZ(16deg); }
+}
 @media (prefers-reduced-motion: reduce) {
-  .sk-figure, .sk-larm { animation: none !important; }
+  .sk-figure, .sk-larm, .sk-rarm { animation: none !important; }
 }

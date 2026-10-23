@@ -56,12 +56,15 @@ function Part({ name, base, overlay, overlayScale, mirror }: { name: string; bas
   );
 }
 
-export function SkinFigure({ skin, pose = 0 }: { skin: Skin; pose?: number }) {
+const POSES = ["cammina", "saluta", "rilassato", "saluto_frontale"] as const;
+
+export function SkinFigure({ skin, pose = 0 }: { skin: Skin; pose?: number | (typeof POSES)[number] }) {
+  const poseClass = typeof pose === "number" ? POSES[pose % 3] : pose;
   const a = skin.slim ? 3 : 4;
   const L = skin.legacy;
   return (
     <div
-      className={`sk-stage sk-pose-${pose % 3}`}
+      className={`sk-stage sk-pose-${poseClass}`}
       style={{ "--skin": `url("${skin.url}")`, "--sh": L ? 32 : 64, "--arm": a } as CSSProperties}
       role="img"
       aria-label={`Skin di ${skin.name}`}
