@@ -16,7 +16,7 @@ export function ForumHero({ kicker, title, lead }: { kicker: string; title: stri
         height={1075}
         priority
         unoptimized
-        className="hero-in pointer-events-none absolute bottom-0 right-0 hidden h-[94%] w-auto select-none drop-shadow-[0_20px_40px_rgba(0,0,0,.45)] [mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block lg:left-[calc(50%+7rem)] lg:right-auto"
+        className="hero-in pointer-events-none absolute bottom-0 right-0 hidden h-[94%] w-auto select-none [mask-image:linear-gradient(to_right,#000_82%,transparent)] md:block lg:left-[calc(50%+7rem)] lg:right-auto"
         data-hero-in
       />
 
