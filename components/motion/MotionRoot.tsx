@@ -91,7 +91,13 @@ export function MotionRoot() {
   // Ricaricando la pagina si riparte dall'alto (il browser altrimenti ripristina l'ultima posizione).
   useEffect(() => {
     const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
-    if (nav?.type === "reload" && !location.hash) window.scrollTo(0, 0);
+    if (nav?.type === "reload" && !location.hash) {
+      // ScrollTrigger ricorda la posizione e la ripristina: va azzerata anche lì
+      ScrollTrigger.clearScrollMemory("manual");
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => window.scrollTo(0, 0));
+      window.addEventListener("load", () => window.scrollTo(0, 0), { once: true });
+    }
     const beforeUnload = () => {
       history.scrollRestoration = "manual";
     };
