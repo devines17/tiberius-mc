@@ -112,7 +112,7 @@ export default function Home() {
         <div className="panel panel-flush grid items-end gap-6 pl-8 pt-8 md:pl-12 md:pt-12 lg:grid-cols-[1.2fr_1fr]" data-reveal>
           <div className="grid gap-5 pb-8 pr-8 md:pb-12 md:pr-0" data-stagger="0.1">
             <div className="flex items-center gap-3">
-              <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="coin-spin size-12" unoptimized />
+              <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="float-soft size-12" unoptimized />
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">goldoni e store</span>
             </div>
             <h2 className="text-[length:var(--step-head)]">Il Goldone, moneta premium.</h2>
