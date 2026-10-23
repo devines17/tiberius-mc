@@ -574,60 +574,6 @@ export const REGOLE: RuleChapter[] = [
             "text": "Le condizioni di acquisto, utilizzo, eventuale trasferibilità e rimborso devono essere pubblicate nello store."
           }
         ]
-      },
-      {
-        "code": "E.3",
-        "n": 18,
-        "title": "Truffe e scambi",
-        "blocks": [
-          {
-            "t": "p",
-            "text": "È vietato ingannare deliberatamente altri giocatori in transazioni concordate."
-          },
-          {
-            "t": "p",
-            "text": "È vietato falsificare oggetti, quantità, ricevute o condizioni di uno scambio."
-          },
-          {
-            "t": "p",
-            "text": "È vietato utilizzare bug per ottenere una transazione non prevista."
-          },
-          {
-            "t": "p",
-            "text": "Le segnalazioni devono contenere informazioni verificabili, come messaggi, riferimenti alle transazioni o altre prove disponibili."
-          },
-          {
-            "t": "p",
-            "text": "Lo staff valuta i casi individualmente. Non tutte le transazioni andate male costituiscono automaticamente una violazione."
-          }
-        ]
-      },
-      {
-        "code": "E.4",
-        "n": 19,
-        "title": "Compravendita con denaro reale",
-        "blocks": [
-          {
-            "t": "p",
-            "text": "È vietato vendere, comprare o scambiare con denaro reale, o con altri beni esterni al server, valuta di gioco, Goldoni, oggetti, servizi, territori, città o account di Tiberius MC."
-          },
-          {
-            "t": "p",
-            "text": "L'unico canale autorizzato per acquisti con denaro reale è lo store ufficiale."
-          },
-          {
-            "t": "p",
-            "text": "Sono vietati anche gli annunci, le offerte e le trattative per questo tipo di vendita, nel server e sui canali ufficiali della community."
-          },
-          {
-            "t": "p",
-            "text": "Lo staff può rimuovere gli oggetti, la valuta o i territori ottenuti in questo modo e sanzionare tutti i giocatori coinvolti, sia chi vende sia chi compra."
-          },
-          {
-            "t": "p",
-            "text": "Lo staff non interviene per recuperare denaro reale perso in questi scambi."
-          }
-        ]
       }
     ]
   },
@@ -638,7 +584,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "P.1",
-        "n": 20,
+        "n": 18,
         "title": "Regole generali PvP",
         "blocks": [
           {
@@ -669,7 +615,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "P.2",
-        "n": 21,
+        "n": 19,
         "title": "Guerre tra città e nazioni",
         "blocks": [
           {
@@ -708,7 +654,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "P.3",
-        "n": 22,
+        "n": 20,
         "title": "Abusi durante le guerre",
         "blocks": [
           {
@@ -741,7 +687,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "M.1",
-        "n": 23,
+        "n": 21,
         "title": "Utilizzo della chat",
         "blocks": [
           {
@@ -776,7 +722,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "M.2",
-        "n": 24,
+        "n": 22,
         "title": "Pubblicità e collegamenti esterni",
         "blocks": [
           {
@@ -806,7 +752,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "A.1",
-        "n": 25,
+        "n": 23,
         "title": "Utilizzo del forum",
         "blocks": [
           {
@@ -840,7 +786,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "A.2",
-        "n": 26,
+        "n": 24,
         "title": "Richieste di assistenza",
         "blocks": [
           {
@@ -875,7 +821,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "A.3",
-        "n": 27,
+        "n": 25,
         "title": "Segnalazioni di giocatori",
         "blocks": [
           {
@@ -906,7 +852,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "A.4",
-        "n": 28,
+        "n": 26,
         "title": "Candidature Staff e Media",
         "blocks": [
           {
@@ -941,7 +887,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "A.5",
-        "n": 29,
+        "n": 27,
         "title": "Ricerca e archivio",
         "blocks": [
           {
@@ -975,7 +921,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "N.1",
-        "n": 30,
+        "n": 28,
         "title": "Acquisti ufficiali",
         "blocks": [
           {
@@ -1006,7 +952,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "N.2",
-        "n": 31,
+        "n": 29,
         "title": "Pagamenti e rimborsi",
         "blocks": [
           {
@@ -1040,7 +986,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "I.1",
-        "n": 32,
+        "n": 30,
         "title": "Dati personali",
         "blocks": [
           {
@@ -1067,7 +1013,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "I.2",
-        "n": 33,
+        "n": 31,
         "title": "Sicurezza informatica",
         "blocks": [
           {
@@ -1100,7 +1046,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "S.1",
-        "n": 34,
+        "n": 32,
         "title": "Principi di applicazione",
         "blocks": [
           {
@@ -1132,7 +1078,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "S.2",
-        "n": 35,
+        "n": 33,
         "title": "Circostanze aggravanti",
         "blocks": [
           {
@@ -1156,7 +1102,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "S.3",
-        "n": 36,
+        "n": 34,
         "title": "Circostanze attenuanti",
         "blocks": [
           {
@@ -1181,7 +1127,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "S.4",
-        "n": 37,
+        "n": 35,
         "title": "Ban e richieste di unban",
         "blocks": [
           {
@@ -1219,7 +1165,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "D.1",
-        "n": 38,
+        "n": 36,
         "title": "Condotta dello staff",
         "blocks": [
           {
@@ -1254,7 +1200,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "D.2",
-        "n": 39,
+        "n": 37,
         "title": "Permessi e responsabilità",
         "blocks": [
           {
@@ -1288,7 +1234,7 @@ export const REGOLE: RuleChapter[] = [
     "articles": [
       {
         "code": "R.1",
-        "n": 40,
+        "n": 38,
         "title": "Richiesta di revisione",
         "blocks": [
           {
@@ -1315,7 +1261,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "R.2",
-        "n": 41,
+        "n": 39,
         "title": "Interpretazione delle regole",
         "blocks": [
           {
@@ -1343,13 +1289,162 @@ export const REGOLE: RuleChapter[] = [
     ]
   },
   {
-    "letter": "Z",
+    "letter": "V",
     "roman": "XIV",
+    "title": "Compravendita e scambi",
+    "articles": [
+      {
+        "code": "V.1",
+        "n": 40,
+        "title": "Scambi tra giocatori",
+        "blocks": [
+          {
+            "t": "p",
+            "text": "Gli scambi e le vendite tra giocatori sono liberi, purché avvengano con valuta di gioco, Goldoni ottenuti in modo autorizzato o oggetti di gioco."
+          },
+          {
+            "t": "p",
+            "text": "Prima di concludere uno scambio le parti devono chiarire cosa viene scambiato, in che quantità, a che prezzo e con quali tempi di consegna."
+          },
+          {
+            "t": "p",
+            "text": "Un affare svantaggioso non costituisce di per sé una violazione: lo staff interviene solo in presenza di inganno, bug o altre violazioni del regolamento."
+          },
+          {
+            "t": "p",
+            "text": "È consigliato conservare screenshot o messaggi degli accordi più importanti, da presentare in caso di controversia."
+          }
+        ]
+      },
+      {
+        "code": "V.2",
+        "n": 41,
+        "title": "Truffe",
+        "blocks": [
+          {
+            "t": "p",
+            "text": "È vietato ingannare deliberatamente altri giocatori in transazioni concordate."
+          },
+          {
+            "t": "p",
+            "text": "È vietato falsificare oggetti, quantità, ricevute o condizioni di uno scambio."
+          },
+          {
+            "t": "p",
+            "text": "È vietato utilizzare bug per ottenere una transazione non prevista."
+          },
+          {
+            "t": "p",
+            "text": "Le segnalazioni devono contenere informazioni verificabili, come messaggi, riferimenti alle transazioni o altre prove disponibili."
+          },
+          {
+            "t": "p",
+            "text": "Lo staff valuta i casi individualmente. Non tutte le transazioni andate male costituiscono automaticamente una violazione."
+          }
+        ]
+      },
+      {
+        "code": "V.3",
+        "n": 42,
+        "title": "Negozi e mercato",
+        "blocks": [
+          {
+            "t": "p",
+            "text": "I negozi, le aste e gli altri sistemi di mercato presenti sul server devono essere utilizzati secondo le loro regole di funzionamento."
+          },
+          {
+            "t": "p",
+            "text": "I prezzi sono liberi, ma è vietato presentare in modo ingannevole il contenuto, la quantità o le caratteristiche di ciò che si vende."
+          },
+          {
+            "t": "p",
+            "text": "È vietato manipolare il mercato con account secondari, accordi fittizi, bug o automatismi non consentiti."
+          },
+          {
+            "t": "p",
+            "text": "Lo staff può rimuovere negozi o annunci ingannevoli e annullare transazioni ottenute in modo illecito, ove tecnicamente possibile."
+          }
+        ]
+      },
+      {
+        "code": "V.4",
+        "n": 43,
+        "title": "Vendita di lotti, città e territori",
+        "blocks": [
+          {
+            "t": "p",
+            "text": "Possono vendere o cedere lotti, città e territori soltanto i giocatori che ne hanno effettivamente il controllo, come il proprietario del lotto o il Sindaco."
+          },
+          {
+            "t": "p",
+            "text": "Il trasferimento deve avvenire tramite le meccaniche Towny del server: un accordo solo verbale non obbliga lo staff a trasferire proprietà o cariche."
+          },
+          {
+            "t": "p",
+            "text": "Chi acquista deve verificare prima del pagamento di ricevere effettivamente il lotto, la carica o i permessi concordati."
+          },
+          {
+            "t": "p",
+            "text": "Le controversie sulle cessioni vanno presentate allo staff tramite il forum, con le prove dell'accordo."
+          }
+        ]
+      },
+      {
+        "code": "V.5",
+        "n": 44,
+        "title": "Pagamenti a rate e prestiti",
+        "blocks": [
+          {
+            "t": "p",
+            "text": "I pagamenti a rate, i prestiti e gli accordi a credito tra giocatori sono consentiti, ma avvengono a rischio delle parti coinvolte."
+          },
+          {
+            "t": "p",
+            "text": "Lo staff non è tenuto a recuperare prestiti o rate non pagate, salvo nei casi di truffa dimostrata secondo l'articolo V.2."
+          },
+          {
+            "t": "p",
+            "text": "È vietato usare prestiti o accordi a credito come strumento per ingannare deliberatamente altri giocatori."
+          }
+        ]
+      },
+      {
+        "code": "V.6",
+        "n": 45,
+        "title": "Compravendita con denaro reale",
+        "blocks": [
+          {
+            "t": "p",
+            "text": "È vietato vendere, comprare o scambiare con denaro reale, o con altri beni esterni al server, valuta di gioco, Goldoni, oggetti, servizi, territori, città o account di Tiberius MC."
+          },
+          {
+            "t": "p",
+            "text": "L'unico canale autorizzato per acquisti con denaro reale è lo store ufficiale."
+          },
+          {
+            "t": "p",
+            "text": "Sono vietati anche gli annunci, le offerte e le trattative per questo tipo di vendita, nel server e sui canali ufficiali della community."
+          },
+          {
+            "t": "p",
+            "text": "Lo staff può rimuovere gli oggetti, la valuta o i territori ottenuti in questo modo e sanzionare tutti i giocatori coinvolti, sia chi vende sia chi compra."
+          },
+          {
+            "t": "p",
+            "text": "Lo staff non interviene per recuperare denaro reale perso in questi scambi."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "letter": "Z",
+    "roman": "XV",
     "title": "Disposizioni finali",
     "articles": [
       {
         "code": "Z.1",
-        "n": 42,
+        "n": 46,
         "title": "Aggiornamenti",
         "blocks": [
           {
@@ -1364,7 +1459,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "Z.2",
-        "n": 43,
+        "n": 47,
         "title": "Accettazione",
         "blocks": [
           {
@@ -1379,7 +1474,7 @@ export const REGOLE: RuleChapter[] = [
       },
       {
         "code": "Z.3",
-        "n": 44,
+        "n": 48,
         "title": "Entrata in vigore",
         "blocks": [
           {
