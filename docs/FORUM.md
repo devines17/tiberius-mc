@@ -1,6 +1,7 @@
 # Forum ufficiale di TiberiusMC
 
 Sistema di pratiche (ticket) con tre categorie: **Assistenza**, **Towny**, **Candidature staff**.
+In Towny ci sono anche il *Manuale del sindaco* e il *Manuale del governatore* (`lib/forum/manuali.ts`, pagine `/forum/manuale/...`).
 Ogni richiesta è privata: la vedono solo chi l'ha aperta e lo staff con il permesso di quella sezione.
 
 ## Architettura
@@ -31,7 +32,7 @@ Sicurezza in breve:
 
 ### 1. Supabase
 1. Crea un progetto su supabase.com (regione EU).
-2. *SQL Editor* → incolla tutto `supabase/migrations/20261023180000_forum.sql` → *Run*.
+2. *SQL Editor* → esegui, in ordine, ogni file di `supabase/migrations/` (incolla tutto il contenuto → *Run*).
 3. *Project Settings → API*: copia `Project URL` e la chiave `service_role` (segreta).
 
 ### 2. App Discord
@@ -73,11 +74,11 @@ Il plugin fa una sola cosa: chiede il codice al sito con una richiesta firmata (
 | Sezione | Permesso | Stati (in grassetto i finali) |
 | --- | --- | --- |
 | Assistenza generale | `assistenza` | aperta, in lavorazione, informazioni richieste, **risolta**, **chiusa** |
+| Segnalazione bug | `bug` | inviata, in verifica, informazioni richieste, bug confermato, **risolto**, **non riproducibile**, **chiusa** |
 | Richieste unban | `unban` | inviata, in revisione, informazioni richieste, **accolta**, **respinta**, **chiusa** |
 | Segnalazioni giocatori (riservata) | `segnalazioni` | inviata, in revisione, informazioni richieste, **provvedimento preso**, **non fondata**, **chiusa** |
 | Cambio nickname | `cambio_nick` | inviata, in revisione, informazioni richieste, approvata, **respinta**, **completata** |
 | Store e Goldoni (riservata) | `store` | inviata, in revisione, informazioni richieste, **risolta**, **respinta**, **chiusa** |
-| Conflitti Towny | `towny_conflitti` | inviata, in revisione, informazioni richieste, **risolta**, **respinta**, **chiusa** |
 | Diplomazia e guerra | `towny_diplomazia` | bozza, inviata, in revisione, in attesa di informazioni, approvata, **respinta**, **annullata**, **completata** |
 | Candidature staff (riservata) | `candidature` | inviata, in revisione, colloquio, **accettata**, **respinta**, **ritirata**, **chiusa** |
 

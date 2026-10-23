@@ -2,7 +2,7 @@
 // Si eseguono con:  node --test tests/forum/
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { CATEGORIES, SUBCATEGORIES, getSubcategory, formFields, type PermissionKey } from "../../lib/forum/config.ts";
 import {
   canView,
@@ -38,12 +38,12 @@ test("solo le tre categorie richieste", () => {
   assert.deepEqual(CATEGORIES.map((c) => c.key), ["assistenza", "towny", "candidature"]);
 });
 
-test("solo le otto sottosezioni richieste, unban una volta sola", () => {
+test("solo le sottosezioni richieste, unban una volta sola", () => {
   assert.deepEqual(SUBCATEGORIES.map((s) => s.key), [
-    "assistenza_generale", "unban", "segnalazioni", "cambio_nick", "store", "conflitti", "diplomazia", "candidature",
+    "assistenza_generale", "bug", "unban", "segnalazioni", "cambio_nick", "store", "diplomazia", "candidature",
   ]);
   assert.equal(SUBCATEGORIES.filter((s) => s.key.includes("unban")).length, 1);
-  assert.deepEqual(SUBCATEGORIES.filter((s) => s.category === "towny").map((s) => s.key), ["conflitti", "diplomazia"]);
+  assert.deepEqual(SUBCATEGORIES.filter((s) => s.category === "towny").map((s) => s.key), ["diplomazia"]);
 });
 
 test("ogni sottosezione ha il proprio modulo", () => {
@@ -52,7 +52,8 @@ test("ogni sottosezione ha il proprio modulo", () => {
 });
 
 test("configurazione e database hanno gli stessi stati", () => {
-  const sql = readFileSync(new URL("../../supabase/migrations/20261023180000_forum.sql", import.meta.url), "utf8");
+  const dir = new URL("../../supabase/migrations/", import.meta.url);
+  const sql = readdirSync(dir).sort().map((f) => readFileSync(new URL(f, dir), "utf8")).join("\n");
   for (const s of SUBCATEGORIES) {
     for (const st of s.statuses) {
       const re = new RegExp(`\\('${s.key}',\\s*'${st.key}',\\s*'[^']*',\\s*${st.final}\\s*,`);

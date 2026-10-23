@@ -7,7 +7,22 @@ import { ForumNav } from "@/components/forum/ForumNav";
 import { Notice, PrivateBadge } from "@/components/forum/bits";
 import { ForumLoading, NotConfigured } from "@/components/forum/states";
 import { forumContext } from "@/components/forum/session";
-import { CATEGORIES, SUBCATEGORIES } from "@/lib/forum/config";
+import { BookOpen } from "lucide-react";
+import { CATEGORIES, SUBCATEGORIES, type Subcategory } from "@/lib/forum/config";
+import { getManual, type Manual } from "@/lib/forum/manuali";
+
+type Item = { kind: "sub"; s: Subcategory } | { kind: "manual"; m: Manual };
+
+/** Schede di una categoria. In Towny i manuali stanno attorno a Diplomazia. */
+function itemsFor(cat: string): Item[] {
+  const subs: Item[] = SUBCATEGORIES.filter((s) => s.category === cat).map((s) => ({ kind: "sub", s }));
+  if (cat !== "towny") return subs;
+  const man = (k: string): Item[] => {
+    const m = getManual(k);
+    return m ? [{ kind: "manual", m }] : [];
+  };
+  return [...man("sindaco"), ...subs, ...man("governatore")];
+}
 
 export const metadata: Metadata = {
   title: "Forum",
@@ -39,21 +54,36 @@ export default function Page() {
               {c.description}
             </p>
           </div>
-          <ul className={`grid gap-4 ${SUBCATEGORIES.filter((s) => s.category === c.key).length > 1 ? "md:grid-cols-2" : ""} ${c.key === "assistenza" ? "lg:grid-cols-3" : ""}`} data-stagger="0.07">
-            {SUBCATEGORIES.filter((s) => s.category === c.key).map((s) => (
-              <li key={s.key} className="panel flex flex-col gap-4 p-6 md:p-7">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-xl">{s.label}</h3>
-                  {s.sensitive && <PrivateBadge />}
-                </div>
-                <p className="flex-1 text-white/70">{s.description}</p>
-                <div>
-                  <Btn href={`/forum/nuova/${s.key}`} variant="accent" magnetic={false}>
-                    nuova richiesta
-                  </Btn>
-                </div>
-              </li>
-            ))}
+          <ul className={`grid gap-4 md:grid-cols-2 ${c.key !== "candidature" ? "lg:grid-cols-3" : ""}`} data-stagger="0.07">
+            {itemsFor(c.key).map((it) =>
+              it.kind === "sub" ? (
+                <li key={it.s.key} className="panel flex flex-col gap-4 p-6 md:p-7">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-xl">{it.s.label}</h3>
+                    {it.s.sensitive && <PrivateBadge />}
+                  </div>
+                  <p className="flex-1 text-white/70">{it.s.description}</p>
+                  <div>
+                    <Btn href={`/forum/nuova/${it.s.key}`} variant="accent" magnetic={false}>
+                      nuova richiesta
+                    </Btn>
+                  </div>
+                </li>
+              ) : (
+                <li key={it.m.key} className="panel flex flex-col gap-4 p-6 md:p-7">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <BookOpen className="size-5 text-gold" aria-hidden />
+                    <h3 className="text-xl">{it.m.label}</h3>
+                  </div>
+                  <p className="flex-1 text-white/70">{it.m.short}</p>
+                  <div>
+                    <Btn href={`/forum/manuale/${it.m.key}`} magnetic={false}>
+                      leggi il manuale
+                    </Btn>
+                  </div>
+                </li>
+              ),
+            )}
           </ul>
         </section>
       ))}

@@ -10,22 +10,22 @@
 
 export type PermissionKey =
   | "assistenza"
+  | "bug"
   | "unban"
   | "segnalazioni"
   | "cambio_nick"
   | "store"
-  | "towny_conflitti"
   | "towny_diplomazia"
   | "candidature"
   | "admin";
 
 export const PERMISSIONS: { key: PermissionKey; label: string }[] = [
   { key: "assistenza", label: "Assistenza generale" },
+  { key: "bug", label: "Segnalazioni bug" },
   { key: "unban", label: "Richieste unban" },
   { key: "segnalazioni", label: "Segnalazioni giocatori" },
   { key: "cambio_nick", label: "Cambio nickname" },
   { key: "store", label: "Store e Goldoni" },
-  { key: "towny_conflitti", label: "Conflitti Towny" },
   { key: "towny_diplomazia", label: "Diplomazia e richieste di guerra" },
   { key: "candidature", label: "Candidature staff" },
   { key: "admin", label: "Amministrazione generale" },
@@ -35,11 +35,11 @@ export type CategoryKey = "assistenza" | "towny" | "candidature";
 
 export type SubcategoryKey =
   | "assistenza_generale"
+  | "bug"
   | "unban"
   | "segnalazioni"
   | "cambio_nick"
   | "store"
-  | "conflitti"
   | "diplomazia"
   | "candidature";
 
@@ -105,8 +105,8 @@ export const SUBCATEGORIES: Subcategory[] = [
     key: "assistenza_generale",
     category: "assistenza",
     label: "Assistenza generale",
-    short: "Problemi, bug e domande sul server.",
-    description: "Per problemi, segnalazioni di bug e richieste generali relativi al server.",
+    short: "Problemi e domande sul server.",
+    description: "Per problemi e richieste generali relativi al server.",
     permission: "assistenza",
     sensitive: false,
     requiresVerifiedMc: false,
@@ -122,7 +122,6 @@ export const SUBCATEGORIES: Subcategory[] = [
         type: "select",
         required: true,
         options: [
-          { value: "bug", label: "Segnalazione bug" },
           { value: "connessione", label: "Connessione al server" },
           { value: "gioco", label: "Problema in gioco" },
           { value: "account", label: "Account e collegamento" },
@@ -130,9 +129,34 @@ export const SUBCATEGORIES: Subcategory[] = [
           { value: "altro", label: "Altro" },
         ],
       },
+    ],
+  },
+  {
+    key: "bug",
+    category: "assistenza",
+    label: "Segnalazione bug",
+    short: "Errori nel gioco, nel sito o nei bot.",
+    description: "Per segnalare un errore o un malfunzionamento del server, del sito o dei bot Discord.",
+    permission: "bug",
+    sensitive: false,
+    requiresVerifiedMc: false,
+    allowsDraft: false,
+    initialStatus: "inviata",
+    statuses: [
+      S("inviata", "Inviata"),
+      S("in_revisione", "In verifica"),
+      S("info_richieste", "Informazioni richieste"),
+      S("confermato", "Bug confermato"),
+      S("risolto", "Risolto", true),
+      S("non_riproducibile", "Non riproducibile", true),
+      S("chiusa", "Chiusa", true),
+    ],
+    notices: ["Se il bug permette di duplicare oggetti o ottenere vantaggi, non sfruttarlo e non parlarne in pubblico: segnalalo solo qui."],
+    bodyLabel: "Descrizione del bug",
+    fields: [
       {
-        name: "bug_dove",
-        label: "Dove si verifica il bug",
+        name: "dove",
+        label: "Dove si verifica",
         type: "select",
         required: true,
         options: [
@@ -140,24 +164,17 @@ export const SUBCATEGORIES: Subcategory[] = [
           { value: "sito", label: "Sito o forum" },
           { value: "discord", label: "Discord o bot" },
         ],
-        when: { field: "tipo_problema", in: ["bug"] },
       },
       {
-        name: "bug_passi",
+        name: "passi",
         label: "Come riprodurlo",
         type: "textarea",
         required: true,
         max: 3000,
         help: "Elenca i passaggi che portano al bug, cosa ti aspettavi e cosa succede invece.",
-        when: { field: "tipo_problema", in: ["bug"] },
       },
-      {
-        name: "bug_coordinate",
-        label: "Mondo e coordinate (se in gioco)",
-        type: "text",
-        max: 120,
-        when: { field: "tipo_problema", in: ["bug"] },
-      },
+      { name: "coordinate", label: "Mondo e coordinate", type: "text", max: 120, when: { field: "dove", in: ["server"] } },
+      PROVE,
     ],
   },
   {
@@ -294,40 +311,6 @@ export const SUBCATEGORIES: Subcategory[] = [
       { name: "riferimento_ordine", label: "Numero ordine o riferimento della transazione", type: "text", max: 120, help: "Lo trovi nella mail di conferma. Non inserire dati della carta." },
       { name: "data_acquisto", label: "Data dell'acquisto", type: "date", required: true },
       { ...PROVE, label: "Prove (link a screenshot della ricevuta, senza dati della carta)" },
-    ],
-  },
-  {
-    key: "conflitti",
-    category: "towny",
-    label: "Conflitti",
-    short: "Controversie tra città e nazioni.",
-    description: "Per sottoporre allo staff controversie su città, nazioni e territori che richiedono una revisione amministrativa.",
-    permission: "towny_conflitti",
-    sensitive: false,
-    requiresVerifiedMc: true,
-    allowsDraft: false,
-    initialStatus: "inviata",
-    statuses: [S("inviata", "Inviata"), S("in_revisione", "In revisione"), S("info_richieste", "Informazioni richieste"), S("risolta", "Risolta", true), S("respinta", "Respinta", true), S("chiusa", "Chiusa", true)],
-    notices: ["Un conflitto è una richiesta di intervento dello staff, non una dichiarazione di guerra. Per le guerre usa Diplomazia.", "Il tuo ruolo (sindaco, rappresentante) sarà verificato dallo staff."],
-    bodyLabel: "Descrizione del conflitto",
-    fields: [
-      { name: "parti", label: "Città o nazioni coinvolte", type: "text", required: true, max: 300 },
-      {
-        name: "ruolo",
-        label: "Il tuo ruolo",
-        type: "select",
-        required: true,
-        options: [
-          { value: "sindaco", label: "Sindaco" },
-          { value: "leader_nazione", label: "Leader di nazione" },
-          { value: "rappresentante", label: "Rappresentante autorizzato" },
-          { value: "cittadino", label: "Cittadino" },
-        ],
-      },
-      { name: "cronologia", label: "Contesto e cronologia", type: "textarea", required: true, max: 4000 },
-      { name: "territori", label: "Territori interessati (coordinate, chunk, nomi)", type: "text", max: 300 },
-      { name: "richiesta", label: "Risultato o intervento richiesto", type: "text", required: true, max: 500 },
-      PROVE,
     ],
   },
   {

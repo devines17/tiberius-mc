@@ -242,7 +242,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
                 isFinal={final}
                 reopenRequested={Boolean(t.reopen_requested_at)}
                 verifiable={[
-                  ...(t.fields.ruolo && !t.fields.ruolo_verificato_da && (sub.key === "conflitti" || sub.key === "diplomazia") ? [{ value: "ruolo", label: "conferma ruolo Towny" }] : []),
+                  ...(t.fields.ruolo && !t.fields.ruolo_verificato_da && sub.key === "diplomazia" ? [{ value: "ruolo", label: "conferma ruolo Towny" }] : []),
                   ...(t.fields.nickname && !t.fields.nickname_verificato_da && sub.key === "unban" ? [{ value: "nickname", label: "conferma identità del bannato" }] : []),
                 ]}
               />
