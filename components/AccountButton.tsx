@@ -50,7 +50,7 @@ export function AccountButton() {
     timer.current = setTimeout(() => setOpen(false), 160);
   };
 
-  const row = "flex items-center justify-between rounded-lg py-2 pl-[34px] pr-3 text-[0.95rem] font-bold text-white/75 transition-colors hover:bg-white/[0.07] hover:text-white";
+  const row = "flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-[0.95rem] font-bold text-white/75 transition-colors hover:bg-white/[0.07] hover:text-white";
   return (
     // Un'unica forma: chiusa è l'icona, aperta si allarga verso sinistra (icona e nome in alto) e sotto scende l'elenco
     <div ref={box} className="relative size-11" onMouseEnter={enter} onMouseLeave={leave}>
@@ -61,14 +61,16 @@ export function AccountButton() {
           aria-expanded={open}
           aria-haspopup="menu"
           aria-label={me ? `Account di ${me.name}` : "Accedi"}
-          className="relative flex h-11 w-full items-center text-left"
+          className="relative flex h-11 w-full items-center justify-center"
         >
           <span className="grid size-11 shrink-0 place-items-center">
             <svg viewBox="0 0 24 24" className="size-6 text-white" fill="currentColor" aria-hidden>
               <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 4.2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8Zm0 13.6a7.8 7.8 0 0 1-5.6-2.4c.9-1.8 3.1-2.9 5.6-2.9s4.7 1.1 5.6 2.9a7.8 7.8 0 0 1-5.6 2.4Z" />
             </svg>
           </span>
-          <span className="acc-fade -ml-1 min-w-0 truncate pr-4 text-sm font-bold">{me ? me.name : "accedi"}</span>
+          <span className="acc-label min-w-0 overflow-hidden">
+            <span className="block truncate pr-3.5 text-sm font-bold">{me ? me.name : "accedi"}</span>
+          </span>
           {me && me.unread > 0 && <span className="absolute left-7 top-2 size-2.5 rounded-full bg-accent ring-2 ring-[#141416]" aria-label={`${me.unread} notifiche non lette`} />}
         </button>
 
