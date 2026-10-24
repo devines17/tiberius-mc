@@ -18,7 +18,7 @@ export default function Page() {
       ) : (
         <Soon title="mappa in arrivo" text="La mappa interattiva sarà pubblicata qui appena pronta." />
       )}
-      <DiscordBand />
+      <DiscordBand topic="mappa" />
     </>
   );
 }

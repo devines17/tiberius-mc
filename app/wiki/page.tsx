@@ -9,7 +9,7 @@ export default function Page() {
     <>
       <PageHead kicker="wiki" title="Tutto quello che serve sapere." lead="Comandi, guide e meccaniche del server." art="/images/art/town.png" />
       <Soon title="wiki in costruzione" text="Le guide ufficiali compariranno qui." />
-      <DiscordBand />
+      <DiscordBand topic="wiki" />
     </>
   );
 }
