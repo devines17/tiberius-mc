@@ -58,8 +58,9 @@ export function Header() {
 
   return (
     <header className={`topbar fixed inset-x-0 top-0 z-50 ${open ? "!bg-field text-white" : ""}`} style={{ height: "var(--header-h)" }}>
-      <div className="flex h-full items-center justify-between gap-6 px-[var(--gutter)]">
-        <Link href="/" className="relative z-10 shrink-0 transition-transform duration-300 hover:scale-[1.03]" aria-label="TiberiusMC, home">
+      {/* Tre colonne uguali ai lati: il menu resta al centro esatto della pagina */}
+      <div className="grid h-full grid-cols-[1fr_auto] items-center gap-6 px-[var(--gutter)] xl:grid-cols-[1fr_auto_1fr]">
+        <Link href="/" className="relative z-10 shrink-0 justify-self-start transition-transform duration-300 hover:scale-[1.03]" aria-label="TiberiusMC, home">
           <Image src="/images/tiberiusmc-wordmark.webp" alt="TiberiusMC" width={900} height={151} priority unoptimized className="h-7 w-auto md:h-8 2xl:h-9" />
         </Link>
         <nav aria-label="Principale" className="hidden items-center gap-0.5 xl:flex">
@@ -95,7 +96,7 @@ export function Header() {
             );
           })}
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 justify-self-end">
           <Link
             href="/store"
             aria-label="Carrello"

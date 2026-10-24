@@ -28,7 +28,7 @@ export function CopyIp({
 
   const tones = {
     light: "bg-surface text-ink",
-    dark: "bg-white text-black",
+    dark: "bg-black/45 text-white ring-1 ring-inset ring-white/15 backdrop-blur-md",
     paper: "bg-white text-black",
   } as const;
 
