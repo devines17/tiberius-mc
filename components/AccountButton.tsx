@@ -76,20 +76,17 @@ export function AccountButton() {
         aria-label={me ? `Account di ${me.name}` : "Accedi"}
         className={`relative grid size-11 place-items-center rounded-xl bg-white/[0.06] ring-1 ring-inset transition-all duration-200 hover:bg-white/10 ${open ? "ring-white/35" : "ring-white/12"} ${me === undefined ? "opacity-0" : ""}`}
       >
-        {me ? (
-          <Head uuid={me.mcUuid ?? me.headName} className="size-7" />
-        ) : (
-          <svg viewBox="0 0 24 24" className="size-6 text-white" fill="currentColor" aria-hidden>
-            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 4.2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8Zm0 13.6a7.8 7.8 0 0 1-5.6-2.4c.9-1.8 3.1-2.9 5.6-2.9s4.7 1.1 5.6 2.9a7.8 7.8 0 0 1-5.6 2.4Z" />
-          </svg>
-        )}
+        <svg viewBox="0 0 24 24" className="size-6 text-white" fill="currentColor" aria-hidden>
+          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 4.2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8Zm0 13.6a7.8 7.8 0 0 1-5.6-2.4c.9-1.8 3.1-2.9 5.6-2.9s4.7 1.1 5.6 2.9a7.8 7.8 0 0 1-5.6 2.4Z" />
+        </svg>
         {me && me.unread > 0 && <span className="absolute -right-1 -top-1 size-3 rounded-full bg-accent ring-2 ring-[#0b0b0c]" aria-label={`${me.unread} notifiche non lette`} />}
       </button>
 
       {/* pt-2 fa da ponte tra bottone e pannello, così il mouse non lo chiude passando */}
       <div
         role="menu"
-        className={`absolute right-0 top-full z-50 origin-top-right pt-2 transition-[opacity,transform,visibility] duration-200 ease-out ${open ? "visible translate-y-0 scale-100 opacity-100" : "pointer-events-none invisible -translate-y-1 scale-[0.97] opacity-0"}`}
+        data-open={open}
+        className={`acc-menu absolute right-0 top-full z-50 pt-2 ${open ? "visible" : "pointer-events-none invisible"}`}
       >
         <div className="w-64 rounded-2xl border border-white/10 bg-[#141416]/95 p-2 shadow-2xl shadow-black/60 backdrop-blur">
           {me ? (
