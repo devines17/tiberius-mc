@@ -1,0 +1,222 @@
+/* Emote "griddy" convertito da Emotecraft (autore originale: SeroRonin). Generato da scripts/emote-css.py: non modificare a mano. */
+@keyframes sk-griddy-head {
+  0.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-15.00deg); }
+  5.56% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-11.00deg); }
+  8.89% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-15.00deg); }
+  13.33% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-11.00deg); }
+  16.67% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-15.00deg); }
+  25.56% { transform: rotateZ(12.49deg) rotateY(29.77deg) rotateX(23.89deg); }
+  30.00% { transform: rotateZ(12.49deg) rotateY(29.77deg) rotateX(26.21deg); }
+  33.33% { transform: rotateZ(12.49deg) rotateY(29.77deg) rotateX(23.89deg); }
+  38.89% { transform: rotateZ(12.49deg) rotateY(29.77deg) rotateX(26.21deg); }
+  42.22% { transform: rotateZ(12.49deg) rotateY(29.77deg) rotateX(23.89deg); }
+  46.67% { transform: rotateZ(12.49deg) rotateY(29.77deg) rotateX(26.21deg); }
+  50.00% { transform: rotateZ(12.49deg) rotateY(29.77deg) rotateX(23.89deg); }
+  58.89% { transform: rotateZ(-1.57deg) rotateY(15.62deg) rotateX(0.03deg); }
+  75.56% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  88.89% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  100.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-15.00deg); }
+}
+@keyframes sk-griddy-rarm {
+  0.00% { transform: rotateZ(20.00deg) rotateY(25.00deg) rotateX(50.00deg); }
+  8.89% { transform: rotateZ(13.00deg) rotateY(25.00deg) rotateX(-30.00deg); }
+  16.67% { transform: rotateZ(20.00deg) rotateY(25.00deg) rotateX(50.00deg); }
+  25.56% { transform: rotateZ(13.00deg) rotateY(25.00deg) rotateX(-30.00deg); }
+  33.33% { transform: rotateZ(20.00deg) rotateY(25.00deg) rotateX(50.00deg); }
+  42.22% { transform: rotateZ(13.00deg) rotateY(25.00deg) rotateX(-30.00deg); }
+  50.00% { transform: rotateZ(20.00deg) rotateY(25.00deg) rotateX(50.00deg); }
+  58.89% { transform: rotateZ(13.00deg) rotateY(25.00deg) rotateX(-30.00deg); }
+  66.67% { transform: rotateZ(20.00deg) rotateY(25.00deg) rotateX(50.00deg); }
+  75.56% { transform: rotateZ(30.00deg) rotateY(-5.00deg) rotateX(135.00deg); }
+  88.89% { transform: rotateZ(25.00deg) rotateY(-0.00deg) rotateX(125.00deg); }
+  100.00% { transform: rotateZ(20.00deg) rotateY(25.00deg) rotateX(50.00deg); }
+}
+@keyframes sk-griddy-rarm-bend {
+  0.00% { transform: rotateX(-0.00deg); }
+  50.00% { transform: rotateX(-0.00deg); }
+  58.89% { transform: rotateX(50.00deg); }
+  83.33% { transform: rotateX(55.00deg); }
+  100.00% { transform: rotateX(-0.00deg); }
+}
+@keyframes sk-griddy-larm {
+  0.00% { transform: rotateZ(-20.00deg) rotateY(-25.00deg) rotateX(50.00deg); }
+  8.89% { transform: rotateZ(-13.00deg) rotateY(-25.00deg) rotateX(-30.00deg); }
+  16.67% { transform: rotateZ(-20.00deg) rotateY(-25.00deg) rotateX(50.00deg); }
+  25.56% { transform: rotateZ(-13.00deg) rotateY(-25.00deg) rotateX(-30.00deg); }
+  33.33% { transform: rotateZ(-20.00deg) rotateY(-25.00deg) rotateX(50.00deg); }
+  42.22% { transform: rotateZ(-13.00deg) rotateY(-25.00deg) rotateX(-30.00deg); }
+  50.00% { transform: rotateZ(-20.00deg) rotateY(-25.00deg) rotateX(50.00deg); }
+  58.89% { transform: rotateZ(-13.00deg) rotateY(-25.00deg) rotateX(-30.00deg); }
+  66.67% { transform: rotateZ(-20.00deg) rotateY(-25.00deg) rotateX(50.00deg); }
+  75.56% { transform: rotateZ(-30.00deg) rotateY(5.00deg) rotateX(133.99deg); }
+  88.89% { transform: rotateZ(-25.00deg) rotateY(-0.00deg) rotateX(125.21deg); }
+  100.00% { transform: rotateZ(-20.00deg) rotateY(-25.00deg) rotateX(50.00deg); }
+}
+@keyframes sk-griddy-larm-bend {
+  0.00% { transform: rotateX(-0.00deg); }
+  50.00% { transform: rotateX(-0.00deg); }
+  58.89% { transform: rotateX(50.00deg); }
+  83.33% { transform: rotateX(55.00deg); }
+  100.00% { transform: rotateX(-0.00deg); }
+}
+@keyframes sk-griddy-rleg {
+  0.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.00deg); }
+  8.89% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  12.22% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  16.67% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.00deg); }
+  25.56% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  28.89% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  33.33% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.00deg); }
+  42.22% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  45.56% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  50.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.00deg); }
+  58.89% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  62.22% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  66.67% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.00deg); }
+  75.56% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  78.89% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  83.33% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.00deg); }
+  92.22% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  95.56% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  100.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.00deg); }
+}
+@keyframes sk-griddy-rleg-bend {
+  0.00% { transform: rotateX(-30.00deg); }
+  5.56% { transform: rotateX(-30.00deg); }
+  8.89% { transform: rotateX(-25.00deg); }
+  13.33% { transform: rotateX(-55.00deg); }
+  16.67% { transform: rotateX(-30.00deg); }
+  22.22% { transform: rotateX(-30.00deg); }
+  25.56% { transform: rotateX(-25.00deg); }
+  30.00% { transform: rotateX(-55.00deg); }
+  33.33% { transform: rotateX(-30.00deg); }
+  38.89% { transform: rotateX(-30.00deg); }
+  42.22% { transform: rotateX(-25.00deg); }
+  46.67% { transform: rotateX(-55.00deg); }
+  50.00% { transform: rotateX(-30.00deg); }
+  55.56% { transform: rotateX(-30.00deg); }
+  58.89% { transform: rotateX(-25.00deg); }
+  63.33% { transform: rotateX(-55.00deg); }
+  66.67% { transform: rotateX(-30.00deg); }
+  72.22% { transform: rotateX(-30.00deg); }
+  75.56% { transform: rotateX(-25.00deg); }
+  80.00% { transform: rotateX(-55.00deg); }
+  83.33% { transform: rotateX(-30.00deg); }
+  88.89% { transform: rotateX(-30.00deg); }
+  92.22% { transform: rotateX(-25.00deg); }
+  96.67% { transform: rotateX(-55.00deg); }
+  100.00% { transform: rotateX(-30.00deg); }
+}
+@keyframes sk-griddy-lleg {
+  0.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  3.33% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  8.89% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.23deg); }
+  16.67% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  20.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  25.56% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.23deg); }
+  33.33% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  36.67% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  42.22% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.23deg); }
+  50.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  53.33% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  58.89% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.23deg); }
+  66.67% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  70.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  75.56% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.23deg); }
+  83.33% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+  86.67% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(35.00deg); }
+  92.22% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(10.23deg); }
+  100.00% { transform: rotateZ(0.00deg) rotateY(-0.00deg) rotateX(30.00deg); }
+}
+@keyframes sk-griddy-lleg-bend {
+  0.00% { transform: rotateX(-25.00deg); }
+  5.56% { transform: rotateX(-55.00deg); }
+  8.89% { transform: rotateX(-30.00deg); }
+  13.33% { transform: rotateX(-30.00deg); }
+  16.67% { transform: rotateX(-25.00deg); }
+  22.22% { transform: rotateX(-55.00deg); }
+  25.56% { transform: rotateX(-30.00deg); }
+  30.00% { transform: rotateX(-30.00deg); }
+  33.33% { transform: rotateX(-25.00deg); }
+  38.89% { transform: rotateX(-55.00deg); }
+  42.22% { transform: rotateX(-30.00deg); }
+  46.67% { transform: rotateX(-30.00deg); }
+  50.00% { transform: rotateX(-25.00deg); }
+  55.56% { transform: rotateX(-55.00deg); }
+  58.89% { transform: rotateX(-30.00deg); }
+  63.33% { transform: rotateX(-30.00deg); }
+  66.67% { transform: rotateX(-25.00deg); }
+  72.22% { transform: rotateX(-55.00deg); }
+  75.56% { transform: rotateX(-30.00deg); }
+  80.00% { transform: rotateX(-30.00deg); }
+  83.33% { transform: rotateX(-25.00deg); }
+  88.89% { transform: rotateX(-55.00deg); }
+  92.22% { transform: rotateX(-30.00deg); }
+  96.67% { transform: rotateX(-30.00deg); }
+  100.00% { transform: rotateX(-25.00deg); }
+}
+@keyframes sk-griddy-upper {
+  0.00% { transform: rotateX(-22.65deg); }
+  4.44% { transform: rotateX(-21.65deg); }
+  8.89% { transform: rotateX(-22.65deg); }
+  12.22% { transform: rotateX(-21.65deg); }
+  16.67% { transform: rotateX(-22.65deg); }
+  21.11% { transform: rotateX(-21.65deg); }
+  25.56% { transform: rotateX(-22.65deg); }
+  28.89% { transform: rotateX(-21.65deg); }
+  33.33% { transform: rotateX(-22.65deg); }
+  37.78% { transform: rotateX(-21.65deg); }
+  42.22% { transform: rotateX(-22.65deg); }
+  45.56% { transform: rotateX(-21.65deg); }
+  50.00% { transform: rotateX(-22.65deg); }
+  54.44% { transform: rotateX(-21.65deg); }
+  58.89% { transform: rotateX(-22.65deg); }
+  62.22% { transform: rotateX(-21.65deg); }
+  66.67% { transform: rotateX(-22.65deg); }
+  71.11% { transform: rotateX(-21.65deg); }
+  75.56% { transform: rotateX(-22.65deg); }
+  78.89% { transform: rotateX(-21.65deg); }
+  83.33% { transform: rotateX(-22.65deg); }
+  87.78% { transform: rotateX(-21.65deg); }
+  92.22% { transform: rotateX(-22.65deg); }
+  95.56% { transform: rotateX(-21.65deg); }
+  100.00% { transform: rotateX(-22.65deg); }
+}
+@keyframes sk-griddy-rig {
+  0.00% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  4.44% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  8.89% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  12.22% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  16.67% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  21.11% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  25.56% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  28.89% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  33.33% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  37.78% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  42.22% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  45.56% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  50.00% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  54.44% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  58.89% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  62.22% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  66.67% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  71.11% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  75.56% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  78.89% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  83.33% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  87.78% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  92.22% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+  95.56% { transform: translateY(calc(var(--px) * -0.60)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-1.95deg); }
+  100.00% { transform: translateY(calc(var(--px) * -0.00)) rotateZ(0.00deg) rotateY(-0.00deg) rotateX(-4.45deg); }
+}
+.group:hover .sk-dance-griddy .sk-head { animation: sk-griddy-head 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-rarm { animation: sk-griddy-rarm 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-rarm .sk-seg-lower { animation: sk-griddy-rarm-bend 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-larm { animation: sk-griddy-larm 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-larm .sk-seg-lower { animation: sk-griddy-larm-bend 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-rleg { animation: sk-griddy-rleg 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-rleg .sk-seg-lower { animation: sk-griddy-rleg-bend 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-lleg { animation: sk-griddy-lleg 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-lleg .sk-seg-lower { animation: sk-griddy-lleg-bend 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-upper { animation: sk-griddy-upper 4.50s linear infinite; }
+.group:hover .sk-dance-griddy .sk-rig { animation: sk-griddy-rig 4.50s linear infinite; }

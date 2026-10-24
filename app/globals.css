@@ -693,7 +693,11 @@ button.btn:disabled {
 
 /* Posizione delle parti sul modello (in pixel della skin) */
 .sk-head { left: calc(4 * var(--px)); top: 0; transform-origin: 50% 100%; }
-.sk-body { left: calc(4 * var(--px)); top: calc(8 * var(--px)); }
+.sk-body-upper, .sk-body-lower { left: calc(4 * var(--px)); top: calc(8 * var(--px)); }
+/* Gruppi per il ballo: tutto il corpo (perno all'anca) e la metà alta che si piega a metà busto */
+.sk-rig, .sk-upper { position: absolute; inset: 0; transform-style: preserve-3d; }
+.sk-rig { transform-origin: 50% calc(20 * var(--px)); }
+.sk-upper { transform-origin: 50% calc(14 * var(--px)); }
 .sk-rarm { left: calc((4 - var(--arm)) * var(--px)); top: calc(8 * var(--px)); transform-origin: 50% calc(2 * var(--px)); }
 .sk-larm { left: calc(12 * var(--px)); top: calc(8 * var(--px)); transform-origin: 50% calc(2 * var(--px)); }
 .sk-rleg { left: calc(4 * var(--px)); top: calc(20 * var(--px)); transform-origin: 50% 0; }
@@ -727,13 +731,7 @@ button.btn:disabled {
 .sk-pose-saluto_frontale .sk-lleg { transform: rotateZ(-2deg); }
 
 .group:hover .sk-figure { animation-play-state: paused; }
-/* Passando il mouse su uno staffer: saluta con la mano (braccio destro alzato di lato) */
-.group:hover .sk-rarm { animation: sk-hello 0.55s ease-in-out infinite alternate; }
-.group:hover .sk-rarm .sk-seg-lower { --elbow-z: 0deg; --elbow-x: 0deg; }
-@keyframes sk-hello {
-  from { transform: rotateZ(158deg) rotateX(-8deg); }
-  to { transform: rotateZ(132deg) rotateX(-8deg); }
-}
+/* Passando il mouse su uno staffer balla: keyframe in components/staff/emote-griddy.css */
 
 @keyframes sk-sway {
   from { transform: rotateX(-6deg) rotateY(-7deg); }
@@ -744,5 +742,5 @@ button.btn:disabled {
   to { transform: rotateZ(-128deg) rotateX(-10deg); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sk-figure, .sk-larm, .sk-rarm { animation: none !important; }
+  .sk-stage, .sk-stage * { animation: none !important; }
 }

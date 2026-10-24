@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import type { Skin } from "@/lib/skins";
+import "./emote-griddy.css";
 
 /**
  * Personaggio Minecraft in 3D fatto solo di CSS: un modello "vuoto" in posa
@@ -57,20 +58,19 @@ function Cuboid({ box, scale = 1, mirror = false, className = "" }: { box: Box; 
   );
 }
 
-function Part({ name, base, overlay, overlayScale, mirror, elbow }: { name: string; base: Box; overlay?: Box; overlayScale: number; mirror?: boolean; elbow?: boolean }) {
-  if (elbow) {
-    // Arto con gomito: metà superiore fissa alla spalla, metà inferiore ruota dal gomito (--elbow)
-    const seg = (b: Box, s: "upper" | "lower"): Box => ({ ...b, h: 6, seg: s });
+function Part({ name, base, overlay, overlayScale, mirror, elbow, half }: { name: string; base: Box; overlay?: Box; overlayScale: number; mirror?: boolean; elbow?: boolean; half?: "upper" | "lower" }) {
+  if (elbow || half) {
+    // Parte divisa in due metà da 6: la metà inferiore ruota dal gomito/ginocchio (--elbow o animazione).
+    // Con half si disegna una sola metà (il busto, che si piega a metà altezza).
+    const segs = (["upper", "lower"] as const).filter((s) => !half || half === s);
     return (
-      <div className={`sk-part sk-${name}`} style={{ "--w": base.w, "--h": base.h, "--d": base.d } as CSSProperties}>
-        <div className="sk-seg" style={{ "--w": base.w, "--h": 6, "--d": base.d } as CSSProperties}>
-          <Cuboid box={seg(base, "upper")} mirror={mirror} />
-          {overlay && <Cuboid box={seg(overlay, "upper")} scale={overlayScale} mirror={mirror} className="sk-overlay" />}
-        </div>
-        <div className="sk-seg sk-seg-lower" style={{ "--w": base.w, "--h": 6, "--d": base.d } as CSSProperties}>
-          <Cuboid box={seg(base, "lower")} mirror={mirror} />
-          {overlay && <Cuboid box={seg(overlay, "lower")} scale={overlayScale} mirror={mirror} className="sk-overlay" />}
-        </div>
+      <div className={`sk-part sk-${name}${half ? `-${half}` : ""}`} style={{ "--w": base.w, "--h": base.h, "--d": base.d } as CSSProperties}>
+        {segs.map((s) => (
+          <div key={s} className={`sk-seg${s === "lower" ? " sk-seg-lower" : ""}`} style={{ "--w": base.w, "--h": 6, "--d": base.d } as CSSProperties}>
+            <Cuboid box={{ ...base, h: 6, seg: s }} mirror={mirror} />
+            {overlay && <Cuboid box={{ ...overlay, h: 6, seg: s }} scale={overlayScale} mirror={mirror} className="sk-overlay" />}
+          </div>
+        ))}
       </div>
     );
   }
@@ -84,37 +84,48 @@ function Part({ name, base, overlay, overlayScale, mirror, elbow }: { name: stri
 
 const POSES = ["cammina", "saluta", "rilassato", "saluto_frontale"] as const;
 
-export function SkinFigure({ skin, pose = 0 }: { skin: Skin; pose?: number | (typeof POSES)[number] }) {
+/** dance: emote ballato al passaggio del mouse sulla card (vedi scripts/emote-css.py). */
+export function SkinFigure({ skin, pose = 0, dance = "griddy" }: { skin: Skin; pose?: number | (typeof POSES)[number]; dance?: "griddy" | null }) {
   const poseClass = typeof pose === "number" ? POSES[pose % 3] : pose;
   const a = skin.slim ? 3 : 4;
   const L = skin.legacy;
+  const body: Box = { w: 8, h: 12, d: 4, u: 16, v: 16 };
+  const bodyOv: Box | undefined = L ? undefined : { w: 8, h: 12, d: 4, u: 16, v: 32 };
   return (
     <div
-      className={`sk-stage sk-pose-${poseClass}`}
+      className={`sk-stage sk-pose-${poseClass}${dance ? ` sk-dance-${dance}` : ""}`}
       style={{ "--skin": `url("${skin.url}")`, "--sh": L ? 32 : 64, "--arm": a } as CSSProperties}
       role="img"
       aria-label={`Skin di ${skin.name}`}
     >
       <div className="sk-figure">
-        {/* Nelle vecchie skin 64x32 lo strato del cappello è spesso pieno (nero): Minecraft lo ignora, qui lo omettiamo */}
-        <Part name="head" base={{ w: 8, h: 8, d: 8, u: 0, v: 0 }} overlay={L ? undefined : { w: 8, h: 8, d: 8, u: 32, v: 0 }} overlayScale={1.125} />
-        <Part name="body" base={{ w: 8, h: 12, d: 4, u: 16, v: 16 }} overlay={L ? undefined : { w: 8, h: 12, d: 4, u: 16, v: 32 }} overlayScale={1.07} />
-        <Part name="rarm" base={{ w: a, h: 12, d: 4, u: 40, v: 16 }} overlay={L ? undefined : { w: a, h: 12, d: 4, u: 40, v: 32 }} overlayScale={1.08} elbow={poseClass === "saluto_frontale"} />
-        <Part
-          name="larm"
-          base={L ? { w: a, h: 12, d: 4, u: 40, v: 16 } : { w: a, h: 12, d: 4, u: 32, v: 48 }}
-          overlay={L ? undefined : { w: a, h: 12, d: 4, u: 48, v: 48 }}
-          overlayScale={1.08}
-          mirror={L}
-        />
-        <Part name="rleg" base={{ w: 4, h: 12, d: 4, u: 0, v: 16 }} overlay={L ? undefined : { w: 4, h: 12, d: 4, u: 0, v: 32 }} overlayScale={1.08} />
-        <Part
-          name="lleg"
-          base={L ? { w: 4, h: 12, d: 4, u: 0, v: 16 } : { w: 4, h: 12, d: 4, u: 16, v: 48 }}
-          overlay={L ? undefined : { w: 4, h: 12, d: 4, u: 0, v: 48 }}
-          overlayScale={1.08}
-          mirror={L}
-        />
+        {/* sk-rig: tutto il corpo (oscillazione del ballo). sk-upper: testa, braccia e metà alta del busto, che si piega */}
+        <div className="sk-rig">
+          <div className="sk-upper">
+            {/* Nelle vecchie skin 64x32 lo strato del cappello è spesso pieno (nero): Minecraft lo ignora, qui lo omettiamo */}
+            <Part name="head" base={{ w: 8, h: 8, d: 8, u: 0, v: 0 }} overlay={L ? undefined : { w: 8, h: 8, d: 8, u: 32, v: 0 }} overlayScale={1.125} />
+            <Part name="body" half="upper" base={body} overlay={bodyOv} overlayScale={1.07} />
+            <Part name="rarm" base={{ w: a, h: 12, d: 4, u: 40, v: 16 }} overlay={L ? undefined : { w: a, h: 12, d: 4, u: 40, v: 32 }} overlayScale={1.08} elbow />
+            <Part
+              name="larm"
+              base={L ? { w: a, h: 12, d: 4, u: 40, v: 16 } : { w: a, h: 12, d: 4, u: 32, v: 48 }}
+              overlay={L ? undefined : { w: a, h: 12, d: 4, u: 48, v: 48 }}
+              overlayScale={1.08}
+              mirror={L}
+              elbow
+            />
+          </div>
+          <Part name="body" half="lower" base={body} overlay={bodyOv} overlayScale={1.07} />
+          <Part name="rleg" base={{ w: 4, h: 12, d: 4, u: 0, v: 16 }} overlay={L ? undefined : { w: 4, h: 12, d: 4, u: 0, v: 32 }} overlayScale={1.08} elbow />
+          <Part
+            name="lleg"
+            base={L ? { w: 4, h: 12, d: 4, u: 0, v: 16 } : { w: 4, h: 12, d: 4, u: 16, v: 48 }}
+            overlay={L ? undefined : { w: 4, h: 12, d: 4, u: 0, v: 48 }}
+            overlayScale={1.08}
+            mirror={L}
+            elbow
+          />
+        </div>
       </div>
     </div>
   );
