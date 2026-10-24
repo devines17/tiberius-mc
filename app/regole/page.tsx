@@ -13,7 +13,7 @@ export default function Page() {
         art="regole"
         kicker="tiberiusmc · regole"
         title="Regolamento"
-        lead="Le regole del server, divise per argomento. Ogni regola ha un codice, per esempio F.2: F è l'argomento (Fair play) e 2 è il numero della regola. Lo staff usa questi codici per indicarti una regola precisa."
+        lead="Qui trovi il regolamento di Tiberius MC, il nostro server Towny. Leggilo prima di giocare."
       />
       <div className="wrap grid gap-10 pb-10 pt-12 md:pt-16">
         <section className="panel grid gap-3 p-6 md:p-8">
