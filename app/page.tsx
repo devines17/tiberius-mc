@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Words } from "@/components/ui/Words";
-import { Btn } from "@/components/ui/Btn";
 import { CopyIp } from "@/components/ui/CopyIp";
 import { JoinNow } from "@/components/ui/JoinNow";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
@@ -87,36 +86,43 @@ export default function Home() {
         </ol>
       </section>
 
-      {/* GOLDONE: fascia rossa a tutta larghezza, il legionario poggia sul bordo in basso */}
-      <section className="relative overflow-hidden bg-[linear-gradient(120deg,#5e110d_0%,#a3231a_60%,#c4382b_100%)]">
-        <div className="wrap grid items-end gap-4 lg:min-h-[30rem] lg:grid-cols-2 lg:gap-10">
-          <div className="self-center pt-14 lg:py-16" data-reveal="left">
-            <div className="flex items-center gap-3">
-              <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="float-soft size-10" unoptimized />
-              <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#ffd28a]">goldoni e store</span>
+      {/* GOLDONE: tesoro che luccica, il legionario poggia sul bordo in basso */}
+      <section className="relative overflow-hidden bg-[radial-gradient(30%_60%_at_74%_92%,rgb(255_196_64/0.55)_0%,rgb(255_150_40/0.18)_45%,transparent_72%),linear-gradient(180deg,#3a0907_0%,#7d1912_55%,#a3231a_100%)]">
+        <div aria-hidden className="gold-dust absolute inset-x-0 top-0 h-3/5" />
+        <div className="wrap relative grid items-end gap-6 lg:min-h-[35rem] lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+          <div className="self-center pt-16 lg:py-20" data-reveal="left">
+            <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-[#ffd28a]/30 bg-black/25 py-1 pl-1.5 pr-4">
+              <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="size-7" unoptimized />
+              <span className="text-sm font-semibold text-[#ffe2a8]">Goldoni e store</span>
             </div>
-            <h2 className="mt-4 text-[length:var(--step-head)]">Il Goldone, moneta premium.</h2>
-            <p className="mt-4 max-w-xl text-lg text-white/85">
+            <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.98]">
+              Il Goldone,
+              <br />
+              moneta <span className="text-[#ffc94d]">premium</span>.
+            </h2>
+            <p className="mt-5 max-w-md text-lg text-white/80">
               È separato dal denaro che usi in gioco: le due monete non si mescolano. Come ottenerlo e cosa puoi acquistare lo spiegheremo qui all&apos;apertura dello store.
             </p>
-            <div className="mt-7">
+            <div className="mt-8">
               {siteConfig.links.store ? (
-                <Btn href={siteConfig.links.store} external variant="light">vai allo store</Btn>
+                <a href={siteConfig.links.store} target="_blank" rel="noopener noreferrer" className="btn !bg-[#ffc94d] !text-[#3a1a00] hover:!bg-[#ffd76e]" data-magnetic>
+                  vai allo store
+                </a>
               ) : (
-                <span className="inline-block rounded-xl bg-white px-5 py-3 text-sm font-extrabold uppercase tracking-[0.06em] text-black">store in arrivo</span>
+                <span className="btn cursor-default !bg-white/10 !text-white/90 ring-1 ring-inset ring-[#ffd28a]/35">store in arrivo</span>
               )}
             </div>
           </div>
-          <div className="mx-auto w-full max-w-xl self-end lg:justify-self-end" data-reveal="right" data-delay="0.15">
-            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="block w-full" unoptimized />
+          <div className="self-end pt-4" data-reveal="right" data-delay="0.15">
+            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="mx-auto block w-full max-w-2xl" unoptimized />
           </div>
         </div>
       </section>
 
       {/* COMMUNITY: attaccata al Goldone. Notte stellata e bagliore del fuoco dietro i legionari */}
-      <section className="relative overflow-hidden bg-[radial-gradient(34%_62%_at_27%_88%,rgb(255_140_40/0.6)_0%,rgb(255_96_30/0.2)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
+      <section className="relative overflow-hidden bg-[radial-gradient(36%_66%_at_24%_88%,rgb(255_140_40/0.6)_0%,rgb(255_96_30/0.2)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
         <div aria-hidden className="night-stars absolute inset-x-0 top-0 h-3/5" />
-        <div className="wrap relative grid items-end gap-6 lg:min-h-[35rem] lg:grid-cols-[1.3fr_1fr] lg:gap-12">
+        <div className="wrap relative grid items-end gap-6 lg:min-h-[37rem] lg:grid-cols-[1.35fr_1fr] lg:gap-20">
           <div className="self-center pt-16 lg:order-2 lg:py-20" data-reveal="right">
             <div className="inline-flex min-h-9 items-center rounded-full border border-white/15 bg-black/25 px-4 empty:hidden">
               <DiscordCount invite={siteConfig.links.discord} className="text-white/90" />
@@ -140,7 +146,7 @@ export default function Home() {
           </div>
           {/* Legionari più grandi della colonna: sbordano un po' a sinistra e poggiano sul fondo */}
           <div className="self-end pt-4 lg:order-1" data-reveal="left" data-delay="0.15">
-            <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full lg:-ml-[8%] lg:w-[116%] lg:max-w-none" unoptimized />
+            <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full lg:-ml-[18%] lg:w-[125%] lg:max-w-none" unoptimized />
           </div>
         </div>
       </section>
