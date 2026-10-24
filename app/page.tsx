@@ -19,7 +19,7 @@ export default function Home() {
       <section className="relative isolate flex min-h-[calc(100svh-var(--header-h))] flex-col overflow-hidden">
         <Image src="/images/hero-bg.jpg" alt="" fill priority sizes="100vw" className="kenburns -z-20 object-cover" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/45 to-[#0b0a0c]" />
-        <div className="wrap flex flex-1 flex-col items-center justify-center pb-[13vw] pt-10 text-center">
+        <div className="wrap flex flex-1 flex-col items-center justify-center pb-[14vw] pt-10 text-center">
           <p className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 hero-in" data-hero-in>
             <span className="dot-live size-2 rounded-full bg-accent" /> minecraft java · survival towny
           </p>
@@ -42,10 +42,10 @@ export default function Home() {
         </div>
         {/* Skyline di Roma: chiude la parte alta e fa da passaggio verso il resto della pagina */}
         <Image
-          src="/images/skyline-roma.webp"
+          src="/images/skyline-roma-v2.webp"
           alt=""
-          width={2154}
-          height={284}
+          width={2152}
+          height={301}
           priority
           unoptimized
           className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 block w-full select-none"
@@ -88,7 +88,9 @@ export default function Home() {
       </section>
 
       {/* GOLDONE: fascia rossa a tutta larghezza, il legionario poggia sul bordo in basso */}
-      <section className="overflow-hidden bg-[linear-gradient(120deg,#5e110d_0%,#a3231a_60%,#c4382b_100%)]">
+      <section className="relative overflow-hidden bg-[linear-gradient(120deg,#5e110d_0%,#a3231a_60%,#c4382b_100%)]">
+        {/* Pavimento: i personaggi ci poggiano sopra e copre il taglio in fondo all'immagine */}
+        <div aria-hidden className="absolute inset-x-0 bottom-0 z-10 h-5 border-t-2 border-[#d9483a]/40 bg-[#3d0b08]" />
         <div className="wrap grid items-end gap-4 lg:min-h-[30rem] lg:grid-cols-2 lg:gap-10">
           <div className="self-center pt-14 lg:py-16" data-reveal="left">
             <div className="flex items-center gap-3">
@@ -113,9 +115,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* COMMUNITY: fascia come quella del Goldone, nei colori di Discord e a specchio (immagine a sinistra) */}
-      <section className="mt-[var(--section)] overflow-hidden bg-[linear-gradient(120deg,#1b1d4f_0%,#3a3fb0_55%,#5865f2_100%)]">
-        <div className="wrap grid items-end gap-4 lg:min-h-[30rem] lg:grid-cols-2 lg:gap-10">
+      {/* COMMUNITY: subito sotto il Goldone, nei colori di Discord e a specchio (immagine a sinistra) */}
+      <section className="relative overflow-hidden bg-[linear-gradient(120deg,#1b1d4f_0%,#3a3fb0_55%,#5865f2_100%)]">
+        <div aria-hidden className="absolute inset-x-0 bottom-0 z-10 h-5 border-t-2 border-[#8c96ff]/40 bg-[#14163d]" />
+        <div className="wrap grid items-end gap-4 lg:min-h-[30rem] lg:grid-cols-[1.2fr_1fr] lg:gap-10">
           <div className="self-center pt-14 lg:order-2 lg:py-16" data-reveal="right">
             <div className="flex items-center gap-3">
               <DiscordIcon className="size-8 text-white" />
@@ -137,7 +140,7 @@ export default function Home() {
               </Btn>
             </div>
           </div>
-          <div className="mx-auto w-full max-w-2xl self-end lg:order-1 lg:justify-self-start" data-reveal="left" data-delay="0.15">
+          <div className="mx-auto w-full max-w-3xl self-end pt-8 lg:order-1 lg:justify-self-start" data-reveal="left" data-delay="0.15">
             <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full" unoptimized />
           </div>
         </div>
