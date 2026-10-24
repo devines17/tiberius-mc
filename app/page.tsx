@@ -146,9 +146,9 @@ export default function Home() {
               <DiscordCount invite={siteConfig.links.discord} className="justify-center text-white/80" />
             </div>
           </div>
-          {/* Wumpus legionario sospeso a metà altezza, ondeggia piano */}
+          {/* Wumpus legionario fermo a metà altezza */}
           <div className="mx-auto w-[min(55%,16rem)] self-center py-10 lg:order-1 lg:w-[19rem] lg:justify-self-center" data-reveal="left" data-delay="0.15">
-            <div className="float-soft">
+            <div>
               <Image src="/images/wumpus-legionario.webp" alt="La mascotte di Discord con l'elmo da legionario romano che saluta" width={790} height={1187} className="block w-full drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]" unoptimized />
             </div>
           </div>
