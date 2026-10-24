@@ -74,12 +74,17 @@ export function AccountButton() {
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={me ? `Account di ${me.name}` : "Accedi"}
-        className={`relative grid size-11 place-items-center rounded-xl bg-white/[0.06] ring-1 ring-inset transition-all duration-200 hover:bg-white/10 ${open ? "ring-white/35" : "ring-white/12"} ${me === undefined ? "opacity-0" : ""}`}
+        data-open={open}
+        className={`acc-btn relative flex h-11 items-center justify-end overflow-hidden rounded-xl bg-white/[0.06] ring-1 ring-inset hover:bg-white/10 ${open ? "ring-white/35" : "ring-white/12"} ${me === undefined ? "opacity-0" : ""}`}
       >
-        <svg viewBox="0 0 24 24" className="size-6 text-white" fill="currentColor" aria-hidden>
-          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 4.2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8Zm0 13.6a7.8 7.8 0 0 1-5.6-2.4c.9-1.8 3.1-2.9 5.6-2.9s4.7 1.1 5.6 2.9a7.8 7.8 0 0 1-5.6 2.4Z" />
-        </svg>
-        {me && me.unread > 0 && <span className="absolute -right-1 -top-1 size-3 rounded-full bg-accent ring-2 ring-[#0b0b0c]" aria-label={`${me.unread} notifiche non lette`} />}
+        {/* Al passaggio del mouse il bottone si allarga verso sinistra mostrando il nome, poi scende la tendina */}
+        <span className="acc-label truncate pl-4 text-sm font-bold">{me ? me.name : "accedi"}</span>
+        <span className="grid size-11 shrink-0 place-items-center">
+          <svg viewBox="0 0 24 24" className="size-6 text-white" fill="currentColor" aria-hidden>
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 4.2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8Zm0 13.6a7.8 7.8 0 0 1-5.6-2.4c.9-1.8 3.1-2.9 5.6-2.9s4.7 1.1 5.6 2.9a7.8 7.8 0 0 1-5.6 2.4Z" />
+          </svg>
+        </span>
+        {me && me.unread > 0 && <span className="absolute right-1.5 top-1.5 size-2.5 rounded-full bg-accent ring-2 ring-[#0b0b0c]" aria-label={`${me.unread} notifiche non lette`} />}
       </button>
 
       {/* pt-2 fa da ponte tra bottone e pannello, così il mouse non lo chiude passando */}

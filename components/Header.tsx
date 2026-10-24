@@ -72,7 +72,7 @@ export function Header() {
                   key={href}
                   href={href}
                   aria-current={active ? "page" : undefined}
-                  className={`mx-1 flex items-center gap-1.5 rounded-xl bg-accent px-3.5 py-2 text-sm font-bold uppercase tracking-[0.04em] text-white shadow-[0_6px_20px_-6px_rgb(226_53_43/0.7)] transition-[filter,box-shadow] hover:brightness-110 ${active ? "ring-2 ring-white/50" : ""}`}
+                  className={`mx-1 flex items-center gap-1.5 rounded-xl bg-[linear-gradient(180deg,#ffd970_0%,#f2b632_55%,#c98a12_100%)] px-3.5 py-2 text-sm font-bold uppercase tracking-[0.04em] text-[#3a2400] shadow-[0_6px_20px_-6px_rgb(242_182_50/0.75),inset_0_1px_0_rgb(255_255_255/0.45)] transition-[filter,box-shadow] hover:brightness-110 ${active ? "ring-2 ring-white/50" : ""}`}
                 >
                   <Icon className="size-4" aria-hidden />
                   {label}
