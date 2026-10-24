@@ -105,7 +105,13 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
     history.replaceState(null, "", location.pathname);
     // Su telefono il testo scorre con la pagina: si torna all'inizio del capitolo
     const box = scroller.current;
-    if (box && box.scrollHeight <= box.clientHeight + 4) panel.current?.scrollIntoView({ block: "start" });
+    const p = panel.current;
+    if (box && p && box.scrollHeight <= box.clientHeight + 4) {
+      // sotto la barra del sito e la fila dei capitoli, che resta fissa
+      const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 0;
+      const row = nav.current?.closest("aside")?.getBoundingClientRect().height ?? 0;
+      window.scrollTo({ top: p.getBoundingClientRect().top + window.scrollY - header - row - 12 });
+    }
   }
 
   function goArticle(code: string) {
