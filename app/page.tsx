@@ -93,16 +93,16 @@ export default function Home() {
           <div className="self-center pt-12 lg:py-11" data-reveal="left">
             <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-[#ffd28a]/30 bg-black/25 py-1 pl-1.5 pr-4">
               <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="size-7" unoptimized />
-              <span className="text-sm font-semibold text-[#ffe2a8]">Goldoni e store</span>
+              <span className="text-sm font-semibold text-[#ffe2a8]">Store</span>
             </div>
             <h2 className="mt-5 text-[clamp(2.4rem,4.4vw,3.9rem)] leading-[0.98]">
               Lo store sta per <span className="text-[#ffc94d]">arrivare!</span>
             </h2>
             <p className="mt-5 max-w-lg text-lg text-white/80">
-              Preparati a scoprire il nostro store, dove troverai oggetti speciali da aggiungere alla tua collezione. Tra le novità ci sarà anche il Goldone, una valuta premium molto rara.
+              Stiamo lavorando allo store del server e manca sempre meno alla sua apertura.
             </p>
             <p className="mt-3 max-w-lg text-lg text-white/80">
-              All&apos;apertura dello store ti sveleremo come funziona e cosa potrai trovare al suo interno.
+              Ci troverai oggetti speciali e altre cose che potrai aggiungere alla tua collezione. Tra le novità ci sarà anche il Goldone, la nostra valuta premium.
             </p>
             <div className="mt-8">
               {siteConfig.links.store ? (
@@ -129,15 +129,15 @@ export default function Home() {
           <div className="self-center pt-14 lg:order-2 lg:py-14" data-reveal="right">
             <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-white/15 bg-black/25 py-1 pl-2.5 pr-4">
               <DiscordIcon className="size-5 text-[#c9cdff]" />
-              <span className="text-sm font-semibold text-[#dfe1ff]">Server Discord</span>
+              <span className="text-sm font-semibold text-[#dfe1ff]">Community</span>
             </div>
             <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.98]">
-              Unisciti alla
+              Unisciti al nostro
               <br />
-              <span className="text-[#aab1ff]">community</span>.
+              <span className="text-[#aab1ff]">Discord</span>!
             </h2>
             <p className="mt-5 max-w-lg text-lg text-white/80">
-              È il cuore della nostra avventura: resta aggiornato su annunci ed eventi, incontra gli altri giocatori e fai due chiacchiere con lo staff.
+              Entra nel nostro Discord e unisciti alla community del server! Potrai conoscere altri giocatori, rimanere aggiornato sulle novità, partecipare agli eventi e chiedere aiuto allo staff quando ne hai bisogno.
             </p>
             <div className="mt-7">
               <a href={siteConfig.links.discord} target="_blank" rel="noopener noreferrer" className="btn !bg-white !text-[#2b2f8f] hover:!bg-[#e9eaff]" data-magnetic>
@@ -149,10 +149,11 @@ export default function Home() {
               <DiscordCount invite={siteConfig.links.discord} className="text-white/80" />
             </div>
           </div>
-          {/* Mascotte in piedi al centro della colonna, con l'ombra a terra */}
-          <div className="relative mx-auto w-[min(60%,17rem)] self-end pt-10 lg:order-1 lg:w-[21rem] lg:justify-self-center" data-reveal="left" data-delay="0.15">
-            <span aria-hidden className="absolute inset-x-[14%] -bottom-1 h-8 rounded-[50%] bg-black/45 blur-lg" />
-            <Image src="/images/wumpus-legionario.webp" alt="La mascotte di Discord con l'elmo da legionario romano che saluta" width={790} height={1187} className="relative block w-full translate-y-[3%]" unoptimized />
+          {/* Wumpus legionario sospeso a metà altezza, ondeggia piano */}
+          <div className="mx-auto w-[min(55%,16rem)] self-center py-10 lg:order-1 lg:w-[19rem] lg:justify-self-center" data-reveal="left" data-delay="0.15">
+            <div className="float-soft">
+              <Image src="/images/wumpus-legionario.webp" alt="La mascotte di Discord con l'elmo da legionario romano che saluta" width={790} height={1187} className="block w-full drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]" unoptimized />
+            </div>
           </div>
         </div>
       </section>
