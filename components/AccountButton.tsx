@@ -54,7 +54,7 @@ export function AccountButton() {
   return (
     // Un'unica forma: chiusa è l'icona, aperta si allarga verso sinistra (icona e nome in alto) e sotto scende l'elenco
     <div ref={box} className="relative size-11" onMouseEnter={enter} onMouseLeave={leave}>
-      <div data-open={open} className={`acc-box absolute right-0 top-0 z-50 overflow-hidden rounded-xl ${me === undefined ? "opacity-0" : ""}`}>
+      <div data-open={open} data-guest={!me} className={`acc-box absolute right-0 top-0 z-50 overflow-hidden rounded-xl ${me === undefined ? "opacity-0" : ""}`}>
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -94,9 +94,9 @@ export function AccountButton() {
                 </form>
               </div>
             ) : (
-              <div className="acc-fade grid gap-3 p-3 pl-10 pt-3">
+              <div className="acc-fade grid gap-3 p-3">
                 <p className="text-xs leading-relaxed text-white/55">Si entra con Discord, senza creare una nuova password.</p>
-                <a href={`/api/auth/discord/login?next=${encodeURIComponent(pathname || "/")}`} role="menuitem" className="btn btn-discord !h-9 !px-3 !text-[0.7rem]">
+                <a href={`/api/auth/discord/login?next=${encodeURIComponent(pathname || "/")}`} role="menuitem" className="btn btn-discord !h-10 w-full !gap-2 !px-3 !text-xs">
                   <DiscordIcon className="size-4" /> accedi con discord
                 </a>
               </div>

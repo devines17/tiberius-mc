@@ -759,6 +759,8 @@ button.btn:disabled {
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14), 0 24px 50px -12px rgb(0 0 0 / 0.75);
   transition-delay: 0s;
 }
+/* Da non loggato il pannello ospita il bottone di Discord: serve più spazio */
+.acc-box[data-open="true"][data-guest="true"] { width: 16rem; }
 .acc-drop { grid-template-rows: 0fr; transition: grid-template-rows 0.26s cubic-bezier(0.65, 0, 0.25, 1); }
 .acc-box[data-open="true"] .acc-drop { grid-template-rows: 1fr; transition-delay: 0.16s; }
 .acc-fade { opacity: 0; transition: opacity 0.15s ease; }
