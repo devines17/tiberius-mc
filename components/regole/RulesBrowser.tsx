@@ -24,6 +24,7 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
   const [info, setInfo] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const scroller = useRef<HTMLDivElement | null>(null);
+  const panel = useRef<HTMLDivElement | null>(null);
 
   const index = useMemo(() => chapters.flatMap((c) => c.articles.map((a) => [a.code, articleText(a)] as const)), [chapters]);
   const query = norm(q.trim());
@@ -94,6 +95,9 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
     setCurrent(null);
     scroller.current?.scrollTo({ top: 0 });
     history.replaceState(null, "", location.pathname);
+    // Su telefono il testo scorre con la pagina: si torna all'inizio del capitolo
+    const box = scroller.current;
+    if (box && box.scrollHeight <= box.clientHeight + 4) panel.current?.scrollIntoView({ block: "start" });
   }
 
   function goArticle(code: string) {
@@ -113,10 +117,10 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
   const shown: RuleChapter[] = matches ? chapters.map((c) => ({ ...c, articles: c.articles.filter((a) => matches.has(a.code)) })).filter((c) => c.articles.length) : [chapter];
 
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-[18rem_1fr]">
+    <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-4 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-6">
       {/* Indice */}
-      <aside className="rounded-2xl bg-[#141416] p-4 ring-1 ring-inset ring-white/10 lg:sticky lg:top-[calc(var(--header-h)+1rem)] lg:flex lg:max-h-[calc(100svh-var(--header-h)-2rem)] lg:flex-col">
-        <p className="px-2 pb-3 pt-1 text-xl font-extrabold text-accent">Indice</p>
+      <aside className="sticky top-[var(--header-h)] z-30 -mx-[var(--gutter)] min-w-0 border-b border-white/10 bg-[#141416]/95 px-[var(--gutter)] py-2 backdrop-blur lg:top-[calc(var(--header-h)+1rem)] lg:mx-0 lg:flex lg:max-h-[calc(100svh-var(--header-h)-2rem)] lg:flex-col lg:rounded-2xl lg:border-0 lg:bg-[#141416] lg:p-4 lg:ring-1 lg:ring-inset lg:ring-white/10">
+        <p className="hidden px-2 pb-3 pt-1 text-xl font-extrabold text-accent lg:block">Indice</p>
         <nav aria-label="Capitoli del regolamento" className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:block lg:flex-1 lg:overflow-y-auto lg:overflow-x-visible thin-scroll">
           {chapters.map((c) => {
             const on = !matches && c.letter === active;
@@ -162,7 +166,7 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
       </aside>
 
       {/* Contenuto */}
-      <div className="relative overflow-hidden rounded-2xl bg-[#141416] ring-1 ring-inset ring-white/10">
+      <div ref={panel} className="relative min-w-0 scroll-mt-[calc(var(--header-h)+4.5rem)] overflow-hidden rounded-2xl bg-[#141416] ring-1 ring-inset ring-white/10 lg:scroll-mt-0">
         <div className="flex items-center gap-2 border-b border-white/10 bg-black/20 p-3">
           <label className="relative flex-1">
             <span className="sr-only">Cerca nel regolamento</span>
@@ -205,7 +209,7 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
               </h2>
               <div className="mt-6 grid gap-8">
                 {c.articles.map((a) => (
-                  <article key={a.code} id={anchor(a.code)} className="group/art scroll-mt-24">
+                  <article key={a.code} id={anchor(a.code)} className="group/art scroll-mt-[calc(var(--header-h)+4.5rem)] lg:scroll-mt-24">
                     <h3 className="flex flex-wrap items-center gap-3 text-lg">
                       <span className="rounded-md bg-accent/90 px-2 py-0.5 text-xs font-extrabold text-white">{a.code}</span>
                       <span>{a.title}</span>
