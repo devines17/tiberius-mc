@@ -19,7 +19,10 @@ function faceRect(b: Box, f: Face): [x: number, y: number, w: number, h: number]
     // Arto diviso in due metà da 6: i lati prendono metà texture, il taglio usa la faccia sotto
     const off = seg === "lower" ? 6 : 0;
     if (f === "top" && seg === "upper") return [u + d, v, w, d];
-    if (f === "top" || f === "bottom") return [u + d + w, v, w, d];
+    if (f === "bottom" && seg === "lower") return [u + d + w, v, w, d];
+    // Facce del taglio (si vedono quando gomito/ginocchio si piega): un pezzo del davanti a metà
+    // altezza, così sembrano stoffa della skin e non la suola delle scarpe o il palmo della mano
+    if (f === "top" || f === "bottom") return [u + d, v + d + 4, w, d];
     const full = faceRect({ w, h: 12, d, u, v }, f);
     return [full[0], full[1] + off, full[2], 6];
   }
