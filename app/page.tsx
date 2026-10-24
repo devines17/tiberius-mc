@@ -114,23 +114,22 @@ export default function Home() {
               )}
             </div>
           </div>
-          {/* Il fondo dell'immagine è tagliato: sfuma nell'ombra a terra così il legionario poggia */}
-          <div className="relative mx-auto w-full max-w-lg self-end pt-4" data-reveal="right" data-delay="0.15">
-            <span aria-hidden className="absolute inset-x-[6%] -bottom-2 h-11 rounded-[50%] bg-black/55 blur-xl" />
-            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="relative block w-full translate-y-[4%] [mask-image:linear-gradient(to_bottom,#000_88%,transparent)]" unoptimized />
+          {/* Forziere che esplode di Goldoni: sospeso, centrato in altezza nella fascia */}
+          <div className="mx-auto w-[min(85%,26rem)] self-center py-6 lg:w-[30rem] lg:py-8" data-reveal="zoom" data-delay="0.15">
+            <Image src="/images/forziere-goldoni.webp" alt="Un forziere da cui escono tanti Goldoni, la moneta premium di TiberiusMC" width={1252} height={1172} className="block w-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]" unoptimized />
           </div>
         </div>
       </section>
 
       {/* COMMUNITY: attaccata al Goldone. Notte stellata, la mascotte di Discord con l'elmo da legionario */}
-      <section className="relative overflow-hidden bg-[radial-gradient(30%_70%_at_27%_80%,rgb(140_150_255/0.45)_0%,rgb(88_101_242/0.18)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
         <div aria-hidden className="night-stars absolute inset-x-0 top-0 h-3/5" />
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
         <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1.25fr_1fr] lg:gap-16">
           <div className="self-center pt-14 lg:order-2 lg:py-14" data-reveal="right">
             <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-white/15 bg-black/25 py-1 pl-2.5 pr-4">
               <DiscordIcon className="size-5 text-[#c9cdff]" />
-              <span className="text-sm font-semibold text-[#dfe1ff]">Community</span>
+              <span className="text-sm font-semibold text-[#dfe1ff]">Server Discord</span>
             </div>
             <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.98]">
               Unisciti alla
@@ -138,9 +137,8 @@ export default function Home() {
               <span className="text-[#aab1ff]">community</span>.
             </h2>
             <p className="mt-5 max-w-lg text-lg text-white/80">
-              La community è il cuore della nostra avventura. Resta aggiornato su annunci ed eventi, incontra gli altri giocatori e fai due chiacchiere con lo staff.
+              È il cuore della nostra avventura: resta aggiornato su annunci ed eventi, incontra gli altri giocatori e fai due chiacchiere con lo staff.
             </p>
-            <p className="mt-3 max-w-lg text-lg font-semibold text-white">Vieni a trovarci su Discord!</p>
             <div className="mt-7">
               <a href={siteConfig.links.discord} target="_blank" rel="noopener noreferrer" className="btn !bg-white !text-[#2b2f8f] hover:!bg-[#e9eaff]" data-magnetic>
                 <DiscordIcon className="size-5" /> Entra su Discord
@@ -152,8 +150,8 @@ export default function Home() {
             </div>
           </div>
           {/* Mascotte in piedi al centro della colonna, con l'ombra a terra */}
-          <div className="relative mx-auto w-[min(55%,15rem)] self-end pt-10 lg:order-1 lg:w-[17.5rem]" data-reveal="left" data-delay="0.15">
-            <span aria-hidden className="absolute inset-x-[8%] -bottom-1 h-10 rounded-[50%] bg-black/55 blur-xl" />
+          <div className="relative mx-auto w-[min(60%,17rem)] self-end pt-10 lg:order-1 lg:w-[21rem] lg:justify-self-center" data-reveal="left" data-delay="0.15">
+            <span aria-hidden className="absolute inset-x-[14%] -bottom-1 h-8 rounded-[50%] bg-black/45 blur-lg" />
             <Image src="/images/wumpus-legionario.webp" alt="La mascotte di Discord con l'elmo da legionario romano che saluta" width={790} height={1187} className="relative block w-full translate-y-[3%]" unoptimized />
           </div>
         </div>
