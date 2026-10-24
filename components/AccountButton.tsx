@@ -50,7 +50,7 @@ export function AccountButton() {
     timer.current = setTimeout(() => setOpen(false), 160);
   };
 
-  const row = "flex items-center justify-between rounded-lg py-2 pl-[2.6rem] pr-3 text-[0.95rem] font-bold text-white/75 transition-colors hover:bg-white/[0.07] hover:text-white";
+  const row = "flex items-center justify-between rounded-lg py-2 pl-[34px] pr-3 text-[0.95rem] font-bold text-white/75 transition-colors hover:bg-white/[0.07] hover:text-white";
   return (
     // Un'unica forma: chiusa è l'icona, aperta si allarga verso sinistra (icona e nome in alto) e sotto scende l'elenco
     <div ref={box} className="relative size-11" onMouseEnter={enter} onMouseLeave={leave}>
@@ -94,7 +94,7 @@ export function AccountButton() {
                 </form>
               </div>
             ) : (
-              <div className="acc-fade grid gap-3 p-3 pl-[2.95rem] pt-3">
+              <div className="acc-fade grid gap-3 p-3 pl-10 pt-3">
                 <p className="text-xs leading-relaxed text-white/55">Si entra con Discord, senza creare una nuova password.</p>
                 <a href={`/api/auth/discord/login?next=${encodeURIComponent(pathname || "/")}`} role="menuitem" className="btn btn-discord !h-9 !px-3 !text-[0.7rem]">
                   <DiscordIcon className="size-4" /> accedi con discord
