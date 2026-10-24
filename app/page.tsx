@@ -5,7 +5,6 @@ import { Words } from "@/components/ui/Words";
 import { CopyIp } from "@/components/ui/CopyIp";
 import { JoinNow } from "@/components/ui/JoinNow";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
-import { TelegramIcon } from "@/components/ui/TelegramIcon";
 import { DiscordCount } from "@/components/ui/DiscordCount";
 import { LoopVideo } from "@/components/ui/LoopVideo";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
@@ -118,7 +117,7 @@ export default function Home() {
           {/* Il fondo dell'immagine è tagliato: sfuma nell'ombra a terra così il legionario poggia */}
           <div className="relative mx-auto w-full max-w-lg self-end pt-4" data-reveal="right" data-delay="0.15">
             <span aria-hidden className="absolute inset-x-[6%] -bottom-2 h-11 rounded-[50%] bg-black/55 blur-xl" />
-            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="relative block w-full [mask-image:linear-gradient(to_bottom,#000_88%,transparent)]" unoptimized />
+            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="relative block w-full translate-y-[4%] [mask-image:linear-gradient(to_bottom,#000_88%,transparent)]" unoptimized />
           </div>
         </div>
       </section>
@@ -138,15 +137,13 @@ export default function Home() {
               <br />
               al <span className="text-[#ffb36b]">fuoco</span>.
             </h2>
-            <p className="mt-5 max-w-md text-lg text-white/80">
-              Annunci, eventi e due chiacchiere con lo staff. Ci trovi su Discord e su Telegram.
+            <p className="mt-5 max-w-lg text-lg text-white/80">
+              La community è il cuore della nostra avventura. Resta aggiornato su annunci ed eventi, incontra gli altri giocatori e fai due chiacchiere con lo staff.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3 sm:flex-nowrap">
+            <p className="mt-3 max-w-lg text-lg font-semibold text-white">Vieni a trovarci su Discord!</p>
+            <div className="mt-7">
               <a href={siteConfig.links.discord} target="_blank" rel="noopener noreferrer" className="btn !bg-white !text-[#2b2f8f] hover:!bg-[#e9eaff]" data-magnetic>
                 <DiscordIcon className="size-5" /> Entra su Discord
-              </a>
-              <a href={siteConfig.links.telegram} target="_blank" rel="noopener noreferrer" className="btn !bg-white/10 !text-white ring-1 ring-inset ring-white/25 hover:!bg-white/20" data-magnetic>
-                <TelegramIcon className="size-5" /> Telegram
               </a>
             </div>
             {/* Membri e online di Discord, dal vivo */}
@@ -155,9 +152,9 @@ export default function Home() {
             </div>
           </div>
           {/* Legionari più grandi della colonna: sbordano un po' a sinistra e poggiano sul fondo */}
-          <div className="relative self-end pb-3 pt-4 lg:order-1" data-reveal="left" data-delay="0.15">
+          <div className="relative self-end pt-4 lg:order-1" data-reveal="left" data-delay="0.15">
             <span aria-hidden className="absolute bottom-0 left-[4%] right-[10%] h-12 rounded-[50%] bg-black/55 blur-xl lg:-left-[24%] lg:right-[2%]" />
-            <Image src="/images/legionari-fuoco-v2.webp" alt="Cinque legionari di TiberiusMC che ridono e chiacchierano intorno a un fuoco da campo" width={1433} height={892} className="relative block w-full lg:-ml-[30%] lg:w-[128%] lg:max-w-none" unoptimized />
+            <Image src="/images/legionari-fuoco-v2.webp" alt="Cinque legionari di TiberiusMC che ridono e chiacchierano intorno a un fuoco da campo" width={1433} height={892} className="relative block w-full translate-y-[5%] lg:-ml-[30%] lg:w-[128%] lg:max-w-none" unoptimized />
           </div>
         </div>
       </section>
