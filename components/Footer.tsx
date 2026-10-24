@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
@@ -60,6 +61,15 @@ export function Footer() {
 
   return (
     <footer className="on-field">
+      {/* Campagna romana al tramonto: chiude ogni pagina */}
+      <Image
+        src="/images/campagna-romana.webp"
+        alt=""
+        width={2154}
+        height={366}
+        unoptimized
+        className="pointer-events-none block w-full select-none bg-[#0b0a0c]"
+      />
       <div className="wrap">
         {/* Riga superiore: logo · pagine · social */}
         <div

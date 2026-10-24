@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Words } from "@/components/ui/Words";
 import { Btn } from "@/components/ui/Btn";
 import { CopyIp } from "@/components/ui/CopyIp";
@@ -38,141 +40,113 @@ export default function Home() {
             <JoinNow target="come-entrare" />
           </div>
         </div>
+        {/* Skyline di Roma: chiude la parte alta e fa da passaggio verso il resto della pagina */}
+        <Image
+          src="/images/skyline-roma.webp"
+          alt=""
+          width={2154}
+          height={284}
+          priority
+          unoptimized
+          className="pointer-events-none relative -mt-[3vw] block w-full select-none"
+        />
       </section>
 
-      {/* NEWS */}
-      <section className="wrap section">
-        <div className="panel grid gap-6 p-8 md:p-12 lg:grid-cols-[1fr_1.3fr] lg:items-center lg:gap-12" data-reveal>
-          <div data-reveal="left" data-delay="0.15">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">novità dal foro</p>
-            <h2 className="text-[length:var(--step-head)]">Nessuna novità, per ora.</h2>
-          </div>
-          <div className="grid gap-5" data-reveal="right" data-delay="0.25">
-            <p className="text-muted">Gli annunci ufficiali compariranno qui. Per gli aggiornamenti in tempo reale c&apos;è il Discord.</p>
-            <div><Btn href="/news" variant="light">tutte le news</Btn></div>
-          </div>
-        </div>
-      </section>
-
-      {/* COME ENTRARE */}
-      <section id="come-entrare" className="wrap section pt-0">
-        <div className="panel grid lg:grid-cols-[1.1fr_1fr]" data-reveal>
-          <div className="p-8 md:p-12">
-            <div data-reveal="left" data-delay="0.1">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">guida</p>
-              <h2 className="text-[length:var(--step-head)]">Come entrare</h2>
-            </div>
-            <ol className="mt-8 grid gap-4" data-stagger="0.09">
-              {[
-                "Apri Minecraft Java e vai su Multiplayer.",
-                "Premi Aggiungi server.",
-                `Indirizzo: ${siteConfig.server.ip}.`,
-                "Salva, seleziona il server ed entra.",
-              ].map((t, i) => (
-                <li key={i} className="group flex items-start gap-4 leading-snug">
-                  <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent text-sm font-bold text-white transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-110">{i + 1}</span>
-                  <span className="pt-1">{t}</span>
-                </li>
-              ))}
-            </ol>
-            <div className="mt-8 flex flex-wrap items-center gap-3" data-reveal="fade" data-delay="0.2">
+      {/* COME ENTRARE: niente riquadro, video grande e passaggi in fila */}
+      <section id="come-entrare" className="wrap pb-[var(--section)] pt-14 md:pt-20">
+        <div className="grid items-end gap-10 lg:grid-cols-[1fr_1.25fr] lg:gap-16">
+          <div data-reveal="left">
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-accent">guida</p>
+            <h2 className="text-[length:var(--step-head)]">Come entrare.</h2>
+            <p className="mt-4 max-w-md text-lg text-white/70">Bastano quattro passaggi da Minecraft Java.</p>
+            <div className="mt-7">
               <CopyIp ip={siteConfig.server.ip} tone="dark" />
             </div>
           </div>
-          <div className="zoom-media relative min-h-72 lg:min-h-full" data-reveal="clip" data-delay="0.15">
+          <div className="zoom-media relative aspect-video overflow-hidden rounded-md" data-reveal="clip" data-delay="0.1">
             <LoopVideo
               src="/video/guida-entra-v2.mp4"
               poster="/video/guida-entra.jpg"
               label="Video: in Minecraft si aggiunge il server con nome TiberiusMC e indirizzo play.tiberiusmc.it"
               className="absolute inset-0 size-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#131116] via-transparent to-transparent max-lg:hidden" />
           </div>
         </div>
+        <ol className="mt-12 grid border-t border-white/12 sm:grid-cols-2 lg:grid-cols-4" data-stagger="0.08">
+          {[
+            "Apri Minecraft Java e vai su Multiplayer.",
+            "Premi Aggiungi server.",
+            `Scrivi ${siteConfig.server.ip} come indirizzo.`,
+            "Salva, seleziona il server ed entra.",
+          ].map((t, i) => (
+            <li key={i} className="pr-6 pt-7">
+              <span className="block text-6xl font-extrabold leading-none text-accent">{i + 1}</span>
+              <span className="mt-3 block text-[1.05rem] leading-snug text-white/85">{t}</span>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      {/* GOLDONI */}
-      <section className="wrap section pt-0">
-        <div className="panel panel-flush grid gap-2 pl-8 md:pl-12 lg:grid-cols-[1.15fr_1fr] lg:gap-6" data-reveal>
-          {/* Testo centrato in altezza: niente vuoto sopra; l'immagine resta appoggiata in basso */}
-          <div className="grid gap-5 self-center pr-8 pt-8 md:pt-12 lg:py-12 lg:pr-0" data-stagger="0.1">
+      {/* GOLDONE: fascia rossa a tutta larghezza, il legionario poggia sul bordo in basso */}
+      <section className="overflow-hidden bg-[linear-gradient(120deg,#5e110d_0%,#a3231a_60%,#c4382b_100%)]">
+        <div className="wrap grid items-end gap-4 lg:min-h-[30rem] lg:grid-cols-2 lg:gap-10">
+          <div className="self-center pt-14 lg:py-16" data-reveal="left">
             <div className="flex items-center gap-3">
-              <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="float-soft size-12" unoptimized />
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">goldoni e store</span>
+              <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="float-soft size-10" unoptimized />
+              <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#ffd28a]">goldoni e store</span>
             </div>
-            <h2 className="text-[length:var(--step-head)]">Il Goldone, moneta premium.</h2>
-            <p className="max-w-xl text-muted">
-              Il Goldone è la valuta premium di TiberiusMC ed è separata dal denaro che usi in gioco: le due monete non si mescolano. Come ottenerlo e cosa puoi acquistare lo spiegheremo qui all&apos;apertura dello store.
+            <h2 className="mt-4 text-[length:var(--step-head)]">Il Goldone, moneta premium.</h2>
+            <p className="mt-4 max-w-xl text-lg text-white/85">
+              È separato dal denaro che usi in gioco: le due monete non si mescolano. Come ottenerlo e cosa puoi acquistare lo spiegheremo qui all&apos;apertura dello store.
             </p>
-            <div>
+            <div className="mt-7">
               {siteConfig.links.store ? (
-                <Btn href={siteConfig.links.store} external variant="accent">vai allo store</Btn>
+                <Btn href={siteConfig.links.store} external variant="light">vai allo store</Btn>
               ) : (
-                <span className="inline-block rounded-xl bg-white/10 px-5 py-3 text-sm font-semibold">store in arrivo</span>
+                <span className="inline-block rounded-xl bg-white px-5 py-3 text-sm font-extrabold uppercase tracking-[0.06em] text-black">store in arrivo</span>
               )}
             </div>
           </div>
-          {/* Il legionario poggia sul bordo del riquadro, come quelli del Discord */}
-          <div className="mx-auto w-full max-w-lg self-end pr-6 pt-4 md:pr-12 lg:pt-12" data-reveal="right" data-delay="0.2">
+          <div className="mx-auto w-full max-w-xl self-end lg:justify-self-end" data-reveal="right" data-delay="0.15">
             <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="block w-full" unoptimized />
           </div>
         </div>
       </section>
 
-      {/* DISCORD */}
-      <section className="wrap section pt-0">
-        <div className="panel panel-discord grid gap-2 pl-8 md:pl-12 lg:grid-cols-[1.1fr_1fr] lg:gap-6" data-reveal>
-          <div className="grid gap-5 self-center pr-8 pt-8 md:pt-12 lg:py-12 lg:pr-0" data-stagger="0.08">
-            <div className="flex items-center gap-3">
-              <span className="grid size-12 place-items-center rounded-2xl bg-[#5865f2]/20 text-[#8c96ff]">
-                <DiscordIcon className="size-7" />
-              </span>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8c96ff]">community ufficiale</span>
-            </div>
-            <h2 className="text-[length:var(--step-head)]">Entra nel nostro Discord.</h2>
-            <p className="max-w-md text-white/80">
-              Annunci, eventi e supporto dello staff in un unico posto. Lì colleghi anche il tuo account ai gestionali di città e nazioni.
-            </p>
-            <div className="min-h-5">
-              <DiscordCount invite={siteConfig.links.discord} className="text-white/85" />
-            </div>
-            <div>
-              <Btn href={siteConfig.links.discord} external variant="discord">
-                <DiscordIcon className="size-5" /> Entra su Discord
-              </Btn>
-            </div>
+      {/* COMMUNITY: Discord e Telegram insieme, i legionari intorno al fuoco */}
+      <section className="wrap pt-[var(--section)] text-center">
+        <div data-reveal>
+          <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-accent">community</p>
+          <h2 className="mt-3 text-[length:var(--step-head)]">Intorno al fuoco.</h2>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-white/70">
+            Annunci, eventi e due chiacchiere con lo staff. Ci trovi su Discord e su Telegram.
+          </p>
+          <div className="mt-4 flex min-h-5 justify-center">
+            <DiscordCount invite={siteConfig.links.discord} className="text-white/85" />
           </div>
-          {/* "block" toglie lo spazio sotto l'immagine: i legionari poggiano sul bordo del riquadro */}
-          <div className="mx-auto w-full max-w-md self-end pr-6 pt-4 md:pr-12 lg:pt-12" data-reveal="right" data-delay="0.2">
-            <Image src="/images/legionari-telefono.png" alt="Due legionari romani di TiberiusMC che guardano uno smartphone" width={1000} height={914} className="block w-full" unoptimized />
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Btn href={siteConfig.links.discord} external variant="discord">
+              <DiscordIcon className="size-5" /> Entra su Discord
+            </Btn>
+            <Btn href={siteConfig.links.telegram} external variant="telegram">
+              <TelegramIcon className="size-5" /> Entra su Telegram
+            </Btn>
           </div>
+        </div>
+        <div className="mx-auto mt-10 max-w-4xl" data-reveal="zoom" data-delay="0.1">
+          <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full" unoptimized />
         </div>
       </section>
 
-      {/* TELEGRAM */}
-      <section className="wrap section pt-0">
-        <div className="panel panel-telegram relative grid items-center gap-8 p-8 md:p-12 lg:grid-cols-[1.4fr_1fr]" data-reveal>
-          <div className="relative z-10 grid gap-5" data-stagger="0.08">
-            <div className="flex items-center gap-3">
-              <span className="grid size-12 place-items-center rounded-2xl bg-[#2aabee]/20 text-[#5cc4f5]">
-                <TelegramIcon className="size-7" />
-              </span>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#5cc4f5]">telegram</span>
-            </div>
-            <h2 className="text-[length:var(--step-head)]">Entra nel nostro Telegram.</h2>
-            <p className="max-w-md text-white/80">
-              Ci trovi anche su Telegram come {siteConfig.links.telegramHandle}: unisciti e resta in contatto con la community.
-            </p>
-            <div>
-              <Btn href={siteConfig.links.telegram} external variant="telegram">
-                <TelegramIcon className="size-5" /> Entra su Telegram
-              </Btn>
-            </div>
-          </div>
-          {/* Logo grande decorativo: solo da schermo largo */}
-          <div aria-hidden className="pointer-events-none hidden justify-center lg:flex" data-reveal="zoom" data-delay="0.2">
-            <TelegramIcon className="size-56 -rotate-12 text-[#2aabee]/25" />
-          </div>
+      {/* NEWS: una riga sottile finché non ci sono annunci */}
+      <section className="mt-16 border-y border-white/10">
+        <div className="wrap flex flex-wrap items-center justify-between gap-3 py-5">
+          <p className="font-bold">
+            Novità dal foro <span className="ml-3 text-sm font-medium text-white/50">Nessun annuncio per ora</span>
+          </p>
+          <Link href="/news" className="group flex items-center gap-2 font-bold text-white/85 transition-colors hover:text-white">
+            Tutte le news <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+          </Link>
         </div>
       </section>
     </>
