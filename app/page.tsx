@@ -44,7 +44,7 @@ export default function Home() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 hero-in" data-hero-in>
             <CopyIp ip={siteConfig.server.ip} tone="dark" />
-            <Btn href={siteConfig.links.discord} external variant="accent">entra nel discord</Btn>
+            <Btn href="#come-entrare" variant="accent">entra ora</Btn>
           </div>
           <div className="mt-5 hero-in" data-hero-in>
             <ServerStatus host={siteConfig.server.ip} />
@@ -80,7 +80,7 @@ export default function Home() {
       </section>
 
       {/* COME ENTRARE */}
-      <section className="wrap section pt-0">
+      <section id="come-entrare" className="wrap section pt-0">
         <div className="panel grid lg:grid-cols-[1.1fr_1fr]" data-reveal>
           <div className="p-8 md:p-12">
             <div data-reveal="left" data-delay="0.1">
