@@ -142,8 +142,8 @@ export default function Home() {
               <DiscordIcon className="size-7" /> Unisciti al Discord
             </a>
             {/* Membri e online di Discord, dal vivo */}
-            <div className="mt-5 min-h-5">
-              <DiscordCount invite={siteConfig.links.discord} className="text-white/80" />
+            <div className="mt-5 flex min-h-5 justify-center">
+              <DiscordCount invite={siteConfig.links.discord} className="justify-center text-white/80" />
             </div>
           </div>
           {/* Wumpus legionario sospeso a metà altezza, ondeggia piano */}
