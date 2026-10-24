@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Words } from "@/components/ui/Words";
 import { Btn } from "@/components/ui/Btn";
 import { CopyIp } from "@/components/ui/CopyIp";
@@ -10,14 +9,7 @@ import { DiscordCount } from "@/components/ui/DiscordCount";
 import { LoopVideo } from "@/components/ui/LoopVideo";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
 import { siteConfig } from "@/lib/site-config";
-import { ArrowRight, BookOpen, Map as MapIcon, MessagesSquare, ScrollText } from "lucide-react";
 
-const quick = [
-  { href: "/regole", t: "Regolamento", icon: ScrollText },
-  { href: "/forum", t: "Forum", icon: MessagesSquare },
-  { href: "/mappa", t: "Mappa", icon: MapIcon },
-  { href: "/wiki", t: "Wiki", icon: BookOpen },
-];
 
 export default function Home() {
   return (
@@ -42,22 +34,9 @@ export default function Home() {
             <br className="hidden lg:block" />
             In un mondo dove ogni scelta può cambiare gli equilibri, il tuo futuro dipende da te.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 hero-in" data-hero-in>
+          <div className="mt-9 hero-in" data-hero-in>
             <JoinNow target="come-entrare" />
           </div>
-        </div>
-        <div className="wrap w-full pb-8">
-          <ul className="hero-in panel grid divide-white/10 sm:grid-cols-2 sm:divide-x lg:grid-cols-4" data-hero-in style={{ background: "rgb(10 9 12 / 0.6)", backdropFilter: "blur(14px)" }}>
-            {quick.map((q) => (
-              <li key={q.t} className="relative border-b border-white/10 last:border-b-0 sm:border-b-0">
-                <Link href={q.href} className="group flex items-center gap-3 px-5 py-3 transition-colors hover:bg-white/[0.06]">
-                  <q.icon className="size-[1.15rem] text-white/45 transition-colors duration-300 group-hover:text-accent" aria-hidden />
-                  <span className="font-semibold">{q.t}</span>
-                  <ArrowRight className="ml-auto size-[1.1rem] -translate-x-1 text-white/35 transition-[transform,color] duration-300 group-hover:translate-x-0.5 group-hover:text-white" aria-hidden />
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
