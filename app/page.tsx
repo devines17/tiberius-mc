@@ -58,8 +58,6 @@ export default function Home() {
                   <q.icon className="size-[1.15rem] text-white/45 transition-colors duration-300 group-hover:text-accent" aria-hidden />
                   <span className="font-semibold">{q.t}</span>
                   <ArrowRight className="ml-auto size-[1.1rem] -translate-x-1 text-white/35 transition-[transform,color] duration-300 group-hover:translate-x-0.5 group-hover:text-white" aria-hidden />
-                  {/* Linea rossa che cresce dal centro al passaggio del mouse */}
-                  <span aria-hidden className="absolute inset-x-6 bottom-0 h-0.5 origin-center scale-x-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-x-100" />
                 </Link>
               </li>
             ))}
