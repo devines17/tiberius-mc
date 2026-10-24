@@ -122,8 +122,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* COMMUNITY: attaccata al Goldone. Notte stellata e bagliore del fuoco dietro i legionari */}
-      <section className="relative overflow-hidden bg-[radial-gradient(34%_62%_at_20%_86%,rgb(255_140_40/0.6)_0%,rgb(255_96_30/0.2)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
+      {/* COMMUNITY: attaccata al Goldone. Notte stellata, la mascotte di Discord con l'elmo da legionario */}
+      <section className="relative overflow-hidden bg-[radial-gradient(30%_70%_at_27%_80%,rgb(140_150_255/0.45)_0%,rgb(88_101_242/0.18)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
         <div aria-hidden className="night-stars absolute inset-x-0 top-0 h-3/5" />
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
         <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1.25fr_1fr] lg:gap-16">
@@ -133,9 +133,9 @@ export default function Home() {
               <span className="text-sm font-semibold text-[#dfe1ff]">Community</span>
             </div>
             <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.98]">
-              Intorno
+              Unisciti alla
               <br />
-              al <span className="text-[#ffb36b]">fuoco</span>.
+              <span className="text-[#aab1ff]">community</span>.
             </h2>
             <p className="mt-5 max-w-lg text-lg text-white/80">
               La community è il cuore della nostra avventura. Resta aggiornato su annunci ed eventi, incontra gli altri giocatori e fai due chiacchiere con lo staff.
@@ -151,10 +151,10 @@ export default function Home() {
               <DiscordCount invite={siteConfig.links.discord} className="text-white/80" />
             </div>
           </div>
-          {/* Legionari più grandi della colonna: sbordano un po' a sinistra e poggiano sul fondo */}
-          <div className="relative self-end pt-4 lg:order-1" data-reveal="left" data-delay="0.15">
-            <span aria-hidden className="absolute bottom-0 left-[4%] right-[10%] h-12 rounded-[50%] bg-black/55 blur-xl lg:-left-[24%] lg:right-[2%]" />
-            <Image src="/images/legionari-fuoco-v2.webp" alt="Cinque legionari di TiberiusMC che ridono e chiacchierano intorno a un fuoco da campo" width={1433} height={892} className="relative block w-full translate-y-[5%] lg:-ml-[30%] lg:w-[128%] lg:max-w-none" unoptimized />
+          {/* Mascotte in piedi al centro della colonna, con l'ombra a terra */}
+          <div className="relative mx-auto w-[min(55%,15rem)] self-end pt-10 lg:order-1 lg:w-[17.5rem]" data-reveal="left" data-delay="0.15">
+            <span aria-hidden className="absolute inset-x-[8%] -bottom-1 h-10 rounded-[50%] bg-black/55 blur-xl" />
+            <Image src="/images/wumpus-legionario.webp" alt="La mascotte di Discord con l'elmo da legionario romano che saluta" width={790} height={1187} className="relative block w-full translate-y-[3%]" unoptimized />
           </div>
         </div>
       </section>
