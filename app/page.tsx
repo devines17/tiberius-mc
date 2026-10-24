@@ -10,12 +10,13 @@ import { DiscordCount } from "@/components/ui/DiscordCount";
 import { LoopVideo } from "@/components/ui/LoopVideo";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
 import { siteConfig } from "@/lib/site-config";
+import { ArrowRight, BookOpen, Map as MapIcon, MessagesSquare, ScrollText } from "lucide-react";
 
 const quick = [
-  { href: "/regole", t: "Regolamento", ext: false },
-  { href: "/forum", t: "Forum", ext: false },
-  { href: "/mappa", t: "Mappa", ext: false },
-  { href: "/wiki", t: "Wiki", ext: false },
+  { href: "/regole", t: "Regolamento", icon: ScrollText },
+  { href: "/forum", t: "Forum", icon: MessagesSquare },
+  { href: "/mappa", t: "Mappa", icon: MapIcon },
+  { href: "/wiki", t: "Wiki", icon: BookOpen },
 ];
 
 export default function Home() {
@@ -52,10 +53,13 @@ export default function Home() {
         <div className="wrap w-full pb-8">
           <ul className="panel grid divide-white/10 sm:grid-cols-2 sm:divide-x lg:grid-cols-4" data-stagger="0.08" data-delay="0.6" style={{ background: "rgb(10 9 12 / 0.6)", backdropFilter: "blur(14px)" }}>
             {quick.map((q) => (
-              <li key={q.t} className="border-b border-white/10 last:border-b-0 sm:border-b-0">
-                <Link href={q.href} {...(q.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="group flex items-center justify-between gap-4 px-6 py-5 transition-colors hover:bg-white/5">
-                  <span className="font-semibold transition-colors group-hover:text-accent">{q.t}</span>
-                  <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+              <li key={q.t} className="relative border-b border-white/10 last:border-b-0 sm:border-b-0">
+                <Link href={q.href} className="group flex items-center gap-3 px-6 py-5 transition-colors hover:bg-white/[0.06]">
+                  <q.icon className="size-[1.15rem] text-white/45 transition-colors duration-300 group-hover:text-accent" aria-hidden />
+                  <span className="font-semibold">{q.t}</span>
+                  <ArrowRight className="ml-auto size-[1.1rem] -translate-x-1 text-white/35 transition-[transform,color] duration-300 group-hover:translate-x-0.5 group-hover:text-white" aria-hidden />
+                  {/* Linea rossa che cresce dal centro al passaggio del mouse */}
+                  <span aria-hidden className="absolute inset-x-6 bottom-0 h-0.5 origin-center scale-x-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-x-100" />
                 </Link>
               </li>
             ))}
