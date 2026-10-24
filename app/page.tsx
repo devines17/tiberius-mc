@@ -121,23 +121,23 @@ export default function Home() {
       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
         <div aria-hidden className="night-stars absolute inset-x-0 top-0 h-3/5" />
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
-        <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+        <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1fr_1.35fr] lg:gap-16">
           <div className="self-center pt-14 lg:order-2 lg:py-14" data-reveal="right">
             {/* Icona in un riquadro accanto al titolo, testo breve e un bottone largo */}
             <div className="flex items-center gap-4">
               <span className="grid size-14 shrink-0 place-items-center rounded-xl bg-black/30 ring-1 ring-inset ring-white/10">
                 <DiscordIcon className="size-8 text-[#8c96ff]" />
               </span>
-              <h2 className="text-[clamp(1.6rem,2.5vw,2.25rem)] uppercase leading-tight">Unisciti al nostro Discord</h2>
+              <h2 className="text-[clamp(1.4rem,2.6vw,2rem)] uppercase leading-tight lg:whitespace-nowrap">Unisciti al nostro Discord</h2>
             </div>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
-              Entra nella community del server: conosci altri giocatori, resta aggiornato sulle novità, partecipa agli eventi e chiedi aiuto allo staff quando ne hai bisogno.
+            <p className="mt-5 text-lg leading-relaxed text-white/80">
+              Entra nella community del server: conosci altri giocatori, resta sempre aggiornato sulle novità, partecipa agli eventi e chiedi aiuto allo staff ogni volta che ne hai bisogno. Ti aspettiamo, non mancare!
             </p>
             <a
               href={siteConfig.links.discord}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex h-20 w-full max-w-xl items-center justify-center gap-3 rounded-lg bg-[#5865f2] text-lg font-extrabold text-white shadow-[0_14px_34px_-12px_rgb(0_0_0/0.6)] ring-1 ring-inset ring-white/15 transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#6b77ff]"
+              className="mt-8 flex h-20 w-full items-center justify-center gap-3 rounded-lg bg-[#5865f2] text-lg font-extrabold text-white shadow-[0_14px_34px_-12px_rgb(0_0_0/0.6)] ring-1 ring-inset ring-white/15 transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#6b77ff]"
             >
               <DiscordIcon className="size-7" /> Unisciti al Discord
             </a>
