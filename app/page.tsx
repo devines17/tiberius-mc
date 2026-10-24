@@ -35,7 +35,7 @@ export default function Home() {
             </div>
           </div>
           <h1 className="text-[length:var(--step-display)] uppercase text-white">
-            <Words text="La gloria non conosce confini." mode="hero" />
+            <Words text="La gloria non conosce confini!" mode="hero" />
           </h1>
           <p className="mt-5 max-w-[62rem] text-[length:var(--step-lead)] leading-snug text-white/85 hero-in" data-hero-in>
             Fonda la tua città, stringi alleanze e conquista nuovi territori.{" "}
