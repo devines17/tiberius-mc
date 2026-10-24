@@ -91,11 +91,7 @@ export default function Home() {
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
         <div className="wrap relative grid items-end gap-6 lg:min-h-[25rem] lg:grid-cols-[1.1fr_1fr] lg:gap-14">
           <div className="self-center pt-12 lg:py-11" data-reveal="left">
-            <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-[#ffd28a]/30 bg-black/25 py-1 pl-1.5 pr-4">
-              <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="size-7" unoptimized />
-              <span className="text-sm font-semibold text-[#ffe2a8]">Store</span>
-            </div>
-            <h2 className="mt-5 text-[clamp(2.4rem,4.4vw,3.9rem)] leading-[0.98]">
+            <h2 className="text-[clamp(2.4rem,4.4vw,3.9rem)] leading-[0.98]">
               Lo store sta per <span className="text-[#ffc94d]">arrivare!</span>
             </h2>
             <p className="mt-5 max-w-lg text-lg text-white/80">
@@ -125,25 +121,26 @@ export default function Home() {
       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
         <div aria-hidden className="night-stars absolute inset-x-0 top-0 h-3/5" />
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
-        <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+        <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1fr_1.15fr] lg:gap-16">
           <div className="self-center pt-14 lg:order-2 lg:py-14" data-reveal="right">
-            <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-white/15 bg-black/25 py-1 pl-2.5 pr-4">
-              <DiscordIcon className="size-5 text-[#c9cdff]" />
-              <span className="text-sm font-semibold text-[#dfe1ff]">Community</span>
+            {/* Icona in un riquadro accanto al titolo, testo breve e un bottone largo */}
+            <div className="flex items-center gap-4">
+              <span className="grid size-14 shrink-0 place-items-center rounded-xl bg-black/30 ring-1 ring-inset ring-white/10">
+                <DiscordIcon className="size-8 text-[#8c96ff]" />
+              </span>
+              <h2 className="text-[clamp(1.6rem,2.5vw,2.25rem)] uppercase leading-tight">Unisciti al nostro Discord</h2>
             </div>
-            <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.98]">
-              Unisciti al nostro
-              <br />
-              <span className="text-[#aab1ff]">Discord</span>!
-            </h2>
-            <p className="mt-5 max-w-lg text-lg text-white/80">
-              Entra nel nostro Discord e unisciti alla community del server! Potrai conoscere altri giocatori, rimanere aggiornato sulle novità, partecipare agli eventi e chiedere aiuto allo staff quando ne hai bisogno.
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
+              Entra nella community del server: conosci altri giocatori, resta aggiornato sulle novità, partecipa agli eventi e chiedi aiuto allo staff quando ne hai bisogno.
             </p>
-            <div className="mt-7">
-              <a href={siteConfig.links.discord} target="_blank" rel="noopener noreferrer" className="btn !bg-white !text-[#2b2f8f] hover:!bg-[#e9eaff]" data-magnetic>
-                <DiscordIcon className="size-5" /> Entra su Discord
-              </a>
-            </div>
+            <a
+              href={siteConfig.links.discord}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 flex h-20 w-full max-w-xl items-center justify-center gap-3 rounded-lg bg-[#5865f2] text-lg font-extrabold text-white shadow-[0_14px_34px_-12px_rgb(0_0_0/0.6)] ring-1 ring-inset ring-white/15 transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#6b77ff]"
+            >
+              <DiscordIcon className="size-7" /> Unisciti al Discord
+            </a>
             {/* Membri e online di Discord, dal vivo */}
             <div className="mt-5 min-h-5">
               <DiscordCount invite={siteConfig.links.discord} className="text-white/80" />
