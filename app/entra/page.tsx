@@ -24,7 +24,7 @@ export default function Page() {
           { t: "entra nel discord", d: "Lì trovi lo staff, gli annunci e il collegamento account ai gestionali." },
         ]}
       />
-      <DiscordBand topic="entra" />
+      <DiscordBand />
     </>
   );
 }

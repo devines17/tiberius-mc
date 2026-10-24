@@ -17,7 +17,7 @@ export default function Page() {
         ]}
       />
       <Soon title="elenco città" text="L'elenco pubblico delle città comparirà qui quando il server sarà collegato. Finanze e territori privati non saranno mai mostrati." />
-      <DiscordBand topic="citta" />
+      <DiscordBand />
     </>
   );
 }

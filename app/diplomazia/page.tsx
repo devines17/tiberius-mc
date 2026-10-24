@@ -17,7 +17,7 @@ export default function Page() {
         ]}
       />
       <Soon title="mappa delle relazioni" text="Qui vedrai chi è alleato di chi, quando il server sarà collegato." />
-      <DiscordBand topic="diplomazia" />
+      <DiscordBand />
     </>
   );
 }

@@ -9,7 +9,7 @@ export default function Page() {
     <>
       <PageHead kicker="vota" title="Un voto per l'impero." lead="Votare aiuta il server a crescere." art="/images/art/empire.png" />
       <Soon title="link di voto in arrivo" text="I siti dove votare saranno elencati qui appena il server sarà registrato." />
-      <DiscordBand topic="vota" />
+      <DiscordBand />
     </>
   );
 }

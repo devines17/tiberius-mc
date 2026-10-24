@@ -9,7 +9,7 @@ export default function Page() {
     <>
       <PageHead kicker="news ed eventi" title={"ultime\ndal foro."} lead="Annunci, aggiornamenti ed eventi ufficiali." art="/images/art/goldone.png" />
       <Soon title="nessuna news" text="Le novità appariranno qui. Gli annunci in tempo reale restano sul Discord." />
-      <DiscordBand topic="news" />
+      <DiscordBand />
     </>
   );
 }

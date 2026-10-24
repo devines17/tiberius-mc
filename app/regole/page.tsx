@@ -26,7 +26,7 @@ export default function Page() {
         </section>
         <RulesBrowser chapters={REGOLE} />
       </div>
-      <DiscordBand topic="regole" />
+      <DiscordBand />
     </>
   );
 }

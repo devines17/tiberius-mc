@@ -46,7 +46,7 @@ export default async function Page() {
           </section>
         ))
       )}
-      <DiscordBand topic="staff" />
+      <DiscordBand />
     </>
   );
 }

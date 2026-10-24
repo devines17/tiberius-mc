@@ -17,7 +17,7 @@ export default function Page() {
         ]}
       />
       <Soon title="guerre in corso" text="Le guerre attive saranno elencate qui, dal server reale. Per ora la sezione è vuota." />
-      <DiscordBand topic="guerre" />
+      <DiscordBand />
     </>
   );
 }
