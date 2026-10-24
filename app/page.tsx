@@ -89,19 +89,21 @@ export default function Home() {
       {/* GOLDONE: tesoro che luccica, il legionario poggia sul bordo in basso */}
       <section className="relative overflow-hidden bg-[radial-gradient(30%_60%_at_74%_92%,rgb(255_196_64/0.55)_0%,rgb(255_150_40/0.18)_45%,transparent_72%),linear-gradient(180deg,#3a0907_0%,#7d1912_55%,#a3231a_100%)]">
         <div aria-hidden className="gold-dust absolute inset-x-0 top-0 h-3/5" />
-        <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1fr_1.1fr] lg:gap-14">
-          <div className="self-center pt-14 lg:py-14" data-reveal="left">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+        <div className="wrap relative grid items-end gap-6 lg:min-h-[25rem] lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+          <div className="self-center pt-12 lg:py-11" data-reveal="left">
             <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-[#ffd28a]/30 bg-black/25 py-1 pl-1.5 pr-4">
               <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="size-7" unoptimized />
               <span className="text-sm font-semibold text-[#ffe2a8]">Goldoni e store</span>
             </div>
-            <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.98]">
-              Il Goldone,
-              <br />
-              moneta <span className="text-[#ffc94d]">premium</span>.
+            <h2 className="mt-5 text-[clamp(2.4rem,4.4vw,3.9rem)] leading-[0.98]">
+              Lo store sta per <span className="text-[#ffc94d]">arrivare!</span>
             </h2>
-            <p className="mt-5 max-w-md text-lg text-white/80">
-              È separato dal denaro che usi in gioco: le due monete non si mescolano. Come ottenerlo e cosa puoi acquistare lo spiegheremo qui all&apos;apertura dello store.
+            <p className="mt-5 max-w-lg text-lg text-white/80">
+              Preparati a scoprire il nostro store, dove troverai oggetti speciali da aggiungere alla tua collezione. Tra le novità ci sarà anche il Goldone, una valuta premium molto rara.
+            </p>
+            <p className="mt-3 max-w-lg text-lg text-white/80">
+              All&apos;apertura dello store ti sveleremo come funziona e cosa potrai trovare al suo interno.
             </p>
             <div className="mt-8">
               {siteConfig.links.store ? (
@@ -113,8 +115,10 @@ export default function Home() {
               )}
             </div>
           </div>
-          <div className="self-end pt-4" data-reveal="right" data-delay="0.15">
-            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="mx-auto block w-full max-w-xl" unoptimized />
+          {/* Il fondo dell'immagine è tagliato: sfuma nell'ombra a terra così il legionario poggia */}
+          <div className="relative mx-auto w-full max-w-lg self-end pt-4" data-reveal="right" data-delay="0.15">
+            <span aria-hidden className="absolute inset-x-[6%] -bottom-2 h-11 rounded-[50%] bg-black/55 blur-xl" />
+            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="relative block w-full [mask-image:linear-gradient(to_bottom,#000_88%,transparent)]" unoptimized />
           </div>
         </div>
       </section>
@@ -122,6 +126,7 @@ export default function Home() {
       {/* COMMUNITY: attaccata al Goldone. Notte stellata e bagliore del fuoco dietro i legionari */}
       <section className="relative overflow-hidden bg-[radial-gradient(34%_62%_at_20%_86%,rgb(255_140_40/0.6)_0%,rgb(255_96_30/0.2)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
         <div aria-hidden className="night-stars absolute inset-x-0 top-0 h-3/5" />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
         <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1.25fr_1fr] lg:gap-16">
           <div className="self-center pt-14 lg:order-2 lg:py-14" data-reveal="right">
             <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-white/15 bg-black/25 py-1 pl-2.5 pr-4">
@@ -150,8 +155,9 @@ export default function Home() {
             </div>
           </div>
           {/* Legionari più grandi della colonna: sbordano un po' a sinistra e poggiano sul fondo */}
-          <div className="self-end pt-4 lg:order-1" data-reveal="left" data-delay="0.15">
-            <Image src="/images/legionari-fuoco-v2.webp" alt="Cinque legionari di TiberiusMC che ridono e chiacchierano intorno a un fuoco da campo" width={1433} height={892} className="block w-full lg:-ml-[30%] lg:w-[128%] lg:max-w-none" unoptimized />
+          <div className="relative self-end pb-3 pt-4 lg:order-1" data-reveal="left" data-delay="0.15">
+            <span aria-hidden className="absolute bottom-0 left-[4%] right-[10%] h-12 rounded-[50%] bg-black/55 blur-xl lg:-left-[24%] lg:right-[2%]" />
+            <Image src="/images/legionari-fuoco-v2.webp" alt="Cinque legionari di TiberiusMC che ridono e chiacchierano intorno a un fuoco da campo" width={1433} height={892} className="relative block w-full lg:-ml-[30%] lg:w-[128%] lg:max-w-none" unoptimized />
           </div>
         </div>
       </section>
