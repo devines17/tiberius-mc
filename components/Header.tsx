@@ -30,11 +30,11 @@ const top: NavItem[] = [
   { href: "/regole", label: "regole", icon: ScrollText },
   { href: "/mappa", label: "mappa", icon: MapIcon },
   { href: "/forum", label: "forum", icon: MessagesSquare },
-  { href: "/store", label: "store", icon: Store, highlight: true },
   { href: "/staff", label: "staff", icon: Shield },
   { href: "/vota", label: "vota", icon: Vote },
   { href: "/wiki", label: "wiki", icon: BookOpen },
   { href: "/portale", label: "gestionale", icon: LayoutDashboard },
+  { href: "/store", label: "store", icon: Store, highlight: true },
 ];
 
 /** La voce è attiva sulla sua pagina e sulle pagine figlie; la home solo su "/". */
