@@ -19,7 +19,7 @@ export default function Home() {
       <section className="relative isolate flex min-h-[calc(100svh-var(--header-h))] flex-col overflow-hidden">
         <Image src="/images/hero-bg.jpg" alt="" fill priority sizes="100vw" className="kenburns -z-20 object-cover" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/45 to-[#0b0a0c]" />
-        <div className="wrap flex flex-1 flex-col items-center justify-center py-10 text-center">
+        <div className="wrap flex flex-1 flex-col items-center justify-center pb-[13vw] pt-10 text-center">
           <p className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 hero-in" data-hero-in>
             <span className="dot-live size-2 rounded-full bg-accent" /> minecraft java · survival towny
           </p>
@@ -48,7 +48,7 @@ export default function Home() {
           height={284}
           priority
           unoptimized
-          className="pointer-events-none relative -mt-[3vw] block w-full select-none"
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 block w-full select-none"
         />
       </section>
 
@@ -139,7 +139,7 @@ export default function Home() {
       </section>
 
       {/* NEWS: una riga sottile finché non ci sono annunci */}
-      <section className="mt-16 border-y border-white/10">
+      <section className="mb-14 mt-16 border-y border-white/10">
         <div className="wrap flex flex-wrap items-center justify-between gap-3 py-5">
           <p className="font-bold">
             Novità dal foro <span className="ml-3 text-sm font-medium text-white/50">Nessun annuncio per ora</span>

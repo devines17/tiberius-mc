@@ -63,7 +63,7 @@ export function Footer() {
     <footer className="on-field">
       {/* Campagna romana al tramonto: chiude ogni pagina */}
       <Image
-        src="/images/campagna-romana.webp"
+        src="/images/campagna-romana-v2.webp"
         alt=""
         width={2154}
         height={366}
