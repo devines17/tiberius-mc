@@ -53,6 +53,11 @@ function ownerIds(): Set<string> {
   return new Set((process.env.FORUM_OWNER_DISCORD_IDS ?? "").split(",").map((s) => s.trim()).filter(Boolean));
 }
 
+/** Il Founder (Discord ID in FORUM_OWNER_DISCORD_IDS): l'unico che pubblica le news. */
+export function isOwner(profile: Pick<Profile, "discord_id">): boolean {
+  return ownerIds().has(profile.discord_id);
+}
+
 export type Session = { profile: Profile; viewer: Viewer };
 
 /** Utente della richiesta corrente (una sola lettura per richiesta grazie a cache()). */

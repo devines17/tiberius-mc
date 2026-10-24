@@ -8,6 +8,8 @@ const ART = {
   staff: { src: "/images/staff-legionari-v2.webp", w: 961, h: 801, cls: "lg:block lg:!h-[78%] lg:right-6 xl:!h-[88%] 2xl:!h-[94%] 2xl:left-[calc(50%+3rem)] 2xl:right-auto" },
   // Legionario che legge la pergamena (regolamento)
   regole: { src: "/images/regole-legionario.webp", w: 719, h: 821, cls: "lg:block lg:!h-[80%] lg:right-6 2xl:!h-[94%] 2xl:left-[calc(50%+7rem)] 2xl:right-auto" },
+  // Banditore sul podio che annuncia le novità (news)
+  news: { src: "/images/news-banditore.webp", w: 818, h: 1400, cls: "md:block lg:right-10 2xl:left-[calc(50%+9rem)] 2xl:right-auto" },
 } as const;
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff, regole). */

@@ -1,4 +1,4 @@
-import { getSession, displayName } from "@/lib/server/auth";
+import { getSession, displayName, isOwner } from "@/lib/server/auth";
 import { dbConfigured, db } from "@/lib/server/db";
 import { handle, json } from "@/lib/server/http";
 import { isStaff } from "@/lib/forum/rules";
@@ -12,7 +12,7 @@ export async function GET() {
     if (!s) return json({ user: null });
     const unread = await db.count("notifications", { profile_id: `eq.${s.profile.id}`, read_at: "is.null" });
     return json({
-      user: { name: displayName(s.profile), mcVerified: Boolean(s.profile.mc_uuid), mcUuid: s.profile.mc_uuid ?? null, headName: headFor(displayName(s.profile)), staff: isStaff(s.viewer), unread },
+      user: { name: displayName(s.profile), mcVerified: Boolean(s.profile.mc_uuid), mcUuid: s.profile.mc_uuid ?? null, headName: headFor(displayName(s.profile)), staff: isStaff(s.viewer), owner: isOwner(s.profile), unread },
     });
   });
 }

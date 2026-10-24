@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
+import { NewsCard } from "@/components/news/parts";
+import { listPublished } from "@/lib/server/news";
 import { ArrowRight } from "lucide-react";
 import { Words } from "@/components/ui/Words";
 import { CopyIp } from "@/components/ui/CopyIp";
@@ -155,17 +158,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEWS: una riga sottile finché non ci sono annunci */}
-      <section className="mb-14 mt-16 border-y border-white/10">
-        <div className="wrap flex flex-wrap items-center justify-between gap-3 py-5">
-          <p className="font-bold">
-            Novità dal foro <span className="ml-3 text-sm font-medium text-white/50">Nessun annuncio per ora</span>
-          </p>
-          <Link href="/news" className="group flex items-center gap-2 font-bold text-white/85 transition-colors hover:text-white">
-            Tutte le news <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
-          </Link>
-        </div>
-      </section>
+      {/* NEWS: le ultime tre; finché non ce ne sono resta una riga sottile */}
+      <Suspense fallback={<NewsLine />}>
+        <LatestNews />
+      </Suspense>
     </>
+  );
+}
+
+function NewsLine() {
+  return (
+    <section className="mb-14 mt-16 border-y border-white/10">
+      <div className="wrap flex flex-wrap items-center justify-between gap-3 py-5">
+        <p className="font-bold">
+          Novità dal foro <span className="ml-3 text-sm font-medium text-white/50">Nessun annuncio per ora</span>
+        </p>
+        <Link href="/news" className="group flex items-center gap-2 font-bold text-white/85 transition-colors hover:text-white">
+          Tutte le news <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+async function LatestNews() {
+  const news = (await listPublished(3)).slice(0, 3);
+  if (!news.length) return <NewsLine />;
+  return (
+    <section className="wrap py-[var(--section)]">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <h2 className="text-[length:var(--step-head)]">Novità dal foro</h2>
+        <Link href="/news" className="group flex items-center gap-2 font-bold text-white/85 transition-colors hover:text-white">
+          Tutte le news <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+        </Link>
+      </div>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {news.map((n) => (
+          <NewsCard key={n.id} item={n} />
+        ))}
+      </div>
+    </section>
   );
 }
