@@ -11,11 +11,8 @@ type Status =
 /** Ogni quanto si ricontrolla il server. L'API stessa aggiorna i dati circa ogni minuto. */
 const REFRESH_MS = 60_000;
 
-/**
- * Stato dal vivo del server Minecraft, letto da api.mcstatus.io.
- * Nessun dato inventato: se l'API non risponde il badge sparisce.
- */
-export function ServerStatus({ host, className = "" }: { host: string; className?: string }) {
+/** Stato dal vivo del server Minecraft, letto da api.mcstatus.io e ricontrollato ogni minuto. */
+export function useServerStatus(host: string): Status {
   const [status, setStatus] = useState<Status>({ state: "loading" });
 
   useEffect(() => {
@@ -47,6 +44,13 @@ export function ServerStatus({ host, className = "" }: { host: string; className
       window.clearInterval(id);
     };
   }, [host]);
+
+  return status;
+}
+
+/** Badge con lo stato del server. Nessun dato inventato: se l'API non risponde il badge sparisce. */
+export function ServerStatus({ host, className = "" }: { host: string; className?: string }) {
+  const status = useServerStatus(host);
 
   if (status.state === "error") return null;
 
