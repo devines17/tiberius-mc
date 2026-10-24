@@ -37,3 +37,18 @@ export function subLabel(subKey: string): string {
 }
 
 export const PRIORITY_LABEL: Record<string, string> = { bassa: "Bassa", normale: "Normale", alta: "Alta", urgente: "Urgente" };
+
+const rtf = new Intl.RelativeTimeFormat("it-IT", { numeric: "auto" });
+
+/** "3 minuti fa", "ieri", "2 settimane fa"; oltre i 30 giorni la data. */
+export function timeAgo(iso: string | null | undefined, now = Date.now()): string {
+  if (!iso) return "";
+  const s = Math.round((Date.parse(iso) - now) / 1000);
+  const a = Math.abs(s);
+  if (a < 45) return "adesso";
+  if (a < 3600) return rtf.format(Math.round(s / 60), "minute");
+  if (a < 86400) return rtf.format(Math.round(s / 3600), "hour");
+  if (a < 7 * 86400) return rtf.format(Math.round(s / 86400), "day");
+  if (a < 30 * 86400) return rtf.format(Math.round(s / (7 * 86400)), "week");
+  return formatDate(iso);
+}

@@ -73,7 +73,7 @@ function FilePicker({ files, setFiles }: { files: File[]; setFiles: (f: File[]) 
 
 /* ---------------- Giocatore ---------------- */
 
-export function PlayerReply({ number, awaitingInfo }: { number: number; awaitingInfo: boolean }) {
+export function PlayerReply({ number, awaitingInfo, label }: { number: number; awaitingInfo: boolean; label?: string }) {
   const { busy, error, done, run } = useAction(number);
   const [body, setBody] = useState("");
   const [files, setFiles] = useState<File[]>([]);
@@ -89,7 +89,7 @@ export function PlayerReply({ number, awaitingInfo }: { number: number; awaiting
       }}
     >
       <label htmlFor="reply" className="font-semibold">
-        {awaitingInfo ? "Rispondi allo staff con le informazioni richieste" : "Aggiungi informazioni"}
+        {label ?? (awaitingInfo ? "Rispondi allo staff con le informazioni richieste" : "Aggiungi informazioni")}
       </label>
       <textarea id="reply" className="field" value={body} onChange={(e) => setBody(e.target.value)} maxLength={8000} required />
       <div className="flex flex-wrap items-center justify-between gap-3">

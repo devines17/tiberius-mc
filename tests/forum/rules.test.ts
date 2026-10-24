@@ -6,6 +6,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { CATEGORIES, SUBCATEGORIES, getSubcategory, formFields, type PermissionKey } from "../../lib/forum/config.ts";
 import {
   canView,
+  canReplyOpen,
   canSeeInternal,
   isStaffFor,
   playerActions,
@@ -34,13 +35,13 @@ const ADMIN_ONLY = viewer("ADM", ["admin"]);
 
 // ---------- 1-3. Struttura ----------
 
-test("solo le tre categorie richieste", () => {
-  assert.deepEqual(CATEGORIES.map((c) => c.key), ["assistenza", "towny", "candidature"]);
+test("solo le quattro categorie richieste", () => {
+  assert.deepEqual(CATEGORIES.map((c) => c.key), ["assistenza", "towny", "community", "candidature"]);
 });
 
 test("solo le sottosezioni richieste, unban una volta sola", () => {
   assert.deepEqual(SUBCATEGORIES.map((s) => s.key), [
-    "assistenza_generale", "unban", "segnalazioni", "bug", "cambio_nick", "store", "diplomazia", "candidature", "candidature_media",
+    "assistenza_generale", "unban", "segnalazioni", "bug", "cambio_nick", "store", "diplomazia", "salotto", "proposte", "candidature", "candidature_media",
   ]);
   assert.equal(SUBCATEGORIES.filter((s) => s.key.includes("unban")).length, 1);
   assert.deepEqual(SUBCATEGORIES.filter((s) => s.category === "towny").map((s) => s.key), ["diplomazia"]);
@@ -103,6 +104,38 @@ test("le bozze sono solo dell'autore", () => {
   assert.equal(canView(B, draft), true);
   assert.equal(canView(DIPLO, draft), false);
   assert.deepEqual(staffSettableStatuses(DIPLO, draft), []);
+});
+
+// ---------- Forum pubblico ----------
+
+test("le discussioni pubbliche le legge chiunque, le private no", () => {
+  const pub = { author_id: "A", subcategory: "assistenza_generale", status: "aperta", is_public: true };
+  const old = { author_id: "A", subcategory: "assistenza_generale", status: "aperta", is_public: false };
+  assert.equal(canView(null, pub), true, "anche senza account");
+  assert.equal(canView(B, pub), true);
+  assert.equal(canView(null, old), false, "le pratiche aperte prima del forum pubblico restano private");
+  assert.equal(canView(B, old), false);
+  assert.equal(canView(null, { ...storeTicket, is_public: false }), false);
+  assert.equal(canView(null, { author_id: "B", subcategory: "diplomazia", status: "bozza", is_public: true }), false, "bozza pubblica mai visibile");
+  assert.equal(canSeeInternal(null, pub), false);
+  assert.equal(canSeeInternal(B, pub), false);
+});
+
+test("risposte aperte solo in community, non sulle proprie e non a discussione chiusa", () => {
+  const salotto = { author_id: "A", subcategory: "salotto", status: "aperta", is_public: true };
+  const assist = { author_id: "A", subcategory: "assistenza_generale", status: "aperta", is_public: true };
+  assert.equal(canReplyOpen(B, salotto), true);
+  assert.equal(canReplyOpen(null, salotto), false, "serve l'accesso");
+  assert.equal(canReplyOpen(A, salotto), false, "l'autore risponde come autore");
+  assert.equal(canReplyOpen(B, { ...salotto, status: "chiusa" }), false);
+  assert.equal(canReplyOpen(B, assist), false, "in assistenza rispondono solo autore e staff");
+  assert.ok(playerActions(A, salotto).includes("reply"));
+});
+
+test("sezioni pubbliche e private come richiesto", () => {
+  assert.deepEqual(SUBCATEGORIES.filter((s) => s.public).map((s) => s.key), ["assistenza_generale", "diplomazia", "salotto", "proposte"]);
+  assert.deepEqual(SUBCATEGORIES.filter((s) => s.openReplies).map((s) => s.key), ["salotto", "proposte"]);
+  for (const s of SUBCATEGORIES) if (s.public) assert.equal(s.sensitive, false, `${s.key} pubblica e riservata`);
 });
 
 // ---------- Flusso degli stati ----------

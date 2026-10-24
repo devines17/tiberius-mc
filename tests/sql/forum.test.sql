@@ -21,9 +21,12 @@ insert into staff_permissions (profile_id, permission) values
   ('00000000-0000-0000-0000-0000000000c1', 'store'),
   ('00000000-0000-0000-0000-0000000000c2', 'candidature');
 
--- 1. Esistono solo le 3 categorie e le 9 sottosezioni previste (dopo le migrazioni 002 e 003) (unban una volta sola)
-select pg_temp.check((select count(*) from forum_categories) = 3, 'tre categorie');
-select pg_temp.check((select count(*) from forum_subcategories) = 9, 'nove sottosezioni');
+-- 1. Esistono solo le 4 categorie e le 11 sottosezioni previste (dopo le migrazioni 002, 003 e 005) (unban una volta sola)
+select pg_temp.check((select count(*) from forum_categories) = 4, 'quattro categorie');
+select pg_temp.check((select count(*) from forum_subcategories) = 11, 'undici sottosezioni');
+select pg_temp.check((select array_agg(key order by key) from forum_subcategories where visibility = 'public') = array['assistenza_generale','diplomazia','proposte','salotto'],
+  'pubbliche solo assistenza generale, diplomazia e community');
+select pg_temp.check((select bool_and(not open_replies) from forum_subcategories where category <> 'community'), 'risposte aperte solo in community');
 select pg_temp.check((select count(*) from forum_subcategories where key like '%unban%') = 1, 'unban non duplicato');
 
 -- 2. Una pratica non può stare in una sezione o in uno stato inesistenti
@@ -99,6 +102,48 @@ select forum_set_status((select id from tickets where subcategory = 'store'), '0
 select pg_temp.check((select closed_at is not null and awaiting = 'nessuno' from tickets where subcategory = 'store'), 'pratica chiusa con data');
 select pg_temp.check((select reason from ticket_status_history where to_status = 'risolta') = 'Goldoni accreditati manualmente', 'motivazione registrata');
 select pg_temp.check((select count(*) from notifications where profile_id = '00000000-0000-0000-0000-00000000000a' and kind = 'decisione') = 1, 'giocatore notificato della decisione');
+
+-- 8b. Forum pubblico
+-- Una pratica privata non è mai pubblica; una nuova in sezione pubblica sì
+select pg_temp.check((select not is_public from tickets where subcategory = 'store'), 'pratica store privata');
+select forum_create_ticket('00000000-0000-0000-0000-00000000000a', 'assistenza_generale', 'Non riesco a entrare', '{"tipo_problema":"connessione"}'::jsonb, 'Mi dà timeout', 'aperta', null, null, false);
+select pg_temp.check((select is_public from tickets where subcategory = 'assistenza_generale'), 'assistenza generale nasce pubblica');
+-- Una pratica pubblica si trova anche senza account, quelle private no
+select pg_temp.check((select count(*) from forum_search(null, '{}', null, null, null, null, null, null, null, null, 50)) = 2,
+  'anonimo trova solo le discussioni pubbliche (assistenza e diplomazia inviata)');
+select pg_temp.check((select count(*) from forum_search(null, '{}', 'goldoni', null, null, null, null, null, null, null, 50)) = 0, 'anonimo non trova lo store');
+select pg_temp.check((select count(*) from forum_search(null, '{}', 'vorrei aiutare', null, null, null, null, null, null, null, 50)) = 0, 'anonimo non trova le candidature');
+-- In una sezione non aperta chi non è autore né staff non può rispondere
+do $$ begin
+  begin
+    perform forum_add_message((select id from tickets where subcategory = 'assistenza_generale'), '00000000-0000-0000-0000-00000000000b', false, 'intrusione', null);
+    raise exception 'TEST FALLITO: risposta di un estraneo accettata';
+  exception when raise_exception then
+    if sqlerrm <> 'risposta_non_consentita' then raise; end if;
+    raise notice 'ok  estraneo non risponde in assistenza';
+  end;
+end $$;
+-- Community: nessuna notifica allo staff, risposte libere con notifica all'autore
+insert into staff_permissions (profile_id, permission) values ('00000000-0000-0000-0000-0000000000c2', 'community');
+select forum_create_ticket('00000000-0000-0000-0000-00000000000a', 'salotto', 'Presentiamoci', '{}'::jsonb, 'Ciao a tutti', 'aperta', null, null, false);
+select pg_temp.check((select count(*) from notifications where title like '%Presentiamoci%') = 0, 'nessuna notifica staff per una discussione community');
+select forum_add_message((select id from tickets where subcategory = 'salotto'), '00000000-0000-0000-0000-00000000000b', false, 'Ciao!', null);
+select pg_temp.check((select count(*) from notifications where profile_id = '00000000-0000-0000-0000-00000000000a' and kind = 'risposta_discussione') = 1, 'autore notificato della risposta');
+select pg_temp.check((select awaiting = 'nessuno' from tickets where subcategory = 'salotto'), 'community senza attesa staff');
+select forum_add_message((select id from tickets where subcategory = 'salotto'), '00000000-0000-0000-0000-00000000000a', false, 'Benvenuto', null);
+select pg_temp.check((select count(*) from notifications where kind = 'risposta_discussione') = 1, 'nessuna notifica a sé stessi');
+-- Statistiche ed elenchi solo pubblici
+select pg_temp.check((select threads from forum_stats()) = 3, 'statistiche: tre discussioni pubbliche');
+select pg_temp.check((select messages from forum_stats()) = 4, 'statistiche: messaggi solo pubblici');
+select pg_temp.check((select members from forum_stats()) = 4, 'statistiche: membri');
+select pg_temp.check((select count(*) from forum_section_counts() where subcategory in ('store','candidature')) = 0, 'conteggi senza sezioni private');
+select pg_temp.check((select replies from forum_public_threads('salotto', null, 10, 0)) = 2, 'risposte contate');
+select pg_temp.check((select last_name from forum_public_threads('salotto', null, 10, 0)) = 'GiocatoreA', 'ultimo messaggio');
+select pg_temp.check((select total from forum_public_threads(null, null, 1, 0)) = 3, 'totale per la paginazione');
+select pg_temp.check((select messages from forum_members(null, 10, 0) where name = 'giocatoreB') = 1, 'messaggi pubblici del membro');
+select pg_temp.check((select messages from forum_members(null, 10, 0) where name = 'staffCandidature') = 0, 'messaggi privati non contati');
+update profiles set last_seen_at = now() where discord_username in ('giocatoreB', 'staffCandidature');
+select pg_temp.check((select count(*) from forum_online()) = 2 and (select count(*) from forum_online() where is_staff) = 1, 'utenti e staff online');
 
 -- 9. Limite anti-spam
 select pg_temp.check(not forum_rate_hit('test', 3600, 2) and not forum_rate_hit('test', 3600, 2) and forum_rate_hit('test', 3600, 2), 'rate limit scatta al terzo tentativo');

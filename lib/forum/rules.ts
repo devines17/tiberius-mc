@@ -20,6 +20,8 @@ export type TicketLike = {
   subcategory: string;
   status: string;
   reopen_requested_at?: string | null;
+  /** Aperta in una sezione pubblica: la legge chiunque (tranne le bozze). */
+  is_public?: boolean;
 };
 
 /** Sottosezioni che il viewer può gestire come staff. */
@@ -45,13 +47,29 @@ export function isStaffFor(viewer: Viewer, t: TicketLike): boolean {
   return staffSubcategories(viewer).includes(t.subcategory);
 }
 
-export function canView(viewer: Viewer, t: TicketLike): boolean {
-  return isAuthor(viewer, t) || isStaffFor(viewer, t);
+/** Discussione pubblica: leggibile da tutti, anche senza account. Le bozze restano dell'autore. */
+export function isPublicTicket(t: TicketLike): boolean {
+  return Boolean(t.is_public) && t.status !== "bozza";
+}
+
+export function canView(viewer: Viewer | null, t: TicketLike): boolean {
+  if (isPublicTicket(t)) return true;
+  return viewer != null && (isAuthor(viewer, t) || isStaffFor(viewer, t));
+}
+
+/**
+ * Chi può rispondere: l'autore (finché la pratica è aperta), oppure, nelle
+ * sezioni a risposte aperte, qualunque utente collegato. Lo staff della
+ * sezione risponde dal proprio pannello.
+ */
+export function canReplyOpen(viewer: Viewer | null, t: TicketLike): boolean {
+  if (!viewer || isAuthor(viewer, t) || !isPublicTicket(t) || isFinal(t)) return false;
+  return Boolean(sub(t).openReplies);
 }
 
 /** Le note interne e gli allegati interni: solo staff della sezione, mai l'autore in quanto autore. */
-export function canSeeInternal(viewer: Viewer, t: TicketLike): boolean {
-  return isStaffFor(viewer, t);
+export function canSeeInternal(viewer: Viewer | null, t: TicketLike): boolean {
+  return viewer != null && isStaffFor(viewer, t);
 }
 
 /* ------------------------------------------------------------------ */

@@ -11,6 +11,7 @@ export type Profile = {
   mc_verified_by: "plugin" | "staff" | null;
   created_at: string;
   last_login_at: string;
+  last_seen_at?: string | null;
 };
 
 export type Ticket = {
@@ -32,6 +33,7 @@ export type Ticket = {
   updated_at: string;
   author_seen_at: string;
   closed_at: string | null;
+  is_public?: boolean;
 };
 
 export type TicketMessage = {

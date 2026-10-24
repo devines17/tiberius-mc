@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { Notice, TicketRows } from "@/components/forum/bits";
-import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
+import { headers } from "next/headers";
+import { ForumLoading, NotConfigured } from "@/components/forum/states";
+import { Crumbs } from "@/components/forum/zero";
 import { forumContext } from "@/components/forum/session";
 import { search } from "@/lib/server/tickets";
 import { HttpError } from "@/lib/server/http";
@@ -17,14 +18,11 @@ type SP = Promise<Record<string, string | string[] | undefined>>;
 
 export default function Page({ searchParams }: { searchParams: SP }) {
   return (
-    <>
-      <ForumHero kicker="forum · cerca" title={"cerca tra\nle pratiche."} lead="Cerchi tra le tue richieste e, se sei staff, tra quelle delle tue sezioni." />
-      <div className="pb-20 pt-10">
-        <Suspense fallback={<ForumLoading rows={3} />}>
-          <Body searchParams={searchParams} />
-        </Suspense>
-      </div>
-    </>
+    <div className="pb-20 pt-10">
+      <Suspense fallback={<ForumLoading rows={3} />}>
+        <Body searchParams={searchParams} />
+      </Suspense>
+    </div>
   );
 }
 
@@ -34,10 +32,10 @@ async function Body({ searchParams }: { searchParams: SP }) {
   const sp = await searchParams;
   const { configured, session, unread } = await forumContext();
   if (!configured) return <NotConfigured />;
-  if (!session) return <LoginRequired next="/forum/cerca" />;
-
-  const staff = isStaff(session.viewer);
-  const mySubs = new Set(staffSubcategories(session.viewer));
+  const staff = session ? isStaff(session.viewer) : false;
+  const mySubs = new Set(session ? staffSubcategories(session.viewer) : []);
+  const h = await headers();
+  const ip = h.get("x-real-ip") ?? h.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anon";
   const q = str(sp.q);
   const sub = str(sp.sezione);
   const status = str(sp.stato);
@@ -62,7 +60,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
         to,
         author,
         closed: closed === "si" ? true : closed === "no" ? false : null,
-      });
+      }, ip);
     } catch (e) {
       error = e instanceof HttpError ? e.message : "Ricerca non riuscita. Riprova.";
     }
@@ -72,8 +70,16 @@ async function Body({ searchParams }: { searchParams: SP }) {
 
   return (
     <div className="forum-in grid gap-8">
-      <ForumNav session={session} active="cerca" unread={unread} />
+      <ForumNav session={session} active="cerca" unread={unread} next="/forum/cerca" />
       <div className="wrap grid gap-6">
+        <Crumbs items={[{ href: "/forum", label: "Forum" }, { label: "Cerca" }]} />
+        <div>
+          <h1 className="text-[clamp(1.6rem,3vw,2.3rem)] leading-tight">Cerca nel forum</h1>
+          <p className="mt-1 text-white/55">
+            {session ? "Cerchi tra le discussioni pubbliche e le tue richieste" : "Cerchi tra le discussioni pubbliche. Accedi per cercare anche tra le tue richieste"}
+            {staff ? " e, come staff, tra quelle delle tue sezioni." : "."}
+          </p>
+        </div>
         <form method="get" className="panel grid gap-4 p-6 md:p-8" role="search">
           <div className="grid gap-2">
             <label htmlFor="q" className="text-sm font-semibold">
@@ -139,7 +145,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
         {results && (
           <section aria-live="polite" className="grid gap-3">
             <p className="text-sm text-white/55">{results.length === 100 ? "Più di 100 risultati: restringi la ricerca." : `${results.length} risultat${results.length === 1 ? "o" : "i"}`}</p>
-            <TicketRows tickets={results} empty="Nessuna pratica trovata." showAuthor={staff} />
+            <TicketRows tickets={results} empty="Nessun risultato." showAuthor showPriority={staff} />
           </section>
         )}
       </div>

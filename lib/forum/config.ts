@@ -18,6 +18,7 @@ export type PermissionKey =
   | "towny_diplomazia"
   | "candidature"
   | "candidature_media"
+  | "community"
   | "admin";
 
 export const PERMISSIONS: { key: PermissionKey; label: string }[] = [
@@ -30,10 +31,11 @@ export const PERMISSIONS: { key: PermissionKey; label: string }[] = [
   { key: "towny_diplomazia", label: "Diplomazia e richieste di guerra" },
   { key: "candidature", label: "Candidature staff" },
   { key: "candidature_media", label: "Candidature media" },
+  { key: "community", label: "Moderazione community" },
   { key: "admin", label: "Amministrazione generale" },
 ];
 
-export type CategoryKey = "assistenza" | "towny" | "candidature";
+export type CategoryKey = "assistenza" | "towny" | "community" | "candidature";
 
 export type SubcategoryKey =
   | "assistenza_generale"
@@ -43,6 +45,8 @@ export type SubcategoryKey =
   | "cambio_nick"
   | "store"
   | "diplomazia"
+  | "salotto"
+  | "proposte"
   | "candidature"
   | "candidature_media";
 
@@ -69,6 +73,10 @@ export type Subcategory = {
   short: string;
   description: string;
   permission: PermissionKey;
+  /** Pubblica: le discussioni aperte da ora in poi le legge chiunque, anche senza account. */
+  public?: boolean;
+  /** Tutti gli utenti collegati possono rispondere (non solo autore e staff). */
+  openReplies?: boolean;
   /** Riservata: mai elenchi o conteggi condivisi, nemmeno anonimi. */
   sensitive: boolean;
   /** Richiede un account Minecraft verificato per aprire la pratica. */
@@ -92,8 +100,11 @@ const S = (key: string, label: string, final = false): Status => ({ key, label, 
 export const CATEGORIES: { key: CategoryKey; label: string; description: string }[] = [
   { key: "assistenza", label: "Assistenza", description: "Problemi personali e richieste rivolte allo staff." },
   { key: "towny", label: "Towny", description: "Questioni politiche e territoriali tra città e nazioni." },
+  { key: "community", label: "Community", description: "Discussioni libere tra giocatori: presentazioni, chiacchiere e proposte per il server." },
   { key: "candidature", label: "Candidature", description: "Candidati per entrare nello staff o come creator di TiberiusMC." },
 ];
+
+const PUBLIC_NOTICE = "Questa sezione è pubblica: chiunque potrà leggere la discussione. Non scrivere dati personali come email, password o numeri di telefono.";
 
 const PROVE: Field = {
   name: "prove_link",
@@ -111,12 +122,13 @@ export const SUBCATEGORIES: Subcategory[] = [
     short: "Problemi e domande sul server.",
     description: "Per problemi e richieste generali relativi al server.",
     permission: "assistenza",
+    public: true,
     sensitive: false,
     requiresVerifiedMc: false,
     allowsDraft: false,
     initialStatus: "aperta",
     statuses: [S("aperta", "Aperta"), S("in_lavorazione", "In lavorazione"), S("info_richieste", "Informazioni richieste"), S("risolta", "Risolta", true), S("chiusa", "Chiusa", true)],
-    notices: [],
+    notices: [PUBLIC_NOTICE],
     bodyLabel: "Descrizione dettagliata",
     fields: [
       {
@@ -323,6 +335,7 @@ export const SUBCATEGORIES: Subcategory[] = [
     short: "Trattati, alleanze e richieste di guerra.",
     description: "Per le richieste diplomatiche tra città e nazioni, comprese le richieste di approvazione delle guerre.",
     permission: "towny_diplomazia",
+    public: true,
     sensitive: false,
     requiresVerifiedMc: true,
     allowsDraft: true,
@@ -338,6 +351,7 @@ export const SUBCATEGORIES: Subcategory[] = [
       S("completata", "Completata", true),
     ],
     notices: [
+      PUBLIC_NOTICE,
       "Guerre e accordi approvati qui li avvia lo staff sul server. Il forum da solo non cambia nulla in gioco.",
       "Il tuo ruolo sarà verificato dallo staff.",
     ],
@@ -373,6 +387,57 @@ export const SUBCATEGORIES: Subcategory[] = [
       { name: "casus_belli", label: "Casus belli e obiettivi della guerra", type: "textarea", required: true, max: 3000, when: { field: "tipo", in: ["guerra"] } },
       { name: "dichiarazioni", label: "Dichiarazioni delle altre parti, se già raccolte", type: "textarea", max: 3000 },
       PROVE,
+    ],
+  },
+  {
+    key: "salotto",
+    category: "community",
+    label: "Salotto della community",
+    short: "Presentazioni e chiacchiere tra giocatori.",
+    description: "Presentati, racconta le tue avventure sul server e chiacchiera con gli altri giocatori.",
+    permission: "community",
+    public: true,
+    openReplies: true,
+    sensitive: false,
+    requiresVerifiedMc: false,
+    allowsDraft: false,
+    initialStatus: "aperta",
+    statuses: [S("aperta", "Aperta"), S("chiusa", "Chiusa", true)],
+    notices: [PUBLIC_NOTICE, "Rispetta il regolamento anche qui: lo staff può chiudere le discussioni fuori tema."],
+    bodyLabel: "Messaggio",
+    fields: [],
+  },
+  {
+    key: "proposte",
+    category: "community",
+    label: "Proposte e idee",
+    short: "Suggerimenti per migliorare il server.",
+    description: "Proponi nuove funzioni, eventi o modifiche: la community ne discute e lo staff le valuta.",
+    permission: "community",
+    public: true,
+    openReplies: true,
+    sensitive: false,
+    requiresVerifiedMc: false,
+    allowsDraft: false,
+    initialStatus: "aperta",
+    statuses: [S("aperta", "Aperta"), S("in_valutazione", "In valutazione"), S("accolta", "Accolta", true), S("respinta", "Respinta", true), S("chiusa", "Chiusa", true)],
+    notices: [PUBLIC_NOTICE, "Una proposta accolta non è una promessa di data: lo staff la aggiunge quando è pronta."],
+    bodyLabel: "La tua proposta",
+    fields: [
+      {
+        name: "ambito",
+        label: "Di cosa parla",
+        type: "select",
+        required: true,
+        options: [
+          { value: "gameplay", label: "Gameplay" },
+          { value: "towny", label: "Towny e città" },
+          { value: "economia", label: "Economia" },
+          { value: "eventi", label: "Eventi" },
+          { value: "sito", label: "Sito e forum" },
+          { value: "altro", label: "Altro" },
+        ],
+      },
     ],
   },
   {
@@ -459,6 +524,10 @@ export const SUBCATEGORIES: Subcategory[] = [
       { name: "eta", label: "Età", type: "number", required: true },
     ],
   },];
+
+export function isPublicSub(s: Pick<Subcategory, "public">): boolean {
+  return Boolean(s.public);
+}
 
 export function getSubcategory(key: string): Subcategory | undefined {
   return SUBCATEGORIES.find((s) => s.key === key);

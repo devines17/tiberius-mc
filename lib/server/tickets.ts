@@ -10,8 +10,10 @@ import { audit, HttpError, rateLimit } from "./http";
 import { displayName, type Session } from "./auth";
 import { prepareFiles, removeFiles, uploadFile } from "./storage";
 import type { Attachment, InternalNote, Profile, StatusChange, Ticket, TicketMessage } from "./types";
-import { getSubcategory, type CandidatureSettings, type Subcategory } from "@/lib/forum/config";
+import { getSubcategory, SUBCATEGORIES, type CandidatureSettings, type Subcategory } from "@/lib/forum/config";
+import { STAFF } from "@/lib/staff";
 import {
+  canReplyOpen,
   canSeeInternal,
   canView,
   cleanText,
@@ -99,11 +101,24 @@ async function saveAttachments(ticketId: string, files: Awaited<ReturnType<typeo
 /* Lettura                                                              */
 /* ------------------------------------------------------------------ */
 
+/** Scheda dell'autore accanto a ogni messaggio, come nei forum classici. */
+export type AuthorCard = {
+  name: string;
+  /** Nick per la testa della skin (null = Steve). */
+  head: string | null;
+  role: string;
+  staff: boolean;
+  messages: number | null;
+  since: string | null;
+};
+
 export type TicketView = {
   ticket: Ticket;
   sub: Subcategory;
-  role: "autore" | "staff";
-  messages: (TicketMessage & { author_name: string })[];
+  role: "autore" | "staff" | "lettore";
+  /** Chi guarda può rispondere: come autore o in una discussione aperta a tutti. */
+  canReply: boolean;
+  messages: (TicketMessage & { author_name: string; card: AuthorCard })[];
   history: (StatusChange & { actor_name: string })[];
   attachments: Attachment[];
   notes: (InternalNote & { author_name: string })[];
@@ -129,17 +144,45 @@ async function staffFor(sub: Subcategory): Promise<{ id: string; name: string }[
   return rows.map((r) => ({ id: r.profile_id, name: displayName(r.profiles) }));
 }
 
-async function loadVisible(session: Session, number: number): Promise<Ticket> {
+async function loadVisible(session: Session | null, number: number): Promise<Ticket> {
   const t = await db.one<Ticket>("tickets", "*", { number: `eq.${number}` });
-  if (!t || !canView(session.viewer, t)) throw new HttpError(404, "Pratica non trovata.");
+  if (!t || !canView(session?.viewer ?? null, t)) throw new HttpError(404, "Pratica non trovata.");
   return t;
 }
 
-export async function getTicketView(session: Session, number: number): Promise<TicketView> {
+/** Ruolo pubblico di un membro dello staff: quello della pagina /staff se il nick è in elenco. */
+export function staffRoleFor(name: string): { role: string; head: string } | null {
+  const n = name.toLowerCase();
+  for (const r of STAFF) {
+    const m = r.membri.find((x) => x.nick.toLowerCase() === n);
+    if (m) return { role: r.ruolo, head: m.nick };
+  }
+  return null;
+}
+
+type CardRow = { id: string; name: string; mc_name: string | null; created_at: string; messages: number; is_staff: boolean };
+
+function toCard(r: CardRow): AuthorCard {
+  const listed = staffRoleFor(r.name);
+  return {
+    name: r.name,
+    head: r.mc_name ?? listed?.head ?? null,
+    role: listed?.role ?? (r.is_staff ? "Staff" : "Giocatore"),
+    staff: r.is_staff || Boolean(listed),
+    messages: Number(r.messages),
+    since: r.created_at,
+  };
+}
+
+export async function getTicketView(session: Session | null, number: number): Promise<TicketView> {
   const t = await loadVisible(session, number);
   const sub = requireSub(t.subcategory);
-  const staff = isStaffFor(session.viewer, t);
-  const internal = canSeeInternal(session.viewer, t);
+  const viewer = session?.viewer ?? null;
+  const staff = viewer != null && isStaffFor(viewer, t);
+  const author = viewer != null && viewer.profileId === t.author_id;
+  const internal = canSeeInternal(viewer, t);
+  // Nelle discussioni pubbliche i nomi dello staff sono visibili come in ogni forum; nelle pratiche private no
+  const publicThread = Boolean(t.is_public) && t.status !== "bozza";
 
   const [messages, history, attachments, notes] = await Promise.all([
     db.select<TicketMessage>("ticket_messages", "*", { ticket_id: `eq.${t.id}`, order: "created_at.asc" }),
@@ -150,12 +193,25 @@ export async function getTicketView(session: Session, number: number): Promise<T
 
   const names = await namesFor([...messages.map((m) => m.author_id), ...history.map((h) => h.actor_id), ...notes.map((n) => n.author_id), t.assigned_to]);
   // Al giocatore lo staff appare come "Staff TiberiusMC": i nomi degli operatori restano interni.
-  const staffLabel = (id: string | null) => (staff ? names.get(id ?? "") ?? "Staff" : "Staff TiberiusMC");
+  const staffLabel = (id: string | null) => (staff || publicThread ? names.get(id ?? "") ?? "Staff" : "Staff TiberiusMC");
 
-  // Aprire la pratica segna come lette le sue notifiche
-  await db.update("notifications", { profile_id: `eq.${session.profile.id}`, ticket_id: `eq.${t.id}`, read_at: "is.null" }, { read_at: new Date().toISOString() }).catch(() => {});
+  const ids = [...new Set(messages.map((m) => m.author_id).filter(Boolean) as string[])];
+  const cardRows = ids.length ? await db.rpc<CardRow[]>("forum_author_cards", { p_ids: ids }).catch(() => [] as CardRow[]) : [];
+  const cards = new Map(cardRows.map((r) => [r.id, toCard(r)]));
+  const cardFor = (m: TicketMessage): AuthorCard => {
+    if (m.is_staff && !staff && !publicThread) return { name: "Staff TiberiusMC", head: null, role: "Staff", staff: true, messages: null, since: null };
+    const c = cards.get(m.author_id ?? "");
+    if (c) return c;
+    const name = names.get(m.author_id ?? "") ?? (m.is_staff ? "Staff" : "Giocatore");
+    return { name, head: null, role: m.is_staff ? "Staff" : "Giocatore", staff: m.is_staff, messages: null, since: null };
+  };
 
-  if (!staff) {
+  if (session) {
+    // Aprire la pratica segna come lette le sue notifiche
+    await db.update("notifications", { profile_id: `eq.${session.profile.id}`, ticket_id: `eq.${t.id}`, read_at: "is.null" }, { read_at: new Date().toISOString() }).catch(() => {});
+  }
+
+  if (author && !staff) {
     // Il giocatore ha visto gli aggiornamenti
     await db.update("tickets", { id: `eq.${t.id}` }, { author_seen_at: new Date().toISOString() }).catch(() => {});
   }
@@ -167,18 +223,21 @@ export async function getTicketView(session: Session, number: number): Promise<T
   return {
     ticket: t,
     sub,
-    role: staff ? "staff" : "autore",
-    messages: messages.map((m) => ({ ...m, author_name: m.is_staff ? staffLabel(m.author_id) : names.get(m.author_id ?? "") ?? "Giocatore" })),
+    role: staff ? "staff" : author ? "autore" : "lettore",
+    canReply: !staff && (playerActions(viewer ?? NOBODY, t).includes("reply") || canReplyOpen(viewer, t)),
+    messages: messages.map((m) => ({ ...m, author_name: m.is_staff ? staffLabel(m.author_id) : names.get(m.author_id ?? "") ?? "Giocatore", card: cardFor(m) })),
     history: history.map((h) => ({ ...h, actor_name: h.actor_role === "staff" ? staffLabel(h.actor_id) : h.actor_role === "sistema" ? "Sistema" : names.get(h.actor_id ?? "") ?? "Giocatore" })),
     attachments,
     notes: notes.map((n) => ({ ...n, author_name: names.get(n.author_id ?? "") ?? "Staff" })),
     assignee: staff && t.assigned_to ? { id: t.assigned_to, name: names.get(t.assigned_to) ?? "Staff" } : null,
     staffOptions: staff ? await staffFor(sub) : [],
-    playerActions: playerActions(session.viewer, t),
-    staffStatuses: staffSettableStatuses(session.viewer, t),
+    playerActions: playerActions(viewer ?? NOBODY, t),
+    staffStatuses: viewer ? staffSettableStatuses(viewer, t) : [],
     authorProfile,
   };
 }
+
+const NOBODY = { profileId: "", permissions: new Set() } as Session["viewer"];
 
 export async function listMine(session: Session): Promise<Ticket[]> {
   return db.select<Ticket>("tickets", "*", { author_id: `eq.${session.profile.id}`, order: "updated_at.desc", limit: 200 });
@@ -190,12 +249,13 @@ export async function listMine(session: Session): Promise<Ticket[]> {
 
 export async function playerReply(session: Session, number: number, body: unknown, files: File[]) {
   const t = await loadVisible(session, number);
-  if (!playerActions(session.viewer, t).includes("reply")) throw new HttpError(409, "Non puoi rispondere a questa pratica.");
+  const asAuthor = playerActions(session.viewer, t).includes("reply");
+  if (!asAuthor && !canReplyOpen(session.viewer, t)) throw new HttpError(409, "Non puoi rispondere a questa discussione.");
   await rateLimit(`msg:${session.profile.id}`, 3600, 40);
   const text = cleanText(body, 8000);
   if (text.length < 2) throw new HttpError(422, "Scrivi un messaggio.");
   const prepared = await prepareFiles(files);
-  const msg = await db.rpc<TicketMessage>("forum_add_message", { p_ticket: t.id, p_author: session.profile.id, p_is_staff: false, p_body: text, p_new_status: statusAfterPlayerReply(t) });
+  const msg = await db.rpc<TicketMessage>("forum_add_message", { p_ticket: t.id, p_author: session.profile.id, p_is_staff: false, p_body: text, p_new_status: asAuthor ? statusAfterPlayerReply(t) : null });
   if (prepared.length) await saveAttachments(t.id, prepared, { messageId: msg.id, uploader: session.profile.id, internal: false });
 }
 
@@ -367,12 +427,12 @@ export async function staffQueue(session: Session, f: QueueFilters): Promise<Tic
 
 export type SearchParams = { q?: string; number?: number | null; sub?: string; status?: string; from?: string; to?: string; author?: string; closed?: boolean | null };
 
-export async function search(session: Session, p: SearchParams): Promise<Ticket[]> {
-  await rateLimit(`search:${session.profile.id}`, 60, 30);
+export async function search(session: Session | null, p: SearchParams, ip = "anon"): Promise<Ticket[]> {
+  await rateLimit(session ? `search:${session.profile.id}` : `search-ip:${ip.slice(0, 64)}`, 60, 30);
   const isDate = (d?: string) => (d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : null);
   return db.rpc<Ticket[]>("forum_search", {
-    p_viewer: session.profile.id,
-    p_staff_subs: staffSubcategories(session.viewer),
+    p_viewer: session?.profile.id ?? null,
+    p_staff_subs: session ? staffSubcategories(session.viewer) : [],
     p_q: cleanText(p.q, 100) || null,
     p_number: p.number ?? null,
     p_subcategory: p.sub && getSubcategory(p.sub) ? p.sub : null,
@@ -404,15 +464,124 @@ export async function markNotificationsRead(session: Session, ids: string[] | "a
 }
 
 /* ------------------------------------------------------------------ */
+/* Forum pubblico: elenchi, statistiche, membri, utenti online          */
+/* Solo discussioni pubbliche: le sezioni private non compaiono mai.   */
+/* ------------------------------------------------------------------ */
+
+export type ThreadRow = {
+  number: number;
+  subcategory: string;
+  title: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  author_name: string;
+  author_mc: string | null;
+  replies: number;
+  last_at: string | null;
+  last_name: string | null;
+  last_mc: string | null;
+  total: number;
+};
+
+export const THREADS_PER_PAGE = 20;
+
+/** Discussioni pubbliche (di una sezione o di tutte), dall'attività più recente. Vuoto se la migrazione 005 manca. */
+export async function publicThreads(opts: { sub?: string | null; status?: string | null; page?: number; limit?: number } = {}): Promise<{ rows: ThreadRow[]; total: number }> {
+  const limit = opts.limit ?? THREADS_PER_PAGE;
+  const page = Math.max(1, Math.floor(opts.page ?? 1));
+  try {
+    const rows = await db.rpc<ThreadRow[]>("forum_public_threads", {
+      p_subcategory: opts.sub ?? null,
+      p_status: opts.status ?? null,
+      p_limit: limit,
+      p_offset: (page - 1) * limit,
+    });
+    return { rows: rows.map((r) => ({ ...r, replies: Number(r.replies), total: Number(r.total) })), total: Number(rows[0]?.total ?? 0) };
+  } catch {
+    return { rows: [], total: 0 };
+  }
+}
+
+/** Per ogni sezione pubblica: discussioni, messaggi e ultima discussione attiva. */
+export async function sectionOverview(): Promise<Map<string, { threads: number; messages: number; last: ThreadRow | null }>> {
+  const out = new Map<string, { threads: number; messages: number; last: ThreadRow | null }>();
+  const pub = SUBCATEGORIES.filter((s) => s.public);
+  try {
+    const counts = await db.rpc<{ subcategory: string; threads: number; messages: number }[]>("forum_section_counts", {});
+    const lasts = await Promise.all(pub.map((s) => publicThreads({ sub: s.key, limit: 1 })));
+    pub.forEach((s, i) => {
+      const c = counts.find((x) => x.subcategory === s.key);
+      out.set(s.key, { threads: Number(c?.threads ?? 0), messages: Number(c?.messages ?? 0), last: lasts[i].rows[0] ?? null });
+    });
+  } catch {
+    // Migrazione 005 non ancora eseguita: sezioni senza numeri
+  }
+  return out;
+}
+
+export type ForumStats = { threads: number; messages: number; members: number; newest: string | null; newestMc: string | null };
+
+export async function forumStats(): Promise<ForumStats | null> {
+  try {
+    const [r] = await db.rpc<{ threads: number; messages: number; members: number; newest: string | null; newest_mc: string | null }[]>("forum_stats", {});
+    return r ? { threads: Number(r.threads), messages: Number(r.messages), members: Number(r.members), newest: r.newest, newestMc: r.newest_mc } : null;
+  } catch {
+    return null;
+  }
+}
+
+export type OnlineUser = { name: string; head: string | null; role: string; staff: boolean };
+
+export async function onlineNow(): Promise<OnlineUser[]> {
+  try {
+    const rows = await db.rpc<{ name: string; mc_name: string | null; is_staff: boolean }[]>("forum_online", {});
+    return rows.map((r) => {
+      const listed = staffRoleFor(r.name);
+      return { name: r.name, head: r.mc_name ?? listed?.head ?? null, role: listed?.role ?? (r.is_staff ? "Staff" : "Giocatore"), staff: r.is_staff || Boolean(listed) };
+    });
+  } catch {
+    return [];
+  }
+}
+
+export type MemberRow = { name: string; head: string | null; role: string; staff: boolean; since: string; lastSeen: string | null; messages: number };
+export const MEMBERS_PER_PAGE = 30;
+
+export async function members(q: string, page: number): Promise<{ rows: MemberRow[]; total: number }> {
+  try {
+    const rows = await db.rpc<{ name: string; mc_name: string | null; created_at: string; last_seen_at: string | null; messages: number; is_staff: boolean; total: number }[]>("forum_members", {
+      p_q: cleanText(q, 32) || null,
+      p_limit: MEMBERS_PER_PAGE,
+      p_offset: (Math.max(1, page) - 1) * MEMBERS_PER_PAGE,
+    });
+    return {
+      rows: rows.map((r) => {
+        const listed = staffRoleFor(r.name);
+        return { name: r.name, head: r.mc_name ?? listed?.head ?? null, role: listed?.role ?? (r.is_staff ? "Staff" : "Giocatore"), staff: r.is_staff || Boolean(listed), since: r.created_at, lastSeen: r.last_seen_at, messages: Number(r.messages) };
+      }),
+      total: Number(rows[0]?.total ?? 0),
+    };
+  } catch {
+    return { rows: [], total: 0 };
+  }
+}
+
+/** Le proprie pratiche di una sezione (per le sezioni private). */
+export async function listMineIn(session: Session, subKey: string): Promise<Ticket[]> {
+  return db.select<Ticket>("tickets", "*", { author_id: `eq.${session.profile.id}`, subcategory: `eq.${subKey}`, order: "updated_at.desc", limit: 100 });
+}
+
+/* ------------------------------------------------------------------ */
 /* Allegati                                                             */
 /* ------------------------------------------------------------------ */
 
-export async function attachmentForDownload(session: Session, id: string): Promise<Attachment> {
+export async function attachmentForDownload(session: Session | null, id: string): Promise<Attachment> {
   if (!/^[0-9a-f-]{36}$/i.test(id)) throw new HttpError(404, "Allegato non trovato.");
   const a = await db.one<Attachment>("ticket_attachments", "*", { id: `eq.${id}` });
   if (!a) throw new HttpError(404, "Allegato non trovato.");
   const t = await db.one<Ticket>("tickets", "*", { id: `eq.${a.ticket_id}` });
-  if (!t || !canView(session.viewer, t) || (a.internal && !canSeeInternal(session.viewer, t))) throw new HttpError(404, "Allegato non trovato.");
+  if (!t || !canView(session?.viewer ?? null, t) || (a.internal && !canSeeInternal(session?.viewer ?? null, t))) throw new HttpError(404, "Allegato non trovato.");
   return a;
 }
 

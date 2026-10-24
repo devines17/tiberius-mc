@@ -43,7 +43,7 @@ export function Notice({ children, tone = "info" }: { children: ReactNode; tone?
   return <div className={`rounded-2xl border px-5 py-4 text-sm leading-relaxed ${cls}`}>{children}</div>;
 }
 
-export function TicketRows({ tickets, empty, showAuthor = false, highlight }: { tickets: Ticket[]; empty: ReactNode; showAuthor?: boolean; highlight?: (t: Ticket) => string | null }) {
+export function TicketRows({ tickets, empty, showAuthor = false, showPriority = showAuthor, highlight }: { tickets: Ticket[]; empty: ReactNode; showAuthor?: boolean; showPriority?: boolean; highlight?: (t: Ticket) => string | null }) {
   if (!tickets.length) return <div className="panel p-8 text-center text-muted">{empty}</div>;
   return (
     <ul className="forum-in panel divide-y divide-white/10">
@@ -62,7 +62,7 @@ export function TicketRows({ tickets, empty, showAuthor = false, highlight }: { 
                 <span className="mt-0.5 block text-sm text-white/55">
                   {subLabel(t.subcategory)}
                   {showAuthor && t.author_mc_name ? ` · ${t.author_mc_name}` : ""} · aggiornata {formatDate(t.updated_at)}
-                  {t.priority !== "normale" && showAuthor ? ` · priorità ${t.priority}` : ""}
+                  {t.priority !== "normale" && showPriority ? ` · priorità ${t.priority}` : ""}
                 </span>
               </span>
               <StatusBadge sub={t.subcategory} status={t.status} />

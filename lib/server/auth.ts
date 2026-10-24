@@ -74,10 +74,20 @@ export const getSession = cache(async (): Promise<Session | null> => {
   const perms = await db.select<{ permission: PermissionKey }>("staff_permissions", "permission", { profile_id: `eq.${row.profile_id}` });
   const set = new Set<PermissionKey>(perms.map((p) => p.permission));
   if (ownerIds().has(row.profiles.discord_id)) set.add("admin");
+  touchLastSeen(row.profiles);
   return { profile: row.profiles, viewer: { profileId: row.profile_id, permissions: set } };
 });
 
 /** Nome da mostrare: il nickname Minecraft verificato, altrimenti il nome Discord. */
 export function displayName(p: Pick<Profile, "mc_name" | "discord_username">): string {
   return p.mc_name ?? p.discord_username;
+}
+
+/** Ultimo accesso per "utenti online": al massimo una scrittura ogni 2 minuti, senza far aspettare la pagina. */
+function touchLastSeen(p: Profile) {
+  const last = p.last_seen_at ? Date.parse(p.last_seen_at) : 0;
+  if (Date.now() - last < 120_000) return;
+  db.update("profiles", { id: `eq.${p.id}` }, { last_seen_at: new Date().toISOString() }).catch(() => {
+    // Colonna non ancora creata (migrazione 005 non eseguita): si ignora
+  });
 }
