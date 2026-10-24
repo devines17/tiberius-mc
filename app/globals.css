@@ -842,3 +842,13 @@ button.btn:disabled {
   -webkit-mask-image: linear-gradient(transparent 0, #000 56px, transparent);
   mask-image: linear-gradient(transparent 0, #000 56px, transparent);
 }
+
+/* Barre di scorrimento sottili e scure dentro i pannelli (regolamento) */
+.thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.18) transparent;
+}
+.thin-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.thin-scroll::-webkit-scrollbar-track { background: transparent; }
+.thin-scroll::-webkit-scrollbar-thumb { background: rgb(255 255 255 / 0.16); border-radius: 999px; }
+.thin-scroll::-webkit-scrollbar-thumb:hover { background: rgb(255 255 255 / 0.28); }

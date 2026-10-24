@@ -83,6 +83,11 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
     return () => box.removeEventListener("scroll", onScroll);
   }, [chapter, matches]);
 
+  // Con una nuova ricerca i risultati partono dall'alto
+  useEffect(() => {
+    scroller.current?.scrollTo({ top: 0 });
+  }, [query]);
+
   function openChapter(letter: string) {
     setQ("");
     setActive(letter);
@@ -112,7 +117,7 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
       {/* Indice */}
       <aside className="rounded-2xl bg-[#141416] p-4 ring-1 ring-inset ring-white/10 lg:sticky lg:top-[calc(var(--header-h)+1rem)] lg:flex lg:max-h-[calc(100svh-var(--header-h)-2rem)] lg:flex-col">
         <p className="px-2 pb-3 pt-1 text-xl font-extrabold text-accent">Indice</p>
-        <nav aria-label="Capitoli del regolamento" className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:block lg:flex-1 lg:overflow-y-auto lg:overflow-x-visible">
+        <nav aria-label="Capitoli del regolamento" className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:block lg:flex-1 lg:overflow-y-auto lg:overflow-x-visible thin-scroll">
           {chapters.map((c) => {
             const on = !matches && c.letter === active;
             return (
@@ -191,7 +196,7 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
           </div>
         )}
 
-        <div ref={scroller} className="relative px-5 pb-10 pt-6 md:px-8 lg:h-[calc(100svh-var(--header-h)-6.5rem)] lg:overflow-y-auto">
+        <div ref={scroller} className="relative px-5 pb-10 pt-6 md:px-8 lg:h-[calc(100svh-var(--header-h)-6.5rem)] lg:overflow-y-auto thin-scroll">
           {shown.map((c) => (
             <section key={c.letter} className="mb-10 last:mb-0">
               <h2 className="flex items-baseline gap-4 text-[clamp(1.8rem,3vw,2.5rem)] leading-tight">
