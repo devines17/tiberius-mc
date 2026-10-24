@@ -66,7 +66,7 @@ async function Body() {
           ))}
         </div>
 
-        <aside className="grid gap-4 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
+        <aside className="grid gap-4">
           <WelcomeBox session={session} unread={unread} />
           <Suspense fallback={<SidebarSkeleton />}>
             <OnlineBoxes />
