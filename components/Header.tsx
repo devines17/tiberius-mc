@@ -19,6 +19,7 @@ import {
   Vote,
 } from "lucide-react";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
+import { AccountButton } from "@/components/AccountButton";
 import { pages, siteConfig } from "@/lib/site-config";
 
 type NavItem = { href: string; label: string; icon: LucideIcon; highlight?: boolean };
@@ -104,11 +105,7 @@ export function Header() {
           </Link>
           {/* Il contenitore decide la visibilità: .btn impone display e vincerebbe su "hidden". */}
           <span className="hidden sm:block">
-            <Link href="/portale" aria-label="Area personale" className="btn !bg-[#5865f2] !text-white hover:!bg-[#4752c4] xl:max-2xl:!px-3.5" data-magnetic>
-              <DiscordIcon className="size-5" />
-              {/* Tra 1280 e 1536 px la barra completa è stretta: resta solo l'icona */}
-              <span className="xl:max-2xl:sr-only">area personale</span>
-            </Link>
+            <AccountButton />
           </span>
           <button
             type="button"
