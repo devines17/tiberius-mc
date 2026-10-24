@@ -3,7 +3,7 @@ import { Words } from "@/components/ui/Words";
 
 const ART = {
   // Legionario pensieroso, mantello intero
-  forum: { src: "/images/forum-gladiatore-v2.webp", w: 868, h: 1315, cls: "md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
+  forum: { src: "/images/forum-gladiatore-v3.webp", w: 867, h: 1314, cls: "md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
   // Due legionari abbracciati: larghi, solo da schermi grandi
   staff: { src: "/images/staff-legionari-v2.webp", w: 961, h: 801, cls: "lg:block lg:!h-[78%] lg:right-6 xl:!h-[88%] 2xl:!h-[94%] 2xl:left-[calc(50%+3rem)] 2xl:right-auto" },
   // Legionario che legge la pergamena (regolamento)
