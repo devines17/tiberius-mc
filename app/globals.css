@@ -819,3 +819,14 @@ button.btn:disabled {
   .hb-play { grid-column: 1 / -1; }
   .hb-item:first-child, .hb-item:last-child { border-radius: 0; }
 }
+
+/* Stelle della fascia community: puntini fermi che svaniscono verso il basso */
+.night-stars {
+  background-image:
+    radial-gradient(rgb(255 255 255 / 0.75) 1px, transparent 1.6px),
+    radial-gradient(rgb(255 255 255 / 0.4) 1px, transparent 1.6px);
+  background-size: 140px 90px, 90px 130px;
+  background-position: 0 0, 45px 60px;
+  -webkit-mask-image: linear-gradient(#000, transparent);
+  mask-image: linear-gradient(#000, transparent);
+}

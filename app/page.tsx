@@ -89,8 +89,6 @@ export default function Home() {
 
       {/* GOLDONE: fascia rossa a tutta larghezza, il legionario poggia sul bordo in basso */}
       <section className="relative overflow-hidden bg-[linear-gradient(120deg,#5e110d_0%,#a3231a_60%,#c4382b_100%)]">
-        {/* Pavimento: i personaggi ci poggiano sopra e copre il taglio in fondo all'immagine */}
-        <div aria-hidden className="absolute inset-x-0 bottom-0 z-10 h-5 border-t-2 border-[#d9483a]/40 bg-[#3d0b08]" />
         <div className="wrap grid items-end gap-4 lg:min-h-[30rem] lg:grid-cols-2 lg:gap-10">
           <div className="self-center pt-14 lg:py-16" data-reveal="left">
             <div className="flex items-center gap-3">
@@ -115,33 +113,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* COMMUNITY: subito sotto il Goldone, nei colori di Discord e a specchio (immagine a sinistra) */}
-      <section className="relative overflow-hidden bg-[linear-gradient(120deg,#1b1d4f_0%,#3a3fb0_55%,#5865f2_100%)]">
-        <div aria-hidden className="absolute inset-x-0 bottom-0 z-10 h-5 border-t-2 border-[#8c96ff]/40 bg-[#14163d]" />
-        <div className="wrap grid items-end gap-4 lg:min-h-[30rem] lg:grid-cols-[1.2fr_1fr] lg:gap-10">
-          <div className="self-center pt-14 lg:order-2 lg:py-16" data-reveal="right">
-            <div className="flex items-center gap-3">
-              <DiscordIcon className="size-8 text-white" />
-              <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#c9cdff]">community</span>
-            </div>
-            <h2 className="mt-4 text-[length:var(--step-head)]">Intorno al fuoco.</h2>
-            <p className="mt-4 max-w-xl text-lg text-white/85">
-              Annunci, eventi e due chiacchiere con lo staff. Ci trovi su Discord e su Telegram.
-            </p>
-            <div className="mt-4 min-h-5">
+      {/* COMMUNITY: attaccata al Goldone. Notte stellata e bagliore del fuoco dietro i legionari */}
+      <section className="relative overflow-hidden bg-[radial-gradient(34%_62%_at_27%_88%,rgb(255_140_40/0.6)_0%,rgb(255_96_30/0.2)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
+        <div aria-hidden className="night-stars absolute inset-x-0 top-0 h-3/5" />
+        <div className="wrap relative grid items-end gap-6 lg:min-h-[35rem] lg:grid-cols-[1.3fr_1fr] lg:gap-12">
+          <div className="self-center pt-16 lg:order-2 lg:py-20" data-reveal="right">
+            <div className="inline-flex min-h-9 items-center rounded-full border border-white/15 bg-black/25 px-4 empty:hidden">
               <DiscordCount invite={siteConfig.links.discord} className="text-white/90" />
             </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Btn href={siteConfig.links.discord} external variant="light">
+            <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.98]">
+              Intorno
+              <br />
+              al <span className="text-[#ffb36b]">fuoco</span>.
+            </h2>
+            <p className="mt-5 max-w-md text-lg text-white/80">
+              Annunci, eventi e due chiacchiere con lo staff. Ci trovi su Discord e su Telegram.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3 sm:flex-nowrap">
+              <a href={siteConfig.links.discord} target="_blank" rel="noopener noreferrer" className="btn !bg-white !text-[#2b2f8f] hover:!bg-[#e9eaff]" data-magnetic>
                 <DiscordIcon className="size-5" /> Entra su Discord
-              </Btn>
-              <Btn href={siteConfig.links.telegram} external variant="telegram">
-                <TelegramIcon className="size-5" /> Entra su Telegram
-              </Btn>
+              </a>
+              <a href={siteConfig.links.telegram} target="_blank" rel="noopener noreferrer" className="btn !bg-white/10 !text-white ring-1 ring-inset ring-white/25 hover:!bg-white/20" data-magnetic>
+                <TelegramIcon className="size-5" /> Telegram
+              </a>
             </div>
           </div>
-          <div className="mx-auto w-full max-w-3xl self-end pt-8 lg:order-1 lg:justify-self-start" data-reveal="left" data-delay="0.15">
-            <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full" unoptimized />
+          {/* Legionari più grandi della colonna: sbordano un po' a sinistra e poggiano sul fondo */}
+          <div className="self-end pt-4 lg:order-1" data-reveal="left" data-delay="0.15">
+            <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full lg:-ml-[8%] lg:w-[116%] lg:max-w-none" unoptimized />
           </div>
         </div>
       </section>
