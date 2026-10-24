@@ -200,7 +200,8 @@ b {
   color: #0a0a0a;
   font-weight: 700;
   font-size: 0.9rem;
-  letter-spacing: -0.005em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
   transition:

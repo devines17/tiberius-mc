@@ -38,7 +38,7 @@ export function CopyIp({
       <button
         type="button"
         onClick={copy}
-        className="m-1.5 ml-0 min-w-[88px] rounded-xl bg-accent px-4 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-black"
+        className="m-1.5 ml-0 min-w-[88px] rounded-xl bg-accent px-4 text-sm font-semibold uppercase tracking-[0.04em] text-white transition-colors hover:bg-white hover:text-black"
       >
         {state === "copied" ? "copiato" : state === "error" ? "copia a mano" : "copia"}
       </button>

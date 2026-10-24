@@ -13,7 +13,7 @@ export default function Page() {
         art="regole"
         kicker="tiberiusmc · regole"
         title="Regolamento"
-        lead="Ogni regola ha un codice: la lettera è il capitolo, il numero è l'articolo. F.2 vuol dire Fair play, articolo 2."
+        lead="Le regole del server, divise per argomento. Ogni regola ha un codice, per esempio F.2: F è l'argomento (Fair play) e 2 è il numero della regola. Lo staff usa questi codici per indicarti una regola precisa."
       />
       <div className="wrap grid gap-10 pb-10 pt-12 md:pt-16">
         <section className="panel grid gap-3 p-6 md:p-8">

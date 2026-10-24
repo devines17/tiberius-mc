@@ -36,8 +36,10 @@ export default function Home() {
           <h1 className="text-[length:var(--step-display)] uppercase text-white">
             <Words text="La gloria non conosce confini." mode="hero" />
           </h1>
-          <p className="mt-5 max-w-2xl text-[length:var(--step-lead)] leading-snug text-white/85 hero-in" data-hero-in>
-            Fonda la tua città, stringi alleanze e conquista nuovi territori. In un mondo dove ogni scelta può cambiare gli equilibri, il tuo futuro dipende da te.
+          <p className="mt-5 max-w-[62rem] text-[length:var(--step-lead)] leading-snug text-white/85 hero-in" data-hero-in>
+            Fonda la tua città, stringi alleanze e conquista nuovi territori.{" "}
+            <br className="hidden lg:block" />
+            In un mondo dove ogni scelta può cambiare gli equilibri, il tuo futuro dipende da te.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 hero-in" data-hero-in>
             <CopyIp ip={siteConfig.server.ip} tone="dark" />
