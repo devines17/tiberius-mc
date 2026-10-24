@@ -84,7 +84,7 @@ export function Header() {
                 key={href}
                 href={href}
                 aria-current={active ? "page" : undefined}
-                className={`group relative flex items-center gap-1.5 px-2.5 py-2 text-sm font-bold transition-colors ${active ? "text-white" : "text-white/70 hover:text-white"}`}
+                className={`group relative flex items-center gap-1.5 px-2.5 py-2 text-[0.8rem] font-bold uppercase tracking-[0.06em] transition-colors ${active ? "text-white" : "text-white/70 hover:text-white"}`}
               >
                 <Icon className={`size-4 transition-colors ${active ? "text-accent" : "group-hover:text-accent"}`} aria-hidden />
                 {label}
