@@ -115,7 +115,7 @@ export default function Home() {
           </div>
           {/* Forziere che esplode di Goldoni: sospeso, centrato in altezza nella fascia */}
           <div className="mx-auto w-[min(85%,26rem)] self-center py-6 lg:w-[30rem] lg:py-8" data-reveal="zoom" data-delay="0.15">
-            <Image src="/images/forziere-goldoni.webp" alt="Un forziere da cui escono tanti Goldoni, la moneta premium di TiberiusMC" width={1252} height={1172} className="block w-full [mask-image:linear-gradient(to_bottom,#000_84%,transparent_99%)]" unoptimized />
+            <Image src="/images/forziere-goldoni-v2.webp" alt="Un forziere da cui escono tanti Goldoni, la moneta premium di TiberiusMC" width={1272} height={1200} className="block w-full" unoptimized />
           </div>
         </div>
       </section>
