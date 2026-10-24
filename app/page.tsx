@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Words } from "@/components/ui/Words";
 import { Btn } from "@/components/ui/Btn";
 import { CopyIp } from "@/components/ui/CopyIp";
+import { JoinNow } from "@/components/ui/JoinNow";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
 import { TelegramIcon } from "@/components/ui/TelegramIcon";
 import { DiscordCount } from "@/components/ui/DiscordCount";
@@ -42,7 +43,7 @@ export default function Home() {
             In un mondo dove ogni scelta può cambiare gli equilibri, il tuo futuro dipende da te.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 hero-in" data-hero-in>
-            <Btn href="#come-entrare" variant="accent" className="!px-12">entra ora</Btn>
+            <JoinNow target="come-entrare" />
           </div>
         </div>
         <div className="wrap w-full pb-8">
