@@ -51,7 +51,7 @@ export default function Home() {
           </div>
         </div>
         <div className="wrap w-full pb-8">
-          <ul className="panel grid divide-white/10 sm:grid-cols-2 sm:divide-x lg:grid-cols-4" data-stagger="0.08" data-delay="0.6" style={{ background: "rgb(10 9 12 / 0.6)", backdropFilter: "blur(14px)" }}>
+          <ul className="hero-in panel grid divide-white/10 sm:grid-cols-2 sm:divide-x lg:grid-cols-4" data-hero-in style={{ background: "rgb(10 9 12 / 0.6)", backdropFilter: "blur(14px)" }}>
             {quick.map((q) => (
               <li key={q.t} className="relative border-b border-white/10 last:border-b-0 sm:border-b-0">
                 <Link href={q.href} className="group flex items-center gap-3 px-5 py-3 transition-colors hover:bg-white/[0.06]">
