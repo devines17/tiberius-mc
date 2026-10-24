@@ -3,7 +3,7 @@ import { Archive, Bell, FolderOpen, MessagesSquare, Search, ShieldCheck, Clock3,
 import { displayName, type Session } from "@/lib/server/auth";
 import { isAdmin, isStaff } from "@/lib/forum/rules";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
-import { Head } from "./zero";
+import { Head, headOf } from "./zero";
 
 type Tab = "home" | "membri" | "cerca" | "ultimi" | "mie" | "archivio" | "staff" | "notifiche" | "account";
 
@@ -29,7 +29,7 @@ export function ForumNav({ session, active, unread = 0, next = "/forum" }: { ses
     : [];
 
   return (
-    <nav aria-label="Forum" className="wrap grid gap-2">
+    <nav aria-label="Forum" className="wrap grid w-full gap-2">
       <div className="fbar flex flex-wrap items-stretch justify-between overflow-hidden rounded-2xl">
         <ul className="no-scrollbar flex min-w-0 items-stretch overflow-x-auto">
           {tabs.map(({ key, href, label, icon: Icon }) => (
@@ -74,7 +74,7 @@ export function ForumNav({ session, active, unread = 0, next = "/forum" }: { ses
             aria-current={active === "account" ? "page" : undefined}
             className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[0.82rem] font-semibold transition-colors ${active === "account" ? "bg-white/10" : "text-white/70 hover:bg-white/5 hover:text-white"}`}
           >
-            <Head name={session.profile.mc_name} size={22} />
+            <Head name={headOf(session.profile)} size={22} />
             <span className="max-w-36 truncate">{displayName(session.profile)}</span>
           </Link>
         </div>

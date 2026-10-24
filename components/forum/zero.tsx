@@ -27,13 +27,18 @@ import {
 import { displayName, type Session } from "@/lib/server/auth";
 import { timeAgo } from "@/lib/forum/format";
 import { isAdmin, isStaff } from "@/lib/forum/rules";
-import { forumStats, onlineNow, type ThreadRow } from "@/lib/server/tickets";
+import { forumStats, onlineNow, staffRoleFor, type ThreadRow } from "@/lib/server/tickets";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
 import { StatusBadge } from "./bits";
 
 /* ------------------------------------------------------------------ */
 
 const steve = "MHF_Steve";
+
+/** Nick per la testa: quello Minecraft collegato, oppure quello dello staff in elenco (stesso nick del gioco). */
+export function headOf(p: { mc_name: string | null; discord_username: string }): string | null {
+  return p.mc_name ?? staffRoleFor(displayName(p))?.head ?? null;
+}
 
 /** Testa Minecraft del giocatore (Steve se non ha collegato l'account). */
 export function Head({ name, size = 32, className = "" }: { name: string | null | undefined; size?: number; className?: string }) {
@@ -199,7 +204,7 @@ export function WelcomeBox({ session, unread, next = "/forum" }: { session: Sess
   return (
     <Box title="Benvenuto!" icon={UserRound}>
       <div className="flex items-center gap-3">
-        <Head name={session.profile.mc_name} size={44} />
+        <Head name={headOf(session.profile)} size={44} />
         <div className="min-w-0">
           <p className="truncate font-bold">{displayName(session.profile)}</p>
           <p className="text-xs text-white/50">{session.profile.mc_name ? "account Minecraft collegato" : "Minecraft non collegato"}</p>

@@ -80,7 +80,7 @@ async function Body() {
 
 function SubRow({ s, o }: { s: Subcategory; o?: { threads: number; messages: number; last: ThreadRow | null } }) {
   return (
-    <li className="frow relative grid gap-4 px-4 py-5 md:grid-cols-[minmax(0,1fr)_8.5rem_15rem] md:items-center md:px-5">
+    <li className="frow relative grid gap-4 px-4 py-5 md:grid-cols-[minmax(0,1fr)_10.5rem_15rem] md:items-center md:px-5">
       <div className="flex min-w-0 items-start gap-4">
         <SubIcon k={s.key} />
         <div className="min-w-0">
@@ -94,11 +94,11 @@ function SubRow({ s, o }: { s: Subcategory; o?: { threads: number; messages: num
         <>
           <dl className="hidden grid-cols-2 gap-2 text-center md:grid">
             <div>
-              <dt className="text-[0.7rem] uppercase tracking-wider text-white/40">Discussioni</dt>
+              <dt className="text-[0.66rem] uppercase tracking-wide text-white/40">Discussioni</dt>
               <dd className="font-bold">{o?.threads ?? 0}</dd>
             </div>
             <div>
-              <dt className="text-[0.7rem] uppercase tracking-wider text-white/40">Messaggi</dt>
+              <dt className="text-[0.66rem] uppercase tracking-wide text-white/40">Messaggi</dt>
               <dd className="font-bold">{o?.messages ?? 0}</dd>
             </div>
           </dl>
