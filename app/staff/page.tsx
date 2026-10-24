@@ -3,6 +3,7 @@ import { ForumHero } from "@/components/forum/ForumHero";
 import { Soon, DiscordBand } from "@/components/ui/Blocks";
 import { Words } from "@/components/ui/Words";
 import { SkinFigure } from "@/components/staff/SkinFigure";
+import { PauseOffscreen } from "@/components/staff/PauseOffscreen";
 import { STAFF } from "@/lib/staff";
 import { getSkin } from "@/lib/skins";
 
@@ -32,7 +33,7 @@ export default async function Page() {
                   <li key={m.nick} className="group panel flex w-full flex-col items-center overflow-hidden text-center sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] xl:w-[calc((100%-3.75rem)/4)]">
                     <div className="relative grid w-full place-items-center bg-[radial-gradient(ellipse_at_50%_85%,rgba(226,55,43,.28),transparent_65%)] pt-4">
                       <SkinFigure skin={skin} pose={m.posa ?? i++} />
-                      <span className="absolute bottom-3 h-3 w-24 rounded-[50%] bg-black/45 blur-[6px]" aria-hidden />
+                      <span className="absolute bottom-2 h-5 w-28 rounded-[50%] bg-[radial-gradient(closest-side,rgb(0_0_0/0.5),transparent)]" aria-hidden />
                     </div>
                     <div className="grid w-full gap-1.5 border-t border-white/10 px-5 py-5">
                       <p className="text-lg font-semibold">{skin.name}</p>
@@ -46,6 +47,7 @@ export default async function Page() {
           </section>
         ))
       )}
+      <PauseOffscreen />
       <DiscordBand />
     </>
   );

@@ -744,6 +744,8 @@ button.btn:disabled {
 @media (prefers-reduced-motion: reduce) {
   .sk-stage, .sk-stage * { animation: none !important; }
 }
+/* Personaggi fuori dallo schermo o scheda in background: animazioni ferme */
+.sk-off, .sk-off *, .sk-hidden-tab .sk-stage, .sk-hidden-tab .sk-stage * { animation-play-state: paused !important; }
 
 /* Menu account: una sola forma che si allarga verso sinistra e poi scende */
 .acc-box {
