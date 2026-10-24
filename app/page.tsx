@@ -113,28 +113,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* COMMUNITY: Discord e Telegram insieme, i legionari intorno al fuoco */}
-      <section className="wrap pt-[var(--section)] text-center">
-        <div data-reveal>
-          <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-accent">community</p>
-          <h2 className="mt-3 text-[length:var(--step-head)]">Intorno al fuoco.</h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-white/70">
-            Annunci, eventi e due chiacchiere con lo staff. Ci trovi su Discord e su Telegram.
-          </p>
-          <div className="mt-4 flex min-h-5 justify-center">
-            <DiscordCount invite={siteConfig.links.discord} className="text-white/85" />
+      {/* COMMUNITY: fascia come quella del Goldone, nei colori di Discord e a specchio (immagine a sinistra) */}
+      <section className="mt-[var(--section)] overflow-hidden bg-[linear-gradient(120deg,#1b1d4f_0%,#3a3fb0_55%,#5865f2_100%)]">
+        <div className="wrap grid items-end gap-4 lg:min-h-[30rem] lg:grid-cols-2 lg:gap-10">
+          <div className="self-center pt-14 lg:order-2 lg:py-16" data-reveal="right">
+            <div className="flex items-center gap-3">
+              <DiscordIcon className="size-8 text-white" />
+              <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#c9cdff]">community</span>
+            </div>
+            <h2 className="mt-4 text-[length:var(--step-head)]">Intorno al fuoco.</h2>
+            <p className="mt-4 max-w-xl text-lg text-white/85">
+              Annunci, eventi e due chiacchiere con lo staff. Ci trovi su Discord e su Telegram.
+            </p>
+            <div className="mt-4 min-h-5">
+              <DiscordCount invite={siteConfig.links.discord} className="text-white/90" />
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Btn href={siteConfig.links.discord} external variant="light">
+                <DiscordIcon className="size-5" /> Entra su Discord
+              </Btn>
+              <Btn href={siteConfig.links.telegram} external variant="telegram">
+                <TelegramIcon className="size-5" /> Entra su Telegram
+              </Btn>
+            </div>
           </div>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Btn href={siteConfig.links.discord} external variant="discord">
-              <DiscordIcon className="size-5" /> Entra su Discord
-            </Btn>
-            <Btn href={siteConfig.links.telegram} external variant="telegram">
-              <TelegramIcon className="size-5" /> Entra su Telegram
-            </Btn>
+          <div className="mx-auto w-full max-w-2xl self-end lg:order-1 lg:justify-self-start" data-reveal="left" data-delay="0.15">
+            <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full" unoptimized />
           </div>
-        </div>
-        <div className="mx-auto mt-10 max-w-4xl" data-reveal="zoom" data-delay="0.1">
-          <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full" unoptimized />
         </div>
       </section>
 
