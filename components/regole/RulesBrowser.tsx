@@ -25,6 +25,14 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
   const [copied, setCopied] = useState<string | null>(null);
   const scroller = useRef<HTMLDivElement | null>(null);
   const panel = useRef<HTMLDivElement | null>(null);
+  const nav = useRef<HTMLElement | null>(null);
+
+  // Su telefono la fila dei capitoli scorre in orizzontale: tiene in vista quello aperto
+  useEffect(() => {
+    const n = nav.current;
+    const btn = n?.querySelector<HTMLElement>(`[data-ch="${active}"]`);
+    if (n && btn && n.scrollWidth > n.clientWidth) n.scrollTo({ left: btn.offsetLeft - 12, behavior: "smooth" });
+  }, [active]);
 
   const index = useMemo(() => chapters.flatMap((c) => c.articles.map((a) => [a.code, articleText(a)] as const)), [chapters]);
   const query = norm(q.trim());
@@ -117,15 +125,15 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
   const shown: RuleChapter[] = matches ? chapters.map((c) => ({ ...c, articles: c.articles.filter((a) => matches.has(a.code)) })).filter((c) => c.articles.length) : [chapter];
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-4 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-6">
+    <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-start lg:gap-6">
       {/* Indice */}
       <aside className="sticky top-[var(--header-h)] z-30 -mx-[var(--gutter)] min-w-0 border-b border-white/10 bg-[#141416]/95 px-[var(--gutter)] py-2 backdrop-blur lg:top-[calc(var(--header-h)+1rem)] lg:mx-0 lg:flex lg:max-h-[calc(100svh-var(--header-h)-2rem)] lg:flex-col lg:rounded-2xl lg:border-0 lg:bg-[#141416] lg:p-4 lg:ring-1 lg:ring-inset lg:ring-white/10">
         <p className="hidden px-2 pb-3 pt-1 text-xl font-extrabold text-accent lg:block">Indice</p>
-        <nav aria-label="Capitoli del regolamento" className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:block lg:flex-1 lg:overflow-y-auto lg:overflow-x-visible thin-scroll">
+        <nav ref={nav} aria-label="Capitoli del regolamento" className="relative -mx-1 flex gap-1 overflow-x-auto px-1 pb-1 [scrollbar-width:none] lg:block lg:flex-1 lg:overflow-y-auto lg:overflow-x-visible lg:[scrollbar-width:thin] thin-scroll">
           {chapters.map((c) => {
             const on = !matches && c.letter === active;
             return (
-              <div key={c.letter} className="shrink-0 lg:mb-1">
+              <div key={c.letter} data-ch={c.letter} className="shrink-0 lg:mb-1">
                 <button
                   type="button"
                   onClick={() => openChapter(c.letter)}
@@ -166,12 +174,12 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
       </aside>
 
       {/* Contenuto */}
-      <div ref={panel} className="relative min-w-0 scroll-mt-[calc(var(--header-h)+4.5rem)] overflow-hidden rounded-2xl bg-[#141416] ring-1 ring-inset ring-white/10 lg:scroll-mt-0">
+      <div ref={panel} className="relative min-w-0 scroll-mt-[calc(var(--header-h)+5.5rem)] overflow-hidden rounded-2xl bg-[#141416] ring-1 ring-inset ring-white/10 lg:scroll-mt-0">
         <div className="flex items-center gap-2 border-b border-white/10 bg-black/20 p-3">
           <label className="relative flex-1">
             <span className="sr-only">Cerca nel regolamento</span>
             <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/40" aria-hidden />
-            <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Cerca una regola o un codice (es. F.2)" className="field !border-transparent !bg-white/[0.04] !pl-9" />
+            <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Cerca una regola (es. F.2)" className="field !border-transparent !bg-white/[0.04] !pl-9" />
           </label>
           <button
             type="button"
@@ -209,14 +217,14 @@ export function RulesBrowser({ chapters, intro, version, discord }: { chapters: 
               </h2>
               <div className="mt-6 grid gap-8">
                 {c.articles.map((a) => (
-                  <article key={a.code} id={anchor(a.code)} className="group/art scroll-mt-[calc(var(--header-h)+4.5rem)] lg:scroll-mt-24">
+                  <article key={a.code} id={anchor(a.code)} className="group/art scroll-mt-[calc(var(--header-h)+5.5rem)] lg:scroll-mt-24">
                     <h3 className="flex flex-wrap items-center gap-3 text-lg">
                       <span className="rounded-md bg-accent/90 px-2 py-0.5 text-xs font-extrabold text-white">{a.code}</span>
                       <span>{a.title}</span>
                       <button
                         type="button"
                         onClick={() => copyLink(a.code)}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-white/35 opacity-0 transition-opacity hover:text-white focus:opacity-100 group-hover/art:opacity-100"
+                        className="hidden items-center gap-1 text-xs font-semibold text-white/35 opacity-0 lg:inline-flex transition-opacity hover:text-white focus:opacity-100 group-hover/art:opacity-100"
                       >
                         <Link2 className="size-3.5" aria-hidden />
                         {copied === a.code ? "copiato" : "link"}
