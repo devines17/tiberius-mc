@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/ui/PageHead";
 import { Soon, DiscordBand } from "@/components/ui/Blocks";
 
-export const metadata: Metadata = { title: "Vota", description: "Vota Tiberius MC e sostieni il server." };
+export const metadata: Metadata = { title: "Vota", description: "Vota TiberiusMC e sostieni il server." };
 
 export default function Page() {
   return (

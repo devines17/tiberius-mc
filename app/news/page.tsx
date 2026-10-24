@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/ui/PageHead";
 import { Soon, DiscordBand } from "@/components/ui/Blocks";
 
-export const metadata: Metadata = { title: "News ed eventi", description: "Annunci ed eventi di Tiberius MC." };
+export const metadata: Metadata = { title: "News ed eventi", description: "Annunci ed eventi di TiberiusMC." };
 
 export default function Page() {
   return (

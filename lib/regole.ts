@@ -1,5 +1,5 @@
 /**
- * Regolamento ufficiale di Tiberius MC (testo fornito dalla gestione).
+ * Regolamento ufficiale di TiberiusMC (testo fornito dalla gestione).
  *
  * Codici degli articoli: lettera del capitolo + numero dell'articolo nel capitolo.
  * Es. F.2 = capitolo Fair play, secondo articolo. Il numero originale resta in `n`.
@@ -13,9 +13,9 @@ export type RuleChapter = { letter: string; roman: string; title: string; articl
 export const REGOLE_VERSIONE = "Versione 1.0";
 
 export const REGOLE_INTRO: string[] = [
-  "Il presente regolamento disciplina l'accesso e la permanenza nel server Tiberius MC, le attività di gioco, la gestione delle città e delle nazioni, l'economia, il PvP, le guerre e i rapporti con lo staff.",
-  "Entrando e giocando su Tiberius MC, ogni giocatore è tenuto a conoscere e rispettare queste regole. La mancata conoscenza del regolamento non costituisce una giustificazione per le violazioni.",
-  "Il regolamento si applica al server Minecraft, al sito ufficiale, al forum, allo store e agli altri canali ufficiali della community, limitatamente alle attività connesse a Tiberius MC."
+  "Il presente regolamento disciplina l'accesso e la permanenza nel server TiberiusMC, le attività di gioco, la gestione delle città e delle nazioni, l'economia, il PvP, le guerre e i rapporti con lo staff.",
+  "Entrando e giocando su TiberiusMC, ogni giocatore è tenuto a conoscere e rispettare queste regole. La mancata conoscenza del regolamento non costituisce una giustificazione per le violazioni.",
+  "Il regolamento si applica al server Minecraft, al sito ufficiale, al forum, allo store e agli altri canali ufficiali della community, limitatamente alle attività connesse a TiberiusMC."
 ];
 
 export const REGOLE: RuleChapter[] = [
@@ -1415,7 +1415,7 @@ export const REGOLE: RuleChapter[] = [
         "blocks": [
           {
             "t": "p",
-            "text": "È vietato vendere, comprare o scambiare con denaro reale, o con altri beni esterni al server, valuta di gioco, Goldoni, oggetti, servizi, territori, città o account di Tiberius MC."
+            "text": "È vietato vendere, comprare o scambiare con denaro reale, o con altri beni esterni al server, valuta di gioco, Goldoni, oggetti, servizi, territori, città o account di TiberiusMC."
           },
           {
             "t": "p",
@@ -1449,7 +1449,7 @@ export const REGOLE: RuleChapter[] = [
         "blocks": [
           {
             "t": "p",
-            "text": "Tiberius MC può aggiornare il regolamento in seguito a modifiche dei plugin, dell'economia, delle meccaniche Towny o delle esigenze della community."
+            "text": "TiberiusMC può aggiornare il regolamento in seguito a modifiche dei plugin, dell'economia, delle meccaniche Towny o delle esigenze della community."
           },
           {
             "t": "p",
@@ -1464,7 +1464,7 @@ export const REGOLE: RuleChapter[] = [
         "blocks": [
           {
             "t": "p",
-            "text": "L'accesso e l'utilizzo dei servizi di Tiberius MC comportano l'obbligo di rispettare il regolamento applicabile."
+            "text": "L'accesso e l'utilizzo dei servizi di TiberiusMC comportano l'obbligo di rispettare il regolamento applicabile."
           },
           {
             "t": "p",
@@ -1479,7 +1479,7 @@ export const REGOLE: RuleChapter[] = [
         "blocks": [
           {
             "t": "p",
-            "text": "Il presente regolamento è approvato dalla gestione di Tiberius MC ed entra in vigore dalla data della sua pubblicazione sui canali ufficiali."
+            "text": "Il presente regolamento è approvato dalla gestione di TiberiusMC ed entra in vigore dalla data della sua pubblicazione sui canali ufficiali."
           }
         ]
       }

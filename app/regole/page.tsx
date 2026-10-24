@@ -4,7 +4,7 @@ import { ForumHero } from "@/components/forum/ForumHero";
 import { RulesBrowser } from "@/components/regole/RulesBrowser";
 import { REGOLE, REGOLE_INTRO, REGOLE_VERSIONE } from "@/lib/regole";
 
-export const metadata: Metadata = { title: "Regolamento", description: "Il regolamento ufficiale di Tiberius MC: regole generali, fair play, Towny, economia, PvP, forum, store e sanzioni." };
+export const metadata: Metadata = { title: "Regolamento", description: "Il regolamento ufficiale di TiberiusMC: regole generali, fair play, Towny, economia, PvP, forum, store e sanzioni." };
 
 export default function Page() {
   return (
@@ -13,7 +13,7 @@ export default function Page() {
         art="regole"
         kicker="tiberiusmc · regole"
         title="Regolamento"
-        lead="Qui trovi il regolamento di Tiberius MC, il nostro server Towny. Leggilo prima di giocare."
+        lead="Qui trovi il regolamento di TiberiusMC, il nostro server Towny. Leggilo prima di giocare."
       />
       <div className="wrap grid gap-10 pb-10 pt-12 md:pt-16">
         <section className="panel grid gap-3 p-6 md:p-8">

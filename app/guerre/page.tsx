@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/ui/PageHead";
 import { Rows, Soon, DiscordBand } from "@/components/ui/Blocks";
 
-export const metadata: Metadata = { title: "Guerre e PvP", description: "Guerre, assedi e PvP su Tiberius MC." };
+export const metadata: Metadata = { title: "Guerre e PvP", description: "Guerre, assedi e PvP su TiberiusMC." };
 
 export default function Page() {
   return (

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/ui/PageHead";
 import { Soon, DiscordBand } from "@/components/ui/Blocks";
 
-export const metadata: Metadata = { title: "Store", description: "Lo store di Tiberius MC: Goldoni e vantaggi." };
+export const metadata: Metadata = { title: "Store", description: "Lo store di TiberiusMC: Goldoni e vantaggi." };
 
 export default function Page() {
   return (

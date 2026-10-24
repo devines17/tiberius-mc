@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/ui/PageHead";
 import { Rows, Soon, DiscordBand } from "@/components/ui/Blocks";
 
-export const metadata: Metadata = { title: "Diplomazia", description: "Alleanze, trattati e rivalità tra le nazioni di Tiberius MC." };
+export const metadata: Metadata = { title: "Diplomazia", description: "Alleanze, trattati e rivalità tra le nazioni di TiberiusMC." };
 
 export default function Page() {
   return (

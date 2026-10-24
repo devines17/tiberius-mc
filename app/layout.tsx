@@ -11,11 +11,11 @@ const lilita = Lilita_One({ weight: "400", subsets: ["latin"], display: "swap", 
 /* Montserrat: testi 400, evidenze e interfaccia 700, titoli 800. */
 const montserrat = Montserrat({ weight: ["400", "500", "700", "800"], subsets: ["latin"], display: "swap", variable: "--font-montserrat" });
 
-const title = "Tiberius MC — Minecraft Towny a tema romano";
+const title = "TiberiusMC — Minecraft Towny a tema romano";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: { default: title, template: "%s · Tiberius MC" },
+  title: { default: title, template: "%s · TiberiusMC" },
   description: siteConfig.description,
   applicationName: siteConfig.name,
   openGraph: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title,
     description: siteConfig.description,
-    images: [{ url: "/images/tiberius-mc-logo.png", width: 1254, height: 1254, alt: "Logo ufficiale Tiberius MC" }],
+    images: [{ url: "/images/tiberius-mc-logo.png", width: 1254, height: 1254, alt: "Logo ufficiale TiberiusMC" }],
   },
   twitter: { card: "summary", title, description: siteConfig.description, images: ["/images/tiberius-mc-logo.png"] },
 };

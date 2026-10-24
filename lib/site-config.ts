@@ -1,5 +1,5 @@
 /**
- * Configurazione del sito Tiberius MC.
+ * Configurazione del sito TiberiusMC.
  *
  * I dati pubblici sono fissi qui. Quelli che non esistono ancora
  * (versione, store, mappa) restano `null`: l'interfaccia mostra
@@ -12,9 +12,9 @@ function env(value: string | undefined): string | null {
 }
 
 export const siteConfig = {
-  name: "Tiberius MC",
+  name: "TiberiusMC",
   description:
-    "Tiberius MC è un server Minecraft Java a tema romano, Survival Towny: fonda una città, forma una nazione, vai in guerra e scrivi la storia dell'impero.",
+    "TiberiusMC è un server Minecraft Java a tema romano, Survival Towny: fonda una città, forma una nazione, vai in guerra e scrivi la storia dell'impero.",
   url: env(process.env.NEXT_PUBLIC_SITE_URL) ?? "https://tiberiusmc.it",
 
   server: {

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   Tiberius MC — direzione "one motif"
+   TiberiusMC — direzione "one motif"
    Il motivo è l'arco romano: la porta d'ingresso all'impero.
    Bianco, nero, rosso imperiale. Montserrat per titoli e testi,
    Lilita One solo per il marchio, Cinzel solo per le epigrafi.
@@ -727,6 +727,13 @@ button.btn:disabled {
 .sk-pose-saluto_frontale .sk-lleg { transform: rotateZ(-2deg); }
 
 .group:hover .sk-figure { animation-play-state: paused; }
+/* Passando il mouse su uno staffer: saluta con la mano (braccio destro alzato di lato) */
+.group:hover .sk-rarm { animation: sk-hello 0.55s ease-in-out infinite alternate; }
+.group:hover .sk-rarm .sk-seg-lower { --elbow-z: 0deg; --elbow-x: 0deg; }
+@keyframes sk-hello {
+  from { transform: rotateZ(158deg) rotateX(-8deg); }
+  to { transform: rotateZ(132deg) rotateX(-8deg); }
+}
 
 @keyframes sk-sway {
   from { transform: rotateX(-6deg) rotateY(-7deg); }

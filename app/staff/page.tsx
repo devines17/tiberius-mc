@@ -6,7 +6,7 @@ import { SkinFigure } from "@/components/staff/SkinFigure";
 import { STAFF } from "@/lib/staff";
 import { getSkin } from "@/lib/skins";
 
-export const metadata: Metadata = { title: "Staff", description: "Lo staff di Tiberius MC." };
+export const metadata: Metadata = { title: "Staff", description: "Lo staff di TiberiusMC." };
 
 export default async function Page() {
   const roles = STAFF.filter((r) => r.membri.length > 0);
@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <>
-      <ForumHero art="staff" kicker="tiberiusmc · staff" title="Staff" lead="Chi gestisce Tiberius MC e risponde alle vostre richieste, sul forum e su Discord." />
+      <ForumHero art="staff" kicker="tiberiusmc · staff" title="Staff" lead="Chi gestisce TiberiusMC e risponde alle vostre richieste, in game, sul forum e su Discord." />
       {roles.length === 0 ? (
         <Soon title="elenco staff" text="L'elenco ufficiale dello staff sarà pubblicato qui, con i ruoli reali." />
       ) : (

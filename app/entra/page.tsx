@@ -4,7 +4,7 @@ import { Rows, DiscordBand } from "@/components/ui/Blocks";
 import { CopyIp } from "@/components/ui/CopyIp";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = { title: "Come entrare", description: "Come connetterti a Tiberius MC: indirizzo del server, Discord e primi passi." };
+export const metadata: Metadata = { title: "Come entrare", description: "Come connetterti a TiberiusMC: indirizzo del server, Discord e primi passi." };
 
 export default function Page() {
   return (

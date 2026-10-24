@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -57,8 +58,8 @@ export function Header() {
   return (
     <header className={`topbar fixed inset-x-0 top-0 z-50 ${open ? "!bg-field text-white" : ""}`} style={{ height: "var(--header-h)" }}>
       <div className="flex h-full items-center justify-between gap-6 px-[var(--gutter)]">
-        <Link href="/" className="relative z-10 shrink-0 font-brand text-[1.75rem] leading-none tracking-wide md:text-[2rem]" aria-label="TiberiusMC, home">
-          Tiberius<span className="text-accent">MC</span>
+        <Link href="/" className="relative z-10 shrink-0 transition-transform duration-300 hover:scale-[1.03]" aria-label="TiberiusMC, home">
+          <Image src="/images/tiberiusmc-wordmark.webp" alt="TiberiusMC" width={900} height={151} priority unoptimized className="h-7 w-auto md:h-8 2xl:h-9" />
         </Link>
         <nav aria-label="Principale" className="hidden items-center gap-0.5 xl:flex">
           {top.map(({ href, label, icon: Icon, highlight }) => {

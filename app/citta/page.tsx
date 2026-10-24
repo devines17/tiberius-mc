@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/ui/PageHead";
 import { Rows, Soon, DiscordBand } from "@/components/ui/Blocks";
 
-export const metadata: Metadata = { title: "Città e nazioni", description: "Come funzionano città e nazioni su Tiberius MC." };
+export const metadata: Metadata = { title: "Città e nazioni", description: "Come funzionano città e nazioni su TiberiusMC." };
 
 export default function Page() {
   return (

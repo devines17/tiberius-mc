@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 /**
- * Logo ufficiale di Tiberius MC.
+ * Logo ufficiale di TiberiusMC.
  *
  * Il file originale (public/images/tiberius-mc-logo.png, 1254×1254 con
  * sfondo trasparente) non viene mai modificato né ridisegnato. Il disegno
@@ -40,7 +40,7 @@ export function TiberiusLogo({ variant = "nav", priority = false, className = ""
     >
       <Image
         src={SRC}
-        alt="Logo ufficiale Tiberius MC"
+        alt="Logo ufficiale TiberiusMC"
         width={FULL}
         height={FULL}
         priority={priority}
