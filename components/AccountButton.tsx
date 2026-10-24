@@ -3,26 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Bell, FileText, LogOut, UserRound } from "lucide-react";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
 
 type Me = { name: string; mcVerified: boolean; mcUuid: string | null; headName: string | null; staff: boolean; unread: number };
 
-/** Testa della skin: con l'account Minecraft collegato la sua, altrimenti quella di Steve. */
-function Head({ uuid, className = "" }: { uuid: string | null; className?: string }) {
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={`https://mc-heads.net/avatar/${encodeURIComponent(uuid ?? "MHF_Steve")}/48`}
-      alt=""
-      width={48}
-      height={48}
-      className={`rounded-[4px] [image-rendering:pixelated] ${className}`}
-    />
-  );
-}
-
-/** Bottone in alto a destra: ACCEDI da non loggato, testa della skin e nick con menu da loggato. */
+/** Icona account in alto a destra: al passaggio del mouse si allarga col nome e scende il menu. */
 export function AccountButton() {
   const pathname = usePathname();
   const [me, setMe] = useState<Me | null | undefined>(undefined);
@@ -65,73 +50,58 @@ export function AccountButton() {
     timer.current = setTimeout(() => setOpen(false), 160);
   };
 
-  const item = "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-white/80 transition-colors hover:bg-white/10 hover:text-white";
+  const row = "flex items-center justify-between rounded-lg py-2 pl-[2.6rem] pr-3 text-[0.95rem] font-bold text-white/75 transition-colors hover:bg-white/[0.07] hover:text-white";
   return (
-    <div ref={box} className="relative" onMouseEnter={enter} onMouseLeave={leave}>
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-haspopup="menu"
-        aria-label={me ? `Account di ${me.name}` : "Accedi"}
-        data-open={open}
-        className={`acc-btn relative flex h-11 items-center justify-end overflow-hidden rounded-xl bg-white/[0.06] ring-1 ring-inset hover:bg-white/10 ${open ? "ring-white/35" : "ring-white/12"} ${me === undefined ? "opacity-0" : ""}`}
-      >
-        {/* Al passaggio del mouse il bottone si allarga verso sinistra mostrando il nome, poi scende la tendina */}
-        <span className="acc-label truncate pl-4 text-sm font-bold">{me ? me.name : "accedi"}</span>
-        <span className="grid size-11 shrink-0 place-items-center">
-          <svg viewBox="0 0 24 24" className="size-6 text-white" fill="currentColor" aria-hidden>
-            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 4.2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8Zm0 13.6a7.8 7.8 0 0 1-5.6-2.4c.9-1.8 3.1-2.9 5.6-2.9s4.7 1.1 5.6 2.9a7.8 7.8 0 0 1-5.6 2.4Z" />
-          </svg>
-        </span>
-        {me && me.unread > 0 && <span className="absolute right-1.5 top-1.5 size-2.5 rounded-full bg-accent ring-2 ring-[#0b0b0c]" aria-label={`${me.unread} notifiche non lette`} />}
-      </button>
+    // Un'unica forma: chiusa è l'icona, aperta si allarga verso sinistra (icona e nome in alto) e sotto scende l'elenco
+    <div ref={box} className="relative size-11" onMouseEnter={enter} onMouseLeave={leave}>
+      <div data-open={open} className={`acc-box absolute right-0 top-0 z-50 overflow-hidden rounded-xl ${me === undefined ? "opacity-0" : ""}`}>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-haspopup="menu"
+          aria-label={me ? `Account di ${me.name}` : "Accedi"}
+          className="relative flex h-11 w-full items-center text-left"
+        >
+          <span className="grid size-11 shrink-0 place-items-center">
+            <svg viewBox="0 0 24 24" className="size-6 text-white" fill="currentColor" aria-hidden>
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 4.2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8Zm0 13.6a7.8 7.8 0 0 1-5.6-2.4c.9-1.8 3.1-2.9 5.6-2.9s4.7 1.1 5.6 2.9a7.8 7.8 0 0 1-5.6 2.4Z" />
+            </svg>
+          </span>
+          <span className="acc-fade -ml-1 min-w-0 truncate pr-4 text-sm font-bold">{me ? me.name : "accedi"}</span>
+          {me && me.unread > 0 && <span className="absolute left-7 top-2 size-2.5 rounded-full bg-accent ring-2 ring-[#141416]" aria-label={`${me.unread} notifiche non lette`} />}
+        </button>
 
-      {/* pt-2 fa da ponte tra bottone e pannello, così il mouse non lo chiude passando */}
-      <div
-        role="menu"
-        data-open={open}
-        className={`acc-menu absolute right-0 top-full z-50 pt-2 ${open ? "visible" : "pointer-events-none invisible"}`}
-      >
-        <div className="w-64 rounded-2xl border border-white/10 bg-[#141416]/95 p-2 shadow-2xl shadow-black/60 backdrop-blur">
-          {me ? (
-            <>
-              <div className="flex items-center gap-3 border-b border-white/10 px-3 pb-3 pt-2">
-                <Head uuid={me.mcUuid ?? me.headName} className="size-10" />
-                <div className="min-w-0">
-                  <p className="truncate font-bold">{me.name}</p>
-                  <p className="text-xs text-white/50">{me.mcVerified ? "account Minecraft collegato" : "Minecraft non collegato"}</p>
-                </div>
-              </div>
-              <div className="grid gap-0.5 pt-2">
-                <Link href="/forum/account" role="menuitem" className={item}>
-                  <UserRound className="size-4" aria-hidden /> il tuo account
+        <div className="acc-drop grid" role="menu">
+          <div className="min-h-0 overflow-hidden">
+            <div className="acc-fade mx-3 border-t border-accent/60" />
+            {me ? (
+              <div className="acc-fade grid gap-0.5 p-1.5 pt-2">
+                <Link href="/forum/account" role="menuitem" className={row}>
+                  Account
                 </Link>
-                <Link href="/forum/mie" role="menuitem" className={item}>
-                  <FileText className="size-4" aria-hidden /> le tue pratiche
+                <Link href="/forum/mie" role="menuitem" className={row}>
+                  Le tue pratiche
                 </Link>
-                <Link href="/forum/notifiche" role="menuitem" className={item}>
-                  <Bell className="size-4" aria-hidden /> notifiche
-                  {me.unread > 0 && <span className="ml-auto rounded-full bg-accent px-2 py-0.5 text-xs text-white">{me.unread}</span>}
+                <Link href="/forum/notifiche" role="menuitem" className={row}>
+                  Notifiche
+                  {me.unread > 0 && <span className="rounded-full bg-accent px-2 py-0.5 text-xs text-white">{me.unread}</span>}
                 </Link>
-                <form action="/api/auth/logout" method="post" className="mt-1 border-t border-white/10 pt-1">
-                  <button type="submit" role="menuitem" className={`${item} w-full`}>
-                    <LogOut className="size-4" aria-hidden /> esci
+                <form action="/api/auth/logout" method="post">
+                  <button type="submit" role="menuitem" className={`${row} w-full text-white/45 hover:!text-[#ff8a80]`}>
+                    Esci
                   </button>
                 </form>
               </div>
-            </>
-          ) : (
-            <div className="grid gap-3 p-2">
-              <div>
-                <p className="font-bold">Non hai fatto l&apos;accesso</p>
-                <p className="mt-1 text-xs leading-relaxed text-white/55">Si entra con Discord, senza creare una nuova password.</p>
+            ) : (
+              <div className="acc-fade grid gap-3 p-3 pl-[2.95rem] pt-3">
+                <p className="text-xs leading-relaxed text-white/55">Si entra con Discord, senza creare una nuova password.</p>
+                <a href={`/api/auth/discord/login?next=${encodeURIComponent(pathname || "/")}`} role="menuitem" className="btn btn-discord !h-9 !px-3 !text-[0.7rem]">
+                  <DiscordIcon className="size-4" /> accedi con discord
+                </a>
               </div>
-              <a href={`/api/auth/discord/login?next=${encodeURIComponent(pathname || "/")}`} role="menuitem" className="btn btn-discord !h-10 !px-4 !text-xs">
-                <DiscordIcon className="size-4" /> accedi con discord
-              </a>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
