@@ -89,8 +89,8 @@ export default function Home() {
       {/* GOLDONE: tesoro che luccica, il legionario poggia sul bordo in basso */}
       <section className="relative overflow-hidden bg-[radial-gradient(30%_60%_at_74%_92%,rgb(255_196_64/0.55)_0%,rgb(255_150_40/0.18)_45%,transparent_72%),linear-gradient(180deg,#3a0907_0%,#7d1912_55%,#a3231a_100%)]">
         <div aria-hidden className="gold-dust absolute inset-x-0 top-0 h-3/5" />
-        <div className="wrap relative grid items-end gap-6 lg:min-h-[35rem] lg:grid-cols-[1fr_1.2fr] lg:gap-16">
-          <div className="self-center pt-16 lg:py-20" data-reveal="left">
+        <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1fr_1.1fr] lg:gap-14">
+          <div className="self-center pt-14 lg:py-14" data-reveal="left">
             <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-[#ffd28a]/30 bg-black/25 py-1 pl-1.5 pr-4">
               <Image src="/images/art/goldone.png" alt="" width={640} height={640} className="size-7" unoptimized />
               <span className="text-sm font-semibold text-[#ffe2a8]">Goldoni e store</span>
@@ -114,18 +114,19 @@ export default function Home() {
             </div>
           </div>
           <div className="self-end pt-4" data-reveal="right" data-delay="0.15">
-            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="mx-auto block w-full max-w-2xl" unoptimized />
+            <Image src="/images/legionario-tesoro.png" alt="Un legionario di TiberiusMC apre un forziere pieno di Goldoni e gemme" width={1000} height={785} className="mx-auto block w-full max-w-xl" unoptimized />
           </div>
         </div>
       </section>
 
       {/* COMMUNITY: attaccata al Goldone. Notte stellata e bagliore del fuoco dietro i legionari */}
-      <section className="relative overflow-hidden bg-[radial-gradient(36%_66%_at_24%_88%,rgb(255_140_40/0.6)_0%,rgb(255_96_30/0.2)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
+      <section className="relative overflow-hidden bg-[radial-gradient(34%_62%_at_20%_86%,rgb(255_140_40/0.6)_0%,rgb(255_96_30/0.2)_45%,transparent_72%),linear-gradient(180deg,#141633_0%,#23266e_55%,#3b3fae_100%)]">
         <div aria-hidden className="night-stars absolute inset-x-0 top-0 h-3/5" />
-        <div className="wrap relative grid items-end gap-6 lg:min-h-[37rem] lg:grid-cols-[1.35fr_1fr] lg:gap-20">
-          <div className="self-center pt-16 lg:order-2 lg:py-20" data-reveal="right">
-            <div className="inline-flex min-h-9 items-center rounded-full border border-white/15 bg-black/25 px-4 empty:hidden">
-              <DiscordCount invite={siteConfig.links.discord} className="text-white/90" />
+        <div className="wrap relative grid items-end gap-6 lg:min-h-[28rem] lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+          <div className="self-center pt-14 lg:order-2 lg:py-14" data-reveal="right">
+            <div className="inline-flex min-h-9 items-center gap-2.5 rounded-full border border-white/15 bg-black/25 py-1 pl-2.5 pr-4">
+              <DiscordIcon className="size-5 text-[#c9cdff]" />
+              <span className="text-sm font-semibold text-[#dfe1ff]">Community</span>
             </div>
             <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.98]">
               Intorno
@@ -143,10 +144,14 @@ export default function Home() {
                 <TelegramIcon className="size-5" /> Telegram
               </a>
             </div>
+            {/* Membri e online di Discord, dal vivo */}
+            <div className="mt-5 min-h-5">
+              <DiscordCount invite={siteConfig.links.discord} className="text-white/80" />
+            </div>
           </div>
           {/* Legionari più grandi della colonna: sbordano un po' a sinistra e poggiano sul fondo */}
           <div className="self-end pt-4 lg:order-1" data-reveal="left" data-delay="0.15">
-            <Image src="/images/legionari-fuoco.webp" alt="Cinque legionari di TiberiusMC che chiacchierano intorno a un fuoco da campo" width={1300} height={640} className="block w-full lg:-ml-[18%] lg:w-[125%] lg:max-w-none" unoptimized />
+            <Image src="/images/legionari-fuoco-v2.webp" alt="Cinque legionari di TiberiusMC che ridono e chiacchierano intorno a un fuoco da campo" width={1433} height={892} className="block w-full lg:-ml-[30%] lg:w-[128%] lg:max-w-none" unoptimized />
           </div>
         </div>
       </section>
