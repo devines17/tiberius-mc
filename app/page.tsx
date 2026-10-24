@@ -15,7 +15,7 @@ const quick = [
   { href: "/regole", t: "Regolamento", ext: false },
   { href: "/forum", t: "Forum", ext: false },
   { href: "/mappa", t: "Mappa", ext: false },
-  { href: siteConfig.links.discord, t: "Discord", ext: true },
+  { href: "/wiki", t: "Wiki", ext: false },
 ];
 
 export default function Home() {
