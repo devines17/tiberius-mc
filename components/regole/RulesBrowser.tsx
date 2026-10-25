@@ -88,9 +88,19 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
 
   const group = groups.find((g) => g.letter === active) ?? groups[0];
 
-  // Indice e regole scorrono insieme con la pagina: si scorre sempre la finestra
+  // Su computer le regole scorrono dentro la loro scheda (alta come l'indice); su telefono scorre la pagina
+  const inner = () => {
+    const box = scroller.current;
+    return box && box.scrollHeight > box.clientHeight + 4 ? box : null;
+  };
   const scrollToId = useCallback((id: string, smooth = true) => {
-    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" }));
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      const box = scroller.current;
+      if (!el) return;
+      if (box && box.scrollHeight > box.clientHeight + 4) box.scrollTo({ top: el.offsetTop - 12, behavior: smooth ? "smooth" : "auto" });
+      else el.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+    });
   }, []);
 
   // Link diretto, anche con i codici di prima (#art-F2)
@@ -111,18 +121,24 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
   // Evidenzia nell'indice la sezione che si sta leggendo
   useEffect(() => {
     if (matches) return;
+    const box = scroller.current;
     const onScroll = () => {
       const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 0;
+      const limit = inner() ? box!.getBoundingClientRect().top + 60 : header + 80;
       let key: string | null = null;
       for (const s of group.sections) {
         const el = document.getElementById(`sez-${s.key}`);
-        if (el && el.getBoundingClientRect().top <= header + 80) key = s.key;
+        if (el && el.getBoundingClientRect().top <= limit) key = s.key;
       }
       setCurrent(key ?? group.sections[0]?.key ?? null);
     };
     onScroll();
+    box?.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      box?.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [group, matches]);
 
   // Con una nuova ricerca i risultati si leggono dall'inizio
@@ -131,8 +147,10 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-  /** Riporta in cima a indice e regole (solo se si è già scesi oltre). */
+  /** Torna all'inizio delle regole (dentro la scheda, oppure nella pagina su telefono). */
   function toTop() {
+    const box = inner();
+    if (box) return box.scrollTo({ top: 0 });
     const p = panel.current?.parentElement;
     if (!p) return;
     const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 0;
@@ -169,11 +187,11 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
     : [group];
 
   return (
-    <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-start lg:gap-6">
+    <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-6">
       {/* Indice */}
-      <aside className="min-w-0 rounded-2xl bg-[#141416] p-2 ring-1 ring-inset ring-white/10 lg:flex lg:flex-col lg:p-4">
+      <aside className="min-w-0 rounded-2xl bg-[#141416] p-2 ring-1 ring-inset ring-white/10 lg:flex lg:h-[min(46rem,calc(100svh-var(--header-h)-3rem))] lg:flex-col lg:p-4">
         <p className="hidden px-2 pb-3 pt-1 text-xl font-extrabold text-accent lg:block">Indice</p>
-        <nav ref={nav} aria-label="Parti del regolamento" className="relative flex gap-1 overflow-x-auto [scrollbar-width:none] lg:block">
+        <nav ref={nav} aria-label="Parti del regolamento" className="thin-scroll relative flex gap-1 overflow-x-auto [scrollbar-width:none] lg:block lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overflow-x-visible lg:[scrollbar-width:thin]">
           {groups.map((g) => {
             const on = !matches && g.letter === active;
             const Icon = ICON[g.letter] ?? BookOpen;
@@ -224,7 +242,7 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
       </aside>
 
       {/* Contenuto */}
-      <div ref={panel} className="relative min-w-0 scroll-mt-[calc(var(--header-h)+5.5rem)] overflow-hidden rounded-2xl bg-[#141416] ring-1 ring-inset ring-white/10 lg:scroll-mt-0">
+      <div ref={panel} className="relative min-w-0 overflow-hidden rounded-2xl bg-[#141416] ring-1 ring-inset ring-white/10 lg:flex lg:h-[min(46rem,calc(100svh-var(--header-h)-3rem))] lg:flex-col">
         <div className="flex items-center gap-2 border-b border-white/10 bg-black/20 p-3">
           <label className="relative flex-1">
             <span className="sr-only">Cerca nel regolamento</span>
@@ -258,7 +276,7 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
           </div>
         )}
 
-        <div ref={scroller} className="relative px-4 pb-10 pt-6 md:px-7">
+        <div ref={scroller} className="thin-scroll relative px-4 pb-10 pt-6 md:px-7 lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
           {shown.map((g) => (
             <div key={g.letter} className="mb-12 last:mb-0">
               <header className="mb-8">
@@ -267,7 +285,7 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
               </header>
               <div className="grid gap-8">
                 {g.sections.map((s) => (
-                  <section key={s.key} id={`sez-${s.key}`} className="scroll-mt-[calc(var(--header-h)+1rem)]" aria-labelledby={`sez-t-${s.key}`}>
+                  <section key={s.key} id={`sez-${s.key}`} className="scroll-mt-[calc(var(--header-h)+1rem)] lg:scroll-mt-3" aria-labelledby={`sez-t-${s.key}`}>
                     <h3 id={`sez-t-${s.key}`} className="mb-3 flex items-center gap-2.5 text-[1.3rem] font-extrabold text-gold">
                       {(() => {
                         const SIcon = sectionIcon(s.title);
@@ -280,7 +298,7 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
                         <article
                           key={a.code}
                           id={anchor(a.code)}
-                          className="group/art scroll-mt-[calc(var(--header-h)+1rem)] rounded-r-lg border-l-[3px] border-white/20 bg-white/[0.045] px-4 py-3.5 transition-colors hover:border-accent hover:bg-white/[0.065] md:px-5"
+                          className="group/art scroll-mt-[calc(var(--header-h)+1rem)] lg:scroll-mt-3 rounded-r-lg border-l-[3px] border-white/20 bg-white/[0.045] px-4 py-3.5 transition-colors hover:border-accent hover:bg-white/[0.065] md:px-5"
                         >
                           <h4 className="flex flex-wrap items-center gap-3">
                             <span className="rounded bg-accent/85 px-1.5 py-[3px] text-[0.7rem] font-extrabold leading-none text-white">{a.code}</span>
