@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { Settings, Castle } from "lucide-react";
+import { Settings } from "lucide-react";
 import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { Notice, TicketRows } from "@/components/forum/bits";
@@ -77,15 +77,6 @@ async function Body({ searchParams }: { searchParams: SP }) {
             <span>
               <strong>Amministrazione</strong>
               <span className="block text-sm text-white/55">Permessi dello staff, candidature, conservazione, collegamenti Minecraft, registro attività.</span>
-            </span>
-          </Link>
-        )}
-        {(admin || session.viewer.permissions.has("citta")) && (
-          <Link href="/forum/staff/citta" className="panel flex items-center gap-3 p-5 transition-colors hover:bg-white/[0.04]">
-            <Castle className="size-5 text-accent" aria-hidden />
-            <span>
-              <strong>Città da verificare</strong>
-              <span className="block text-sm text-white/55">Registrazioni delle città nel gestionale: controlla in gioco e approva.</span>
             </span>
           </Link>
         )}
