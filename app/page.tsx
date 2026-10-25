@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { NewsCard } from "@/components/news/parts";
+import { NewsTile } from "@/components/news/parts";
 import { listPublished } from "@/lib/server/news";
 import { ArrowRight } from "lucide-react";
 import { Words } from "@/components/ui/Words";
@@ -186,16 +186,16 @@ async function LatestNews() {
   if (!news.length) return <NewsLine />;
   return (
     <section className="wrap py-[var(--section)]">
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-        <h2 className="text-[length:var(--step-head)]">Novità dal foro</h2>
-        <Link href="/news" className="group flex items-center gap-2 font-bold text-white/85 transition-colors hover:text-white">
-          Tutte le news <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
-        </Link>
-      </div>
+      <h2 className="mb-8 text-center text-[length:var(--step-head)]">Le ultime news</h2>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {news.map((n) => (
-          <NewsCard key={n.id} item={n} />
+          <NewsTile key={n.id} item={n} />
         ))}
+      </div>
+      <div className="mt-6 flex justify-end">
+        <Link href="/news" className="group flex items-center gap-2 font-bold text-white/80 transition-colors hover:text-white">
+          Tutte le news <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+        </Link>
       </div>
     </section>
   );

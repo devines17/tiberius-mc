@@ -46,6 +46,14 @@ export function formatNewsDate(iso: string): string {
   return FMT_DATE.format(new Date(iso));
 }
 
+const FMT_LONG = new Intl.DateTimeFormat("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Rome" });
+
+/** "Martedì 20 ottobre 2026" */
+export function formatNewsDateLong(iso: string): string {
+  const s = FMT_LONG.format(new Date(iso));
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 export function formatEventDate(iso: string): string {
   return FMT_EVENT.format(new Date(iso));
 }

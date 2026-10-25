@@ -92,12 +92,12 @@ export async function uniqueSlug(title: string, exceptId?: string): Promise<stri
 }
 
 /** Controlla e carica una copertina; restituisce il percorso nel bucket. */
-export async function uploadCover(file: File): Promise<string> {
+export async function uploadCover(file: File, folder?: string): Promise<string> {
   if (file.size > COVER_MAX) throw new HttpError(413, "La copertina supera 4 MB.");
   const bytes = new Uint8Array(await file.arrayBuffer());
   const mime = sniffMime(bytes);
   if (!mime || !mime.startsWith("image/")) throw new HttpError(415, "La copertina deve essere un'immagine PNG, JPG, GIF o WebP.");
-  const path = `${new Date().getFullYear()}/${randomUUID()}.${MIME_EXT[mime] ?? "img"}`;
+  const path = `${folder ? `${folder}/` : ""}${new Date().getFullYear()}/${randomUUID()}.${MIME_EXT[mime] ?? "img"}`;
   const { url, headers } = storageEndpoint(`object/${BUCKET}/${path}`);
   const res = await fetch(url, {
     method: "POST",

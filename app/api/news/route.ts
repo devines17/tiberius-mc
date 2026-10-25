@@ -2,7 +2,7 @@ import { revalidateTag } from "next/cache";
 import { isOwner } from "@/lib/server/auth";
 import { db } from "@/lib/server/db";
 import { assertSameOrigin, audit, handle, HttpError, json, rateLimit, requireSession } from "@/lib/server/http";
-import { NEWS_TAG, type NewsRow, removeCover, uniqueSlug, uploadCover } from "@/lib/server/news";
+import { coverUrl, NEWS_TAG, type NewsRow, removeCover, uniqueSlug, uploadCover } from "@/lib/server/news";
 import { isNewsCategory, NEWS_LIMITS } from "@/lib/news/config";
 
 const ACTIONS = ["salva", "pubblica", "ritira", "elimina"] as const;
@@ -25,6 +25,14 @@ export async function POST(req: Request) {
     await rateLimit(`news:${s.profile.id}`, 60, 30);
 
     const fd = await req.formData();
+    // Immagine da mettere dentro il testo: si carica e torna il suo indirizzo pubblico
+    if (text(fd, "action") === "immagine") {
+      const f = fd.get("file");
+      if (!(f instanceof File) || !f.size) throw new HttpError(400, "Scegli un'immagine.");
+      const path = await uploadCover(f, "testo");
+      await audit(s.profile.id, "news_immagine", { details: { path } });
+      return json({ ok: true, url: coverUrl(path) });
+    }
     const action = text(fd, "action") as Action;
     if (!ACTIONS.includes(action)) throw new HttpError(400, "Azione non valida.");
     const id = text(fd, "id");

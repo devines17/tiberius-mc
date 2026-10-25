@@ -42,6 +42,32 @@ export function NewsEditor({ items }: { items: EditorNews[] }) {
   const [msg, setMsg] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
+  const bodyRef = useRef<HTMLTextAreaElement | null>(null);
+  const [imgBusy, setImgBusy] = useState(false);
+
+  /** Carica un'immagine e la inserisce nel testo dove c'è il cursore, su una riga da sola. */
+  async function insertImage(f: File) {
+    setImgBusy(true);
+    setMsg(null);
+    try {
+      const fd = new FormData();
+      fd.set("action", "immagine");
+      fd.set("file", f);
+      const res = await fetch("/api/news", { method: "POST", body: fd });
+      const data = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
+      if (!res.ok || !data.url) throw new Error(data.error ?? "Caricamento non riuscito.");
+      const ta = bodyRef.current;
+      const at = ta ? ta.selectionStart : d.body.length;
+      const before = d.body.slice(0, at).replace(/\s*$/, "");
+      const after = d.body.slice(at).replace(/^\s*/, "");
+      const line = `![](${data.url})`;
+      set("body", [before, line, after].filter(Boolean).join("\n\n"));
+    } catch (e) {
+      setMsg({ kind: "error", text: e instanceof Error ? e.message : "Caricamento non riuscito." });
+    } finally {
+      setImgBusy(false);
+    }
+  }
 
   const current = d.id ? items.find((n) => n.id === d.id) : undefined;
   const coverShown = file ? URL.createObjectURL(file) : removeCover ? NEWS_DEFAULT_COVER : d.cover;
@@ -159,17 +185,25 @@ export function NewsEditor({ items }: { items: EditorNews[] }) {
         <div>
           <div className="mb-2 flex flex-wrap items-end justify-between gap-2">
             <label htmlFor="n-body" className="text-sm font-bold text-white/80">Testo</label>
+            <span className="flex flex-wrap items-center gap-4">
+            {!preview && (
+              <label className={`inline-flex cursor-pointer items-center gap-1.5 text-sm font-bold text-white/60 hover:text-white ${imgBusy ? "pointer-events-none opacity-50" : ""}`}>
+                <ImagePlus className="size-4" aria-hidden /> {imgBusy ? "carico…" : "inserisci immagine"}
+                <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) void insertImage(f); }} />
+              </label>
+            )}
             <button type="button" onClick={() => setPreview((v) => !v)} className="inline-flex items-center gap-1.5 text-sm font-bold text-white/60 hover:text-white">
               {preview ? <PenLine className="size-4" aria-hidden /> : <Eye className="size-4" aria-hidden />} {preview ? "torna a scrivere" : "anteprima"}
             </button>
+            </span>
           </div>
           {preview ? (
             <div className="min-h-48 rounded-xl bg-black/30 p-5 ring-1 ring-inset ring-white/10">{d.body ? <NewsBody text={d.body} /> : <p className="text-white/50">Niente da mostrare.</p>}</div>
           ) : (
-            <textarea id="n-body" className="field min-h-72 font-mono text-[0.95rem]" value={d.body} maxLength={NEWS_LIMITS.body} onChange={(e) => set("body", e.target.value)} aria-invalid={Boolean(errors.body)} />
+            <textarea ref={bodyRef} id="n-body" className="field min-h-72 font-mono text-[0.95rem]" value={d.body} maxLength={NEWS_LIMITS.body} onChange={(e) => set("body", e.target.value)} aria-invalid={Boolean(errors.body)} />
           )}
           <p className="mt-2 text-sm text-white/50">
-            Riga vuota = nuovo paragrafo · <code>## Titoletto</code> · <code>- voce di elenco</code> · <code>**grassetto**</code> · <code>*corsivo*</code> · <code>[testo](https://link)</code>
+            Riga vuota = nuovo paragrafo · <code>## Titoletto</code> · <code>- voce di elenco</code> · <code>**grassetto**</code> · <code>*corsivo*</code> · <code>[testo](https://link)</code> · <code>![didascalia](immagine)</code>
           </p>
           {err("body")}
         </div>

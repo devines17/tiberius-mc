@@ -34,3 +34,11 @@ test("slug degli indirizzi", () => {
   assert.equal(slugify("   "), "news");
   assert.ok(slugify("a".repeat(200)).length <= 70);
 });
+
+test("immagini: solo https o del sito, su una riga da sola", () => {
+  assert.deepEqual(parseMarkup("![Il mercato](https://x.supabase.co/a.webp)"), [{ t: "img", alt: "Il mercato", src: "https://x.supabase.co/a.webp" }]);
+  assert.deepEqual(parseMarkup("![](/images/a.webp)"), [{ t: "img", alt: "", src: "/images/a.webp" }]);
+  assert.equal(parseMarkup("![x](javascript:alert(1))")[0].t, "p");
+  assert.equal(parseMarkup("![x](http://a.it/b.png)")[0].t, "p");
+  assert.equal(parseMarkup("testo ![x](https://a.it/b.png)")[0].t, "p");
+});
