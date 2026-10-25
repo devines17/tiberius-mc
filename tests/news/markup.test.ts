@@ -42,3 +42,8 @@ test("immagini: solo https o del sito, su una riga da sola", () => {
   assert.equal(parseMarkup("![x](http://a.it/b.png)")[0].t, "p");
   assert.equal(parseMarkup("testo ![x](https://a.it/b.png)")[0].t, "p");
 });
+
+test("immagini a lato del testo", () => {
+  assert.deepEqual(parseMarkup("!<[La cuccia](https://a.it/c.webp)"), [{ t: "img", alt: "La cuccia", src: "https://a.it/c.webp", side: "left" }]);
+  assert.deepEqual(parseMarkup("!>[](https://a.it/c.webp)"), [{ t: "img", alt: "", src: "https://a.it/c.webp", side: "right" }]);
+});

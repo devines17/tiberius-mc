@@ -4,6 +4,7 @@
  *   - voce di elenco    righe che iniziano con "- "
  *   **grassetto**  *corsivo*  [testo](https://link)
  *   ![didascalia](https://immagine)   immagine a tutta larghezza, su una riga da sola
+ *   !<[didascalia](https://immagine)  immagine a sinistra del testo che segue (!> a destra)
  * Una riga vuota separa i paragrafi. Tutto il resto è testo normale.
  * Il risultato è una struttura dati: la pagina la trasforma in elementi React,
  * quindi nessun testo scritto può diventare codice nella pagina.
@@ -15,7 +16,7 @@ export type Inline =
   | { t: "i"; c: Inline[] }
   | { t: "a"; href: string; c: Inline[] };
 
-export type Block = { t: "h"; c: Inline[] } | { t: "p"; c: Inline[] } | { t: "ul"; items: Inline[][] } | { t: "img"; src: string; alt: string };
+export type Block = { t: "h"; c: Inline[] } | { t: "p"; c: Inline[] } | { t: "ul"; items: Inline[][] } | { t: "img"; src: string; alt: string; side?: "left" | "right" };
 
 /** Immagini solo https (o del sito): niente data:, javascript: e simili. */
 export function safeImage(src: string): string | null {
@@ -100,10 +101,12 @@ export function parseMarkup(text: string): Block[] {
       endPara();
       endList();
       blocks.push({ t: "h", c: parseInline(line.slice(3).trim()) });
-    } else if (/^!\[[^\]\n]*\]\([^)\s]+\)$/.test(line) && safeImage(line.slice(line.indexOf("](") + 2, -1))) {
+    } else if (/^![<>]?\[[^\]\n]*\]\([^)\s]+\)$/.test(line) && safeImage(line.slice(line.indexOf("](") + 2, -1))) {
       endPara();
       endList();
-      blocks.push({ t: "img", alt: line.slice(2, line.indexOf("](")).trim(), src: safeImage(line.slice(line.indexOf("](") + 2, -1))! });
+      const side = line[1] === "<" ? "left" : line[1] === ">" ? "right" : undefined;
+      const img: Block = { t: "img", alt: line.slice(line.indexOf("[") + 1, line.indexOf("](")).trim(), src: safeImage(line.slice(line.indexOf("](") + 2, -1))! };
+      blocks.push(side ? { ...img, side } : img);
     } else if (/^[-•] /.test(line)) {
       endPara();
       list.push(line.slice(2).trim());

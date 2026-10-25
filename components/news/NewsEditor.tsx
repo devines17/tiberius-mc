@@ -203,7 +203,7 @@ export function NewsEditor({ items }: { items: EditorNews[] }) {
             <textarea ref={bodyRef} id="n-body" className="field min-h-72 font-mono text-[0.95rem]" value={d.body} maxLength={NEWS_LIMITS.body} onChange={(e) => set("body", e.target.value)} aria-invalid={Boolean(errors.body)} />
           )}
           <p className="mt-2 text-sm text-white/50">
-            Riga vuota = nuovo paragrafo · <code>## Titoletto</code> · <code>- voce di elenco</code> · <code>**grassetto**</code> · <code>*corsivo*</code> · <code>[testo](https://link)</code> · <code>![didascalia](immagine)</code>
+            Riga vuota = nuovo paragrafo · <code>## Titoletto</code> · <code>- voce di elenco</code> · <code>**grassetto**</code> · <code>*corsivo*</code> · <code>[testo](https://link)</code> · <code>![didascalia](immagine)</code> · <code>!&lt;[…](immagine)</code> a sinistra, <code>!&gt;[…](immagine)</code> a destra
           </p>
           {err("body")}
         </div>

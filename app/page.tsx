@@ -174,7 +174,7 @@ function NewsLine() {
           Novità dal foro <span className="ml-3 text-sm font-medium text-white/50">Nessun annuncio per ora</span>
         </p>
         <Link href="/news" className="group flex items-center gap-2 font-bold text-white/85 transition-colors hover:text-white">
-          Tutte le news <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+          Visualizza altre novità <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
         </Link>
       </div>
     </section>
@@ -186,7 +186,7 @@ async function LatestNews() {
   if (!news.length) return <NewsLine />;
   return (
     <section className="wrap py-[var(--section)]">
-      <h2 className="mb-8 text-center text-[length:var(--step-head)]">Le ultime news</h2>
+      <h2 className="mb-8 text-center text-[length:var(--step-head)]">Le ultime novità</h2>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {news.map((n) => (
           <NewsTile key={n.id} item={n} />

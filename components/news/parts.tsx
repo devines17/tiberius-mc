@@ -27,32 +27,29 @@ export function CategoryTag({ category, className = "" }: { category: string; cl
   );
 }
 
-/** Riga dell'elenco news: copertina a sinistra, titolo, data, riassunto e "Leggi la news". */
+/** Riga dell'elenco news, come nei forum dei server: copertina a sinistra, titolo, data, riassunto e "Leggi il post". */
 export function NewsRow({ item }: { item: NewsItem }) {
   return (
-    <article className="group relative grid gap-5 rounded-2xl bg-white/[0.035] p-3 ring-1 ring-inset ring-white/10 transition-colors hover:bg-white/[0.06] sm:grid-cols-[19rem_minmax(0,1fr)] sm:p-3.5">
-      <div className="relative overflow-hidden rounded-xl">
-        <NewsCover src={item.cover} className="aspect-[16/9] transition-transform duration-500 group-hover:scale-[1.04]" />
-        <CategoryTag category={item.category} className="absolute left-2.5 top-2.5" />
+    <article className="group relative grid gap-4 rounded-xl p-3 ring-1 ring-inset ring-white/10 transition-colors hover:bg-white/[0.03] hover:ring-white/20 sm:grid-cols-[19.5rem_minmax(0,1fr)] sm:gap-5">
+      <div className="relative overflow-hidden rounded-lg">
+        <NewsCover src={item.cover} className="aspect-[16/9]" />
+        <CategoryTag category={item.category} className="absolute left-2 top-2" />
       </div>
-      <div className="flex min-w-0 flex-col px-2 pb-2 sm:px-1 sm:py-2 sm:pr-3">
-        <h2 className="text-[1.45rem] font-extrabold leading-tight">
-          <Link href={newsHref(item.slug)} className="after:absolute after:inset-0 group-hover:text-[#ff8a80]">
+      <div className="flex min-w-0 flex-col pb-1 sm:py-2 sm:pr-2">
+        <h2 className="text-[1.35rem] font-extrabold leading-tight text-white/95">
+          <Link href={newsHref(item.slug)} className="after:absolute after:inset-0">
             {item.title}
           </Link>
         </h2>
-        <p className="mt-1 text-sm text-white/50">
-          {formatNewsDateLong(item.published_at ?? item.created_at)}
-          {item.author && <> · {item.author}</>}
-        </p>
+        <p className="mt-1 text-[0.8rem] text-white/50">{formatNewsDateLong(item.published_at ?? item.created_at)}</p>
         {item.event_at && (
-          <div className="mt-2">
+          <div className="mt-1.5">
             <EventDate iso={item.event_at} />
           </div>
         )}
-        <p className="mt-2.5 line-clamp-3 leading-relaxed text-white/75">{item.summary}</p>
-        <span className="mt-auto flex items-center justify-end gap-1.5 pt-3 text-sm font-extrabold text-[#ff8a80]">
-          Leggi la news <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+        <p className="mt-2.5 line-clamp-3 text-[0.95rem] leading-relaxed text-white/80">{item.summary}</p>
+        <span className="mt-auto flex items-center justify-end gap-1 pt-3 text-sm font-bold text-[#ff8a80] transition-colors group-hover:text-[#ffb0a8]">
+          Leggi il post <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
         </span>
       </div>
     </article>
@@ -67,8 +64,8 @@ export function NewsTile({ item }: { item: NewsItem }) {
         <NewsCover src={item.cover} className="aspect-[16/9] transition-transform duration-500 group-hover:scale-[1.04]" />
         <CategoryTag category={item.category} className="absolute left-3 top-3" />
       </div>
-      <div className="px-4 py-4 text-center">
-        <h3 className="text-lg font-extrabold leading-snug transition-colors group-hover:text-[#ff8a80]">{item.title}</h3>
+      <div className="px-4 py-3.5 text-center">
+        <h3 className="font-extrabold leading-snug transition-colors group-hover:text-[#ff8a80]">{item.title}</h3>
         <p className="mt-1 text-xs text-white/50">{formatNewsDateLong(item.published_at ?? item.created_at)}</p>
       </div>
     </Link>
@@ -149,13 +146,13 @@ function Inl({ nodes }: { nodes: Inline[] }): ReactNode {
   });
 }
 
-/** Testo della news: titoletti con l'icona, elenchi, immagini, grassetto e link. */
+/** Testo della news: titoletti con l'icona, elenchi, immagini (anche a lato del testo), grassetto e link. */
 export function NewsBody({ text }: { text: string }) {
   return (
-    <div className="grid gap-5 text-[1.08rem] leading-[1.8] text-white/80">
+    <div className="flow-root text-[1.02rem] leading-[1.8] text-white/80 [&>*+*]:mt-5">
       {parseMarkup(text).map((b, i) =>
         b.t === "h" ? (
-          <h2 key={i} className="mt-6 flex items-center gap-3 border-b border-white/10 pb-3 text-[1.6rem] font-extrabold text-white first:mt-0">
+          <h2 key={i} className="clear-both flex items-center gap-3 border-b border-white/10 pb-3 pt-5 text-[1.55rem] font-extrabold text-white first:pt-0">
             <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent/15 text-[#ff8a80] ring-1 ring-inset ring-accent/30" aria-hidden>
               <Flag className="size-4" />
             </span>
@@ -175,10 +172,13 @@ export function NewsBody({ text }: { text: string }) {
             ))}
           </ul>
         ) : b.t === "img" ? (
-          <figure key={i} className="my-2 overflow-hidden rounded-2xl bg-black/30 ring-1 ring-inset ring-white/10">
+          <figure
+            key={i}
+            className={`overflow-hidden rounded-2xl bg-black/30 p-2 ring-1 ring-inset ring-white/10 ${b.side === "left" ? "sm:float-left sm:mb-4 sm:mr-6 sm:!mt-1 sm:w-[42%]" : b.side === "right" ? "sm:float-right sm:mb-4 sm:ml-6 sm:!mt-1 sm:w-[42%]" : ""}`}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={b.src} alt={b.alt} loading="lazy" className="block w-full" />
-            {b.alt && <figcaption className="px-4 py-2.5 text-sm text-white/55">{b.alt}</figcaption>}
+            <img src={b.src} alt={b.alt} loading="lazy" className="block w-full rounded-xl" />
+            {b.alt && <figcaption className="px-2 pb-1 pt-2.5 text-sm text-white/55">{b.alt}</figcaption>}
           </figure>
         ) : (
           <p key={i}>

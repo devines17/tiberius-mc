@@ -38,14 +38,13 @@ async function Article({ searchParams }: { searchParams: SP }) {
         </div>
         <div className="px-5 pb-12 pt-4 md:px-10">
           <Link href="/news" className="inline-flex items-center gap-2 text-sm font-semibold text-white/55 transition-colors hover:text-white">
-            <ChevronLeft className="size-4" aria-hidden /> Torna alle news
+            <ChevronLeft className="size-4" aria-hidden /> Torna alle novità
           </Link>
           <div className="mx-auto mt-6 max-w-3xl">
             <h1 className="text-[clamp(2rem,4.5vw,3.2rem)] font-extrabold leading-[1.08]">{n.title}</h1>
             <div className="mt-4 h-1 w-14 rounded-full bg-accent" aria-hidden />
             <p className="mt-4 text-sm text-white/50">
               {formatNewsDateLong(n.published_at ?? n.created_at)}
-              {n.author && <> · scritta da {n.author}</>}
             </p>
             {n.event_at && (
               <div className="mt-3">
