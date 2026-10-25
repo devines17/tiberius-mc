@@ -141,7 +141,7 @@ async function namesFor(ids: (string | null)[]): Promise<Map<string, string>> {
 
 /** Staff con il permesso di una sezione (per l'assegnazione). */
 async function staffFor(sub: Subcategory): Promise<{ id: string; name: string }[]> {
-  const rows = await db.select<{ profile_id: string; profiles: Pick<Profile, "mc_name" | "discord_username"> }>("staff_permissions", "profile_id,profiles(mc_name,discord_username)", {
+  const rows = await db.select<{ profile_id: string; profiles: Pick<Profile, "mc_name" | "discord_username"> }>("staff_permissions", "profile_id,profiles!staff_permissions_profile_id_fkey(mc_name,discord_username)", {
     permission: `eq.${sub.permission}`,
   });
   return rows.map((r) => ({ id: r.profile_id, name: displayName(r.profiles) }));

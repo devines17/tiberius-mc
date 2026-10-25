@@ -98,7 +98,7 @@ export async function POST(req: Request) {
       case "staff_elenco": {
         const rows = await db.select<{ profile_id: string; permission: string; profiles: Pick<Profile, "discord_username" | "mc_name" | "discord_id"> }>(
           "staff_permissions",
-          "profile_id,permission,profiles(discord_username,mc_name,discord_id)",
+          "profile_id,permission,profiles!staff_permissions_profile_id_fkey(discord_username,mc_name,discord_id)",
           { order: "profile_id.asc" },
         );
         return json({ staff: rows });
