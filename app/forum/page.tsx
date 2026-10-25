@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Lock } from "lucide-react";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { ForumNav } from "@/components/forum/ForumNav";
 import { StatusBadge } from "@/components/forum/bits";
 import { ForumLoading, NotConfigured } from "@/components/forum/states";
@@ -33,7 +34,8 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <div className="pb-20 pt-8 md:pt-10">
+      <ForumHero kicker="tiberiusmc · forum" title="Forum" lead="Chiedi aiuto, discuti con la community, proponi idee e segui le tue richieste allo staff." />
+      <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={4} />}>
           <Body />
         </Suspense>

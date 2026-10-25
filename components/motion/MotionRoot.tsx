@@ -125,7 +125,7 @@ export function MotionRoot() {
       if (!root.classList.contains("motion")) return;
       root.dataset.motionReady = "1";
       const cleanups: Array<() => void> = [];
-      const curtainDelay = document.querySelector(".curtain") ? 0.75 : 0.1;
+      const curtainDelay = root.classList.contains("intro") ? 0.75 : 0.1;
 
       /* ---------- Primo schermo ---------- */
       const intro = gsap.timeline({ delay: curtainDelay });
@@ -154,10 +154,6 @@ export function MotionRoot() {
         el.classList.remove("is-in");
         intro.fromTo(el, { opacity: 0 }, { opacity: target, duration: 0.8, onComplete: () => settle(el) }, 0);
       });
-
-      // Solo l'ingresso della home da fuori sito: il resto del sito è fermo, tutto visibile subito (niente comparse allo scroll).
-      root.classList.remove("motion");
-      return () => cleanups.forEach((fn) => fn());
 
       // Quello che è già sullo schermo al caricamento parte quando il sipario si alza.
       const t0 = performance.now();

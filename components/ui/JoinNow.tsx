@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import type { MouseEvent } from "react";
-import { MessagesSquare, Newspaper, ScrollText, Shield } from "lucide-react";
+import { BookOpen, Map as MapIcon, MessagesSquare, ScrollText } from "lucide-react";
 
 const LINKS = [
   { href: "/regole", t: "Regolamento", icon: ScrollText },
   { href: "/forum", t: "Forum", icon: MessagesSquare },
-  { href: "/news", t: "News", icon: Newspaper },
-  { href: "/staff", t: "Staff", icon: Shield },
+  { href: "/mappa", t: "Mappa", icon: MapIcon },
+  { href: "/wiki", t: "Wiki", icon: BookOpen },
 ];
 
 /**
