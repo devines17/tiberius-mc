@@ -1,7 +1,9 @@
 /**
  * Regolamento ufficiale di TiberiusMC (testo fornito dalla gestione).
  *
- * Codici degli articoli: lettera del capitolo + numero dell'articolo nel capitolo.
+ * Sul sito i capitoli sono raggruppati in tre parti (REGOLE_PARTI, in fondo al file) e gli articoli
+ * si chiamano parte + sezione + articolo: G2.2 = Generale, sezione 2 (Fair play), articolo 2.
+ * Qui sotto restano i codici originali dei capitoli.
  * Es. F.2 = capitolo Fair play, secondo articolo. Il numero originale resta in `n`.
  * Per modificare una regola basta cambiare il testo qui: codici e indice si aggiornano da soli.
  */
@@ -273,7 +275,7 @@ export const REGOLE: RuleChapter[] = [
           },
           {
             "t": "p",
-            "text": "Non è sanzionabile chi non poteva ragionevolmente essere a conoscenza della violazione. Le segnalazioni false o in malafede restano vietate secondo l'articolo A.3."
+            "text": "Non è sanzionabile chi non poteva ragionevolmente essere a conoscenza della violazione. Le segnalazioni false o in malafede restano vietate secondo l'articolo F1.3."
           }
         ]
       }
@@ -1400,7 +1402,7 @@ export const REGOLE: RuleChapter[] = [
           },
           {
             "t": "p",
-            "text": "Lo staff non è tenuto a recuperare prestiti o rate non pagate, salvo nei casi di truffa dimostrata secondo l'articolo V.2."
+            "text": "Lo staff non è tenuto a recuperare prestiti o rate non pagate, salvo nei casi di truffa dimostrata secondo l'articolo T5.2."
           },
           {
             "t": "p",
@@ -1486,3 +1488,43 @@ export const REGOLE: RuleChapter[] = [
     ]
   }
 ];
+
+/* ------------------------------------------------------------------ */
+/* Le tre parti mostrate sul sito: Generale, Towny, Forum.             */
+/* I vecchi capitoli diventano sezioni; i codici diventano G1.1, T2.3… */
+/* ------------------------------------------------------------------ */
+
+export type RuleSection = { key: string; title: string; articles: (RuleArticle & { old: string })[] };
+export type RuleGroup = { letter: string; title: string; description: string; sections: RuleSection[] };
+
+const PARTI: { letter: string; title: string; description: string; chapters: [string, string?][] }[] = [
+  {
+    letter: "G",
+    title: "Generale",
+    description: "Comportamento, fair play, chat, sanzioni e regole valide ovunque.",
+    chapters: [["G", "Comportamento"], ["F"], ["M"], ["I"], ["N"], ["S"], ["R"], ["D"], ["Z"]],
+  },
+  {
+    letter: "T",
+    title: "Towny",
+    description: "Città e nazioni, costruzioni, guerre, economia e scambi.",
+    chapters: [["T", "Città e nazioni"], ["C"], ["P"], ["E"], ["V"]],
+  },
+  {
+    letter: "F",
+    title: "Forum",
+    description: "Sito, forum, assistenza, segnalazioni e candidature.",
+    chapters: [["A"]],
+  },
+];
+
+export const REGOLE_PARTI: RuleGroup[] = PARTI.map((p) => ({
+  letter: p.letter,
+  title: p.title,
+  description: p.description,
+  sections: p.chapters.flatMap(([letter, title], si) => {
+    const c = REGOLE.find((x) => x.letter === letter);
+    if (!c) return [];
+    return [{ key: `${p.letter}${si + 1}`, title: title ?? c.title, articles: c.articles.map((a) => ({ ...a, old: a.code, code: `${p.letter}${si + 1}.${a.n}` })) }];
+  }),
+}));
