@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { ArrowDownLeft, ArrowUpRight, Coins, History, Landmark, ReceiptText } from "lucide-react";
+import { ArrowDownLeft, ArrowUpRight, Coins, History, Landmark, Gem, ReceiptText } from "lucide-react";
 import { ForumLoading } from "@/components/forum/states";
 import { DataNotice, portalGate } from "@/components/gestionale/gate";
-import { Card, Empty, SectionHead, Stat } from "@/components/gestionale/ui";
+import { Chips } from "@/components/gestionale/Chips";
+import { Card, Empty, PanelHead, Stat } from "@/components/gestionale/ui";
 import { fmtInt, fmtMoney } from "@/lib/gestionale/data";
 import { formatDateTime } from "@/lib/forum/format";
 
@@ -26,14 +27,18 @@ async function Body() {
   const d = player.data ?? {};
   const tx = d.bank?.transactions ?? [];
   return (
-    <div className="grid gap-6">
-      <DataNotice player={player} />
-      <SectionHead n={1} title="Il tuo conto" sub="Saldo, entrate, uscite e movimenti" />
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <div className="grid gap-4">
+      <div>
+        <PanelHead title="Conto" sub="Il tuo denaro e i movimenti">
+          <Chips player={player} />
+        </PanelHead>
+        <DataNotice player={player} />
+      </div>
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <Card icon={Landmark} title="Il tuo conto" tone="#ffc94d">
           <div className="grid grid-cols-2 gap-3">
             <Stat icon={Coins} label="Saldo" value={fmtMoney(d.money)} tone="#ffc94d" />
-            <Stat img="/images/goldone-loader.webp" label="Goldoni" value={fmtInt(d.goldoni)} tone="#ffc94d" />
+            <Stat icon={Gem} label="Goldoni" value={fmtInt(d.goldoni)} tone="#ffc94d" />
           </div>
         </Card>
         <Card icon={History} title="Ultimi 7 giorni" tone="#60a5fa">

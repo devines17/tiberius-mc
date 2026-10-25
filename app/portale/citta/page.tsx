@@ -3,7 +3,8 @@ import { Suspense } from "react";
 import { Castle, Coins, Crown, Flag, Handshake, Landmark, MapPin, Percent, Shield, Swords, Users, Wrench } from "lucide-react";
 import { ForumLoading } from "@/components/forum/states";
 import { DataNotice, portalGate } from "@/components/gestionale/gate";
-import { Card, Empty, SectionHead, Stat } from "@/components/gestionale/ui";
+import { Chips } from "@/components/gestionale/Chips";
+import { Card, Empty, PanelHead, SectionTitle, Stat } from "@/components/gestionale/ui";
 import { fmtInt, fmtMoney } from "@/lib/gestionale/data";
 
 export const metadata: Metadata = { title: "Città · Gestionale", robots: { index: false, follow: false } };
@@ -25,13 +26,18 @@ async function Body() {
   const t = player.data?.town;
   const n = player.data?.nation;
   return (
-    <div className="grid gap-10">
-      <DataNotice player={player} />
+    <div className="grid gap-8">
+      <div>
+        <PanelHead title="Città e nazione" sub="La tua città, i tuoi lotti e la tua nazione">
+          <Chips player={player} />
+        </PanelHead>
+        <DataNotice player={player} />
+      </div>
 
-      <section>
-        <SectionHead n={1} title={t?.name ?? "La tua città"} sub={t ? `Sei ${t.role?.toLowerCase() ?? "cittadino"} di questa città` : "La città di cui fai parte"} />
+      <section className="grid gap-4">
+        <SectionTitle icon={Castle} tone="#ff8a80" title={t?.name ?? "La tua città"} sub={t ? `Sei ${t.role?.toLowerCase() ?? "cittadino"} di questa città` : "La città di cui fai parte"} />
         {t || !player.data ? (
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="grid gap-3 lg:grid-cols-2">
             <Card icon={Users} title="Cittadini e governo" tone="#ff8a80">
               <div className="grid grid-cols-2 gap-3">
                 <Stat icon={Crown} label="Sindaco" value={t?.mayor ?? "—"} />
@@ -54,7 +60,7 @@ async function Body() {
                 {t?.plots?.length ? (
                   <ul className="grid gap-2 sm:grid-cols-2">
                     {t.plots.map((p, i) => (
-                      <li key={i} className="portal-stat flex items-center justify-between gap-3 text-sm">
+                      <li key={i} className="gest-mini flex items-center justify-between gap-3 text-sm">
                         <span className="font-semibold">{p.name || p.type || "Lotto"}</span>
                         <span className="font-mono text-white/55">
                           x {p.x} · z {p.z}
@@ -67,16 +73,16 @@ async function Body() {
             </Card>
           </div>
         ) : (
-          <div className="portal-card">
+          <div className="gest-tile">
             <Empty icon={Castle} title="Nessuna città" text="Non fai parte di nessuna città. Entra in una città in gioco con /town join oppure fondane una." />
           </div>
         )}
       </section>
 
-      <section>
-        <SectionHead n={2} title={n?.name ?? "La tua nazione"} sub="La nazione della tua città" />
+      <section className="grid gap-4">
+        <SectionTitle icon={Flag} tone="#60a5fa" title={n?.name ?? "La tua nazione"} sub="La nazione della tua città" />
         {n || !player.data ? (
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="grid gap-3 lg:grid-cols-2">
             <Card icon={Shield} title="Governo" tone="#60a5fa">
               <div className="grid grid-cols-2 gap-3">
                 <Stat icon={Crown} label="Leader" value={n?.king ?? "—"} />
@@ -102,7 +108,7 @@ async function Body() {
             </Card>
           </div>
         ) : (
-          <div className="portal-card">
+          <div className="gest-tile">
             <Empty icon={Flag} title="Nessuna nazione" text="La tua città non fa parte di nessuna nazione." />
           </div>
         )}

@@ -25,7 +25,7 @@ export type PlayerData = {
     plots?: { name?: string; world?: string; x: number; z: number; type?: string }[];
   };
   nation?: { name: string; capital?: string; king?: string; towns?: number; residents?: number; bank?: number; allies?: string[]; enemies?: string[] };
-  bank?: { in7d?: number; out7d?: number; transactions?: { at: string; amount: number; text: string }[] };
+  bank?: { in7d?: number; out7d?: number; transactions?: { at: string; amount: number; text: string }[]; history?: { day: string; balance: number }[] };
   pvp?: { kills?: number; deaths?: number; wars?: { name: string; side?: string; result?: string; at?: string }[] };
 };
 
