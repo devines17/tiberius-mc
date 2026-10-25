@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, CalendarDays, Flag } from "lucide-react";
-import { categoryLabel, categoryTone, formatEventDate, formatNewsDate, formatNewsDateLong, NEWS_DEFAULT_COVER } from "@/lib/news/config";
+import { categoryLabel, categorySolid, categoryTone, formatEventDate, formatNewsDate, formatNewsDateLong, NEWS_DEFAULT_COVER } from "@/lib/news/config";
 import { parseInline, parseMarkup, plainText, type Block, type Inline } from "@/lib/news/markup";
 import type { NewsItem } from "@/lib/server/news";
 
@@ -18,41 +18,37 @@ export function CategoryBadge({ category }: { category: string }) {
   );
 }
 
-/** Etichetta piena, appoggiata sulla copertina (come nei forum dei server). */
+/** Etichetta piena, appoggiata sulla copertina. */
 export function CategoryTag({ category, className = "" }: { category: string; className?: string }) {
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-extrabold leading-none text-[#16110d] shadow-[0_2px_10px_rgb(0_0_0/0.35)] ${className}`} style={{ background: categoryTone(category) }}>
+    <span className={`z-10 inline-flex items-center rounded-full px-2 pb-0.5 text-lg font-bold text-white shadow-md [text-shadow:0_1px_2px_rgb(0_0_0/0.35)] ${className}`} style={{ background: categorySolid(category) }}>
       {categoryLabel(category)}
     </span>
   );
 }
 
-/** Riga dell'elenco news, come nei forum dei server: copertina a sinistra, titolo, data, riassunto e "Leggi il post". */
+/** Riga dell'elenco news: copertina a sinistra, titolo, data, riassunto e "Leggi il post". */
 export function NewsRow({ item }: { item: NewsItem }) {
   return (
-    <article className="group relative grid gap-4 rounded-xl p-3 ring-1 ring-inset ring-white/10 transition-colors hover:bg-white/[0.03] hover:ring-white/20 sm:grid-cols-[19.5rem_minmax(0,1fr)] sm:gap-5">
-      <div className="relative overflow-hidden rounded-lg">
-        <NewsCover src={item.cover} className="aspect-[16/9]" />
-        <CategoryTag category={item.category} className="absolute left-2 top-2" />
+    <Link href={newsHref(item.slug)} className="group grid gap-5 rounded-xl border border-white/10 p-3.5 transition-colors hover:border-white/20 hover:bg-white/[0.02] md:grid-cols-[24rem_minmax(0,1fr)]">
+      <div className="relative">
+        <NewsCover src={item.cover} className="aspect-[16/9] rounded-xl shadow-md" />
+        <CategoryTag category={item.category} className="absolute left-3 top-3" />
       </div>
-      <div className="flex min-w-0 flex-col pb-1 sm:py-2 sm:pr-2">
-        <h2 className="text-[1.35rem] font-extrabold leading-tight text-white/95">
-          <Link href={newsHref(item.slug)} className="after:absolute after:inset-0">
-            {plainText(item.title)}
-          </Link>
-        </h2>
-        <p className="mt-1 text-[0.8rem] text-white/50">{formatNewsDateLong(item.published_at ?? item.created_at)}</p>
+      <div className="flex min-w-0 flex-col pb-1 md:py-3 md:pr-2">
+        <h3 className="text-xl font-bold leading-snug text-white md:text-2xl">{plainText(item.title)}</h3>
+        <p className="mt-1 text-sm text-white/45">{formatNewsDateLong(item.published_at ?? item.created_at)}</p>
         {item.event_at && (
           <div className="mt-1.5">
             <EventDate iso={item.event_at} />
           </div>
         )}
-        <p className="mt-2.5 line-clamp-3 text-[0.95rem] leading-relaxed text-white/80">{item.summary}</p>
-        <span className="mt-auto flex items-center justify-end gap-1 pt-3 text-sm font-bold text-[#ff8a80] transition-colors group-hover:text-[#ffb0a8]">
-          Leggi il post <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+        <p className="mt-3 line-clamp-3 leading-relaxed text-white/85">{item.summary}</p>
+        <span className="mt-auto flex items-center justify-end gap-1 pt-3 font-bold text-[#ff7a6e] group-hover:underline">
+          Leggi il post <ArrowRight className="size-4" aria-hidden />
         </span>
       </div>
-    </article>
+    </Link>
   );
 }
 
@@ -62,7 +58,7 @@ export function NewsTile({ item }: { item: NewsItem }) {
     <Link href={newsHref(item.slug)} className="group flex flex-col overflow-hidden rounded-2xl bg-white/[0.04] ring-1 ring-inset ring-white/10 transition-[background-color,transform] duration-300 hover:-translate-y-1 hover:bg-white/[0.07]">
       <div className="relative overflow-hidden">
         <NewsCover src={item.cover} className="aspect-[16/9] transition-transform duration-500 group-hover:scale-[1.04]" />
-        <CategoryTag category={item.category} className="absolute left-3 top-3" />
+        <CategoryTag category={item.category} className="absolute left-3 top-3 !text-base" />
       </div>
       <div className="px-4 py-3.5 text-center">
         <h3 className="font-extrabold leading-snug transition-colors group-hover:text-[#ff8a80]">{plainText(item.title)}</h3>

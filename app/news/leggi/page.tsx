@@ -26,14 +26,14 @@ async function Article({ searchParams }: { searchParams: SP }) {
   const n = await getPublished(slug);
   if (!n) notFound();
   return (
-    <div className="wrap pb-20 pt-8 md:pt-12">
-      <article className="overflow-hidden rounded-2xl bg-[#141416] ring-1 ring-inset ring-white/10">
+    <div className="mx-auto w-full max-w-[90rem] pb-20 pt-8 sm:px-[var(--gutter)] md:pt-12">
+      <article className="overflow-hidden bg-[#17181a] sm:rounded-md">
         <div className="relative">
-          <NewsCover src={n.cover} priority className="aspect-[16/9] md:aspect-[2.4/1]" />
-          <CategoryTag category={n.category} className="absolute left-3 top-3 !px-3 !py-1.5 !text-[0.95rem]" />
-          <div aria-hidden className="merli absolute inset-x-0 bottom-0" />
+          <NewsCover src={n.cover} priority className="aspect-[16/9] md:aspect-[2.6/1]" />
+          <CategoryTag category={n.category} className="absolute left-3 top-3" />
+          <div aria-hidden className="onde absolute inset-x-0 -bottom-px" />
         </div>
-        <div className="px-5 pb-14 pt-2 md:px-6">
+        <div className="px-5 pb-14 pt-1 md:px-6">
           <Link href="/news" className="inline-flex items-center gap-1 text-[0.85rem] text-white/55 transition-colors hover:text-white">
             <ChevronLeft className="size-4" aria-hidden /> Torna alle novità
           </Link>

@@ -1,10 +1,10 @@
 /** News ed eventi: categorie, limiti e piccole utilità condivise da pagine e API. */
 
 export const NEWS_CATEGORIES = [
-  { key: "aggiornamento", label: "Aggiornamento", tone: "#8fd3ff" },
-  { key: "evento", label: "Evento", tone: "#ffc94d" },
-  { key: "annuncio", label: "Annuncio", tone: "#ff8a80" },
-  { key: "manutenzione", label: "Manutenzione", tone: "#c9cdff" },
+  { key: "aggiornamento", label: "Aggiornamento", tone: "#8fd3ff", solid: "#3f8f2f" },
+  { key: "evento", label: "Evento", tone: "#ffc94d", solid: "#7c3fc9" },
+  { key: "annuncio", label: "Annuncio", tone: "#ff8a80", solid: "#c9302a" },
+  { key: "manutenzione", label: "Manutenzione", tone: "#c9cdff", solid: "#5b6170" },
 ] as const;
 
 export type NewsCategory = (typeof NEWS_CATEGORIES)[number]["key"];
@@ -20,6 +20,11 @@ export function isNewsCategory(v: unknown): v is NewsCategory {
 
 export function categoryLabel(key: string): string {
   return NEWS_CATEGORIES.find((c) => c.key === key)?.label ?? key;
+}
+
+/** Colore pieno dell'etichetta sulle copertine (testo bianco). */
+export function categorySolid(key: string): string {
+  return NEWS_CATEGORIES.find((c) => c.key === key)?.solid ?? "#5b6170";
 }
 
 export function categoryTone(key: string): string {

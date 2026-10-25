@@ -932,3 +932,11 @@ button.btn:disabled {
   -webkit-mask: linear-gradient(90deg, #000 50%, transparent 0) 0 0 / 44px 12px repeat-x, linear-gradient(#000, #000) 0 12px / 100% 8px no-repeat;
   mask: linear-gradient(90deg, #000 50%, transparent 0) 0 0 / 44px 12px repeat-x, linear-gradient(#000, #000) 0 12px / 100% 8px no-repeat;
 }
+
+/* Onda: bordo ondulato in fondo a testate e copertine delle news (colore in --onda) */
+.onde {
+  height: 22px;
+  background: var(--onda, #17181a);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 22'%3E%3Cpath d='M0 11 Q11 2 22 11 T44 11 V22 H0Z'/%3E%3C/svg%3E") repeat-x 0 0 / 44px 22px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 22'%3E%3Cpath d='M0 11 Q11 2 22 11 T44 11 V22 H0Z'/%3E%3C/svg%3E") repeat-x 0 0 / 44px 22px;
+}
