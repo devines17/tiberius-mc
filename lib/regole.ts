@@ -1489,12 +1489,67 @@ export const REGOLE: RuleChapter[] = [
   }
 ];
 
+/**
+ * Versione breve di ogni articolo, quella mostrata sul sito (chiave: codice originale).
+ * Il testo completo resta qui sopra come riferimento per lo staff.
+ */
+export const REGOLE_BREVI: Record<string, string> = {
+  "G.1": "Rispetta tutti i giocatori e lo staff. Insulti gravi, minacce, molestie e discriminazioni sono vietati. Le provocazioni tra città e nelle guerre sono ammesse finché non diventano attacchi personali.",
+  "G.2": "Sei responsabile di tutto ciò che succede dal tuo account. È vietato impersonare altri, falsificare prove o usare account altrui. Se il tuo account viene compromesso avvisa subito lo staff.",
+  "G.3": "Segui le indicazioni dello staff. Puoi contestare una decisione solo dai canali ufficiali, senza minacce né insistenze. Una richiesta di revisione non garantisce l'annullamento.",
+  "F.1": "Sono vietati cheat e client modificati che danno vantaggi: aimbot, killaura, x-ray, fly, reach, macro e simili. Le mod solo estetiche sono ammesse: nel dubbio chiedi allo staff prima di usarle.",
+  "F.2": "È vietato sfruttare bug per ottenere soldi, Goldoni, oggetti o claim, e duplicare oggetti. I bug vanno segnalati nel forum. Quanto ottenuto con un bug può essere rimosso.",
+  "F.3": "Vietati bot e sistemi automatici per ottenere vantaggi o aggirare l'AFK. Le farm automatiche sono ammesse solo nei limiti del server: quelle che causano lag possono essere rimosse.",
+  "F.4": "È vietato aggirare cooldown e ricompense, usare account secondari per superare i limiti, causare lag di proposito o sfruttare permessi configurati male.",
+  "F.5": "Chi sa di cheat, exploit, account secondari usati per aggirare un ban o vendite con denaro reale deve segnalarlo. Chi copre o ne approfitta può essere sanzionato come complice.",
+  "C.1": "Costruisci solo dove consentito e rispettando i limiti tecnici. Vietate le costruzioni fatte per creare lag o aggirare le protezioni. Le costruzioni offensive vengono rimosse.",
+  "C.2": "È vietato distruggere o modificare costruzioni altrui senza permesso. Avere accesso a un territorio non significa poterlo distruggere. I danni vanno segnalati allo staff con le prove.",
+  "C.3": "Vietato rubare da contenitori protetti o entrare negli inventari altrui con i bug. Le perdite dovute al normale gioco non danno diritto a un rimborso.",
+  "T.1": "Città e nazioni seguono le regole e i limiti di Towny. È vietato usarle per aggirare sanzioni o manipolare le meccaniche dei territori. Prima di costruire su terreni altrui verifica i permessi.",
+  "T.2": "Il Sindaco gestisce la sua città e assegna i permessi con attenzione. I problemi interni si risolvono in città; lo staff interviene solo in caso di abusi documentati.",
+  "T.3": "I claim seguono i limiti di Towny. Vietato usare bug, account secondari o città finte per prendere territori. Le contestazioni sui confini vanno fatte con coordinate e prove.",
+  "T.4": "Sono sanzionati l'abuso dei permessi, gli exploit sui claim e la manipolazione delle meccaniche per danneggiare altre città. Le controversie vanno nella sezione Diplomazia del forum.",
+  "E.1": "Soldi e risorse si ottengono solo con i sistemi del server. Vietato duplicare o manipolare la valuta e il mercato. Lo staff può controllare le transazioni sospette.",
+  "E.2": "I Goldoni si ottengono solo dallo store ufficiale o dai sistemi autorizzati. Vietato generarli con bug o fingere acquisti. Per un acquisto non ricevuto apri una richiesta Store nel forum.",
+  "P.1": "Il PvP è consentito solo dove il server lo permette. Vietato usare cheat o aggirare le zone sicure per attaccare. Combattere normalmente non è una violazione.",
+  "P.2": "Le guerre seguono le regole di Towny e, quando serve, devono essere approvate dallo staff prima di iniziare. Vietato usare account secondari o città finte per aggirare le regole.",
+  "P.3": "In guerra sono sanzionati cheat, bug, violazione dei limiti della guerra, prove false e account secondari. La sanzione dipende dalla gravità e dal vantaggio ottenuto.",
+  "M.1": "Niente spam, pubblicità o messaggi ripetuti. Vietato impersonare altri o pubblicare dati personali altrui. Le rivalità di gioco vanno bene finché non diventano molestie.",
+  "M.2": "La pubblicità di altri server non è consentita. Vietati link di phishing, malware o truffe: lo staff li rimuove.",
+  "A.1": "Il forum è il canale ufficiale per assistenza, segnalazioni, Towny, candidature e discussioni della community. Apri ogni richiesta nella sezione giusta.",
+  "A.2": "Scrivi nella sezione corretta e con informazioni precise. Non aprire più volte la stessa richiesta: aggiorna quella esistente. Vietato insultare o minacciare lo staff.",
+  "A.3": "Le segnalazioni vanno fatte in buona fede e con prove vere. Le segnalazioni false sono sanzionate. Una segnalazione non porta automaticamente a una sanzione.",
+  "A.4": "Nelle candidature, staff o media, scrivi solo informazioni vere. Candidarsi non garantisce l'ingresso nello staff né ruoli o ricompense.",
+  "A.5": "Puoi consultare le tue richieste e le discussioni pubbliche. È vietato tentare di aggirare i permessi del sito o del forum.",
+  "N.1": "Acquista solo dallo store ufficiale e leggi le condizioni prima di pagare. Vietato sfruttare errori dello store. I problemi di consegna vanno segnalati nel forum.",
+  "N.2": "Le richieste sui pagamenti vengono verificate con dati controllabili. I rimborsi seguono le condizioni dello store e la legge. Non comunicare mai password o dati di pagamento.",
+  "I.1": "Non pubblicare dati personali tuoi o di altri, come indirizzi o credenziali. Candidature, segnalazioni e pratiche economiche sono visibili solo a chi è autorizzato.",
+  "I.2": "Vietato tentare di violare il sito, il server o gli account, sfruttare vulnerabilità o diffondere malware. Se trovi una falla segnalala in privato allo staff.",
+  "S.1": "Le sanzioni dipendono da gravità, prove, recidiva e danno al server: si va dal richiamo al ban permanente. Le violazioni gravi possono portare subito a sanzioni pesanti.",
+  "S.2": "La sanzione è più dura in caso di recidiva, cheat, exploit ripetuti, prove nascoste o false, abusi dello staff e danni gravi all'economia o agli altri giocatori.",
+  "S.3": "La sanzione può essere ridotta se segnali il bug, collabori, non hai precedenti, ti fermi subito o restituisci quanto ottenuto. Non è comunque garantito l'annullamento.",
+  "S.4": "Puoi chiedere l'unban dal forum spiegando bene il caso. Lo staff può confermare, ridurre o togliere il ban. Fare la richiesta non sospende il ban.",
+  "D.1": "Lo staff rispetta il regolamento come tutti e usa i suoi poteri solo per moderare. Vietato favorire amici, città o nazioni e divulgare informazioni riservate.",
+  "D.2": "Ogni membro dello staff ha solo i permessi del suo ruolo. Chi abusa dei propri poteri perde i privilegi e può essere sanzionato.",
+  "R.1": "Per contestare una sanzione usa il canale ufficiale e spiega chiaramente il motivo. Niente spam né richieste doppie. Riceverai la decisione dallo stesso canale.",
+  "R.2": "Le regole si interpretano secondo il loro scopo. Eventi e modalità possono avere regole in più, sempre comunicate. Le modifiche al regolamento vengono pubblicate sui canali ufficiali.",
+  "V.1": "Scambi e vendite tra giocatori sono liberi, con valuta di gioco, Goldoni o oggetti. Mettetevi d'accordo prima su cosa, quanto e quando. Un cattivo affare non è una violazione.",
+  "V.2": "Vietato truffare, falsificare oggetti o accordi e usare bug negli scambi. Le segnalazioni di truffa devono avere prove, come messaggi o screenshot.",
+  "V.3": "I prezzi nei negozi sono liberi, ma è vietato ingannare su cosa si vende. Vietato manipolare il mercato con account secondari o bug. Lo staff può rimuovere i negozi ingannevoli.",
+  "V.4": "Lotti, città e territori li vende solo chi li controlla, come il proprietario o il Sindaco, e passano di mano solo tramite Towny. Prima di pagare verifica di ricevere ciò che hai comprato.",
+  "V.5": "Prestiti e pagamenti a rate sono consentiti ma a tuo rischio: lo staff non recupera i debiti, salvo truffa dimostrata (T5.2).",
+  "V.6": "Vietato vendere o comprare con soldi veri valuta, Goldoni, oggetti, territori o account di TiberiusMC. L'unico canale con denaro reale è lo store ufficiale. Chi vende e chi compra viene sanzionato.",
+  "Z.1": "Il regolamento può cambiare con gli aggiornamenti del server. Le modifiche importanti vengono annunciate sui canali ufficiali.",
+  "Z.2": "Giocando su TiberiusMC accetti questo regolamento. Controllalo ogni tanto per restare aggiornato.",
+  "Z.3": "Il regolamento è approvato dalla gestione ed è in vigore dalla sua pubblicazione.",
+};
+
 /* ------------------------------------------------------------------ */
 /* Le tre parti mostrate sul sito: Generale, Towny, Forum.             */
 /* I vecchi capitoli diventano sezioni; i codici diventano G1.1, T2.3… */
 /* ------------------------------------------------------------------ */
 
-export type RuleSection = { key: string; title: string; articles: (RuleArticle & { old: string })[] };
+export type RuleSection = { key: string; title: string; articles: (RuleArticle & { old: string; short: string })[] };
 export type RuleGroup = { letter: string; title: string; description: string; sections: RuleSection[] };
 
 const PARTI: { letter: string; title: string; description: string; chapters: [string, string?][] }[] = [
@@ -1525,6 +1580,6 @@ export const REGOLE_PARTI: RuleGroup[] = PARTI.map((p) => ({
   sections: p.chapters.flatMap(([letter, title], si) => {
     const c = REGOLE.find((x) => x.letter === letter);
     if (!c) return [];
-    return [{ key: `${p.letter}${si + 1}`, title: title ?? c.title, articles: c.articles.map((a, ai) => ({ ...a, old: a.code, code: `${p.letter}${si + 1}.${ai + 1}` })) }];
+    return [{ key: `${p.letter}${si + 1}`, title: title ?? c.title, articles: c.articles.map((a, ai) => ({ ...a, old: a.code, short: REGOLE_BREVI[a.code] ?? "", code: `${p.letter}${si + 1}.${ai + 1}` })) }];
   }),
 }));

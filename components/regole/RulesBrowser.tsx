@@ -51,32 +51,8 @@ const SECTION_ICON: [RegExp, LucideIcon][] = [
 ];
 const sectionIcon = (title: string): LucideIcon => SECTION_ICON.find(([re]) => re.test(title))?.[1] ?? ScrollText;
 
-/** Il testo di un articolo in un unico paragrafo, come un regolamento scritto (niente elenchi puntati). */
-function flowText(a: Article): { lead?: string; text: string }[] {
-  const out: { lead?: string; text: string }[] = [];
-  let lead: string | undefined;
-  let buf: string[] = [];
-  const push = () => {
-    if (buf.length) out.push({ lead, text: buf.join(" ") });
-    buf = [];
-    lead = undefined;
-  };
-  for (const b of a.blocks) {
-    const items = b.t === "p" ? [b.text] : b.items;
-    for (const it of items) {
-      if (b.t === "list" && !/[.!?:]$/.test(it)) {
-        // voce senza punto finale = piccolo titolo (es. "Sono considerate aggravanti")
-        push();
-        lead = it;
-      } else buf.push(b.t === "list" && !/[.!?]$/.test(it) ? `${it}.` : it);
-    }
-  }
-  push();
-  return out;
-}
-
 function articleText(a: Article): string {
-  return norm([a.code, a.title, ...a.blocks.flatMap((b) => (b.t === "p" ? [b.text] : b.items))].join(" "));
+  return norm([a.code, a.title, a.short].join(" "));
 }
 
 /**
@@ -318,14 +294,7 @@ export function RulesBrowser({ groups, intro, version, discord }: { groups: Rule
                               {copied === a.code ? "copiato" : "link"}
                             </button>
                           </h4>
-                          <div className="mt-1.5 grid gap-1.5 text-[0.9rem] leading-relaxed text-white/70">
-                            {flowText(a).map((f, i) => (
-                              <p key={i}>
-                                {f.lead && <strong className="font-semibold text-white/90">{f.lead}: </strong>}
-                                {f.text}
-                              </p>
-                            ))}
-                          </div>
+                          <p className="mt-1.5 text-[0.9rem] leading-relaxed text-white/70">{a.short}</p>
                         </article>
                       ))}
                     </div>

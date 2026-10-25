@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, CalendarDays, Flag } from "lucide-react";
 import { categoryLabel, categoryTone, formatEventDate, formatNewsDate, formatNewsDateLong, NEWS_DEFAULT_COVER } from "@/lib/news/config";
-import { parseMarkup, type Inline } from "@/lib/news/markup";
+import { parseInline, parseMarkup, plainText, type Block, type Inline } from "@/lib/news/markup";
 import type { NewsItem } from "@/lib/server/news";
 
 /** Indirizzo della pagina di una news. */
@@ -38,7 +38,7 @@ export function NewsRow({ item }: { item: NewsItem }) {
       <div className="flex min-w-0 flex-col pb-1 sm:py-2 sm:pr-2">
         <h2 className="text-[1.35rem] font-extrabold leading-tight text-white/95">
           <Link href={newsHref(item.slug)} className="after:absolute after:inset-0">
-            {item.title}
+            {plainText(item.title)}
           </Link>
         </h2>
         <p className="mt-1 text-[0.8rem] text-white/50">{formatNewsDateLong(item.published_at ?? item.created_at)}</p>
@@ -65,7 +65,7 @@ export function NewsTile({ item }: { item: NewsItem }) {
         <CategoryTag category={item.category} className="absolute left-3 top-3" />
       </div>
       <div className="px-4 py-3.5 text-center">
-        <h3 className="font-extrabold leading-snug transition-colors group-hover:text-[#ff8a80]">{item.title}</h3>
+        <h3 className="font-extrabold leading-snug transition-colors group-hover:text-[#ff8a80]">{plainText(item.title)}</h3>
         <p className="mt-1 text-xs text-white/50">{formatNewsDateLong(item.published_at ?? item.created_at)}</p>
       </div>
     </Link>
@@ -137,6 +137,8 @@ function Inl({ nodes }: { nodes: Inline[] }): ReactNode {
     if (n.t === "text") return n.v;
     if (n.t === "b") return <strong key={i} className="font-bold text-white"><Inl nodes={n.c} /></strong>;
     if (n.t === "i") return <em key={i}><Inl nodes={n.c} /></em>;
+    if (n.t === "hl") return <strong key={i} className="font-bold text-[#ff7a6e]"><Inl nodes={n.c} /></strong>;
+    if (n.t === "code") return <code key={i} className="rounded bg-black/40 px-1.5 py-0.5 font-mono text-[0.85em] text-[#ffc94d]">{n.v}</code>;
     const external = !n.href.startsWith("/");
     return (
       <a key={i} href={n.href} className="link" {...(external ? { target: "_blank", rel: "noopener noreferrer nofollow" } : {})}>
@@ -146,46 +148,104 @@ function Inl({ nodes }: { nodes: Inline[] }): ReactNode {
   });
 }
 
-/** Testo della news: titoletti con l'icona, elenchi, immagini (anche a lato del testo), grassetto e link. */
-export function NewsBody({ text }: { text: string }) {
+/** Titolo della news: le parole tra == == prendono la sfumatura rosso-oro del sito. */
+export function NewsTitle({ text, className = "" }: { text: string; className?: string }) {
   return (
-    <div className="flow-root text-[1.02rem] leading-[1.8] text-white/80 [&>*+*]:mt-5">
-      {parseMarkup(text).map((b, i) =>
-        b.t === "h" ? (
-          <h2 key={i} className="clear-both flex items-center gap-3 border-b border-white/10 pb-3 pt-5 text-[1.55rem] font-extrabold text-white first:pt-0">
-            <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent/15 text-[#ff8a80] ring-1 ring-inset ring-accent/30" aria-hidden>
-              <Flag className="size-4" />
-            </span>
-            <span>
-              <Inl nodes={b.c} />
-            </span>
-          </h2>
-        ) : b.t === "ul" ? (
-          <ul key={i} className="grid gap-2">
-            {b.items.map((it, j) => (
-              <li key={j} className="flex gap-3">
-                <span className="mt-[0.7em] size-1.5 shrink-0 rotate-45 bg-accent" aria-hidden />
-                <span>
-                  <Inl nodes={it} />
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : b.t === "img" ? (
-          <figure
-            key={i}
-            className={`overflow-hidden rounded-2xl bg-black/30 p-2 ring-1 ring-inset ring-white/10 ${b.side === "left" ? "sm:float-left sm:mb-4 sm:mr-6 sm:!mt-1 sm:w-[42%]" : b.side === "right" ? "sm:float-right sm:mb-4 sm:ml-6 sm:!mt-1 sm:w-[42%]" : ""}`}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={b.src} alt={b.alt} loading="lazy" className="block w-full rounded-xl" />
-            {b.alt && <figcaption className="px-2 pb-1 pt-2.5 text-sm text-white/55">{b.alt}</figcaption>}
-          </figure>
+    <h1 className={className}>
+      {parseInline(text).map((n, i) =>
+        n.t === "hl" ? (
+          <span key={i} className="bg-gradient-to-r from-[#ff5a4a] to-[#ffc94d] bg-clip-text text-transparent">
+            <Inl nodes={n.c} />
+          </span>
         ) : (
-          <p key={i}>
-            <Inl nodes={b.c} />
-          </p>
+          <Inl key={i} nodes={[n]} />
         ),
       )}
+    </h1>
+  );
+}
+
+const PILL_TONES = ["#ff8a80", "#ffc94d", "#8fd3ff", "#c9a0ff", "#7ee2a8"];
+
+function Blocks({ blocks }: { blocks: Block[] }) {
+  return blocks.map((b, i) =>
+    b.t === "h" ? (
+      <h2 key={i} className="clear-both flex items-center gap-3 border-b border-white/10 pb-3 pt-6 text-[1.45rem] font-extrabold text-white first:pt-0">
+        <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent/15 text-[#ff8a80] ring-1 ring-inset ring-accent/30" aria-hidden>
+          <Flag className="size-4" />
+        </span>
+        <span>
+          <Inl nodes={b.c} />
+        </span>
+      </h2>
+    ) : b.t === "ul" ? (
+      <ul key={i} className="grid gap-1.5">
+        {b.items.map((it, j) => (
+          <li key={j} className="flex gap-3">
+            <span className="mt-[0.65em] size-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
+            <span>
+              <Inl nodes={it} />
+            </span>
+          </li>
+        ))}
+      </ul>
+    ) : b.t === "img" ? (
+      <figure
+        key={i}
+        className={`overflow-hidden rounded-2xl bg-accent/10 p-2 ring-1 ring-inset ring-accent/25 ${b.side === "left" ? "sm:float-left sm:mb-4 sm:mr-6 sm:!mt-1 sm:w-[42%]" : b.side === "right" ? "sm:float-right sm:mb-4 sm:ml-6 sm:!mt-1 sm:w-[42%]" : ""}`}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={b.src} alt={b.alt} loading="lazy" className="block w-full rounded-xl" />
+        {b.alt && <figcaption className="px-2 pb-1 pt-2.5 text-sm text-white/55">{b.alt}</figcaption>}
+      </figure>
+    ) : b.t === "pills" ? (
+      <div key={i} className="flex flex-wrap gap-2">
+        {b.items.map((it, j) => {
+          const tone = PILL_TONES[j % PILL_TONES.length];
+          return (
+            <span key={j} className="rounded-full px-3 py-1.5 text-[0.8rem] font-bold leading-none" style={{ color: tone, background: `${tone}1a`, boxShadow: `inset 0 0 0 1px ${tone}40` }}>
+              <Inl nodes={it} />
+            </span>
+          );
+        })}
+      </div>
+    ) : b.t === "label" ? (
+      <p key={i}>
+        <span className="rounded bg-accent/20 px-2 py-1 text-[0.7rem] font-extrabold uppercase tracking-wider text-[#ff8a80]">{b.v}</span>
+      </p>
+    ) : b.t === "box" ? (
+      <section key={i} className="clear-both rounded-xl border-l-4 border-accent bg-[linear-gradient(135deg,rgb(226_53_43/0.16),rgb(226_53_43/0.04))] px-5 py-5 ring-1 ring-inset ring-accent/20 md:px-7">
+        <h3 className="flex items-center gap-4 text-[0.85rem] font-extrabold uppercase tracking-[0.12em] text-[#ff8a80]">
+          <span className="shrink-0">
+            <Inl nodes={b.title} />
+          </span>
+          <span className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" aria-hidden />
+        </h3>
+        <div className={`mt-4 grid gap-6 text-[0.95rem] ${b.cols.length > 1 ? "sm:grid-cols-2" : ""}`}>
+          {b.cols.map((c, j) => (
+            <div key={j} className="[&>*+*]:mt-3">
+              <Blocks blocks={c} />
+            </div>
+          ))}
+        </div>
+      </section>
+    ) : b.t === "sign" ? (
+      <p key={i} className="clear-both border-t border-accent/40 pt-5 italic text-[#ff7a6e]">
+        <Inl nodes={b.c} />
+      </p>
+    ) : (
+      <p key={i}>
+        <Inl nodes={b.c} />
+      </p>
+    ),
+  );
+}
+
+/** Testo della news con tutta la formattazione (vedi lib/news/markup.ts). */
+export function NewsBody({ text }: { text: string }) {
+  return (
+    <div className="flow-root text-[1rem] leading-[1.75] text-white/80 sm:text-justify [&>*+*]:mt-5">
+      <Blocks blocks={parseMarkup(text)} />
     </div>
   );
 }

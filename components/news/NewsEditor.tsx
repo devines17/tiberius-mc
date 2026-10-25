@@ -202,9 +202,17 @@ export function NewsEditor({ items }: { items: EditorNews[] }) {
           ) : (
             <textarea ref={bodyRef} id="n-body" className="field min-h-72 font-mono text-[0.95rem]" value={d.body} maxLength={NEWS_LIMITS.body} onChange={(e) => set("body", e.target.value)} aria-invalid={Boolean(errors.body)} />
           )}
-          <p className="mt-2 text-sm text-white/50">
-            Riga vuota = nuovo paragrafo · <code>## Titoletto</code> · <code>- voce di elenco</code> · <code>**grassetto**</code> · <code>*corsivo*</code> · <code>[testo](https://link)</code> · <code>![didascalia](immagine)</code> · <code>!&lt;[…](immagine)</code> a sinistra, <code>!&gt;[…](immagine)</code> a destra
-          </p>
+          <details className="mt-2 text-sm text-white/55">
+            <summary className="cursor-pointer font-bold text-white/65 hover:text-white">Come formattare il testo</summary>
+            <ul className="mt-2 grid gap-1 [&_code]:rounded [&_code]:bg-black/40 [&_code]:px-1.5 [&_code]:text-[#ffc94d]">
+              <li>Riga vuota = nuovo paragrafo · <code>## Titoletto</code> · <code>- voce di elenco</code></li>
+              <li><code>**grassetto**</code> · <code>*corsivo*</code> · <code>==evidenziato==</code> (anche nel titolo) · <code>`/comando`</code> · <code>[testo](https://link)</code></li>
+              <li><code>@ 9 razze | Una cuccia | Si addestra</code> = fila di pillole colorate</li>
+              <li><code>![didascalia](immagine)</code> a tutta larghezza · <code>!&lt;[…](immagine)</code> a sinistra · <code>!&gt;[…](immagine)</code> a destra</li>
+              <li><code>::: Ricompense del pass</code> … <code>:::</code> = riquadro colorato; dentro <code>[[Etichetta]]</code> e <code>|||</code> per una seconda colonna</li>
+              <li><code>~ Ti aspettiamo in game!</code> = firma finale</li>
+            </ul>
+          </details>
           {err("body")}
         </div>
 

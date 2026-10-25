@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseMarkup, parseInline, safeHref } from "../../lib/news/markup.ts";
+import { parseMarkup, parseInline, plainText, safeHref } from "../../lib/news/markup.ts";
 import { slugify } from "../../lib/news/config.ts";
 
 test("paragrafi, titoletti ed elenchi", () => {
@@ -46,4 +46,19 @@ test("immagini: solo https o del sito, su una riga da sola", () => {
 test("immagini a lato del testo", () => {
   assert.deepEqual(parseMarkup("!<[La cuccia](https://a.it/c.webp)"), [{ t: "img", alt: "La cuccia", src: "https://a.it/c.webp", side: "left" }]);
   assert.deepEqual(parseMarkup("!>[](https://a.it/c.webp)"), [{ t: "img", alt: "", src: "https://a.it/c.webp", side: "right" }]);
+});
+
+test("evidenziato, codice, pillole, riquadri e firma", () => {
+  assert.deepEqual(parseInline("il ==Pass== con `/pass`"), [
+    { t: "text", v: "il " },
+    { t: "hl", c: [{ t: "text", v: "Pass" }] },
+    { t: "text", v: " con " },
+    { t: "code", v: "/pass" },
+  ]);
+  const b = parseMarkup("@ uno | due\n\n::: Ricompense\n[[Normale]]\n- a\n|||\n[[Premium]]\n- b\n:::\n\n~ Ti aspettiamo!");
+  assert.deepEqual(b.map((x) => x.t), ["pills", "box", "sign"]);
+  const box = b[1] as Extract<(typeof b)[number], { t: "box" }>;
+  assert.equal(box.cols.length, 2);
+  assert.deepEqual(box.cols[0].map((x) => x.t), ["label", "ul"]);
+  assert.equal(plainText("Arrivano i ==pet== su Tiberius"), "Arrivano i pet su Tiberius");
 });
