@@ -26,7 +26,9 @@ export type TicketLike = {
 
 /** Sottosezioni che il viewer può gestire come staff. */
 export function staffSubcategories(viewer: Viewer): string[] {
-  return SUBCATEGORIES.filter((s) => viewer.permissions.has(s.permission)).map((s) => s.key);
+  // L'amministrazione modera le sezioni pubbliche; quelle private restano a chi ha il permesso della sezione
+  const admin = viewer.permissions.has("admin");
+  return SUBCATEGORIES.filter((s) => viewer.permissions.has(s.permission) || (admin && s.public)).map((s) => s.key);
 }
 
 export function isAdmin(viewer: Viewer): boolean {

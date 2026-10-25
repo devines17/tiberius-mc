@@ -8,13 +8,13 @@ import { Notice, PrivateBadge, StatusBadge } from "@/components/forum/bits";
 import { Crumbs, Head, RoleTag, SkinBody, SubIcon } from "@/components/forum/zero";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
 import { forumContext } from "@/components/forum/session";
-import { AdminDelete, PlayerButtons, PlayerReply, StaffPanel } from "@/components/forum/TicketActions";
+import { AdminDelete, PlayerButtons, PlayerReply, StaffPanel, StaffReply } from "@/components/forum/TicketActions";
 import { TicketForm } from "@/components/forum/TicketForm";
 import { getTicketView } from "@/lib/server/tickets";
 import { HttpError } from "@/lib/server/http";
 import { CATEGORIES, formFields, getStatus } from "@/lib/forum/config";
-import { formatDate, formatDateTime, PRIORITY_LABEL, statusLabel, timeAgo } from "@/lib/forum/format";
-import { requiresReason, ticketCode } from "@/lib/forum/rules";
+import { formatDate, formatDateTime, PRIORITY_LABEL, statusLabel, statusTone, timeAgo } from "@/lib/forum/format";
+import { requiresReason, ticketCode, workingStatus } from "@/lib/forum/rules";
 import type { Attachment } from "@/lib/server/types";
 
 // Mai nei motori di ricerca e mai titoli nei metadata: anche le discussioni pubbliche restano fuori dagli indici.
@@ -77,6 +77,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
   const extraFields = Object.entries(t.fields).filter(([k]) => k.startsWith("domanda_"));
   const byMessage = (id: string) => view.attachments.filter((a) => a.message_id === id);
   const byNote = (id: string) => view.attachments.filter((a) => a.note_id === id);
+  const staffOpts = view.staffStatuses.map((s) => ({ value: s, label: statusLabel(t.subcategory, s), tone: statusTone(s), final: getStatus(sub, s)?.final ?? false, reason: requiresReason(t, s) }));
   const optionLabel = (name: string, v: string) => sub.fields.find((f) => f.name === name)?.options?.find((o) => o.value === v)?.label ?? v;
   const first = view.messages[0];
   const replies = Math.max(0, view.messages.length - 1);
@@ -262,7 +263,9 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
               )}
             </ol>
 
-            {view.canReply ? (
+            {staff && !final ? (
+              <StaffReply number={t.number} statuses={staffOpts} currentLabel={statusLabel(t.subcategory, t.status)} />
+            ) : view.canReply ? (
               <PlayerReply
                 number={t.number}
                 awaitingInfo={role === "autore" && t.status === "info_richieste"}
@@ -294,14 +297,15 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
             {staff ? (
               <StaffPanel
                 number={t.number}
-                statuses={view.staffStatuses.map((s) => ({ value: s, label: statusLabel(t.subcategory, s) }))}
-                finalStatuses={sub.statuses.filter((s) => s.final).map((s) => s.key)}
-                needsReason={view.staffStatuses.filter((s) => requiresReason(t, s))}
+                badge={<StatusBadge sub={t.subcategory} status={t.status} />}
+                statuses={staffOpts}
                 assignee={t.assigned_to}
+                me={view.me}
                 staffOptions={view.staffOptions.map((o) => ({ value: o.id, label: o.name }))}
                 priority={t.priority}
                 isFinal={final}
                 reopenRequested={Boolean(t.reopen_requested_at)}
+                workingStatus={view.staffStatuses.includes(workingStatus(sub)) ? workingStatus(sub) : null}
                 verifiable={[
                   ...(t.fields.ruolo && !t.fields.ruolo_verificato_da && sub.key === "diplomazia" ? [{ value: "ruolo", label: "conferma ruolo Towny" }] : []),
                   ...(t.fields.nickname && !t.fields.nickname_verificato_da && sub.key === "unban" ? [{ value: "nickname", label: "conferma identità del bannato" }] : []),

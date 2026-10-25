@@ -127,7 +127,7 @@ export const SUBCATEGORIES: Subcategory[] = [
     requiresVerifiedMc: false,
     allowsDraft: false,
     initialStatus: "aperta",
-    statuses: [S("aperta", "Aperta"), S("in_lavorazione", "In lavorazione"), S("info_richieste", "Informazioni richieste"), S("risolta", "Risolta", true), S("chiusa", "Chiusa", true)],
+    statuses: [S("aperta", "Aperta"), S("in_lavorazione", "Presa in carico"), S("info_richieste", "Informazioni richieste"), S("risolta", "Risolta", true), S("chiusa", "Chiusa", true)],
     notices: [PUBLIC_NOTICE],
     bodyLabel: "Descrizione dettagliata",
     fields: [

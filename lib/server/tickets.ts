@@ -124,6 +124,7 @@ export type TicketView = {
   notes: (InternalNote & { author_name: string })[];
   assignee: { id: string; name: string } | null;
   staffOptions: { id: string; name: string }[];
+  me: string | null;
   playerActions: ReturnType<typeof playerActions>;
   staffStatuses: string[];
   /** Amministrazione generale: può eliminare la discussione. */
@@ -232,12 +233,17 @@ export async function getTicketView(session: Session | null, number: number): Pr
     attachments,
     notes: notes.map((n) => ({ ...n, author_name: names.get(n.author_id ?? "") ?? "Staff" })),
     assignee: staff && t.assigned_to ? { id: t.assigned_to, name: names.get(t.assigned_to) ?? "Staff" } : null,
-    staffOptions: staff ? await staffFor(sub) : [],
+    staffOptions: staff ? withSelf(await staffFor(sub), session!) : [],
+    me: session?.profile.id ?? null,
     playerActions: playerActions(viewer ?? NOBODY, t),
     staffStatuses: viewer ? staffSettableStatuses(viewer, t) : [],
     canDelete: viewer != null && isAdmin(viewer),
     authorProfile,
   };
+}
+
+function withSelf(list: { id: string; name: string }[], session: Session) {
+  return list.some((x) => x.id === session.profile.id) ? list : [...list, { id: session.profile.id, name: displayName(session.profile) }];
 }
 
 const NOBODY = { profileId: "", permissions: new Set() } as Session["viewer"];
@@ -333,11 +339,15 @@ export async function staffReply(session: Session, number: number, body: unknown
   if (text.length < 2) throw new HttpError(422, "Scrivi un messaggio.");
   const status = typeof newStatus === "string" && newStatus ? newStatus : null;
   if (status && !staffSettableStatuses(session.viewer, t).includes(status)) throw new HttpError(422, "Stato non valido.");
-  if (status && requiresReason(t, status)) throw new HttpError(422, "Per una decisione usa il pannello \"Cambia stato\" con la motivazione.");
+  // Per le decisioni (risolta, respinta…) la risposta stessa fa da motivazione
+  const decision = Boolean(status && requiresReason(t, status));
   const prepared = await prepareFiles(files);
-  const msg = await db.rpc<TicketMessage>("forum_add_message", { p_ticket: t.id, p_author: session.profile.id, p_is_staff: true, p_body: text, p_new_status: status });
+  const msg = await db.rpc<TicketMessage>("forum_add_message", { p_ticket: t.id, p_author: session.profile.id, p_is_staff: true, p_body: text, p_new_status: decision ? null : status });
   if (prepared.length) await saveAttachments(t.id, prepared, { messageId: msg.id, uploader: session.profile.id, internal: false });
   if (!t.assigned_to) await assign(session, t, session.profile.id, true);
+  if (decision && status) {
+    await db.rpc("forum_set_status", { p_ticket: t.id, p_actor: session.profile.id, p_actor_role: "staff", p_status: status, p_reason: text.slice(0, 2000), p_notify_kind: notifyKindFor(t, status) });
+  }
   await audit(session.profile.id, "risposta_staff", { ticketId: t.id, details: { stato: status } });
 }
 
@@ -368,7 +378,8 @@ export async function staffAssign(session: Session, number: number, assignee: un
 async function assign(session: Session, t: Ticket, assignee: string | null, silent: boolean) {
   const s = requireSub(t.subcategory);
   if (assignee) {
-    const allowed = (await staffFor(s)).some((x) => x.id === assignee);
+    // Chi gestisce la sezione (anche l'amministrazione nelle sezioni pubbliche) può prenderla in carico
+    const allowed = (assignee === session.profile.id && isStaffFor(session.viewer, t)) || (await staffFor(s)).some((x) => x.id === assignee);
     if (!allowed) throw new HttpError(422, "Questa persona non ha i permessi per la sezione.");
   }
   await db.update("tickets", { id: `eq.${t.id}` }, { assigned_to: assignee, updated_at: new Date().toISOString() });
