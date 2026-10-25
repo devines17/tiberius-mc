@@ -3,19 +3,18 @@ import { Suspense } from "react";
 import { Castle, Coins, Crown, Flag, Handshake, Landmark, MapPin, Percent, Shield, Swords, Users, Wrench } from "lucide-react";
 import { ForumLoading } from "@/components/forum/states";
 import { DataNotice, portalGate } from "@/components/gestionale/gate";
-import { Card, Empty, PortalTitle, SectionHead, Stat } from "@/components/gestionale/ui";
+import { Card, Empty, SectionHead, Stat } from "@/components/gestionale/ui";
 import { fmtInt, fmtMoney } from "@/lib/gestionale/data";
 
 export const metadata: Metadata = { title: "Città · Gestionale", robots: { index: false, follow: false } };
 
 export default function Page() {
   return (
-    <div className="wrap">
-      <PortalTitle title="Città e nazione" sub="La tua città, i tuoi lotti e la tua nazione" />
+    <>
       <Suspense fallback={<ForumLoading rows={3} />}>
         <Body />
       </Suspense>
-    </div>
+    </>
   );
 }
 
@@ -26,11 +25,11 @@ async function Body() {
   const t = player.data?.town;
   const n = player.data?.nation;
   return (
-    <div className="grid gap-12">
+    <div className="grid gap-10">
       <DataNotice player={player} />
 
       <section>
-        <SectionHead icon={Castle} title={t?.name ?? "Città"} sub={t ? `Sei ${t.role?.toLowerCase() ?? "cittadino"} di questa città` : "La città di cui fai parte"} tone="#ff8a80" />
+        <SectionHead n={1} title={t?.name ?? "La tua città"} sub={t ? `Sei ${t.role?.toLowerCase() ?? "cittadino"} di questa città` : "La città di cui fai parte"} />
         {t || !player.data ? (
           <div className="grid gap-5 lg:grid-cols-2">
             <Card icon={Users} title="Cittadini e governo" tone="#ff8a80">
@@ -75,7 +74,7 @@ async function Body() {
       </section>
 
       <section>
-        <SectionHead icon={Flag} title={n?.name ?? "Nazione"} sub="La nazione della tua città" tone="#60a5fa" />
+        <SectionHead n={2} title={n?.name ?? "La tua nazione"} sub="La nazione della tua città" />
         {n || !player.data ? (
           <div className="grid gap-5 lg:grid-cols-2">
             <Card icon={Shield} title="Governo" tone="#60a5fa">

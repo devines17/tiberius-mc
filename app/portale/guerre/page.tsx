@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { Crosshair, Percent, Skull, Swords, Trophy } from "lucide-react";
 import { ForumLoading } from "@/components/forum/states";
 import { DataNotice, portalGate } from "@/components/gestionale/gate";
-import { Card, Empty, PortalTitle, Stat } from "@/components/gestionale/ui";
+import { Card, Empty, SectionHead, Stat } from "@/components/gestionale/ui";
 import { fmtInt } from "@/lib/gestionale/data";
 import { formatDate } from "@/lib/forum/format";
 
@@ -11,12 +11,11 @@ export const metadata: Metadata = { title: "Guerre · Gestionale", robots: { ind
 
 export default function Page() {
   return (
-    <div className="wrap">
-      <PortalTitle title="Guerre e PvP" sub="I tuoi combattimenti e le guerre a cui hai partecipato" />
+    <>
       <Suspense fallback={<ForumLoading rows={2} />}>
         <Body />
       </Suspense>
-    </div>
+    </>
   );
 }
 
@@ -29,6 +28,7 @@ async function Body() {
   return (
     <div className="grid gap-6">
       <DataNotice player={player} />
+      <SectionHead n={1} title="Sul campo di battaglia" sub="Uccisioni, morti e guerre combattute" />
       <Card icon={Crosshair} title="Combattimento" tone="#ff8a80">
         <div className="grid grid-cols-3 gap-3">
           <Stat icon={Swords} label="Uccisioni" value={fmtInt(p?.kills)} tone="#ff8a80" />
