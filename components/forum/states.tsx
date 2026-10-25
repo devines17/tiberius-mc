@@ -27,7 +27,7 @@ export function LoginRequired({ next, text = "Per aprire e seguire le tue pratic
   return (
     <div className="wrap">
       <div className="panel panel-discord grid gap-5 p-8 md:p-12">
-        <h2 className="text-[length:var(--step-head)]">Accedi per continuare.</h2>
+        <h2 className="text-[length:var(--step-head)]">Accedi per continuare</h2>
         <p className="max-w-xl text-white/80">{text}</p>
         <div>
           <a href={`/api/auth/discord/login?next=${encodeURIComponent(next)}`} className="btn btn-discord">
@@ -43,7 +43,7 @@ export function NeedsMinecraft({ next }: { next: string }) {
   return (
     <div className="wrap">
       <div className="panel grid gap-4 p-8 md:p-12">
-        <h2 className="text-[length:var(--step-head)]">Collega il tuo account Minecraft.</h2>
+        <h2 className="text-[length:var(--step-head)]">Collega il tuo account Minecraft</h2>
         <p className="max-w-xl text-muted">Questa sezione richiede un account Minecraft verificato, così lo staff sa con certezza chi sta scrivendo. Ci vuole un minuto.</p>
         <div>
           <Link href={`/forum/account?next=${encodeURIComponent(next)}`} className="btn btn-accent">

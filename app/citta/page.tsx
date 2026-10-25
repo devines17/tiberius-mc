@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Città e nazioni", description: "Com
 export default function Page() {
   return (
     <>
-      <PageHead kicker="città e nazioni" title={"costruisci\nla tua roma."} lead="Ogni impero comincia da un villaggio." art="/images/art/town.png" />
+      <PageHead kicker="città e nazioni" title="Città e nazioni" lead="L'elenco delle città e delle nazioni del server." art="/images/art/town.png" />
       <Rows
         title="dalla casa all'impero"
         items={[

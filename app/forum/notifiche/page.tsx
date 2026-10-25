@@ -14,7 +14,7 @@ export const metadata: Metadata = { title: "Notifiche", robots: { index: false, 
 export default function Page() {
   return (
     <>
-      <ForumHero kicker="forum · notifiche" title={"le tue\nnotifiche."} lead="Risposte dello staff, cambi di stato e decisioni sulle tue pratiche." />
+      <ForumHero kicker="forum · notifiche" title="Notifiche" lead="Risposte dello staff, cambi di stato e decisioni sulle tue pratiche." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={3} />}>
           <Body />

@@ -17,7 +17,7 @@ const ERRORS: Record<string, string> = {
 export default function Page({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   return (
     <>
-      <ForumHero kicker="forum" title={"accedi\nal forum."} lead="Si entra con l'account Discord, quindi non ti serve una nuova password." />
+      <ForumHero kicker="forum" title="Accedi al forum" lead="Si entra con l'account Discord, quindi non ti serve una nuova password." />
       <div className="grid gap-6 pb-20 pt-10">
         <Suspense fallback={null}>
           <ErrorNotice searchParams={searchParams} />

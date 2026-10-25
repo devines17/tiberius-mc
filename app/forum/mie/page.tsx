@@ -14,7 +14,7 @@ export const metadata: Metadata = { title: "Le mie richieste", robots: { index: 
 export default function Page() {
   return (
     <>
-      <ForumHero kicker="forum · le mie richieste" title={"le tue\npratiche."} lead="Tutte le richieste che hai aperto, con lo stato aggiornato." />
+      <ForumHero kicker="forum · le mie richieste" title="Le mie richieste" lead="Tutte le richieste che hai aperto, con lo stato aggiornato." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={4} />}>
           <Body />

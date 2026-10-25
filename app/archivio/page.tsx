@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Archivio imperiale", description: "L
 export default function Page() {
   return (
     <>
-      <PageHead tone="field" kicker="archivio imperiale" title={"la storia\nsi scrive."} lead="Ogni città fondata, ogni guerra chiusa, ogni trattato firmato." art="/images/art/town.png" />
+      <PageHead tone="field" kicker="archivio imperiale" title="Archivio" lead="Città fondate, guerre concluse e trattati firmati sul server." art="/images/art/town.png" />
       <Soon title="archivio vuoto" text="L'archivio si riempirà con gli eventi reali del server. Nessun dato di prova." />
       <DiscordBand />
     </>

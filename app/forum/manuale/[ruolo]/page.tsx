@@ -17,10 +17,9 @@ export async function generateMetadata({ params }: { params: Promise<{ ruolo: st
 export default async function Page({ params }: { params: Promise<{ ruolo: string }> }) {
   const m = getManual((await params).ruolo);
   if (!m) notFound();
-  const [first, ...rest] = m.label.toLowerCase().split(" ");
   return (
     <>
-      <ForumHero kicker="forum · towny" title={`${first}\n${rest.join(" ")}.`} lead={m.lead} />
+      <ForumHero kicker="forum · towny" title={m.label} lead={m.lead} />
       <div className="wrap grid gap-10 pb-20 pt-10 lg:grid-cols-[16rem_1fr] lg:items-start">
         <nav aria-label="Indice" className="panel grid gap-1 p-4 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
           {m.sections.map((s, i) => (

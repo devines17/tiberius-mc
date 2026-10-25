@@ -13,7 +13,7 @@ type Props = {
 const variants = { ink: "", accent: "btn-accent", light: "btn-light", discord: "btn-discord", telegram: "btn-telegram" } as const;
 
 /** Pulsante dalla cima ad arco. Un solo stile in tutto il sito. */
-export function Btn({ href, children, variant = "ink", external = false, className = "", magnetic = true }: Props) {
+export function Btn({ href, children, variant = "ink", external = false, className = "", magnetic = false }: Props) {
   const cls = `btn ${variants[variant]} ${className}`;
   const mag = magnetic ? { "data-magnetic": "" } : {};
   if (external) {

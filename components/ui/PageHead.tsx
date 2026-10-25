@@ -3,13 +3,12 @@ import { Words } from "@/components/ui/Words";
 
 /** Testata di pagina interna: titolo gigante, frase, e un'immagine ad arco. */
 export function PageHead({
-  kicker,
   title,
   lead,
   art,
   tone = "paper",
 }: {
-  kicker: string;
+  kicker?: string;
   title: string;
   lead: string;
   art: string;
@@ -20,7 +19,6 @@ export function PageHead({
     <section className={`${bg} pb-14 pt-10`}>
       <div className="wrap grid items-end gap-12 lg:grid-cols-[1.25fr_1fr]">
         <div>
-          <p className="mb-6 font-semibold opacity-70" data-fade>{kicker}</p>
           <h1 className="text-[length:var(--step-display)]">
             <Words text={title} mode="hero" />
           </h1>

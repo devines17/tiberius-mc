@@ -13,7 +13,7 @@ export const metadata: Metadata = { title: "Scrivi le news", robots: { index: fa
 export default function Page() {
   return (
     <>
-      <ForumHero art="news" kicker="news · founder" title={"scrivi le\nnews."} lead="Scrivi, salva come bozza e pubblica. Le news appaiono subito sul sito." />
+      <ForumHero art="news" kicker="news · founder" title="Scrivi le news" lead="Scrivi, salva come bozza e pubblica. Le news appaiono subito sul sito." />
       <div className="wrap pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={4} />}>
           <Body />

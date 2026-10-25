@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Gestionale", robots: { index: false,
 export default function Page() {
   return (
     <>
-      <PageHead tone="field" kicker="area privata" title={"il tuo\ngestionale."} lead="Privato, legato al tuo account Minecraft. Lo vedi solo tu e chi ne fa parte." art="/images/art/town.png" />
+      <PageHead tone="field" kicker="area privata" title="Gestionale" lead="L'area privata per gestire la tua città, collegata al tuo account Minecraft. La vedi solo tu e chi ne fa parte." art="/images/art/town.png" />
       <Rows
         title="come si collega"
         items={[

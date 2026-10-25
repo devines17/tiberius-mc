@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Mappa", description: "La mappa del m
 export default function Page() {
   return (
     <>
-      <PageHead kicker="mappa" title={"il mondo,\ndall'alto."} lead="Confini, città e strade viste come le vedrebbe un imperatore." art="/images/art/empire.png" />
+      <PageHead kicker="mappa" title="Mappa" lead="La mappa del server con città, nazioni e confini." art="/images/art/empire.png" />
       {siteConfig.links.map ? (
         <section className="wrap pb-20" data-reveal data-delay="0.3">
           <div className="mb-6"><Btn href={siteConfig.links.map} external variant="accent">apri a schermo intero</Btn></div>

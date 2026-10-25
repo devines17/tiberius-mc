@@ -25,16 +25,16 @@ import { siteConfig } from "@/lib/site-config";
 
 /* Le stesse voci della barra in alto, con le stesse icone, su una riga. */
 const nav: { href: string; label: string; icon: LucideIcon }[] = [
-  { href: "/", label: "home", icon: House },
-  { href: "/news", label: "news", icon: Newspaper },
-  { href: "/regole", label: "regole", icon: ScrollText },
-  { href: "/mappa", label: "mappa", icon: MapIcon },
-  { href: "/forum", label: "forum", icon: MessagesSquare },
-  { href: "/store", label: "store", icon: Store },
-  { href: "/staff", label: "staff", icon: Shield },
-  { href: "/vota", label: "vota", icon: Vote },
-  { href: "/wiki", label: "wiki", icon: BookOpen },
-  { href: "/portale", label: "gestionale", icon: LayoutDashboard },
+  { href: "/", label: "Home", icon: House },
+  { href: "/news", label: "News", icon: Newspaper },
+  { href: "/regole", label: "Regole", icon: ScrollText },
+  { href: "/mappa", label: "Mappa", icon: MapIcon },
+  { href: "/forum", label: "Forum", icon: MessagesSquare },
+  { href: "/store", label: "Store", icon: Store },
+  { href: "/staff", label: "Staff", icon: Shield },
+  { href: "/vota", label: "Vota", icon: Vote },
+  { href: "/wiki", label: "Wiki", icon: BookOpen },
+  { href: "/portale", label: "Gestionale", icon: LayoutDashboard },
 ];
 
 /** Riga informativa con piccola icona davanti. */
@@ -53,10 +53,10 @@ export function Footer() {
   const { contact, legal, links } = siteConfig;
 
   const legalLinks = [
-    { href: "/regole", label: "regolamento", internal: true },
-    ...(legal.privacy ? [{ href: legal.privacy, label: "privacy policy", internal: false }] : []),
-    ...(legal.terms ? [{ href: legal.terms, label: "termini e condizioni", internal: false }] : []),
-    ...(legal.cookies ? [{ href: legal.cookies, label: "cookie policy", internal: false }] : []),
+    { href: "/regole", label: "Regolamento", internal: true },
+    ...(legal.privacy ? [{ href: legal.privacy, label: "Privacy policy", internal: false }] : []),
+    ...(legal.terms ? [{ href: legal.terms, label: "Termini e condizioni", internal: false }] : []),
+    ...(legal.cookies ? [{ href: legal.cookies, label: "Cookie policy", internal: false }] : []),
   ];
 
   return (

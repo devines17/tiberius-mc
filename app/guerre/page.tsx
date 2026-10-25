@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Guerre e PvP", description: "Guerre,
 export default function Page() {
   return (
     <>
-      <PageHead tone="field" kicker="guerre e pvp" title={"assedia.\nconquista."} lead="Le guerre si dichiarano, si combattono e si ricordano." art="/images/art/siege.png" />
+      <PageHead tone="field" kicker="guerre e pvp" title="Guerre e PvP" lead="Come funzionano le guerre tra città e nazioni." art="/images/art/siege.png" />
       <Rows
         title="la guerra"
         items={[

@@ -58,7 +58,7 @@ export default function Home() {
         <div className="grid items-end gap-10 lg:grid-cols-[1fr_1.25fr] lg:gap-16">
           <div data-reveal="left">
             <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-accent">guida</p>
-            <h2 className="text-[length:var(--step-head)]">Come entrare.</h2>
+            <h2 className="text-[length:var(--step-head)]">Come entrare</h2>
             <p className="mt-4 max-w-md text-lg text-white/70">Bastano quattro passaggi da Minecraft Java.</p>
             <div className="mt-7">
               <CopyIp ip={siteConfig.server.ip} tone="dark" />
@@ -171,7 +171,7 @@ function NewsLine() {
     <section className="mb-14 mt-16 border-y border-white/10">
       <div className="wrap flex flex-wrap items-center justify-between gap-3 py-5">
         <p className="font-bold">
-          Novità dal foro <span className="ml-3 text-sm font-medium text-white/50">Nessun annuncio per ora</span>
+          Ultime novità <span className="ml-3 text-sm font-medium text-white/50">Nessun annuncio per ora</span>
         </p>
         <Link href="/news" className="group flex items-center gap-2 font-bold text-white/85 transition-colors hover:text-white">
           Visualizza altre novità <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />

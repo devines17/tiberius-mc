@@ -16,7 +16,7 @@ export const metadata: Metadata = { title: "Amministrazione forum", robots: { in
 export default function Page() {
   return (
     <>
-      <ForumHero kicker="forum · amministrazione" title={"ammini-\nstrazione."} lead="Permessi, impostazioni e registro. Ogni modifica viene registrata." />
+      <ForumHero kicker="forum · amministrazione" title="Amministrazione" lead="Permessi, impostazioni e registro. Ogni modifica viene registrata." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={4} />}>
           <Body />

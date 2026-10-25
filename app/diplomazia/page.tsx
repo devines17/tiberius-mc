@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Diplomazia", description: "Alleanze,
 export default function Page() {
   return (
     <>
-      <PageHead tone="accent" kicker="diplomazia" title={"alleati\no nemici."} lead="Una parola data pesa più di una spada." art="/images/art/empire.png" />
+      <PageHead tone="accent" kicker="diplomazia" title="Diplomazia" lead="Alleanze, trattati e rapporti tra le nazioni del server." art="/images/art/empire.png" />
       <Rows
         title="il gioco delle alleanze"
         items={[

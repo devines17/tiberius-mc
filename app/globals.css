@@ -99,8 +99,8 @@ b {
   position: relative;
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: 20px;
-  background: linear-gradient(135deg, #1b1920 0%, #131116 60%, #1d1214 100%);
+  border-radius: 10px;
+  background: #1b1c1f;
 }
 /* Riquadri Discord e Telegram: scuri come gli altri, con l'alone del colore del marchio.
    Niente bordo vero (le immagini poggiano sul fondo): il filo colorato è un'ombra interna,
@@ -116,10 +116,7 @@ b {
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
 }
 .panel-discord {
-  background:
-    radial-gradient(90% 120% at 85% 110%, rgb(88 101 242 / 0.42) 0%, transparent 62%),
-    radial-gradient(60% 80% at 0% 0%, rgb(88 101 242 / 0.14) 0%, transparent 70%),
-    linear-gradient(135deg, #1b1920 0%, #131116 60%, #15152a 100%);
+  background: #23264d;
   box-shadow: inset 0 0 0 1px rgb(88 101 242 / 0.35);
 }
 .panel-telegram {

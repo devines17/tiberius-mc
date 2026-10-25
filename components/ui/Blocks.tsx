@@ -28,11 +28,11 @@ export function Soon({ title, text }: { title: string; text: string }) {
   return (
     <section className="wrap section">
       <div className="panel grid gap-8 p-8 md:p-12 lg:grid-cols-[1fr_1.2fr] lg:items-center" data-reveal>
-        <h2 className="text-[length:var(--step-head)]" data-reveal="left" data-delay="0.15">{title}</h2>
+        <h2 className="text-[length:var(--step-head)]" data-reveal="left" data-delay="0.15">{title.charAt(0).toUpperCase() + title.slice(1)}</h2>
         <div className="grid gap-6" data-reveal="right" data-delay="0.25">
           <p className="text-[length:var(--step-lead)] leading-snug">{text}</p>
           <div>
-            <Btn href={siteConfig.links.discord} external variant="accent">avvisami su discord</Btn>
+            <Btn href={siteConfig.links.discord} external variant="accent">Avvisami su Discord</Btn>
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@ export function DiscordBand() {
   return (
     <section className="wrap section">
       <div className="panel panel-discord flex flex-wrap items-center justify-between gap-6 p-8 md:p-12" data-reveal>
-        <h2 className="flex items-center gap-4 text-[length:var(--step-head)]" data-reveal="left" data-delay="0.15"><DiscordIcon className="size-10" /> Vieni nel nostro Discord.</h2>
+        <h2 className="flex items-center gap-4 text-[length:var(--step-head)]" data-reveal="left" data-delay="0.15"><DiscordIcon className="size-10" /> Unisciti al nostro Discord</h2>
         <div data-reveal="right" data-delay="0.25">
           <Btn href={siteConfig.links.discord} external variant="discord">
             <DiscordIcon className="size-5" /> Entra su Discord

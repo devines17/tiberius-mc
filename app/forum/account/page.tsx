@@ -15,7 +15,7 @@ export const metadata: Metadata = { title: "Il tuo account", robots: { index: fa
 export default function Page({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   return (
     <>
-      <ForumHero kicker="forum · account" title={"il tuo\naccount."} lead="Accesso con Discord e collegamento al tuo account Minecraft." />
+      <ForumHero kicker="forum · account" title="Il tuo account" lead="Accesso con Discord e collegamento al tuo account Minecraft." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={2} />}>
           <Body searchParams={searchParams} />

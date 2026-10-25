@@ -14,7 +14,7 @@ const ART = {
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff, regole). */
 /** full: occupa tutta l'altezza dello schermo, così il contenuto sotto compare solo scorrendo. */
-export function ForumHero({ kicker, title, lead, art = "forum", full = false }: { kicker: string; title: string; lead: string; art?: keyof typeof ART; full?: boolean }) {
+export function ForumHero({ title, lead, art = "forum", full = false }: { kicker?: string; title: string; lead: string; art?: keyof typeof ART; full?: boolean }) {
   const a = ART[art];
   return (
     <section className="relative isolate overflow-hidden">
@@ -35,9 +35,6 @@ export function ForumHero({ kicker, title, lead, art = "forum", full = false }: 
 
       <div className={`wrap relative flex min-h-[360px] items-center py-16 ${full ? "md:min-h-[max(480px,calc(100svh-var(--header-h)))]" : "md:min-h-[480px] lg:min-h-[600px]"}`}>
         <div className="max-w-xl text-white md:max-w-[52%]">
-          <p className="font-badge mb-5 text-sm uppercase tracking-[0.2em] text-white/80 hero-in" data-hero-in>
-            {kicker}
-          </p>
           <h1 className="text-[length:var(--step-display)] drop-shadow-[0_6px_30px_rgba(0,0,0,.5)]">
             <Words text={title} mode="hero" />
           </h1>

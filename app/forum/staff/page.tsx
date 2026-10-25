@@ -23,7 +23,7 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/;
 export default function Page({ searchParams }: { searchParams: SP }) {
   return (
     <>
-      <ForumHero kicker="forum · staff" title={"pannello\nstaff."} lead="Le pratiche delle sezioni di cui hai il permesso." />
+      <ForumHero kicker="forum · staff" title="Pannello staff" lead="Le pratiche delle sezioni di cui hai il permesso." />
       <div className="pb-20 pt-10">
         <Suspense fallback={<ForumLoading rows={5} />}>
           <Body searchParams={searchParams} />
