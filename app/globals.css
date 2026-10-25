@@ -927,8 +927,8 @@ button.btn:disabled {
 
 /* Merlatura: bordo a blocchi in fondo a testate e copertine (stile mura romane / Minecraft) */
 .merli {
-  height: 16px;
+  height: 20px;
   background: var(--merli, #141416);
-  -webkit-mask: linear-gradient(90deg, #000 50%, transparent 0) 0 0 / 32px 8px repeat-x, linear-gradient(#000, #000) 0 8px / 100% 8px no-repeat;
-  mask: linear-gradient(90deg, #000 50%, transparent 0) 0 0 / 32px 8px repeat-x, linear-gradient(#000, #000) 0 8px / 100% 8px no-repeat;
+  -webkit-mask: linear-gradient(90deg, #000 50%, transparent 0) 0 0 / 44px 12px repeat-x, linear-gradient(#000, #000) 0 12px / 100% 8px no-repeat;
+  mask: linear-gradient(90deg, #000 50%, transparent 0) 0 0 / 44px 12px repeat-x, linear-gradient(#000, #000) 0 12px / 100% 8px no-repeat;
 }
