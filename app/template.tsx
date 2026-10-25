@@ -14,6 +14,12 @@ export default function Template({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const root = document.documentElement;
+    // Il sipario c'è solo entrando in home da fuori sito (classe .intro messa in <head>)
+    if (!root.classList.contains("intro")) {
+      el.style.display = "none";
+      return;
+    }
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.fromTo(
@@ -26,6 +32,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           delay: 0.08,
           onComplete: () => {
             el.style.display = "none";
+            root.classList.remove("intro");
           },
         },
       );

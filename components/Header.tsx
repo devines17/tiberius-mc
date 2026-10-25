@@ -5,22 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import {
-  BookOpen,
-  House,
-  LayoutDashboard,
-  Map as MapIcon,
-  MessagesSquare,
-  Newspaper,
-  ScrollText,
-  Shield,
-  ShoppingCart,
-  Store,
-  Vote,
-} from "lucide-react";
+import { House, MessagesSquare, Newspaper, ScrollText, Shield, ShoppingCart, Store } from "lucide-react";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
 import { AccountButton } from "@/components/AccountButton";
-import { pages, siteConfig } from "@/lib/site-config";
+import { siteConfig } from "@/lib/site-config";
 
 type NavItem = { href: string; label: string; icon: LucideIcon; highlight?: boolean };
 
@@ -28,12 +16,8 @@ const top: NavItem[] = [
   { href: "/", label: "home", icon: House },
   { href: "/news", label: "news", icon: Newspaper },
   { href: "/regole", label: "regole", icon: ScrollText },
-  { href: "/mappa", label: "mappa", icon: MapIcon },
   { href: "/forum", label: "forum", icon: MessagesSquare },
   { href: "/staff", label: "staff", icon: Shield },
-  { href: "/vota", label: "vota", icon: Vote },
-  { href: "/wiki", label: "wiki", icon: BookOpen },
-  { href: "/portale", label: "gestionale", icon: LayoutDashboard },
   { href: "/store", label: "store", icon: Store, highlight: true },
 ];
 
@@ -64,7 +48,7 @@ export function Header() {
           <Image src="/images/tiberiusmc-wordmark.webp" alt="TiberiusMC" width={900} height={151} priority unoptimized className="h-7 w-auto md:h-8 2xl:h-9" />
         </Link>
         <nav aria-label="Principale" className="hidden items-center gap-0.5 xl:flex">
-          {top.map(({ href, label, icon: Icon, highlight }) => {
+          {top.map(({ href, label, highlight }) => {
             const active = isActive(pathname, href);
             if (highlight) {
               return (
@@ -72,9 +56,8 @@ export function Header() {
                   key={href}
                   href={href}
                   aria-current={active ? "page" : undefined}
-                  className={`mx-1 flex items-center gap-1.5 rounded-xl bg-black/40 px-3.5 py-2 text-sm font-bold uppercase tracking-[0.04em] text-[#ff7a6e] ring-1 ring-inset ring-accent/60 transition-[background-color,box-shadow,color] hover:bg-accent/15 hover:text-[#ff9a90] hover:ring-accent hover:shadow-[0_0_22px_-6px_rgb(226_53_43/0.6)] ${active ? "!ring-accent bg-accent/15" : ""}`}
+                  className={`ml-2 rounded-md bg-accent px-3.5 py-1.5 text-[0.85rem] font-bold uppercase text-white transition-colors hover:bg-[#c42b22] ${active ? "bg-[#c42b22]" : ""}`}
                 >
-                  <Icon className="size-4" aria-hidden />
                   {label}
                 </Link>
               );
@@ -84,14 +67,9 @@ export function Header() {
                 key={href}
                 href={href}
                 aria-current={active ? "page" : undefined}
-                className={`group relative flex items-center gap-1.5 px-2.5 py-2 text-[0.8rem] font-bold uppercase tracking-[0.06em] transition-colors ${active ? "text-white" : "text-white/70 hover:text-white"}`}
+                className={`rounded-md px-3 py-1.5 text-[0.9rem] font-bold uppercase transition-colors ${active ? "bg-white/10 text-white" : "text-white/75 hover:text-white"}`}
               >
-                <Icon className={`size-4 transition-colors ${active ? "text-accent" : "group-hover:text-accent"}`} aria-hidden />
                 {label}
-                <span
-                  aria-hidden
-                  className={`absolute inset-x-2.5 -bottom-0.5 h-0.5 origin-left rounded-full bg-accent transition-transform duration-300 ${active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-50"}`}
-                />
               </Link>
             );
           })}
@@ -133,10 +111,9 @@ export function Header() {
       >
         <div className="wrap flex min-h-full flex-col justify-between gap-10 py-10">
           <ul className="grid gap-1">
-            {[{ href: "/entra", label: "come entrare", short: "entra" }, ...pages, { href: "/portale", label: "gestionale", short: "gestionale" }].map((p, i) => (
+            {top.map((p) => ({ href: p.href, short: p.label })).map((p) => (
               <li key={p.href}>
-                <Link href={p.href} className="group flex items-baseline gap-4 py-1 text-[clamp(1.5rem,4vw,2.5rem)] font-semibold leading-tight transition-colors hover:text-accent">
-                  <span className="text-sm font-medium text-white/40">{String(i + 1).padStart(2, "0")}</span>
+                <Link href={p.href} className="block py-1.5 text-2xl font-bold capitalize leading-tight transition-colors hover:text-accent">
                   {p.short}
                 </Link>
               </li>
@@ -144,10 +121,7 @@ export function Header() {
           </ul>
           <div className="flex flex-wrap gap-3">
             <a href={siteConfig.links.discord} target="_blank" rel="noopener noreferrer" className="btn !bg-[#5865f2] !text-white">
-              <DiscordIcon className="size-5" /> entra nel discord
-            </a>
-            <a href={siteConfig.links.telegram} target="_blank" rel="noopener noreferrer" className="btn btn-light">
-              telegram {siteConfig.links.telegramHandle}
+              <DiscordIcon className="size-5" /> Entra nel Discord
             </a>
           </div>
         </div>

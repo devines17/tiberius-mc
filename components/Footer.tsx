@@ -3,20 +3,16 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
-  BookOpen,
   Building,
   Copyright,
   House,
   Info,
-  LayoutDashboard,
   Mail,
-  Map as MapIcon,
   MessagesSquare,
   Newspaper,
   ScrollText,
   Shield,
   Store,
-  Vote,
 } from "lucide-react";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
 import { DiscordIcon } from "@/components/ui/DiscordIcon";
@@ -28,13 +24,9 @@ const nav: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/", label: "Home", icon: House },
   { href: "/news", label: "News", icon: Newspaper },
   { href: "/regole", label: "Regole", icon: ScrollText },
-  { href: "/mappa", label: "Mappa", icon: MapIcon },
   { href: "/forum", label: "Forum", icon: MessagesSquare },
-  { href: "/store", label: "Store", icon: Store },
   { href: "/staff", label: "Staff", icon: Shield },
-  { href: "/vota", label: "Vota", icon: Vote },
-  { href: "/wiki", label: "Wiki", icon: BookOpen },
-  { href: "/portale", label: "Gestionale", icon: LayoutDashboard },
+  { href: "/store", label: "Store", icon: Store },
 ];
 
 /** Riga informativa con piccola icona davanti. */

@@ -155,6 +155,10 @@ export function MotionRoot() {
         intro.fromTo(el, { opacity: 0 }, { opacity: target, duration: 0.8, onComplete: () => settle(el) }, 0);
       });
 
+      // Solo l'ingresso della home da fuori sito: il resto del sito è fermo, tutto visibile subito (niente comparse allo scroll).
+      root.classList.remove("motion");
+      return () => cleanups.forEach((fn) => fn());
+
       // Quello che è già sullo schermo al caricamento parte quando il sipario si alza.
       const t0 = performance.now();
       const wait = () => Math.max(0, curtainDelay - (performance.now() - t0) / 1000);

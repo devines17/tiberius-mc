@@ -5,6 +5,8 @@ import { siteConfig } from "@/lib/site-config";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MotionRoot } from "@/components/motion/MotionRoot";
+import { NavProgress } from "@/components/motion/NavProgress";
+import { Suspense } from "react";
 
 /* Lilita One: solo il marchio "TiberiusMC" nella barra in alto. */
 const lilita = Lilita_One({ weight: "400", subsets: ["latin"], display: "swap", variable: "--font-lilita" });
@@ -37,7 +39,7 @@ export const viewport: Viewport = { themeColor: "#ffffff" };
  * (JavaScript bloccato o in errore), .motion viene tolta e tutto il contenuto
  * appare. MotionRoot annulla il timer appena è pronto.
  */
-const motionGate = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement;r.classList.add("motion");window.__motionTimer=setTimeout(function(){r.classList.remove("motion")},4000)}}catch(e){}`;
+const motionGate = `try{var ext=true;try{ext=!document.referrer||new URL(document.referrer).origin!==location.origin}catch(e){}if(location.pathname==="/"&&ext&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement;r.classList.add("motion","intro");window.__motionTimer=setTimeout(function(){r.classList.remove("motion","intro")},4000)}}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -58,6 +60,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <MotionRoot />
+        <Suspense fallback={null}>
+          <NavProgress />
+        </Suspense>
       </body>
     </html>
   );
