@@ -1,44 +1,50 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 
 /**
- * Ogni navigazione ricrea questo template: un sipario nero dal bordo ad
- * arco si alza e scopre la pagina. Senza JavaScript o con "riduci
- * movimento" il sipario non esiste.
+ * Ogni navigazione ricrea questo template. Sulla home (entrando da fuori sito
+ * o arrivandoci da un'altra pagina) un sipario nero dal bordo ad arco si alza
+ * e la scopre; le altre pagine usano il Goldone di caricamento (NavLoader).
+ * Senza JavaScript o con "riduci movimento" il sipario non esiste.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
-  useEffect(() => {
+  // Prima del disegno, così la home non si vede per un attimo prima del sipario
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
     const root = document.documentElement;
-    // Il sipario c'è solo entrando in home da fuori sito (classe .intro messa in <head>)
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (pathname === "/" && !reduce) root.classList.add("intro");
     if (!root.classList.contains("intro")) {
       el.style.display = "none";
       return;
     }
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.fromTo(
-        el,
-        { yPercent: 0 },
-        {
-          yPercent: -115,
-          duration: 0.95,
-          ease: "power4.inOut",
-          delay: 0.08,
-          onComplete: () => {
-            el.style.display = "none";
-            root.classList.remove("intro");
-          },
+    el.style.display = "";
+    const tween = gsap.fromTo(
+      el,
+      { yPercent: 0 },
+      {
+        yPercent: -115,
+        duration: 0.95,
+        ease: "power4.inOut",
+        delay: 0.08,
+        onComplete: () => {
+          el.style.display = "none";
+          root.classList.remove("intro");
         },
-      );
-    });
-    return () => mm.revert();
-  }, []);
+      },
+    );
+    return () => {
+      tween.kill();
+      root.classList.remove("intro");
+    };
+  }, [pathname]);
 
   return (
     <>

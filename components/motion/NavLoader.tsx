@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 /**
  * Caricamento tra una pagina e l'altra: un Goldone che gira al centro dello schermo.
- * (Il sipario nero resta solo entrando in home da fuori sito.)
+ * (Andando in home c'è invece il sipario nero.)
  */
 export function NavLoader() {
   const pathname = usePathname();
@@ -22,6 +22,8 @@ export function NavLoader() {
       const url = new URL(a.href, location.href);
       if (url.origin !== location.origin || url.pathname.startsWith("/api/")) return;
       if (url.pathname === location.pathname && url.search === location.search) return;
+      // Verso la home c'è il sipario, non il Goldone
+      if (url.pathname === "/") return;
       startedAt.current = performance.now();
       setOn(true);
     };
