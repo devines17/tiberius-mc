@@ -60,8 +60,11 @@ async function Body() {
               );
               return (
                 <li key={n.id}>
-                  {n.tickets ? (
-                    <Link href={`/forum/pratica?n=${n.tickets.number}`} className="flex gap-4 px-5 py-4 transition-colors hover:bg-white/[0.04] md:px-6">
+                  {n.tickets || n.kind.startsWith("citta_") ? (
+                    <Link
+                      href={n.tickets ? `/forum/pratica?n=${n.tickets.number}` : n.kind === "citta_registrazione" ? "/forum/staff/citta" : "/portale"}
+                      className="flex gap-4 px-5 py-4 transition-colors hover:bg-white/[0.04] md:px-6"
+                    >
                       {inner}
                     </Link>
                   ) : (

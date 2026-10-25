@@ -19,6 +19,7 @@ export type PermissionKey =
   | "candidature"
   | "candidature_media"
   | "community"
+  | "citta"
   | "admin";
 
 export const PERMISSIONS: { key: PermissionKey; label: string }[] = [
@@ -32,6 +33,7 @@ export const PERMISSIONS: { key: PermissionKey; label: string }[] = [
   { key: "candidature", label: "Candidature staff" },
   { key: "candidature_media", label: "Candidature media" },
   { key: "community", label: "Moderazione community" },
+  { key: "citta", label: "Registrazioni città" },
   { key: "admin", label: "Amministrazione generale" },
 ];
 
