@@ -30,7 +30,7 @@ export function ForumNav({ session, active, unread = 0, next = "/forum" }: { ses
 
   return (
     <nav aria-label="Forum" className="wrap grid w-full gap-2">
-      <div className="fbar flex flex-wrap items-stretch justify-between overflow-hidden rounded-2xl">
+      <div className="fbar flex flex-wrap items-stretch justify-between overflow-hidden rounded-md">
         <ul className="no-scrollbar flex min-w-0 items-stretch overflow-x-auto">
           {tabs.map(({ key, href, label, icon: Icon }) => (
             <li key={key} className="flex">
@@ -41,13 +41,13 @@ export function ForumNav({ session, active, unread = 0, next = "/forum" }: { ses
             </li>
           ))}
         </ul>
-        <form action="/forum/cerca" method="get" role="search" className="hidden items-center p-2 md:flex">
+        <form action="/forum/cerca" method="get" role="search" className="hidden items-center px-2 md:flex">
           <label htmlFor="fbar-q" className="sr-only">
             Cerca nel forum
           </label>
           <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/40" aria-hidden />
-            <input id="fbar-q" name="q" type="search" maxLength={100} placeholder="Cerca nel forum…" className="h-10 w-64 rounded-xl border border-white/10 bg-black/30 pl-9 pr-3 text-sm text-white placeholder:text-white/40 focus:border-accent/60 focus:outline-none" />
+            <Search className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-white/50" aria-hidden />
+            <input id="fbar-q" name="q" type="search" maxLength={100} placeholder="Cerca…" className="h-8 w-56 rounded border-0 bg-black/25 pl-8 pr-3 text-sm text-white placeholder:text-white/45 focus:bg-black/35 focus:outline-none" />
           </div>
         </form>
       </div>

@@ -71,18 +71,18 @@ async function Body({ searchParams }: { searchParams: SP }) {
           </div>
         )}
 
-        <div className="panel flex flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-5">
+        <div className="fbox flex flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-5">
           <p className="text-sm text-white/60">
             {s.public ? (session ? "Hai un problema o qualcosa da dire? Apri una discussione." : "Accedi per aprire una nuova discussione.") : session ? "Apri una nuova richiesta allo staff." : "Accedi per aprire una nuova richiesta."}
           </p>
-          <a href={newHref} className="flex h-11 items-center gap-2 rounded-lg bg-accent px-4 text-sm font-extrabold text-white transition-colors hover:bg-[#c42b22]">
+          <a href={newHref} className="flex h-9 items-center gap-1.5 rounded-md bg-accent px-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#c42b22]">
             <Plus className="size-4" aria-hidden />
             {s.public ? "Nuova discussione" : "Nuova richiesta"}
           </a>
         </div>
 
         {data ? (
-          <section className="panel" aria-label="Discussioni">
+          <section className="fbox" aria-label="Discussioni">
             <div className="flex flex-wrap items-center gap-1.5 border-b border-white/[0.08] px-4 py-3 md:px-5">
               {[{ key: null as string | null, label: "Tutte" }, ...s.statuses.map((x) => ({ key: x.key as string | null, label: x.label }))].map((f) => (
                 <Link
@@ -104,7 +104,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
           </section>
         ) : (
           <section className="grid gap-4" aria-label="Le tue richieste">
-            <div className="panel flex items-start gap-3 p-5 text-sm leading-relaxed text-white/70">
+            <div className="fbox flex items-start gap-3 p-5 text-sm leading-relaxed text-white/70">
               <Lock className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
               <p>
                 Sezione privata: le richieste qui le vedete solo tu e lo staff che se ne occupa.

@@ -73,11 +73,7 @@ const ICONS: Record<string, LucideIcon> = {
 
 export function SubIcon({ k, big = false }: { k: string; big?: boolean }) {
   const Icon = ICONS[k] ?? LifeBuoy;
-  return (
-    <span className={`grid shrink-0 place-items-center rounded-xl bg-gradient-to-br from-accent/30 to-accent/5 text-[#ff8a80] ring-1 ring-inset ring-accent/30 ${big ? "size-14" : "size-11"}`}>
-      <Icon className={big ? "size-7" : "size-5"} aria-hidden />
-    </span>
-  );
+  return <Icon className={`shrink-0 text-white/55 ${big ? "size-9" : "size-6"}`} strokeWidth={1.5} aria-hidden />;
 }
 
 export function RoleTag({ role, staff }: { role: string; staff: boolean }) {
@@ -177,14 +173,14 @@ export function Pagination({ page, total, perPage, href }: { page: number; total
 /* Barra laterale                                                       */
 /* ------------------------------------------------------------------ */
 
-function Box({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) {
+function Box({ title, icon: Icon, children, big = false }: { title: string; icon?: LucideIcon; children: ReactNode; big?: boolean }) {
   return (
-    <section className="panel fside">
-      <h2>
-        <Icon className="size-4 text-accent" aria-hidden />
+    <section className="fbox fside">
+      <h2 className={big ? "!border-0 !pb-0 !text-lg" : ""}>
+        {Icon && <Icon className="size-4 text-white/55" aria-hidden />}
         {title}
       </h2>
-      <div className="p-4">{children}</div>
+      <div className="px-3.5 pb-3.5 pt-2.5">{children}</div>
     </section>
   );
 }
@@ -192,9 +188,9 @@ function Box({ title, icon: Icon, children }: { title: string; icon: LucideIcon;
 export function WelcomeBox({ session, unread, next = "/forum" }: { session: Session | null; unread: number; next?: string }) {
   if (!session) {
     return (
-      <Box title="Benvenuto!" icon={UserRound}>
-        <p className="text-sm leading-relaxed text-white/65">Accedi con Discord per aprire discussioni, rispondere e seguire le tue richieste. Non serve una nuova password.</p>
-        <a href={`/api/auth/discord/login?next=${encodeURIComponent(next)}`} className="mt-4 flex h-11 items-center justify-center gap-2 rounded-lg bg-[#5865f2] text-sm font-extrabold text-white transition-colors hover:bg-[#4752c4]">
+      <Box title="Benvenuto!" big>
+        <p className="text-sm leading-relaxed text-white/60">Accedi con Discord per aprire discussioni, rispondere e seguire le tue richieste.</p>
+        <a href={`/api/auth/discord/login?next=${encodeURIComponent(next)}`} className="mt-3 inline-flex h-9 items-center gap-2 rounded-md bg-[#5865f2] px-3 text-sm font-semibold text-white transition-colors hover:bg-[#4752c4]">
           <DiscordIcon className="size-5" /> Accedi
         </a>
       </Box>
@@ -202,7 +198,7 @@ export function WelcomeBox({ session, unread, next = "/forum" }: { session: Sess
   }
   const link = "flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-white/70 transition-colors hover:bg-white/5 hover:text-white";
   return (
-    <Box title="Benvenuto!" icon={UserRound}>
+    <Box title="Benvenuto!" big>
       <div className="flex items-center gap-3">
         <Head name={headOf(session.profile)} size={44} />
         <div className="min-w-0">
@@ -247,8 +243,8 @@ export async function OnlineBoxes() {
                   <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-400 ring-2 ring-[#16141a]" aria-hidden />
                 </span>
                 <span className="min-w-0">
-                  <span className="block truncate text-sm font-bold">{u.name}</span>
-                  <span className="block text-xs text-[#ff8a80]">{u.role}</span>
+                  <span className={`block truncate text-sm font-semibold ${u.role === "Founder" ? "text-[#ff6b5e]" : u.role === "Giocatore" ? "" : "text-[#ffc94d]"}`}>{u.name}</span>
+                  <span className="block text-xs text-white/45">{u.role}</span>
                 </span>
               </li>
             ))}
@@ -259,9 +255,7 @@ export async function OnlineBoxes() {
       </Box>
       <Box title="Utenti online" icon={Users}>
         {users.length ? <p className="text-sm leading-relaxed text-white/75">{users.map((u) => u.name).join(", ")}</p> : <p className="text-sm text-white/50">Nessun utente online.</p>}
-        <p className="mt-3 border-t border-white/10 pt-3 text-xs text-white/45">
-          Totale: <strong className="text-white/80">{online.length}</strong> · negli ultimi 10 minuti
-        </p>
+        <p className="mt-2 text-xs text-white/45">Totale: {online.length} {online.length === 1 ? "utente" : "utenti"}</p>
       </Box>
     </>
   );
@@ -307,7 +301,7 @@ export function SidebarSkeleton() {
   return (
     <div className="grid gap-4" aria-hidden>
       {[0, 1, 2].map((i) => (
-        <div key={i} className="panel h-36 animate-pulse" />
+        <div key={i} className="fbox h-36 animate-pulse" />
       ))}
     </div>
   );

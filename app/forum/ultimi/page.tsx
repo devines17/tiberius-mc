@@ -34,7 +34,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
       <div className="wrap grid gap-5">
         <Crumbs items={[{ href: "/forum", label: "Forum" }, { label: "Ultimi post" }]} />
         <h1 className="text-[clamp(1.6rem,3vw,2.3rem)] leading-tight">Ultimi post</h1>
-        <section className="panel" aria-label="Discussioni più recenti">
+        <section className="fbox" aria-label="Discussioni più recenti">
           <ThreadList rows={data.rows} empty="Ancora nessuna discussione pubblica." showSection={subLabel} />
           {data.total > THREADS_PER_PAGE && (
             <div className="border-t border-white/[0.08] px-4 py-3 md:px-5">

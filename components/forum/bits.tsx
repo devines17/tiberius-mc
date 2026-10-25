@@ -17,9 +17,9 @@ const TONE: Record<string, string> = {
   bozza: "bg-gold/15 text-gold ring-gold/30",
 };
 
-export function StatusBadge({ sub, status }: { sub: string; status: string }) {
+export function StatusBadge({ sub, status, small = false }: { sub: string; status: string; small?: boolean }) {
   return (
-    <span className={`font-badge inline-flex shrink-0 items-center rounded-full px-2.5 py-1 text-xs ring-1 ${TONE[statusTone(status)]}`}>
+    <span className={`inline-flex shrink-0 items-center ${small ? "rounded px-1.5 text-[0.72rem] leading-5" : "font-badge rounded-full px-2.5 py-1 text-xs ring-1"} ${TONE[statusTone(status)]}`}>
       {statusLabel(sub, status)}
     </span>
   );

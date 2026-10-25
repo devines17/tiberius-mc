@@ -56,7 +56,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
           </form>
         </div>
 
-        <section className="panel" aria-label="Elenco dei membri">
+        <section className="fbox" aria-label="Elenco dei membri">
           <div className="hidden grid-cols-[minmax(0,1fr)_7rem_9rem_9rem] gap-4 border-b border-white/[0.08] px-5 py-3 text-[0.7rem] font-bold uppercase tracking-wider text-white/40 md:grid">
             <span>Membro</span>
             <span className="text-center">Messaggi</span>

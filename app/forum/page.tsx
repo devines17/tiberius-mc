@@ -50,16 +50,16 @@ async function Body() {
   const overview = await sectionOverview();
 
   return (
-    <div className="forum-in grid gap-6">
+    <div className="forum-in grid gap-5">
       <ForumNav session={session} active="home" unread={unread} />
-      <div className="wrap grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
-        <div className="grid gap-6">
+      <div className="wrap grid gap-5 lg:grid-cols-[minmax(0,1fr)_14.5rem] lg:items-start">
+        <div className="grid gap-5">
           {CATEGORIES.map((c) => (
-            <section key={c.key} className="panel" aria-labelledby={`cat-${c.key}`}>
+            <section key={c.key} aria-labelledby={`cat-${c.key}`} className="grid gap-2">
               <h2 id={`cat-${c.key}`} className="fcat-head">
                 {c.label}
               </h2>
-              <ul className="divide-y divide-white/[0.07]">
+              <ul className="fbox divide-y divide-white/[0.07]">
                 {itemsFor(c.key).map((it) => (it.kind === "sub" ? <SubRow key={it.s.key} s={it.s} o={overview.get(it.s.key)} /> : <ManualRow key={it.m.key} m={it.m} />))}
               </ul>
             </section>
@@ -80,51 +80,48 @@ async function Body() {
 
 function SubRow({ s, o }: { s: Subcategory; o?: { threads: number; messages: number; last: ThreadRow | null } }) {
   return (
-    <li className="frow relative grid gap-4 px-4 py-5 md:grid-cols-[minmax(0,1fr)_10.5rem_15rem] md:items-center md:px-5">
-      <div className="flex min-w-0 items-start gap-4">
-        <SubIcon k={s.key} />
-        <div className="min-w-0">
-          <Link href={`/forum/sezione?s=${s.key}`} className="text-[1.05rem] font-bold text-white after:absolute after:inset-0 hover:text-[#ff8a80]">
-            {s.label}
-          </Link>
-          <p className="mt-0.5 text-sm leading-relaxed text-white/55">{s.description}</p>
-        </div>
-      </div>
+    <li className="frow relative flex min-h-[3.25rem] items-center gap-4 px-4 py-2.5">
+      <SubIcon k={s.key} />
+      <Link href={`/forum/sezione?s=${s.key}`} title={s.description} className="min-w-0 flex-1 truncate text-[0.95rem] font-semibold text-white/90 after:absolute after:inset-0 hover:underline">
+        {s.label}
+      </Link>
       {s.public ? (
         <>
-          <dl className="hidden grid-cols-2 gap-2 text-center md:grid">
+          <dl className="hidden shrink-0 gap-6 text-center text-[0.72rem] text-white/45 md:flex">
             <div>
-              <dt className="text-[0.66rem] uppercase tracking-wide text-white/40">Discussioni</dt>
-              <dd className="font-bold">{o?.threads ?? 0}</dd>
+              <dt>Discussioni</dt>
+              <dd className="text-[0.95rem] text-white/85">{o?.threads ?? 0}</dd>
             </div>
             <div>
-              <dt className="text-[0.66rem] uppercase tracking-wide text-white/40">Messaggi</dt>
-              <dd className="font-bold">{o?.messages ?? 0}</dd>
+              <dt>Messaggi</dt>
+              <dd className="text-[0.95rem] text-white/85">{o?.messages ?? 0}</dd>
             </div>
           </dl>
-          {o?.last ? (
-            <div className="relative z-10 flex min-w-0 items-center gap-3 pl-[3.75rem] md:pl-0">
-              <Head name={o.last.last_mc ?? o.last.author_mc} size={34} />
-              <div className="min-w-0 text-[0.8rem]">
-                <div className="flex min-w-0 items-center gap-1.5">
-                  <StatusBadge sub={o.last.subcategory} status={o.last.status} />
+          <div className="relative z-10 hidden w-60 shrink-0 items-center gap-2.5 border-l border-white/10 pl-3 sm:flex">
+            {o?.last ? (
+              <>
+                <Head name={o.last.last_mc ?? o.last.author_mc} size={30} />
+                <div className="min-w-0 text-[0.78rem] leading-snug">
+                  <p className="flex min-w-0 items-center gap-1.5">
+                    <StatusBadge sub={o.last.subcategory} status={o.last.status} small />
+                    <Link href={`/forum/pratica?n=${o.last.number}`} className="truncate text-white/85 hover:underline">
+                      {o.last.title}
+                    </Link>
+                  </p>
+                  <p className="truncate text-white/45">
+                    {timeAgo(o.last.last_at ?? o.last.updated_at)} · {o.last.last_name ?? o.last.author_name}
+                  </p>
                 </div>
-                <Link href={`/forum/pratica?n=${o.last.number}`} className="mt-1 block truncate font-semibold text-white/85 hover:text-[#ff8a80]">
-                  {o.last.title}
-                </Link>
-                <p className="truncate text-white/45">
-                  {timeAgo(o.last.last_at ?? o.last.updated_at)} · {o.last.last_name ?? o.last.author_name}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <p className="pl-[3.75rem] text-sm text-white/40 md:pl-0">Nessuna discussione</p>
-          )}
+              </>
+            ) : (
+              <p className="text-[0.8rem] text-white/40">Nessuno</p>
+            )}
+          </div>
         </>
       ) : (
-        <div className="flex items-center gap-2 pl-[3.75rem] text-sm text-white/50 md:col-span-2 md:justify-end md:pl-0">
-          <Lock className="size-4" aria-hidden /> Privata · la vedete solo tu e lo staff
-        </div>
+        <span className="flex shrink-0 items-center gap-1.5 text-[0.8rem] text-white/50 sm:w-60 sm:justify-center">
+          <Lock className="size-3.5" aria-hidden /> Privata
+        </span>
       )}
     </li>
   );
@@ -132,17 +129,12 @@ function SubRow({ s, o }: { s: Subcategory; o?: { threads: number; messages: num
 
 function ManualRow({ m }: { m: Manual }) {
   return (
-    <li className="frow relative grid gap-4 px-4 py-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:px-5">
-      <div className="flex min-w-0 items-start gap-4">
-        <SubIcon k="manuale" />
-        <div className="min-w-0">
-          <Link href={`/forum/manuale/${m.key}`} className="text-[1.05rem] font-bold text-white after:absolute after:inset-0 hover:text-[#ff8a80]">
-            {m.label}
-          </Link>
-          <p className="mt-0.5 text-sm leading-relaxed text-white/55">{m.short}</p>
-        </div>
-      </div>
-      <span className="font-badge pl-[3.75rem] text-xs uppercase tracking-wider text-gold md:pl-0">Manuale · leggi</span>
+    <li className="frow relative flex min-h-[3.25rem] items-center gap-4 px-4 py-2.5">
+      <SubIcon k="manuale" />
+      <Link href={`/forum/manuale/${m.key}`} title={m.short} className="min-w-0 flex-1 truncate text-[0.95rem] font-semibold text-white/90 after:absolute after:inset-0 hover:underline">
+        {m.label}
+      </Link>
+      <span className="shrink-0 text-[0.8rem] text-white/45 sm:w-60 sm:text-center">Guida</span>
     </li>
   );
 }

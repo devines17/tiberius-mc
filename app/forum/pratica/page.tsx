@@ -136,7 +136,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
             </span>
           </p>
           {staff && (
-            <div className="panel grid gap-x-8 gap-y-2 p-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
+            <div className="fbox grid gap-x-8 gap-y-2 p-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
               <div>
                 <p className="text-white/50">Aperta il</p>
                 <p>{formatDateTime(t.created_at)}</p>
@@ -175,7 +175,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
           <div className="grid min-w-0 gap-4">
             {(fields.length > 0 || extraFields.length > 0) && t.status !== "bozza" && (
-              <section className="panel p-5 md:p-6" aria-label="Dati della richiesta">
+              <section className="fbox p-5 md:p-6" aria-label="Dati della richiesta">
                 <dl className="grid gap-4 sm:grid-cols-2">
                   {fields.map((f) => (
                     <div key={f.name} className={f.type === "textarea" || f.type === "url-list" ? "sm:col-span-2" : ""}>
@@ -206,7 +206,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
               {timeline.map((item) =>
                 item.kind === "msg" ? (
                   <li key={`m-${item.m.id}`}>
-                    <article className={`panel grid md:grid-cols-[11.5rem_minmax(0,1fr)] ${item.m.card.staff ? "!border-accent/35" : ""}`}>
+                    <article className={`fbox grid md:grid-cols-[11.5rem_minmax(0,1fr)] ${item.m.card.staff ? "!border-accent/35" : ""}`}>
                       <div className="fpost-user flex items-center gap-3 border-b border-white/[0.08] p-4 md:flex-col md:items-center md:gap-2 md:border-b-0 md:border-r md:px-3 md:py-6 md:text-center">
                         <Head name={item.m.card.head} size={44} className="md:hidden" />
                         <SkinBody name={item.m.card.head} className="hidden md:block" />
@@ -269,7 +269,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
                 label={role === "autore" ? (t.status === "info_richieste" ? undefined : sub.openReplies ? "Rispondi" : undefined) : "Rispondi alla discussione"}
               />
             ) : !staff && t.status !== "bozza" ? (
-              <div className="panel flex flex-wrap items-center justify-between gap-3 px-5 py-4 text-sm text-white/60">
+              <div className="fbox flex flex-wrap items-center justify-between gap-3 px-5 py-4 text-sm text-white/60">
                 {final ? (
                   <span className="inline-flex items-center gap-2">
                     <Lock className="size-4" aria-hidden /> Discussione chiusa: non si possono aggiungere risposte.
@@ -310,7 +310,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
             ) : (
               <>
                 {role === "autore" && <PlayerButtons number={t.number} actions={view.playerActions} withdrawLabel={sub.category === "candidature" ? "ritira la candidatura" : "annulla la richiesta"} />}
-                <section className="panel fside">
+                <section className="fbox fside">
                   <div className="flex items-center gap-3 p-4">
                     <SubIcon k={sub.key} />
                     <div className="min-w-0">
