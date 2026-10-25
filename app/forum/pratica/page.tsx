@@ -8,7 +8,7 @@ import { Notice, PrivateBadge, StatusBadge } from "@/components/forum/bits";
 import { Crumbs, Head, RoleTag, SkinBody, SubIcon } from "@/components/forum/zero";
 import { ForumLoading, LoginRequired, NotConfigured } from "@/components/forum/states";
 import { forumContext } from "@/components/forum/session";
-import { PlayerButtons, PlayerReply, StaffPanel } from "@/components/forum/TicketActions";
+import { AdminDelete, PlayerButtons, PlayerReply, StaffPanel } from "@/components/forum/TicketActions";
 import { TicketForm } from "@/components/forum/TicketForm";
 import { getTicketView } from "@/lib/server/tickets";
 import { HttpError } from "@/lib/server/http";
@@ -290,6 +290,7 @@ async function Body({ searchParams }: { searchParams: Promise<Record<string, str
           </div>
 
           <aside className="grid gap-4 lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
+            {view.canDelete && <AdminDelete number={t.number} backHref={`/forum/sezione?s=${sub.key}`} />}
             {staff ? (
               <StaffPanel
                 number={t.number}

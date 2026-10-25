@@ -1,5 +1,6 @@
 import { assertSameOrigin, handle, HttpError, json, requireSession } from "@/lib/server/http";
 import {
+  adminDeleteTicket,
   playerAction,
   playerReply,
   staffAssign,
@@ -70,6 +71,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ numero: string
         break;
       case "staff_nota":
         await staffNote(session, number, form.get("body"), files);
+        break;
+      case "elimina":
+        await adminDeleteTicket(session, number);
         break;
       case "staff_verifica":
         await staffVerifyField(session, number, String(form.get("campo") ?? ""));

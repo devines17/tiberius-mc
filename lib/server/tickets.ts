@@ -126,6 +126,8 @@ export type TicketView = {
   staffOptions: { id: string; name: string }[];
   playerActions: ReturnType<typeof playerActions>;
   staffStatuses: string[];
+  /** Amministrazione generale: può eliminare la discussione. */
+  canDelete: boolean;
   authorProfile: Pick<Profile, "discord_username" | "mc_name" | "mc_uuid" | "mc_verified_by"> | null;
 };
 
@@ -233,6 +235,7 @@ export async function getTicketView(session: Session | null, number: number): Pr
     staffOptions: staff ? await staffFor(sub) : [],
     playerActions: playerActions(viewer ?? NOBODY, t),
     staffStatuses: viewer ? staffSettableStatuses(viewer, t) : [],
+    canDelete: viewer != null && isAdmin(viewer),
     authorProfile,
   };
 }
@@ -591,6 +594,17 @@ export async function attachmentForDownload(session: Session | null, id: string)
 
 export function requireAdmin(session: Session) {
   if (!isAdmin(session.viewer)) throw new HttpError(404, "Pagina non trovata.");
+}
+
+/** Elimina per sempre una discussione con messaggi, note e allegati. Solo l'Amministrazione generale. */
+export async function adminDeleteTicket(session: Session, number: number) {
+  if (!isAdmin(session.viewer)) throw new HttpError(404, "Pratica non trovata.");
+  const t = await db.one<Ticket>("tickets", "*", { number: `eq.${number}` });
+  if (!t) throw new HttpError(404, "Pratica non trovata.");
+  const files = await db.select<{ storage_path: string }>("ticket_attachments", "storage_path", { ticket_id: `eq.${t.id}` });
+  await removeFiles(files.map((f) => f.storage_path)).catch(() => {});
+  await db.remove("tickets", { id: `eq.${t.id}` });
+  await audit(session.profile.id, "pratica_eliminata", { details: { numero: t.number, titolo: t.title, sezione: t.subcategory } });
 }
 
 /** Applica la politica di conservazione: elimina le pratiche chiuse da più di N giorni, con i loro allegati. */

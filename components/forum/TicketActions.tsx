@@ -323,3 +323,52 @@ export function StaffPanel({
     </div>
   );
 }
+
+/* ---------------- Amministrazione ---------------- */
+
+/** Elimina la discussione per sempre (con conferma), poi torna alla sezione. */
+export function AdminDelete({ number, backHref }: { number: number; backHref: string }) {
+  const router = useRouter();
+  const [confirm, setConfirm] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  return (
+    <div className="panel grid gap-3 p-5">
+      <p className="text-sm font-bold text-white/80">Amministrazione</p>
+      {!confirm ? (
+        <button type="button" onClick={() => setConfirm(true)} className="btn !h-10 !border-accent/40 !text-sm !text-[#ff8a80] hover:!bg-accent/15">
+          elimina discussione
+        </button>
+      ) : (
+        <div className="grid gap-3">
+          <p className="text-sm text-white/70">La discussione, i messaggi e gli allegati verranno cancellati per sempre. Non si può annullare.</p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              disabled={busy}
+              onClick={async () => {
+                setBusy(true);
+                setError(null);
+                try {
+                  await post(number, { azione: "elimina" });
+                  router.push(backHref);
+                  router.refresh();
+                } catch (e) {
+                  setError(e instanceof Error ? e.message : "Operazione non riuscita.");
+                  setBusy(false);
+                }
+              }}
+              className="btn btn-accent !h-10 !text-sm"
+            >
+              {busy ? "elimino…" : "sì, elimina"}
+            </button>
+            <button type="button" disabled={busy} onClick={() => setConfirm(false)} className="btn !h-10 !text-sm">
+              annulla
+            </button>
+          </div>
+        </div>
+      )}
+      <Feedback error={error} done={null} />
+    </div>
+  );
+}
