@@ -282,7 +282,7 @@ export async function StatsBox() {
           </div>
           {s.newest && (
             <div className={row}>
-              <dt className="text-white/55">Ultimo iscritto</dt>
+              <dt className="whitespace-nowrap text-white/55">Ultimo iscritto</dt>
               <dd className="flex min-w-0 items-center gap-2 font-bold">
                 <Head name={s.newestMc} size={20} />
                 <span className="truncate">{s.newest}</span>
