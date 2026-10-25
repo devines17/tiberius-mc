@@ -21,9 +21,6 @@ export default function Home() {
         <Image src="/images/hero-bg.jpg" alt="" fill priority sizes="100vw" className="kenburns -z-20 object-cover" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/45 to-[#0b0a0c]" />
         <div className="wrap flex flex-1 flex-col items-center justify-center pb-[14vw] pt-10 text-center">
-          <p className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 hero-in" data-hero-in>
-            <span className="dot-live size-2 rounded-full bg-accent" /> minecraft java · survival towny
-          </p>
           <div className="mb-5 w-[min(55vw,280px)]" data-hero-logo>
             <div className="float-soft">
               <TiberiusLogo variant="fluid" className="w-full drop-shadow-[0_12px_40px_rgba(0,0,0,.6)]" priority />
