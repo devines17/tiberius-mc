@@ -1525,6 +1525,6 @@ export const REGOLE_PARTI: RuleGroup[] = PARTI.map((p) => ({
   sections: p.chapters.flatMap(([letter, title], si) => {
     const c = REGOLE.find((x) => x.letter === letter);
     if (!c) return [];
-    return [{ key: `${p.letter}${si + 1}`, title: title ?? c.title, articles: c.articles.map((a) => ({ ...a, old: a.code, code: `${p.letter}${si + 1}.${a.n}` })) }];
+    return [{ key: `${p.letter}${si + 1}`, title: title ?? c.title, articles: c.articles.map((a, ai) => ({ ...a, old: a.code, code: `${p.letter}${si + 1}.${ai + 1}` })) }];
   }),
 }));
