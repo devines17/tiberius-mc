@@ -175,32 +175,32 @@ export function TeaserPlayer({ stage, screens }: { stage: ReactNode; screens: Re
     };
     const switchTo = (href: string) => {
       // la camera va sulla barra, la pillola scivola, poi si scende sulla nuova pagina
-      t.to(c, { ...shot(".gx-dock", 1.8), duration: 0.8 }, at);
+      t.to(c, { ...shot(".gx-dock", 1.6), duration: 0.8 }, at);
       t.call(() => go(href), [], at + 0.8);
       at += 1.05;
     };
 
-    visit(".gx-hero-figure", 2.1, "skin", 1.1, 1.4);
-    visit('[data-tz="stats"]', 1.5, "stats");
-    visit('[data-tz="economia"]', 1.32, "eco");
+    visit(".gx-hero-figure", 1.55, "skin", 1.1, 1.4);
+    visit('[data-tz="stats"]', 1.22, "stats");
+    visit('[data-tz="economia"]', 1.1, "eco");
     switchTo("/portale/banca");
-    visit('[data-tz="conto"]', 1.32, "conto", 0.9, 1.0);
+    visit('[data-tz="conto"]', 1.12, "conto", 0.9, 1.0);
     switchTo("/portale/citta");
-    visit('[data-tz="citta"]', 1.25, "citta", 0.9, 1.0);
+    visit('[data-tz="citta"]', 1.08, "citta", 0.9, 1.0);
     switchTo("/portale/guerre");
-    visit('[data-tz="guerre"]', 1.32, "guerre", 0.8, 1.0);
+    visit('[data-tz="guerre"]', 1.12, "guerre", 0.8, 1.0);
 
     // 4. Momento spettacolare: lo stendardo e poi il personaggio, da vicino
     t.to(c, { ...fitView, duration: 0.7, ease: "power2.in" }, at);
     t.call(() => go(HOME), [], at + 0.7);
     at += 0.85;
-    t.to(c, { ...shot(".gx-vex", 2.5), duration: 1.5, ease: "power3.inOut" }, at);
+    t.to(c, { ...shot(".gx-vex", 2.2), duration: 1.5, ease: "power3.inOut" }, at);
     if (!mobile) t.to(tw, { rotationY: -7, rotationX: 5, duration: 1.5, ease: "power3.inOut" }, at);
     t.fromTo(cap("vex"), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, at + 0.8);
     t.to(q(".tz-sweep"), { xPercent: 130, duration: 1.4, ease: "power2.inOut" }, at + 0.9);
     t.to(cap("vex"), { autoAlpha: 0, y: -10, duration: 0.35 }, at + 2.5);
     at += 2.6;
-    t.to(c, { ...shot(".gx-hero-figure", 2.6), duration: 1.4, ease: "power3.inOut" }, at);
+    t.to(c, { ...shot(".gx-hero-figure", 1.9), duration: 1.4, ease: "power3.inOut" }, at);
     if (!mobile) t.to(tw, { rotationY: 7, rotationX: -3, duration: 1.4, ease: "power3.inOut" }, at);
     t.set(q(".tz-sweep"), { xPercent: -130 }, at);
     t.to(q(".tz-sweep"), { xPercent: 130, duration: 1.3, ease: "power2.inOut" }, at + 0.7);
