@@ -9,7 +9,7 @@ const ART = {
   // Legionario che legge la pergamena (regolamento)
   regole: { src: "/images/regole-legionario.webp", w: 719, h: 821, cls: "lg:block lg:!h-[80%] lg:right-6 2xl:!h-[94%] 2xl:left-[calc(50%+7rem)] 2xl:right-auto" },
   // Banditore sul podio che annuncia le novità (news)
-  news: { src: "/images/news-banditore.webp", w: 818, h: 1400, cls: "md:block lg:right-10 2xl:left-[calc(50%+9rem)] 2xl:right-auto" },
+  news: { src: "/images/news-banditore-busto.webp", w: 818, h: 812, cls: "md:block lg:!h-[86%] lg:left-[calc(50%+6rem)] lg:right-auto" },
   // Gladiatore col pollice in su e il sacchetto di Goldoni (vota)
   vota: { src: "/images/vota-gladiatore-v3.webp", w: 897, h: 1163, cls: "md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
   // Legionario esploratore con la mappa che indica la strada (mappa)

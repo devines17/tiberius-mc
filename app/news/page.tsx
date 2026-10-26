@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { PenLine } from "lucide-react";
 import { DiscordBand } from "@/components/ui/Blocks";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { NewsRow } from "@/components/news/parts";
 import { listPublished } from "@/lib/server/news";
 import { getSession, isOwner } from "@/lib/server/auth";
@@ -14,14 +15,9 @@ type SP = Promise<Record<string, string | string[] | undefined>>;
 export default function Page({ searchParams }: { searchParams: SP }) {
   return (
     <>
-      <div className="mx-auto w-full max-w-[90rem] pb-16 pt-8 sm:px-[var(--gutter)] md:pt-12">
-        <div className="overflow-hidden bg-[#17181a] pb-8 sm:rounded-md">
-          <header>
-            <h1 className="bg-[#8f1d14] pb-3 pt-7 text-center text-3xl font-bold uppercase text-white md:text-4xl">Novità ed eventi</h1>
-            <div className="bg-[#d0362b] pt-2">
-              <div aria-hidden className="onde translate-y-px" />
-            </div>
-          </header>
+      <ForumHero art="news" title="Novità ed eventi" lead="Aggiornamenti, eventi e annunci ufficiali di TiberiusMC." />
+      <div className="mx-auto w-full max-w-[90rem] pb-16 pt-6 sm:px-[var(--gutter)]">
+        <div className="overflow-hidden bg-[#17181a] py-4 sm:rounded-md">
           <Suspense fallback={<div className="min-h-[40vh]" />}>
             <List searchParams={searchParams} />
           </Suspense>
