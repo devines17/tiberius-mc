@@ -11,7 +11,7 @@ const ART = {
   // Banditore sul podio che annuncia le novità (news)
   news: { src: "/images/news-banditore.webp", w: 818, h: 1400, cls: "md:block lg:right-10 2xl:left-[calc(50%+9rem)] 2xl:right-auto" },
   // Gladiatore col pollice in su e il sacchetto di Goldoni (vota)
-  vota: { src: "/images/vota-gladiatore-v2.webp", w: 897, h: 1224, cls: "md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
+  vota: { src: "/images/vota-gladiatore-v3.webp", w: 897, h: 1163, cls: "md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
 } as const;
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff, regole). */
