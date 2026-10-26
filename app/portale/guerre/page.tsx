@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import { Crosshair, Percent, Skull, Swords, Trophy } from "lucide-react";
 import { ForumLoading } from "@/components/forum/states";
 import { DataNotice, portalGate } from "@/components/gestionale/gate";
-import { Chips } from "@/components/gestionale/Chips";
 import { Card, Empty, PanelHead, Stat } from "@/components/gestionale/ui";
 import { fmtInt } from "@/lib/gestionale/data";
 import { formatDate } from "@/lib/forum/format";
@@ -29,9 +28,7 @@ async function Body() {
   return (
     <div className="grid gap-4">
       <div>
-        <PanelHead title="Guerre e PvP" sub="I tuoi combattimenti e le guerre">
-          <Chips player={player} />
-        </PanelHead>
+        <PanelHead title="Guerre e PvP" sub="I tuoi combattimenti e le guerre" />
         <DataNotice player={player} />
       </div>
       

@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import { ArrowDownLeft, ArrowUpRight, Coins, History, Landmark, Gem, ReceiptText } from "lucide-react";
 import { ForumLoading } from "@/components/forum/states";
 import { DataNotice, portalGate } from "@/components/gestionale/gate";
-import { Chips } from "@/components/gestionale/Chips";
 import { Card, Empty, PanelHead, Stat } from "@/components/gestionale/ui";
 import { fmtInt, fmtMoney } from "@/lib/gestionale/data";
 import { formatDateTime } from "@/lib/forum/format";
@@ -29,9 +28,7 @@ async function Body() {
   return (
     <div className="grid gap-4">
       <div>
-        <PanelHead title="Conto" sub="Il tuo denaro e i movimenti">
-          <Chips player={player} />
-        </PanelHead>
+        <PanelHead title="Conto" sub="Il tuo denaro e i movimenti" />
         <DataNotice player={player} />
       </div>
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
