@@ -1,0 +1,28 @@
+goto
+loaded
+teaser found
+frame 0/765
+[page] warning The resource https://www.tiberiusmc.it/images/regole-legionario.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/news-pergamena.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/forum-gladiatore-v3.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/wiki-libro.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/staff-legionari-v2.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/vota-gladiatore-v3.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/mappa-legionario.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+frame 60/765
+frame 120/765
+frame 180/765
+frame 240/765
+frame 300/765
+frame 360/765
+frame 420/765
+frame 480/765
+frame 540/765
+frame 600/765
+frame 660/765
+frame 720/765
+[libx264 @ 0x43a14700] Weighted P-Frames: Y:17.9% UV:10.7%
+[libx264 @ 0x43a14700] ref P L0: 61.5% 10.9% 16.4%  6.3%  3.7%  1.0%  0.1%
+[libx264 @ 0x43a14700] ref B L0: 75.0% 18.2%  5.8%  1.1%
+[libx264 @ 0x43a14700] ref B L1: 95.5%  4.5%
+[libx264 @ 0x43a14700] kb/s:2165.80

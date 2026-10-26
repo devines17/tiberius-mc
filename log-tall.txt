@@ -1,0 +1,33 @@
+goto
+loaded
+teaser found
+[page] warning The resource https://www.tiberiusmc.it/images/regole-legionario.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/forum-gladiatore-v3.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/wiki-libro.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/mappa-legionario.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+frame 0/765
+[page] warning The resource https://www.tiberiusmc.it/images/regole-legionario.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/forum-gladiatore-v3.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/wiki-libro.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/mappa-legionario.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+frame 60/765
+frame 120/765
+frame 180/765
+frame 240/765
+frame 300/765
+frame 360/765
+frame 420/765
+[page] warning The resource https://www.tiberiusmc.it/images/regole-legionario.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/forum-gladiatore-v3.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/wiki-libro.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[page] warning The resource https://www.tiberiusmc.it/images/mappa-legionario.webp was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+frame 480/765
+frame 540/765
+frame 600/765
+frame 660/765
+frame 720/765
+[libx264 @ 0x25e360c0] Weighted P-Frames: Y:22.7% UV:11.5%
+[libx264 @ 0x25e360c0] ref P L0: 65.2%  7.6% 16.6%  5.8%  3.6%  1.1%  0.2%
+[libx264 @ 0x25e360c0] ref B L0: 79.9% 15.1%  4.3%  0.7%
+[libx264 @ 0x25e360c0] ref B L1: 95.2%  4.8%
+[libx264 @ 0x25e360c0] kb/s:2153.66
