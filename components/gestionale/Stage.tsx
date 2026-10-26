@@ -52,7 +52,7 @@ export async function Stage() {
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto grid max-w-[72rem] items-end gap-4 px-6 pt-8 md:grid-cols-[auto_minmax(0,1fr)] md:gap-10 md:px-10 md:pt-6">
+      <div className="relative z-10 mx-auto grid max-w-[72rem] items-end gap-4 px-6 pt-10 md:grid-cols-[auto_minmax(0,1fr)] md:gap-12 md:px-12 md:pt-14">
         <div className="gx-hero-figure order-2 mx-auto md:order-1">
           <Spin>
             <SkinFigure skin={skin} pose="saluta" dance={null} />
