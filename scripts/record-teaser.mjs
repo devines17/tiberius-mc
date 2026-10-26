@@ -12,10 +12,16 @@ const OUT = process.env.OUT ?? "frames";
 mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch({ args: ["--disable-gpu-vsync", "--force-color-profile=srgb"] });
-const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
+const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: Number(process.env.DSF ?? 1) });
+page.on("console", (m) => console.log("[page]", m.type(), m.text()));
+page.on("pageerror", (e) => console.log("[pageerror]", e.message));
 await page.clock.install();
-await page.goto(URL, { waitUntil: "networkidle" });
-await page.waitForSelector(".tz-frame .tz-screen .gx-stage");
+console.log("goto");
+await page.goto(URL, { waitUntil: "load", timeout: 60000 });
+console.log("loaded");
+await page.screenshot({ path: `${OUT}-debug-load.png` });
+await page.waitForSelector(".tz-frame .tz-screen .gx-stage", { timeout: 30000 });
+console.log("teaser found");
 // lascia caricare skin, immagini e font
 await page.waitForTimeout(4000);
 await page.evaluate(() => document.fonts.ready);

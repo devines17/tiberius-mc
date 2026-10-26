@@ -22,20 +22,26 @@ jobs:
           npx playwright install --with-deps chromium
           sudo apt-get install -y ffmpeg >/dev/null
       - name: Registra 16:9
+        continue-on-error: true
         run: |
           cp scripts/record-teaser.mjs /tmp/rec/ && cd /tmp/rec
-          W=1920 H=1080 OUT=frames-wide node record-teaser.mjs
-          ffmpeg -y -framerate 30 -i frames-wide/f%05d.png -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -movflags +faststart teaser-gestionale-1080p.mp4
+          set -o pipefail
+          W=1920 H=1080 OUT=frames-wide node record-teaser.mjs 2>&1 | tee log-wide.txt
+          ffmpeg -y -framerate 30 -i frames-wide/f%05d.png -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -movflags +faststart teaser-gestionale-1080p.mp4 2>&1 | tail -5 | tee -a log-wide.txt
       - name: Registra verticale
+        continue-on-error: true
         run: |
           cd /tmp/rec
-          W=1080 H=1350 OUT=frames-tall node record-teaser.mjs
-          ffmpeg -y -framerate 30 -i frames-tall/f%05d.png -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -movflags +faststart teaser-gestionale-verticale.mp4
+          set -o pipefail
+          W=540 H=675 DSF=2 OUT=frames-tall node record-teaser.mjs 2>&1 | tee log-tall.txt
+          ffmpeg -y -framerate 30 -i frames-tall/f%05d.png -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -movflags +faststart teaser-gestionale-verticale.mp4 2>&1 | tail -5 | tee -a log-tall.txt
       - name: Salva i video
+        if: always()
         run: |
-          mkdir -p /tmp/out && cp /tmp/rec/*.mp4 /tmp/out/
+          mkdir -p /tmp/out && cp /tmp/rec/*.mp4 /tmp/rec/*.txt /tmp/rec/*.png /tmp/out/ 2>/dev/null || true
+          ls /tmp/rec/frames-wide 2>/dev/null | tail -1 > /tmp/out/last-wide.txt || true
           git config user.name "github-actions" && git config user.email "actions@github.com"
           git checkout --orphan teaser-video-out
           git rm -rfq .
-          cp /tmp/out/*.mp4 .
-          git add *.mp4 && git commit -qm "Video del teaser" && git push -f origin teaser-video-out
+          cp /tmp/out/* .
+          git add -A && git commit -qm "Video del teaser" && git push -f origin teaser-video-out
