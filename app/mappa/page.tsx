@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Hand, Map as MapIcon, ZoomIn } from "lucide-react";
 import { DiscordBand } from "@/components/ui/Blocks";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { MapFrame } from "@/components/mappa/MapFrame";
 import { siteConfig } from "@/lib/site-config";
 
@@ -15,16 +16,9 @@ export default function Page() {
   const src = siteConfig.links.map;
   return (
     <>
-      <div className="mx-auto w-full max-w-[90rem] pb-10 pt-8 sm:px-[var(--gutter)] md:pt-12">
-        <div className="overflow-hidden bg-[#17181a] sm:rounded-md">
-          <header>
-            <h1 className="bg-[#8f1d14] pb-3 pt-7 text-center text-3xl font-bold uppercase text-white md:text-4xl">Mappa</h1>
-            <div className="bg-[#d0362b] pt-2">
-              <div aria-hidden className="onde translate-y-px" />
-            </div>
-          </header>
-
-          <div className="grid gap-4 px-4 pb-8 pt-6 md:px-8">
+      <ForumHero art="mappa" title="Mappa" lead="Il mondo di TiberiusMC dal vivo: città, nazioni e i loro confini." />
+      <div className="wrap pb-10 pt-10">
+          <div className="grid gap-4">
             {src ? (
               <>
                 <MapFrame src={src} />
@@ -49,7 +43,6 @@ export default function Page() {
               </div>
             )}
           </div>
-        </div>
       </div>
       <DiscordBand />
     </>
