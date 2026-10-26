@@ -1335,3 +1335,13 @@ button.btn:disabled {
   .wiki-article { animation: wiki-in 0.35s ease-out; }
 }
 @keyframes wiki-in { from { opacity: 0; translate: 0 6px; } }
+
+/* Oggetto che fluttua nella testata (pergamena delle news) */
+.hero-float { filter: drop-shadow(0 30px 30px rgb(0 0 0 / 0.45)); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-float { animation: hero-float 7s ease-in-out infinite; }
+}
+@keyframes hero-float {
+  0%, 100% { translate: 0 0; rotate: -2deg; }
+  50% { translate: 0 -14px; rotate: 2deg; }
+}
