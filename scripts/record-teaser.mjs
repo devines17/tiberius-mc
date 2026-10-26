@@ -20,7 +20,7 @@ console.log("goto");
 await page.goto(URL, { waitUntil: "load", timeout: 60000 });
 console.log("loaded");
 await page.screenshot({ path: `${OUT}-debug-load.png` });
-await page.waitForSelector(".tz-frame .tz-screen .gx-stage", { timeout: 30000 });
+await page.waitForSelector(".tz-frame .tz-screen .gx-stage", { state: "attached", timeout: 30000 });
 console.log("teaser found");
 // lascia caricare skin, immagini e font
 await page.waitForTimeout(4000);
