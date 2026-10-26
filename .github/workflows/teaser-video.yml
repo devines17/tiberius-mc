@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   registra:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
@@ -17,10 +17,14 @@ jobs:
         with:
           node-version: 20
       - name: Playwright e ffmpeg
+        timeout-minutes: 12
+        env:
+          DEBIAN_FRONTEND: noninteractive
         run: |
-          mkdir -p /tmp/rec && cd /tmp/rec && npm init -y >/dev/null && npm i playwright@1.48.2 >/dev/null
+          mkdir -p /tmp/rec && cd /tmp/rec && npm init -y >/dev/null && npm i playwright@1.48.2 ffmpeg-static@5.2.0 >/dev/null
           npx playwright install --with-deps chromium
-          sudo apt-get install -y ffmpeg >/dev/null
+          ln -sf /tmp/rec/node_modules/ffmpeg-static/ffmpeg /usr/local/bin/ffmpeg 2>/dev/null || sudo ln -sf /tmp/rec/node_modules/ffmpeg-static/ffmpeg /usr/local/bin/ffmpeg
+          ffmpeg -version | head -1
       - name: Registra 16:9
         continue-on-error: true
         run: |
