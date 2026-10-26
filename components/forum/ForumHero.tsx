@@ -14,6 +14,8 @@ const ART = {
   vota: { src: "/images/vota-gladiatore-v3.webp", w: 897, h: 1163, cls: "md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
   // Legionario esploratore con la mappa che indica la strada (mappa)
   mappa: { src: "/images/mappa-legionario.webp", w: 984, h: 1211, cls: "md:block lg:left-[calc(50%+7rem)] lg:right-auto" },
+  // Libro aperto con la penna d'oca che fluttua (wiki)
+  wiki: { src: "/images/wiki-libro.webp", w: 1365, h: 956, cls: "md:block", float: true },
 } as const;
 
 /** Testata con lo sfondo della città al tramonto e un legionario a destra (forum, staff, regole). */
@@ -28,7 +30,7 @@ export function ForumHero({ title, lead, art = "forum", full = false }: { kicker
 
       {"float" in a ? (
         <div className="pointer-events-none absolute inset-y-0 right-[4%] hidden w-[42%] items-center justify-center md:flex lg:left-[calc(50%+6rem)] lg:right-auto lg:w-[36rem]">
-          <Image src={a.src} alt="" width={a.w} height={a.h} priority unoptimized className="hero-in hero-float h-[80%] w-auto select-none" data-hero-in />
+          <Image src={a.src} alt="" width={a.w} height={a.h} priority unoptimized className="hero-in hero-float h-auto max-h-[80%] w-full select-none object-contain" data-hero-in />
         </div>
       ) : (
       <Image
