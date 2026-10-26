@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Clock3, ExternalLink, Gift } from "lucide-react";
 import { DiscordBand } from "@/components/ui/Blocks";
+import { ForumHero } from "@/components/forum/ForumHero";
 import { VOTE_SITES } from "@/lib/voto";
 import { siteConfig } from "@/lib/site-config";
 
@@ -25,18 +26,11 @@ const STEPS = [
 export default function Page() {
   return (
     <>
-      <div className="mx-auto w-full max-w-[90rem] pb-10 pt-8 sm:px-[var(--gutter)] md:pt-12">
-        <div className="overflow-hidden bg-[#17181a] sm:rounded-md">
-          <header>
-            <h1 className="bg-[#8f1d14] pb-3 pt-7 text-center text-3xl font-bold uppercase text-white md:text-4xl">Vota il server</h1>
-            <div className="bg-[#d0362b] pt-2">
-              <div aria-hidden className="onde translate-y-px" />
-            </div>
-          </header>
-
-          <div className="mx-auto grid max-w-[60rem] gap-6 px-4 pb-10 pt-8 md:px-8">
+      <ForumHero art="vota" title="Vota il server" lead="Ogni voto ci aiuta a farci conoscere da nuovi giocatori e a te fa guadagnare un premio in gioco." />
+      <div className="wrap pb-10 pt-10">
+          <div className="mx-auto grid max-w-[60rem] gap-6">
             <p className="mx-auto max-w-2xl text-center text-white/70" data-reveal>
-              Ogni voto ci aiuta a farci conoscere da nuovi giocatori e a te fa guadagnare un premio in gioco. Puoi votare una volta al giorno su ciascuna lista.
+              Puoi votare una volta al giorno su ciascuna lista: votando su tutte prendi tutti i premi.
             </p>
 
             <ul className="grid gap-4 md:grid-cols-2" data-stagger="0.1">
@@ -82,7 +76,6 @@ export default function Page() {
               </ol>
             </section>
           </div>
-        </div>
       </div>
       <DiscordBand />
     </>
