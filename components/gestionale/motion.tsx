@@ -149,8 +149,12 @@ export function DockView({ current }: { current: string }) {
   const [pill, setPill] = useState<{ x: number; w: number } | null>(null);
   useLayoutEffect(() => {
     const place = () => {
-      const a = nav.current?.querySelector<HTMLElement>('[aria-current="page"]');
-      if (a) setPill({ x: a.offsetLeft, w: a.offsetWidth });
+      const n = nav.current;
+      const a = n?.querySelector<HTMLElement>('[aria-current="page"]');
+      if (!n || !a) return;
+      setPill({ x: a.offsetLeft, w: a.offsetWidth });
+      // Su schermi stretti la barra scorre: porta la sezione accesa al centro
+      if (n.scrollWidth > n.clientWidth) n.scrollTo({ left: a.offsetLeft - (n.clientWidth - a.offsetWidth) / 2, behavior: "smooth" });
     };
     place();
     window.addEventListener("resize", place);
