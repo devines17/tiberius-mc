@@ -12,7 +12,6 @@ import { DiscordCount } from "@/components/ui/DiscordCount";
 import { LoopVideo } from "@/components/ui/LoopVideo";
 import { TiberiusLogo } from "@/components/TiberiusLogo";
 import { siteConfig } from "@/lib/site-config";
-import { GestionaleTeaser } from "@/components/teaser/GestionaleTeaser";
 
 
 export default function Home() {
@@ -84,25 +83,6 @@ export default function Home() {
             </li>
           ))}
         </ol>
-      </section>
-
-      {/* GESTIONALE: teaser con le schermate vere del gestionale */}
-      <section className="wrap pb-[var(--section)]" aria-labelledby="teaser-titolo">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-6" data-reveal="left">
-          <div>
-            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-accent">gestionale</p>
-            <h2 id="teaser-titolo" className="text-[length:var(--step-head)]">
-              Il tuo impero, sotto controllo
-            </h2>
-            <p className="mt-4 max-w-xl text-lg text-white/70">Soldi, città, nazione e guerre in un'unica pagina del sito, con il tuo personaggio in 3D.</p>
-          </div>
-          <Link href="/portale" className="inline-flex items-center gap-2 font-bold text-[#ff8a80] hover:text-white">
-            Entra nel gestionale <ArrowRight className="size-4" aria-hidden />
-          </Link>
-        </div>
-        <Suspense fallback={<div className="tz-frame" />}>
-          <GestionaleTeaser />
-        </Suspense>
       </section>
 
       {/* GOLDONE: tesoro che luccica, il legionario poggia sul bordo in basso */}
