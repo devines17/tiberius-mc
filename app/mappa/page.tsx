@@ -1,23 +1,56 @@
 import type { Metadata } from "next";
-import { PageHead } from "@/components/ui/PageHead";
-import { Soon, DiscordBand } from "@/components/ui/Blocks";
-import { Btn } from "@/components/ui/Btn";
+import { Hand, Map as MapIcon, ZoomIn } from "lucide-react";
+import { DiscordBand } from "@/components/ui/Blocks";
+import { MapFrame } from "@/components/mappa/MapFrame";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = { title: "Mappa", description: "La mappa del mondo di TiberiusMC." };
+export const metadata: Metadata = { title: "Mappa", description: "La mappa del mondo di TiberiusMC: città, nazioni e confini." };
+
+const TIPS = [
+  { icon: Hand, text: "Trascina per spostarti" },
+  { icon: ZoomIn, text: "Rotella o pizzico per lo zoom" },
+];
 
 export default function Page() {
+  const src = siteConfig.links.map;
   return (
     <>
-      <PageHead kicker="mappa" title="Mappa" lead="La mappa del server con città, nazioni e confini." art="/images/art/empire.png" />
-      {siteConfig.links.map ? (
-        <section className="wrap pb-20" data-reveal data-delay="0.3">
-          <div className="mb-6"><Btn href={siteConfig.links.map} external variant="accent">apri a schermo intero</Btn></div>
-          <iframe src={siteConfig.links.map} title="Mappa di TiberiusMC" loading="lazy" className="h-[70svh] w-full border-0 bg-surface" />
-        </section>
-      ) : (
-        <Soon title="mappa in arrivo" text="La mappa interattiva sarà pubblicata qui appena pronta." />
-      )}
+      <div className="mx-auto w-full max-w-[90rem] pb-10 pt-8 sm:px-[var(--gutter)] md:pt-12">
+        <div className="overflow-hidden bg-[#17181a] sm:rounded-md">
+          <header>
+            <h1 className="bg-[#8f1d14] pb-3 pt-7 text-center text-3xl font-bold uppercase text-white md:text-4xl">Mappa</h1>
+            <div className="bg-[#d0362b] pt-2">
+              <div aria-hidden className="onde translate-y-px" />
+            </div>
+          </header>
+
+          <div className="grid gap-4 px-4 pb-8 pt-6 md:px-8">
+            {src ? (
+              <>
+                <MapFrame src={src} />
+                <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/55">
+                  {TIPS.map(({ icon: Icon, text }) => (
+                    <li key={text} className="flex items-center gap-1.5">
+                      <Icon className="size-4 text-white/40" aria-hidden />
+                      {text}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <div className="map-soon fbox relative grid min-h-[60svh] place-items-center overflow-hidden px-6 text-center">
+                <div className="relative grid max-w-md justify-items-center gap-3">
+                  <span className="grid size-14 place-items-center rounded-full bg-black/40 ring-1 ring-white/15">
+                    <MapIcon className="size-6 text-gold" aria-hidden />
+                  </span>
+                  <h2 className="text-2xl font-bold">La mappa arriva presto</h2>
+                  <p className="text-white/65">Qui vedrai il mondo del server dal vivo, con le città, le nazioni e i loro confini. La stiamo collegando al server.</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
       <DiscordBand />
     </>
   );

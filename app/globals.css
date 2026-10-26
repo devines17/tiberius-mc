@@ -1232,3 +1232,29 @@ button.btn:disabled {
   .gx-chart-line { stroke-dashoffset: 0; animation: none; }
   .gx-chart-area { opacity: 1; animation: none; }
 }
+
+/* ---------- Mappa ---------- */
+.map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.1rem;
+  padding: 0 0.7rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.75);
+  background: rgb(255 255 255 / 0.05);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  transition: background-color 0.15s, color 0.15s;
+}
+.map-btn:hover { color: #fff; background: rgb(255 255 255 / 0.1); }
+.map-box:fullscreen { border-radius: 0; border: 0; display: flex; flex-direction: column; }
+.map-box:fullscreen > div:last-child { flex: 1; height: auto; }
+.map-soon {
+  background:
+    linear-gradient(rgb(15 16 18 / 0.82), rgb(15 16 18 / 0.92)),
+    linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px) 0 0 / 48px 48px,
+    url("/images/campagna-romana-v2.webp") center / cover;
+}
