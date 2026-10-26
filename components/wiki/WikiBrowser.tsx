@@ -106,7 +106,7 @@ export function WikiBrowser({ pages }: { pages: WikiPage[] }) {
             </button>
           )}
         </label>
-        <nav aria-label="Pagine della wiki" className="fbox grid gap-3 p-2">
+        <nav aria-label="Pagine della wiki" className="fbox grid gap-3 p-2 lg:max-h-[calc(100svh-var(--header-h)-6.5rem)] lg:overflow-y-auto">
           {groups.map((g) => (
             <div key={g}>
               <p className="px-2.5 pb-1 pt-1.5 text-[0.7rem] font-bold uppercase tracking-wider text-white/40">{g}</p>
