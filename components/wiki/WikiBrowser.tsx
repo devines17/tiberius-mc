@@ -2,10 +2,27 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, Castle, Check, Copy, Crown, Flag, House, Lightbulb, Search, Swords, User, X, type LucideIcon } from "lucide-react";
+import { ArrowRight, Briefcase, Castle, Check, Coins, Copy, Crown, Flag, House, LifeBuoy, Lightbulb, Link2, MessagesSquare, Mic, Pickaxe, ScrollText, Search, Store, Swords, Terminal, User, X, type LucideIcon } from "lucide-react";
 import type { WikiPage } from "@/lib/wiki";
 
-const ICONS: Record<WikiPage["icon"], LucideIcon> = { start: House, resident: User, plot: Flag, town: Castle, nation: Crown, war: Swords };
+const ICONS: Record<WikiPage["icon"], LucideIcon> = {
+  start: House,
+  resident: User,
+  plot: Flag,
+  town: Castle,
+  nation: Crown,
+  war: Swords,
+  voice: Mic,
+  chat: MessagesSquare,
+  cmd: Terminal,
+  money: Coins,
+  shop: Store,
+  jobs: Briefcase,
+  skills: Pickaxe,
+  help: LifeBuoy,
+  rules: ScrollText,
+  link: Link2,
+};
 
 function CmdRow({ cmd, desc, page, onOpen }: { cmd: string; desc: string; page?: string; onOpen?: () => void }) {
   const [copied, setCopied] = useState(false);
@@ -65,7 +82,14 @@ export function WikiBrowser({ pages }: { pages: WikiPage[] }) {
   const results = useMemo(() => {
     const t = q.trim().toLowerCase();
     if (t.length < 2) return null;
-    return pages.flatMap((p) => p.sections.flatMap((s) => (s.cmds ?? []).filter((c) => c.cmd.toLowerCase().includes(t) || c.desc.toLowerCase().includes(t)).map((c) => ({ ...c, page: p }))));
+    const has = (x?: string) => Boolean(x && x.toLowerCase().includes(t));
+    const cmds = pages.flatMap((p) => p.sections.flatMap((s) => (s.cmds ?? []).filter((c) => has(c.cmd) || has(c.desc)).map((c) => ({ ...c, page: p }))));
+    const topics = pages.flatMap((p) =>
+      p.sections
+        .filter((s) => has(s.title) || has(s.text) || s.tips?.some(has) || has(p.label))
+        .map((s) => ({ page: p, title: s.title, text: s.text ?? s.tips?.find(has) ?? s.tips?.[0] ?? "" })),
+    );
+    return { cmds, topics };
   }, [q, pages]);
 
   const Icon = ICONS[page.icon];
@@ -75,7 +99,7 @@ export function WikiBrowser({ pages }: { pages: WikiPage[] }) {
       <aside className="grid gap-4 lg:sticky lg:top-[calc(var(--header-h)+1.25rem)]">
         <label className="relative block">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/40" aria-hidden />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Cerca un comando…" className="field !h-10 !pl-9 text-sm" aria-label="Cerca un comando" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Cerca nella wiki…" className="field !h-10 !pl-9 text-sm" aria-label="Cerca nella wiki" />
           {q && (
             <button type="button" onClick={() => setQ("")} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-white/45 hover:text-white" aria-label="Cancella la ricerca">
               <X className="size-4" />
@@ -109,17 +133,36 @@ export function WikiBrowser({ pages }: { pages: WikiPage[] }) {
 
       {results ? (
         <article className="fbox p-5 md:p-7">
-          <h2 className="text-xl font-bold">
-            {results.length} {results.length === 1 ? "comando" : "comandi"} per «{q.trim()}»
-          </h2>
-          {results.length ? (
-            <ul className="mt-4 grid gap-1">
-              {results.map((r, i) => (
-                <CmdRow key={i} cmd={r.cmd} desc={r.desc} page={r.page.label} onOpen={() => open(r.page.key)} />
-              ))}
-            </ul>
-          ) : (
-            <p className="mt-3 text-white/55">Nessun comando trovato. Prova con un'altra parola, per esempio «lotto» o «banca».</p>
+          <h2 className="text-xl font-bold">Risultati per «{q.trim()}»</h2>
+          {results.topics.length === 0 && results.cmds.length === 0 && (
+            <p className="mt-3 text-white/55">Nessun risultato. Prova con un'altra parola, per esempio «casa», «lotto», «microfono» o «banca».</p>
+          )}
+          {results.topics.length > 0 && (
+            <>
+              <p className="mt-5 text-xs font-bold uppercase tracking-wider text-white/40">Argomenti</p>
+              <ul className="mt-2 grid gap-1">
+                {results.topics.slice(0, 12).map((r, i) => (
+                  <li key={i}>
+                    <button type="button" onClick={() => open(r.page.key)} className="w-full rounded-md px-2 py-2 text-left transition-colors hover:bg-white/[0.04]">
+                      <span className="block font-semibold">
+                        {r.title} <span className="text-xs font-semibold text-[#ff8a80]">· {r.page.label}</span>
+                      </span>
+                      {r.text && <span className="line-clamp-1 text-sm text-white/55">{r.text}</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {results.cmds.length > 0 && (
+            <>
+              <p className="mt-5 text-xs font-bold uppercase tracking-wider text-white/40">Comandi</p>
+              <ul className="mt-2 grid gap-1">
+                {results.cmds.map((r, i) => (
+                  <CmdRow key={i} cmd={r.cmd} desc={r.desc} page={r.page.label} onOpen={() => open(r.page.key)} />
+                ))}
+              </ul>
+            </>
           )}
         </article>
       ) : (
@@ -164,7 +207,7 @@ export function WikiBrowser({ pages }: { pages: WikiPage[] }) {
               </section>
             ))}
           </div>
-          <p className="mt-8 border-t border-white/[0.08] pt-4 text-xs text-white/40">Costi, limiti e ranghi dipendono dalle impostazioni del server. Clicca un comando per copiarlo.</p>
+          <p className="mt-8 border-t border-white/[0.08] pt-4 text-xs text-white/40">Alcuni comandi, costi e limiti dipendono dal tuo rango o dalle impostazioni del server. Clicca un comando per copiarlo.</p>
         </article>
       )}
     </div>
