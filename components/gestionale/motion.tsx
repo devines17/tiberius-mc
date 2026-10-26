@@ -129,23 +129,6 @@ export function CountUp({ value, kind = "int", prefix = "" }: { value: number; k
   );
 }
 
-/** Luce che segue il puntatore sui riquadri con classe gx-spot. */
-export function Spotlight() {
-  useEffect(() => {
-    if (still()) return;
-    const move = (e: PointerEvent) => {
-      const el = (e.target as Element | null)?.closest?.(".gx-spot") as HTMLElement | null;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      el.style.setProperty("--my", `${e.clientY - r.top}px`);
-    };
-    document.addEventListener("pointermove", move, { passive: true });
-    return () => document.removeEventListener("pointermove", move);
-  }, []);
-  return null;
-}
-
 const ITEMS = [
   { href: "/portale", label: "Panoramica", icon: LayoutDashboard },
   { href: "/portale/banca", label: "Conto", icon: Landmark },

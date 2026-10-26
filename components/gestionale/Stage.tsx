@@ -12,13 +12,9 @@ import { Parallax, Spin } from "./motion";
 
 /** Monete che fluttuano nella testata: posizione, grandezza, ritardo, profondità. */
 const COINS = [
-  { x: 8, y: 22, s: 34, d: 0, z: 1 },
-  { x: 22, y: 70, s: 22, d: 1.8, z: 0.5 },
-  { x: 47, y: 14, s: 18, d: 0.9, z: 0.4 },
-  { x: 63, y: 76, s: 28, d: 2.6, z: 0.8 },
-  { x: 78, y: 20, s: 40, d: 1.2, z: 1.2 },
-  { x: 90, y: 62, s: 24, d: 3.1, z: 0.6 },
-  { x: 36, y: 40, s: 14, d: 2.2, z: 0.3 },
+  { x: 9, y: 24, s: 30, d: 0, z: 1 },
+  { x: 80, y: 18, s: 34, d: 2.4, z: 1.2 },
+  { x: 91, y: 64, s: 22, d: 4.1, z: 0.7 },
 ];
 
 /** Testata del gestionale: la Roma al tramonto, il tuo personaggio in 3D sul piedistallo e il saluto. */
@@ -51,7 +47,7 @@ export async function Stage() {
             width={c.s}
             height={c.s}
             className="gx-coin"
-            style={{ left: `${c.x}%`, top: `${c.y}%`, width: c.s, animationDelay: `${-c.d}s`, ["--z" as string]: c.z, filter: c.z < 0.6 ? "blur(1.5px)" : undefined, opacity: c.z < 0.6 ? 0.55 : 0.95 }}
+            style={{ left: `${c.x}%`, top: `${c.y}%`, width: c.s, animationDelay: `${-c.d}s`, ["--z" as string]: c.z }}
           />
         ))}
       </div>
@@ -67,9 +63,7 @@ export async function Stage() {
         </div>
 
         <div className="order-1 pb-2 text-center md:order-2 md:pb-16 md:text-left">
-          <p className="gx-in text-[0.8rem] font-bold uppercase tracking-[0.3em] text-white/70" style={{ ["--i" as string]: 0 }}>
-            {greeting()}
-          </p>
+          <p className="gx-in text-lg font-semibold text-white/75">{greeting()},</p>
           <div className="gx-in" style={{ ["--i" as string]: 1 }}>
             <h1 className="gx-name">{name}</h1>
           </div>

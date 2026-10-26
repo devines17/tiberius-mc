@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { ArrowUpRight, Castle, Clock3, Coins, Crown, Flag, Gem, MapPin, ReceiptText, TrendingUp, Users, Wallet } from "lucide-react";
+import { Swords, ArrowUpRight, Castle, Clock3, Coins, Crown, Flag, Gem, MapPin, ReceiptText, TrendingUp, Users, Wallet } from "lucide-react";
 import { ForumLoading } from "@/components/forum/states";
 import { BalanceChart } from "@/components/gestionale/BalanceChart";
 import { Vexillum } from "@/components/gestionale/Vexillum";
@@ -29,19 +29,19 @@ async function Body() {
   const t = d.town;
 
   return (
-    <div className="grid gap-10">
+    <div className="grid gap-7">
       <DataNotice player={player} />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <StatCard i={1} icon={Wallet} label="Monete" value={fmtMoney(d.money)} num={d.money} kind="money" tone="#34d399" />
         <StatCard i={2} icon={Gem} label="Goldoni" value={fmtInt(d.goldoni)} num={d.goldoni} tone="#ffc94d" />
         <StatCard i={3} icon={Clock3} label="Gioco in settimana" value={fmtPlaytime(d.playtime7d)} tone="#60a5fa" />
-        <StatCard i={4} icon={Castle} label="Città" value={t?.name ?? "—"} tone="#ff8a80" />
+        <StatCard i={4} icon={Swords} label="Uccisioni" value={fmtInt(d.pvp?.kills)} num={d.pvp?.kills} />
       </div>
 
       <Section i={5} icon={Coins} title="Economia" sub="Come si muove il tuo conto" tone="#34d399">
         <div className="grid gap-3 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-          <Card i={6} icon={TrendingUp} title="Andamento del conto" tone="#34d399" right={<span className="gx-pill">7 giorni</span>}>
+          <Card i={6} icon={TrendingUp} title="Andamento del conto" tone="#34d399">
             <BalanceChart points={d.bank?.history ?? []} />
           </Card>
           <Card
@@ -51,15 +51,14 @@ async function Body() {
             tone="#c084fc"
             right={
               <Link href="/portale/banca" className="gx-link">
-                Tutte <ArrowUpRight className="size-3.5" aria-hidden />
+                Vedi tutte <ArrowUpRight className="size-3.5" aria-hidden />
               </Link>
             }
           >
             {tx.length ? (
-              <ul className="grid gap-1.5">
+              <ul className="divide-y divide-white/[0.06]">
                 {tx.map((x, k) => (
-                  <li key={k} className="gx-row gx-in" style={{ ["--i" as string]: 8 + k }}>
-                    <span className={`gx-row-dot ${x.amount >= 0 ? "bg-emerald-400" : "bg-[#ff6b5e]"}`} aria-hidden />
+                  <li key={k} className="flex items-center gap-3 py-2">
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-semibold">{x.text}</span>
                       <span className="text-xs text-white/45">{formatDateTime(x.at)}</span>
@@ -79,11 +78,11 @@ async function Body() {
       </Section>
 
       <Section i={9} icon={Castle} title="La tua città" sub="Dove vivi e sotto quale bandiera" tone="#ff8a80">
-        <div className="gx-card gx-spot gx-in gx-town grid gap-6 p-5 md:grid-cols-[auto_minmax(0,1fr)] md:p-6" style={{ ["--i" as string]: 10, ["--t" as string]: "#e2352b" }}>
+        <div className="fbox gx-in grid gap-6 p-5 md:grid-cols-[auto_minmax(0,1fr)]">
           <Vexillum name={t?.name ?? null} />
           <div className="relative grid content-center gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/45">{d.nation?.name ? `Nazione ${d.nation.name}` : "Città"}</p>
+              <p className="text-sm text-white/50">{d.nation?.name ? `Nazione ${d.nation.name}` : "Città"}</p>
               <p className="font-brand text-[clamp(1.8rem,3.5vw,2.6rem)] leading-none">{t?.name ?? "Nessuna città"}</p>
             </div>
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">

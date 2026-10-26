@@ -1,21 +1,13 @@
 import { fmtMoney } from "@/lib/gestionale/data";
 
-/** Andamento del saldo (un punto al giorno): la linea si disegna entrando. Senza dati, griglia con una scansione. */
+/** Andamento del saldo (un punto al giorno): la linea si disegna entrando. */
 export function BalanceChart({ points }: { points: { day: string; balance: number }[] }) {
   const W = 600;
   const H = 180;
   const grid = [0, 1, 2, 3, 4].map((i) => (H / 4) * i);
-  const lines = grid.map((g) => <line key={g} x1="0" x2={W} y1={g + 0.5} y2={g + 0.5} stroke="rgb(255 255 255 / 0.06)" strokeDasharray="4 6" />);
+  const lines = grid.map((g) => <line key={g} x1="0" x2={W} y1={g + 0.5} y2={g + 0.5} stroke="rgb(255 255 255 / 0.06)" />);
   if (points.length < 2) {
-    return (
-      <div className="gx-chart-empty relative overflow-hidden rounded-xl">
-        <svg viewBox={`0 0 ${W} ${H}`} className="h-44 w-full" preserveAspectRatio="none" aria-hidden>
-          {lines}
-          <path d="M0,140 C80,120 120,150 200,110 S320,60 400,90 S520,40 600,55" fill="none" stroke="rgb(255 255 255 / 0.08)" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeDasharray="6 8" />
-        </svg>
-        <p className="absolute inset-0 grid place-items-center text-sm text-white/45">Il grafico si riempirà con i tuoi movimenti</p>
-      </div>
-    );
+    return <p className="grid h-44 place-items-center rounded-md bg-black/20 text-sm text-white/45">Nessun dato per ora</p>;
   }
   const vals = points.map((p) => p.balance);
   const min = Math.min(...vals);

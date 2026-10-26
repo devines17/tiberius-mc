@@ -57,7 +57,7 @@ async function Body() {
                 {t?.plots?.length ? (
                   <ul className="grid gap-2 sm:grid-cols-2">
                     {t.plots.map((p, i) => (
-                      <li key={i} className="gx-mini flex items-center justify-between gap-3 text-sm">
+                      <li key={i} className="flex rounded-md bg-black/25 px-3 py-2 items-center justify-between gap-3 text-sm">
                         <span className="font-semibold">{p.name || p.type || "Lotto"}</span>
                         <span className="font-mono text-white/55">
                           x {p.x} · z {p.z}
@@ -70,7 +70,7 @@ async function Body() {
             </Card>
           </div>
         ) : (
-          <div className="gx-card p-5">
+          <div className="fbox p-4">
             <Empty icon={Castle} title="Nessuna città" text="Non fai parte di nessuna città. Entra in una città in gioco con /town join oppure fondane una." />
           </div>
         )}
@@ -105,7 +105,7 @@ async function Body() {
             </Card>
           </div>
         ) : (
-          <div className="gx-card p-5">
+          <div className="fbox p-4">
             <Empty icon={Flag} title="Nessuna nazione" text="La tua città non fa parte di nessuna nazione." />
           </div>
         )}
