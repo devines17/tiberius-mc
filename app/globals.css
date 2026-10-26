@@ -1314,7 +1314,7 @@ button.btn:disabled {
   transition: background-color 0.15s;
 }
 .wiki-cmd:hover { background: rgb(255 255 255 / 0.03); }
-@media (min-width: 768px) { .wiki-cmd { grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); } }
+@media (min-width: 768px) { .wiki-cmd { grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); } }
 .wiki-code {
   display: inline-flex;
   width: fit-content;
