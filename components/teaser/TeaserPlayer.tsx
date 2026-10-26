@@ -141,7 +141,8 @@ export function TeaserPlayer({ stage, screens }: { stage: ReactNode; screens: Re
       onComplete: () => setPhase("done"),
     });
 
-    // Stato di partenza
+    // Stato di partenza. sched: quale pagina è aperta da quale secondo (serve se la regia si ricostruisce a metà)
+    const sched: [number, string][] = [[0, HOME]];
     t.call(() => setActive(HOME), [], 0);
     t.set(c, fitView, 0);
     t.set(tw, { autoAlpha: 0, rotationX: 0, rotationY: 0, y: 0, scale: 1 }, 0);
@@ -173,38 +174,41 @@ export function TeaserPlayer({ stage, screens }: { stage: ReactNode; screens: Re
       t.to(cap(k), { autoAlpha: 0, y: -10, duration: 0.35 }, at + dur + hold);
       at += dur + hold + 0.1;
     };
-    const switchTo = (href: string) => {
-      // la camera va sulla barra, la pillola scivola, poi si scende sulla nuova pagina
-      t.to(c, { ...shot(".gx-dock", 1.6), duration: 0.8 }, at);
-      t.call(() => go(href), [], at + 0.8);
-      at += 1.05;
+    visit(".gx-hero-figure", 1.55, "skin", 0.8, 1.3);
+    visit('[data-tz="stats"]', 1.22, "stats", 0.75, 1.15);
+    visit('[data-tz="economia"]', 1.1, "eco", 0.75, 1.15);
+
+    // Le altre pagine: la barra resta in alto nell'inquadratura e la pillola scivola da una sezione all'altra
+    const top = (z: number, k: "x" | "y" | "scale") => {
+      const p = place(".gx-dock");
+      const sc2 = fit() * zoom(z);
+      if (!p) return fitView[k];
+      if (k === "scale") return sc2;
+      if (k === "x") return f.clientWidth / 2 - (vw / 2) * sc2;
+      return f.clientHeight * 0.08 - (p.cy - 30) * sc2;
     };
+    t.to(c, { x: () => top(1.05, "x"), y: () => top(1.05, "y"), scale: () => top(1.05, "scale"), duration: 1.0 }, at);
+    at += 0.9;
+    for (const [href, k] of [["/portale/banca", "conto"], ["/portale/citta", "citta"], ["/portale/guerre", "guerre"]] as const) {
+      t.call(() => go(href), [], at);
+      sched.push([at, href]);
+      t.fromTo(cap(k), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, at + 0.25);
+      t.to(c, { y: "-=26", duration: 1.9, ease: "none" }, at);
+      t.to(cap(k), { autoAlpha: 0, y: -10, duration: 0.3 }, at + 1.65);
+      at += 2.0;
+    }
 
-    visit(".gx-hero-figure", 1.55, "skin", 1.1, 1.4);
-    visit('[data-tz="stats"]', 1.22, "stats");
-    visit('[data-tz="economia"]', 1.1, "eco");
-    switchTo("/portale/banca");
-    visit('[data-tz="conto"]', 1.12, "conto", 0.9, 1.0);
-    switchTo("/portale/citta");
-    visit('[data-tz="citta"]', 1.08, "citta", 0.9, 1.0);
-    switchTo("/portale/guerre");
-    visit('[data-tz="guerre"]', 1.12, "guerre", 0.8, 1.0);
-
-    // 4. Momento spettacolare: lo stendardo e poi il personaggio, da vicino
+    // 4. Momento spettacolare: lo stendardo della città da vicino, con un riflesso d'oro
     t.to(c, { ...fitView, duration: 0.7, ease: "power2.in" }, at);
     t.call(() => go(HOME), [], at + 0.7);
+    sched.push([at + 0.7, HOME]);
     at += 0.85;
-    t.to(c, { ...shot(".gx-vex", 2.2), duration: 1.5, ease: "power3.inOut" }, at);
-    if (!mobile) t.to(tw, { rotationY: -7, rotationX: 5, duration: 1.5, ease: "power3.inOut" }, at);
-    t.fromTo(cap("vex"), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, at + 0.8);
-    t.to(q(".tz-sweep"), { xPercent: 130, duration: 1.4, ease: "power2.inOut" }, at + 0.9);
-    t.to(cap("vex"), { autoAlpha: 0, y: -10, duration: 0.35 }, at + 2.5);
-    at += 2.6;
-    t.to(c, { ...shot(".gx-hero-figure", 1.9), duration: 1.4, ease: "power3.inOut" }, at);
-    if (!mobile) t.to(tw, { rotationY: 7, rotationX: -3, duration: 1.4, ease: "power3.inOut" }, at);
-    t.set(q(".tz-sweep"), { xPercent: -130 }, at);
-    t.to(q(".tz-sweep"), { xPercent: 130, duration: 1.3, ease: "power2.inOut" }, at + 0.7);
-    at += 2.1;
+    t.to(c, { ...shot(".gx-vex", 2.2), duration: 1.6, ease: "power3.inOut" }, at);
+    if (!mobile) t.to(tw, { rotationY: -7, rotationX: 5, duration: 1.6, ease: "power3.inOut" }, at);
+    t.fromTo(cap("vex"), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, at + 0.9);
+    t.to(q(".tz-sweep"), { xPercent: 130, duration: 1.5, ease: "power2.inOut" }, at + 1.0);
+    t.to(cap("vex"), { autoAlpha: 0, y: -10, duration: 0.35 }, at + 2.6);
+    at += 2.7;
 
     // 5. Chiusura: si torna indietro, il gestionale resta sullo sfondo, logo, frase e invito
     t.to(c, { ...fitView, duration: 1.6, ease: "power3.inOut" }, at);
@@ -216,6 +220,7 @@ export function TeaserPlayer({ stage, screens }: { stage: ReactNode; screens: Re
 
     tl.current = t;
     if (prevTime) {
+      setActive(sched.filter(([s0]) => s0 <= prevTime).pop()?.[1] ?? HOME);
       t.time(prevTime);
       if (wasPlaying) t.play();
     } else {
