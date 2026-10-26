@@ -3,7 +3,8 @@ import { Castle, Crown, Flag, Link2 } from "lucide-react";
 import { forumContext } from "@/components/forum/session";
 import { SkinFigure } from "@/components/staff/SkinFigure";
 import { ServerStatus } from "@/components/ui/ServerStatus";
-import { getSkin } from "@/lib/skins";
+import { getSkin, type Skin } from "@/lib/skins";
+import type { ReactNode } from "react";
 import { STAFF } from "@/lib/staff";
 import { loadPlayer } from "@/lib/server/player";
 import { greeting } from "@/lib/gestionale/data";
@@ -33,6 +34,14 @@ export async function Stage() {
     d?.nation && { icon: Flag, text: d.nation.name },
   ].filter(Boolean) as { icon: typeof Castle; text: string }[];
 
+  return <StageView skin={skin} name={name} greeting={greeting()} chips={chips} linkCta={Boolean(player && !player.linked)} />;
+}
+
+type Chip = { icon: typeof Castle; text: string };
+
+/** Parte visiva della testata (usata anche dal teaser della home). */
+export function StageView({ skin, name, greeting, chips, linkCta, heading = "h1" }: { skin: Skin; name: string; greeting: ReactNode; chips: Chip[]; linkCta: boolean; heading?: "h1" | "p" }) {
+  const Name = heading;
   return (
     <Parallax className="gx-stage">
       <div className="gx-sky" aria-hidden />
@@ -63,9 +72,9 @@ export async function Stage() {
         </div>
 
         <div className="order-1 pb-2 text-center md:order-2 md:pb-16 md:text-left">
-          <p className="gx-in text-lg font-semibold text-white/75">{greeting()},</p>
+          <p className="gx-in text-lg font-semibold text-white/75">{greeting},</p>
           <div className="gx-in" style={{ ["--i" as string]: 1 }}>
-            <h1 className="gx-name">{name}</h1>
+            <Name className="gx-name">{name}</Name>
           </div>
           <div className="gx-in mt-4 flex flex-wrap items-center justify-center gap-2 md:justify-start" style={{ ["--i" as string]: 2 }}>
             {chips.map(({ icon: Icon, text }) => (
@@ -74,7 +83,7 @@ export async function Stage() {
                 {text}
               </span>
             ))}
-            {player && !player.linked && (
+            {linkCta && (
               <Link href="/forum/account?next=/portale" className="gx-badge gx-badge-cta">
                 <Link2 className="size-3.5" aria-hidden />
                 Collega il tuo account Minecraft

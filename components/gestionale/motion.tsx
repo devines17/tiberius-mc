@@ -138,7 +138,13 @@ const ITEMS = [
 
 /** Barra delle sezioni: la pillola rossa scivola sulla sezione aperta. */
 export function Dock() {
-  const pathname = usePathname();
+  return <DockView current={usePathname()} />;
+}
+
+export const DOCK_ITEMS = ITEMS;
+
+/** La barra vera e propria: current è l'indirizzo della sezione accesa (usata anche dal teaser). */
+export function DockView({ current }: { current: string }) {
   const nav = useRef<HTMLElement>(null);
   const [pill, setPill] = useState<{ x: number; w: number } | null>(null);
   useLayoutEffect(() => {
@@ -149,13 +155,13 @@ export function Dock() {
     place();
     window.addEventListener("resize", place);
     return () => window.removeEventListener("resize", place);
-  }, [pathname]);
+  }, [current]);
   return (
     <div className="gx-dock-wrap">
       <nav ref={nav} aria-label="Sezioni del gestionale" className="gx-dock no-scrollbar">
         {pill && <span className="gx-dock-pill" style={{ transform: `translateX(${pill.x}px)`, width: pill.w }} aria-hidden />}
         {ITEMS.map(({ href, label, icon: Icon }) => (
-          <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} className="gx-dock-item">
+          <Link key={href} href={href} aria-current={current === href ? "page" : undefined} className="gx-dock-item">
             <Icon className="size-[18px]" aria-hidden />
             <span>{label}</span>
           </Link>

@@ -26,9 +26,9 @@ export function StatCard({ icon: Icon, label, value, num, kind = "int" }: { icon
 }
 
 /** Sezione con la barra del titolo, come nel forum. */
-export function Section({ title, children }: { icon?: LucideIcon; title: string; sub?: string; tone?: string; children: ReactNode; i?: number }) {
+export function Section({ title, children, tz }: { icon?: LucideIcon; title: string; sub?: string; tone?: string; children: ReactNode; i?: number; tz?: string }) {
   return (
-    <section className="grid gap-2">
+    <section className="grid gap-2" data-tz={tz}>
       <SectionTitle title={title} />
       {children}
     </section>
