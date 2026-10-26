@@ -4,6 +4,7 @@ import { forumContext } from "@/components/forum/session";
 import { SkinFigure } from "@/components/staff/SkinFigure";
 import { ServerStatus } from "@/components/ui/ServerStatus";
 import { getSkin } from "@/lib/skins";
+import { STAFF } from "@/lib/staff";
 import { loadPlayer } from "@/lib/server/player";
 import { greeting } from "@/lib/gestionale/data";
 import { siteConfig } from "@/lib/site-config";
@@ -24,7 +25,10 @@ const COINS = [
 export async function Stage() {
   const { session } = await forumContext().catch(() => ({ session: null }));
   const player = session ? await loadPlayer(session) : null;
-  const skin = await getSkin(player?.mc ?? "MHF_Steve");
+  // Account non ancora collegato: per chi è nell'elenco dello staff si mostra già la skin del suo nick (solo l'aspetto, nessun dato)
+  const listed = !player?.mc && player ? STAFF.flatMap((r) => r.membri).find((m) => m.nick.toLowerCase() === player.name.toLowerCase()) : undefined;
+  const base = await getSkin(player?.mc ?? listed?.nick ?? "MHF_Steve");
+  const skin = listed?.slim === undefined ? base : { ...base, slim: listed.slim };
   const d = player?.data;
   const name = player ? (player.mc ?? player.name) : "viandante";
   const chips = [
